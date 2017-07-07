@@ -1,0 +1,29 @@
+---
+bash_users:
+  - vagrant
+
+nginx_group: vagrant
+nginx_user: vagrant
+php_fpm_user: vagrant
+php_fpm_group: vagrant
+php_opcache_validate_timestamps: On
+php_opcache_revalidate_freq: 0
+php_fpm_display_errors: 1
+mariadb_bind_address: 0.0.0.0
+
+php_xdebug_versions: ["fpm"]
+php_xdebug_profiler_enable: 1
+php_xdebug_remote_enable: 1
+php_xdebug_remote_connect_back: 1
+php_xdebug_idekey: "PHPSTORM"
+php_xdebug_max_nesting_level: 250
+
+elewant_server_name: "elewant.loc"
+elewant_fastcgi_index: "app_dev.php"
+elewant_application_env: "dev"
+elewant_root: "/vagrant"
+elewant_web_root: "/vagrant/web"
+elewant_access_log: "/var/log/nginx/elewant.access"
+elewant_error_log: "/var/log/nginx/elewant.error"
+
+elewant_db_password: "elewant"

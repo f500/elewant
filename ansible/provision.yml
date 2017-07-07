@@ -1,0 +1,48 @@
+---
+- name: Provision Elewant
+  hosts: all
+  sudo: yes
+
+  roles:
+    - apt-update
+    - install_apt_packages
+    - f500.bashrc
+    - f500.debian
+    - f500.nginx
+    - f500.mariadb55
+    - f500.php_cli
+    - f500.php_fpm
+    - f500.php_extensions
+    - f500.php_composer
+
+  tasks:
+    - name: copy nginx configuration
+      template: src=templates/nginx.cfg.j2 dest=/etc/nginx/sites-available/elewant force=yes
+      notify: restart nginx
+
+    - name: enable nginx configuration
+      file:  src=/etc/nginx/sites-available/elewant dest=/etc/nginx/sites-enabled/elewant state=link
+      notify: restart nginx
+
+    - name: create database
+      mysql_db: "name={{ elewant_db_name }} state=present"
+
+    - name: create database user
+      mysql_user: name={{ elewant_db_user }} password={{ elewant_db_password }} host='%' priv={{ elewant_db_name }}.*:ALL,GRANT state=present
+
+
+
+- name: Vagrant specific tasks
+  hosts: vagrant
+  sudo: yes
+
+  roles:
+    - f500.php_xdebug
+
+  tasks:
+    - name: Add the .profile, CD /vagrant directory on SSH
+      lineinfile: dest=/home/vagrant/.profile insertafter=EOF line="cd /vagrant"
+
+    - name: composer install
+      command: composer install --dev --working-dir=/vagrant
+

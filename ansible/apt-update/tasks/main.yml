@@ -1,0 +1,8 @@
+---
+
+- name: apt-update
+  apt: update_cache=yes
+
+- name: apt-upgrade
+  apt: upgrade=dist
+  when: apt_upgrade is defined

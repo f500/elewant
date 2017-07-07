@@ -1,0 +1,14 @@
+---
+- name: Setup Local Production Server
+  hosts: production
+  sudo: yes
+
+  tasks:
+    - name: add inital user
+      user: name={{ production_ssh_user }} shell=/bin/bash
+
+    - name: add personal authorized key
+      authorized_key: user={{ production_ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: add user to sudoers
+      lineinfile: "dest=/etc/sudoers state=present insertafter=EOF line='{{ production_ssh_user }} ALL=NOPASSWD: ALL'"

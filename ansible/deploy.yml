@@ -1,0 +1,31 @@
+---
+- name: Deploy the application
+  hosts: production
+  remote_user: "{{ production_deploy_user }}"
+  sudo: no
+
+  vars:
+    project_root: "{{ elewant_root }}"
+    project_git_repo: "{{ elewant_github_repo }}"
+    project_deploy_strategy: git
+    project_deploy_hook_on_finalize: "{{ playbook_dir }}/deploy_hooks/finalize.yml"
+
+    project_environment:
+      SYMFONY_ENV: "prod"
+
+    project_shared_children:
+      - path: "/app/sessions"
+        src: "sessions"
+      - path: "/web/uploads"
+        src: "uploads"
+
+    project_templates:
+      - name: parameters.yml
+        src: "templates/parameters.yml.j2"
+        dest: "/app/config/parameters.yml"
+
+    project_has_composer: yes
+    project_copy_previous_composer_vendors: yes
+
+  roles:
+    - f500.project_deploy

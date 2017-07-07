@@ -1,0 +1,22 @@
+---
+ansible_connection: ssh
+
+php_cli_allow_url_fopen: "On"
+php_session_cookie_secure: "Off"
+php_log_dir: "/var/log/php5"
+php_fpm_user: "www-data"
+php_fpm_group: "www-data"
+
+php_extensions:
+  - php5-curl
+  - php5-intl
+  - php5-gd
+  - php5-mysql
+
+mariadb_socket: "/var/run/mysqld/mysqld.sock"
+
+elewant_db_host: localhost
+elewant_db_name: elewant
+elewant_db_user: elewant
+
+elewant_mailer_delivery_address: "ramon@future500.nl"
