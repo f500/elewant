@@ -1,0 +1,95 @@
+---
+
+# DEBIAN
+
+debian_repo_url: ftp.nl.debian.org
+
+# LOCALE
+
+locale_env:
+  lang: "en_US.UTF-8"
+  language: "en_US:en"
+  lc_all: ~
+  lc_address: ~
+  lc_collate: "C"
+  lc_ctype: ~
+  lc_identification: ~
+  lc_measurement: ~
+  lc_messages: ~
+  lc_monetary: ~
+  lc_name: ~
+  lc_numeric: ~
+  lc_paper: ~
+  lc_telephone: ~
+  lc_time: ~
+  locpath: ~
+
+# NTP
+
+ntp_restrict_policies:
+  - "restrict default ignore"
+  - "restrict -6 default ignore"
+  - "restrict 127.0.0.1"
+  - "restrict -6 ::1"
+
+# UFW
+
+ufw_rules_to_create:
+  - { to_port: 22 }
+  - { to_port: 80 }
+  - { to_port: 443 }
+
+# MYSQL
+
+mysql_origin: default
+mysql_vendor: mariadb
+
+mysql_config_template: "{{ inventory_dir }}/templates/mysql/my.cnf.j2"
+
+mysql_bind_address: 127.0.0.1
+mysql_port: 3306
+mysql_socket: /var/run/mysqld/mysqld.sock
+
+mysql_charset: utf8mb4
+mysql_collation: utf8mb4_unicode_ci
+
+mysql_max_allowed_packet: 16M
+mysql_key_buffer_size: 32M
+mysql_query_cache_size: 0
+mysql_innodb_buffer_pool_size: 592M
+mysql_innodb_log_file_size: 64M
+
+mysql_slow_query_log_enabled: false
+mysql_long_query_time: 2
+
+# PHP
+
+php7_version: 7.1
+php7_enable_fpm: yes
+
+php7_extensions: [ apcu ]
+php7_versioned_extensions: [ curl, intl, mysql, zip, xml ]
+
+php7_ini_directives_global:
+  opcache.revalidate_freq: off
+  opcache.validate_timestamps: off
+  opcache.max_accelerated_files: 20480
+  opcache.memory_consumption: 128
+  opcache.interned_strings_buffer: 16
+  opcache.fast_shutdown: off
+
+# NGINX
+
+nginx_www_dir: "{{ php7_fpm_pool_chdir }}"
+nginx_use_realpath_root: yes
+
+nginx_server_templates:
+  - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/prod-server.conf.j2" }
+
+# APP
+
+elewant_application_root: ~
+elewant_application_env: prod
+elewant_server_name: ~
+elewant_php_socket: "{{ php7_fpm_pool_listen }}"
+elewant_db_socket: "{{ mysql_socket }}"

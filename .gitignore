@@ -1,3 +1,7 @@
+/.idea/*
+!.idea/codeStyleSettings.xml
+/.vagrant/
+/ansible/galaxy_roles
 /app/config/parameters.yml
 /build/
 /phpunit.xml
@@ -14,6 +18,3 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/.vagrant/
-/.idea/
-/ansible/roles

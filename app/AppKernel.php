@@ -24,43 +24,41 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            if ('dev' === $this->getEnvironment()) {
+                $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+            }
         }
 
         return $bundles;
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
-    }
-
-    /**
-     * Override the cache dir for Vagrant
-     */
-    public function getCacheDir()
-    {
-        if (in_array($this->getEnvironment(), $this->developmentEnvironments)) {
-            return '/dev/shm/elewant/cache/' . $this->environment;
-        }
-
-        return parent::getCacheDir();
-    }
-
-    /**
-     * Override the logs dir for Vagrant
-     */
-    public function getLogDir()
-    {
-        if (in_array($this->getEnvironment(), $this->developmentEnvironments)) {
-            return '/dev/shm/elewant/log/' . $this->environment;
-        }
-
-        return parent::getLogDir();
-    }
-
     public function getRootDir()
     {
         return __DIR__;
+    }
+
+    public function getCacheDir()
+    {
+        if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
+            return '/dev/shm/elewant/var/cache/' . $this->getEnvironment();
+        }
+
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
+    }
+
+    public function getLogDir()
+    {
+        if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
+            return '/dev/shm/elewant/var/logs';
+        }
+
+        return dirname(__DIR__) . '/var/logs';
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }

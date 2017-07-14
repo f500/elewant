@@ -1,0 +1,69 @@
+---
+
+# UFW
+
+ufw_rules_to_create:
+  - { to_port: 22 }
+  - { to_port: 80 }
+  - { to_port: 3306 }
+
+# MYSQL
+
+mysql_bind_address: 192.168.77.77
+mysql_root_password: 2lqYqTXfjIQ6746mrzB25ug0xedaxDcl # Place in secure.yml for non-develop groups!
+
+mysql_passwords:
+  elewant_develop: uj8bgtQyq0qhz3Z85iVi5Sgr6AawUH4r # Place in secure.yml for non-develop groups!
+
+mysql_databases:
+  - elewant_develop
+  - elewant_test
+
+mysql_users:
+  - { name: elewant_develop, password: "{{ mysql_passwords.elewant_develop }}", priv: "elewant_develop.*:ALL/elewant_test.*:ALL", host: "%" }
+
+mysql_slow_query_log_enabled: true
+
+# PHP
+
+php7_extensions: [ apcu, xdebug ]
+
+php7_fpm_pool_user: vagrant
+php7_fpm_pool_group: vagrant
+
+php7_ini_directives_global:
+  opcache.revalidate_freq: off
+  opcache.validate_timestamps: on
+  opcache.max_accelerated_files: 20480
+  opcache.memory_consumption: 128
+  opcache.interned_strings_buffer: 16
+  opcache.fast_shutdown: off
+  xdebug.idekey: PHPSTORM
+  xdebug.remote_enable: on
+  xdebug.remote_connect_back: on
+
+php7_ini_directives_fpm:
+  session.cookie_secure: off
+
+# NGINX
+
+nginx_user: "{{ php7_fpm_pool_user }}"
+nginx_group: "{{ php7_fpm_pool_group }}"
+nginx_use_realpath_root: yes
+
+nginx_dhparam_bits: 128
+
+nginx_server_templates:
+  - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/dev-server.conf.j2" }
+
+# APP
+
+elewant_application_root: /vagrant
+elewant_application_env: dev
+elewant_server_name: develop.elewant.loc
+
+elewant_db_name: elewant_develop
+elewant_db_user: elewant_develop
+elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
+elewant_delivery_address: staging@future500.nl
+elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
