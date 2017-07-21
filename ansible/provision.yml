@@ -1,48 +1,71 @@
 ---
-- name: Provision Elewant
+
+# COMMON
+
+- name: Provision common
   hosts: all
-  sudo: yes
+  become: yes
+  gather_facts: yes
 
   roles:
-    - apt-update
-    - install_apt_packages
-    - f500.bashrc
     - f500.debian
-    - f500.nginx
-    - f500.mariadb55
-    - f500.php_cli
-    - f500.php_fpm
-    - f500.php_extensions
-    - f500.php_composer
+    - f500.locale
+    - f500.ntp
+    - f500.ufw
+    - f500.ufw_rules
+    - f500.bash
+    - f500.bashrc
+    - f500.vim
 
-  tasks:
-    - name: copy nginx configuration
-      template: src=templates/nginx.cfg.j2 dest=/etc/nginx/sites-available/elewant force=yes
-      notify: restart nginx
+  post_tasks:
+    - name: Install apt packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: [ acl, git ]
 
-    - name: enable nginx configuration
-      file:  src=/etc/nginx/sites-available/elewant dest=/etc/nginx/sites-enabled/elewant state=link
-      notify: restart nginx
+# SPECIFICS
 
-    - name: create database
-      mysql_db: "name={{ elewant_db_name }} state=present"
+- name: Provision specifics
+  hosts: all
+  become: yes
+  gather_facts: no
 
-    - name: create database user
-      mysql_user: name={{ elewant_db_user }} password={{ elewant_db_password }} host='%' priv={{ elewant_db_name }}.*:ALL,GRANT state=present
-
-
-
-- name: Vagrant specific tasks
-  hosts: vagrant
-  sudo: yes
+  pre_tasks:
+    - name: Ensure the PHP-FPM chdir exists
+      file:
+        path: "{{ php7_fpm_pool_chdir }}"
+        owner: "{{ php7_fpm_pool_user }}"
+        group: "{{ php7_fpm_pool_group }}"
+        mode: 0755
+        state: directory
 
   roles:
-    - f500.php_xdebug
+    - HanXHX.mysql
+    - f500.php7
+    - f500.php_composer
+    - f500.nginx
+
+# DEVELOP
+
+- name: Provision develop environment
+  hosts: develop
+  become: no
+  gather_facts: no
 
   tasks:
-    - name: Add the .profile, CD /vagrant directory on SSH
-      lineinfile: dest=/home/vagrant/.profile insertafter=EOF line="cd /vagrant"
+    - name: cd into /vagrant when logging in
+      lineinfile:
+        path: /home/vagrant/.profile
+        line: cd /vagrant
+        insertafter: EOF
 
-    - name: composer install
-      command: composer install --dev --working-dir=/vagrant
+    - name: Copy parameters.yml
+      template:
+        src: "{{ inventory_dir }}/templates/app/parameters.yml.j2"
+        dest: /vagrant/app/config/parameters.yml
 
+    - name: Install composer packages
+      command: composer install --quiet --no-ansi --no-interaction
+      args:
+        chdir: "{{ elewant_application_root }}"
