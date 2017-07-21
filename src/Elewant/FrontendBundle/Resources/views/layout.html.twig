@@ -1,13 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="{{ app.request.locale }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}Elewant - Agency - Start Bootstrap theme{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/elewant.min.css') }}">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+</head>
+
+<body id="page-top">
+
+{% block body %}{% endblock %}
+
+<script type="application/javascript" src="{{ asset('build/js/jquery.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('build/js/jquery-easing.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('build/js/tether.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('build/js/bootstrap.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('build/js/agency.min.js') }}"></script>
+
+<script type="application/javascript" src="{{ asset('build/js/elewant.min.js') }}"></script>
+
+</body>
 </html>

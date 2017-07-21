@@ -1,35 +1,9 @@
 ---
 
-# COMMON
-
-- name: Provision common
+- name: Provision globally
   hosts: all
   become: yes
   gather_facts: yes
-
-  roles:
-    - f500.debian
-    - f500.locale
-    - f500.ntp
-    - f500.ufw
-    - f500.ufw_rules
-    - f500.bash
-    - f500.bashrc
-    - f500.vim
-
-  post_tasks:
-    - name: Install apt packages
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items: [ acl, git ]
-
-# SPECIFICS
-
-- name: Provision specifics
-  hosts: all
-  become: yes
-  gather_facts: no
 
   pre_tasks:
     - name: Ensure the PHP-FPM chdir exists
@@ -41,12 +15,39 @@
         state: directory
 
   roles:
+    - f500.debian
+    - f500.locale
+    - f500.ntp
+    - f500.ufw
+    - f500.ufw_rules
+    - f500.bash
+    - f500.bashrc
+    - f500.vim
+
     - HanXHX.mysql
     - f500.php7
     - f500.php_composer
     - f500.nginx
+    - f500.nodejs
 
-# DEVELOP
+  post_tasks:
+    - name: Install apt packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - acl
+        - git
+
+    - name: Install npm packages
+      npm:
+        name: "{{ item }}"
+        global: yes
+        state: present
+      with_items:
+        - grunt-cli
+        - bower
+
 
 - name: Provision develop environment
   hosts: develop

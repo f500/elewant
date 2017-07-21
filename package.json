@@ -1,0 +1,36 @@
+{
+  "name": "elewant",
+  "description": "The elePHPant exchange program",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "jquery-easing": "0.0.1",
+    "startbootstrap-agency": "^4.0.0-alpha",
+    "tether": "^1.4.0"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^4.1.6",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-exec": "^2.0.0",
+    "load-grunt-tasks": "^3.5.2",
+    "node-sass": "^4.5.3",
+    "postcss-cli": "^4.1.0",
+    "uglify-js": "^3.0.24"
+  },
+  "main": "Gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:f500/elewant.git"
+  },
+  "scripts": {
+    "clean-css": "cleancss --skip-advanced --source-map --output web/build/css/elewant.min.css web/build/css/elewant.css",
+    "postcss": "postcss --config node_modules/bootstrap/grunt/postcss.js --replace web/build/css/*.css",
+    "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/FrontendBundle/Resources/assets/scss/elewant.scss web/build/css/elewant.css",
+    "uglify": "uglifyjs --compress warnings=false --mangle --comments '/^!/' --output web/build/js/elewant.min.js web/build/js/elewant.js"
+  }
+}
