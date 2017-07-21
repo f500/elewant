@@ -57,7 +57,7 @@
   tasks:
     - name: cd into /vagrant when logging in
       lineinfile:
-        path: /home/vagrant/.profile
+        dest: /home/vagrant/.profile
         line: cd /vagrant
         insertafter: EOF
 
