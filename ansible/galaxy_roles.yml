@@ -1,7 +1,5 @@
 ---
 
-# COMMON
-
 - src: f500.debian
 - src: f500.bash
 - src: f500.bashrc
@@ -11,10 +9,9 @@
 - src: f500.ufw_rules
 - src: f500.vim
 
-# SPECIFIC
-
 - src: HanXHX.mysql
 - src: f500.php7
 - src: f500.php_composer
 - src: f500.nginx
+- src: f500.nodejs
 - src: f500.project_deploy
