@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Elewant\FrontendBundle\ElewantFrontendBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \Prooph\Bundle\EventStore\ProophEventStoreBundle(),
             new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
         ];
