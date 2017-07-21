@@ -46,8 +46,6 @@
         state: present
       with_items:
         - grunt-cli
-        - bower
-
 
 - name: Provision develop environment
   hosts: develop
@@ -68,5 +66,14 @@
 
     - name: Install composer packages
       command: composer install --quiet --no-ansi --no-interaction
+      args:
+        chdir: "{{ elewant_application_root }}"
+
+    - name: Install npm packages
+      npm:
+        path: "{{ elewant_application_root }}"
+
+    - name: Build assets
+      command: grunt
       args:
         chdir: "{{ elewant_application_root }}"
