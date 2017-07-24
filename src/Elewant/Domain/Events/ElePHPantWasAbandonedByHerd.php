@@ -4,33 +4,34 @@ declare(strict_types=1);
 
 namespace Elewant\Domain\Events;
 
+use Elewant\Domain\Breed;
 use Elewant\Domain\ElePHPantId;
 use Elewant\Domain\HerdId;
 use Prooph\EventSourcing\AggregateChanged;
 
-class ElePHPantHasLeftHerd  extends AggregateChanged
+class ElePHPantWasAbandonedByHerd extends AggregateChanged
 {
-    public static function tookPlace(HerdId $herdId, ElePHPantId $elePHPantId, $elePHPantType) : self
+    public static function tookPlace(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): self
     {
         return self::occur($herdId->toString(), [
             'elePHPantId' => $elePHPantId->toString(),
-            'elePHPantType' => $elePHPantType
+            'breed' => $breed
         ]);
     }
 
-    public function herdId() : HerdId
+    public function herdId(): HerdId
     {
         return HerdId::fromString($this->aggregateId());
     }
 
-    public function elePHPantId() : ElePHPantId
+    public function elePHPantId(): ElePHPantId
     {
         return ElePHPantId::fromString($this->payload['elePHPantId']);
     }
 
-    public function elePHPantType() : string
+    public function breed(): Breed
     {
-        return $this->payload['elePHPantType'];
+        return $this->payload['breed'];
     }
 
 }

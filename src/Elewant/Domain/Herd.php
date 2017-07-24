@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Elewant\Domain;
 
-use Assert\Assert;
-use Assert\Assertion;
-use Elewant\Domain\Events\ElePHPantHasJoinedHerd;
-use Elewant\Domain\Events\ElePHPantHasLeftHerd;
+use Elewant\Domain\Events\ElePHPantWasAbandonedByHerd;
+use Elewant\Domain\Events\ElePHPantWasEmbracedByHerd;
 use Elewant\Domain\Events\HerdWasFormed;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
@@ -54,30 +52,30 @@ final class Herd extends AggregateRoot
         return $this->elePHPants;
     }
 
-    public function embraceElePHPant(string $elePHPantType): void
+    public function embraceElePHPant(Breed $breed): void
     {
-        $this->recordThat(ElePHPantHasJoinedHerd::tookPlace(
+        $this->recordThat(ElePHPantWasEmbracedByHerd::tookPlace(
             $this->herdId,
             ElePHPantId::generate(),
-            $elePHPantType
+            $breed
         ));
     }
 
-    public function abandonElePHPant(string $elePHPantType)
+    public function abandonElePHPant(Breed $breed)
     {
         foreach ($this->elePHPants as $elePHPant) {
-            if ($elePHPant->type() === $elePHPantType) {
-                $this->recordThat(ElePHPantHasLeftHerd::tookPlace(
+            if ($elePHPant->type()->equals($breed)) {
+                $this->recordThat(ElePHPantWasAbandonedByHerd::tookPlace(
                     $this->herdId,
                     $elePHPant->elePHPantId(),
-                    $elePHPantType
+                    $breed
                 ));
 
                 return;
             }
         }
 
-        throw SorryIDoNotHaveThat::typeOfElePHPant($this, $elePHPantType);
+        throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
     }
 
     protected function aggregateId(): string
@@ -92,13 +90,13 @@ final class Herd extends AggregateRoot
                 /** @var HerdWasFormed $event */
                 $this->applyHerdWasFormed($event->herdId(), $event->shepherdId());
                 break;
-            case ElePHPantHasJoinedHerd::class:
-                /** @var ElePHPantHasJoinedHerd $event */
-                $this->applyAnElePHPantHasJoinedHerd($event->herdId(), $event->elePHPantId(), $event->elePHPantType());
+            case ElePHPantWasEmbracedByHerd::class:
+                /** @var ElePHPantWasEmbracedByHerd $event */
+                $this->applyAnElePHPantWasEmbracedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
                 break;
-            case ElePHPantHasLeftHerd::class:
-                /** @var ElePHPantHasLeftHerd $event */
-                $this->applyAnElePHPantHasLeftHerd($event->herdId(), $event->elePHPantId(), $event->elePHPantType());
+            case ElePHPantWasAbandonedByHerd::class:
+                /** @var ElePHPantWasAbandonedByHerd $event */
+                $this->applyAnElePHPantWasAbandonedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
                 break;
             default:
                 throw SorryIDontKnowThat::event($this, $event);
@@ -111,12 +109,12 @@ final class Herd extends AggregateRoot
         $this->shepherdId = $shepherdId;
     }
 
-    private function applyAnElePHPantHasJoinedHerd(HerdId $herdId, ElePHPantId $elePHPantId, string $elePHPantType): void
+    private function applyAnElePHPantWasEmbracedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
-        $this->elePHPants[] = ElePHPant::appear($elePHPantId, $elePHPantType);
+        $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }
 
-    private function applyAnElePHPantHasLeftHerd(HerdId $herdId, ElePHPantId $elePHPantId, string $elePHPantType): void
+    private function applyAnElePHPantWasAbandonedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
         foreach ($this->elePHPants as $key => $elePHPant) {
             if ($elePHPant->elePHPantId()->equals($elePHPantId)) {

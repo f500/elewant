@@ -4,6 +4,7 @@ namespace spec\Elewant\Domain;
 
 use Elewant\Domain\ElePHPant;
 use Elewant\Domain\ElePHPantId;
+use Elewant\Domain\Breed;
 use PhpSpec\ObjectBehavior;
 
 class ElePHPantSpec extends ObjectBehavior
@@ -12,10 +13,10 @@ class ElePHPantSpec extends ObjectBehavior
     {
         $elePHPantId = ElePHPantId::generate();
 
-        $this->beConstructedThrough('appear', [$elePHPantId, ELEPHPant::BLUE]);
+        $this->beConstructedThrough('appear', [$elePHPantId, Breed::fromString(Breed::BLUE)]);
         $this->shouldHaveType(ElePHPant::class);
         $this->elePHPantId()->shouldBeEqual($elePHPantId);
-        $this->type()->shouldReturn(ElePHPant::BLUE);
+        $this->type()->shouldBeEqual(Breed::fromString(Breed::BLUE));
     }
 
     public function getMatchers()

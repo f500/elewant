@@ -2,13 +2,13 @@
 
 namespace spec\Elewant\Domain\Events;
 
-use Elewant\Domain\ElePHPant;
+use Elewant\Domain\Breed;
 use Elewant\Domain\ElePHPantId;
-use Elewant\Domain\Events\ElePHPantHasJoinedHerd;
+use Elewant\Domain\Events\ElePHPantWasEmbracedByHerd;
 use Elewant\Domain\HerdId;
 use PhpSpec\ObjectBehavior;
 
-class ElePHPantHasJoinedHerdSpec extends ObjectBehavior
+class ElePHPantWasEmbracedByHerdSpec extends ObjectBehavior
 {
     function it_took_place()
     {
@@ -18,14 +18,14 @@ class ElePHPantHasJoinedHerdSpec extends ObjectBehavior
         $this->beConstructedThrough('tookPlace', [
             $herdId,
             $elePHPantId,
-            ElePHPant::BLUE
+            Breed::fromString(Breed::BLUE)
         ]);
 
-        $this->shouldHaveType(ElePHPantHasJoinedHerd::class);
+        $this->shouldHaveType(ElePHPantWasEmbracedByHerd::class);
         $this->aggregateId()->shouldReturn($herdId->toString());
         $this->herdId()->shouldBeEqual($herdId);
         $this->elePHPantId()->shouldBeEqual($elePHPantId);
-        $this->elePHPantType()->shouldReturn(ElePHPant::BLUE);
+        $this->breed()->shouldBeEqual(Breed::fromString(Breed::BLUE));
     }
 
     public function getMatchers()
