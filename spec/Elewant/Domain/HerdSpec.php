@@ -24,7 +24,7 @@ class HerdSpec extends ObjectBehavior
     function it_forms()
     {
         $this->shouldHaveType(Herd::class);
-        $this->shepherdId()->shouldBeEqual($this->shepherdId);
+        $this->shepherdId()->shouldEqual($this->shepherdId);
     }
 
     function it_embraces_one_new_elephpant()
@@ -74,9 +74,6 @@ class HerdSpec extends ObjectBehavior
     public function getMatchers()
     {
         return [
-            'beEqual' => function ($subject, $other) {
-                return $subject->equals($other);
-            },
             'containAnElePHPant' => function ($elePHPants, $type) {
                 foreach ($elePHPants as $elePHPant) {
                     if ($elePHPant->type()->equals($type)) {

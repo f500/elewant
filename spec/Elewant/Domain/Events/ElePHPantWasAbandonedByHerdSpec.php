@@ -23,17 +23,8 @@ class ElePHPantWasAbandonedByHerdSpec extends ObjectBehavior
 
         $this->shouldHaveType(ElePHPantWasAbandonedByHerd::class);
         $this->aggregateId()->shouldReturn($herdId->toString());
-        $this->herdId()->shouldBeEqual($herdId);
-        $this->elePHPantId()->shouldBeEqual($elePHPantId);
-        $this->breed()->shouldBeEqual(Breed::fromString(Breed::BLUE));
-    }
-
-    public function getMatchers()
-    {
-        return [
-            'beEqual' => function ($subject, $other) {
-                return $subject->equals($other);
-            }
-        ];
+        $this->herdId()->shouldEqual($herdId);
+        $this->elePHPantId()->shouldEqual($elePHPantId);
+        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE));
     }
 }

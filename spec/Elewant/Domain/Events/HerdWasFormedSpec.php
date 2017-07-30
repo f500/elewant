@@ -21,16 +21,8 @@ class HerdWasFormedSpec extends ObjectBehavior
 
         $this->shouldHaveType(HerdWasFormed::class);
         $this->aggregateId()->shouldReturn($herdId->toString());
-        $this->herdId()->shouldBeEqual($herdId);
-        $this->shepherdId()->shouldBeEqual($shepherdId);
+        $this->herdId()->shouldEqual($herdId);
+        $this->shepherdId()->shouldEqual($shepherdId);
     }
 
-    public function getMatchers()
-    {
-        return [
-            'beEqual' => function ($subject, $other) {
-                return $subject->equals($other);
-            }
-        ];
-    }
 }

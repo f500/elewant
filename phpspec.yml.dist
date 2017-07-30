@@ -1,0 +1,3 @@
+formatter.name: pretty
+extensions:
+    Elewant\Tooling\PhpSpec\Extension: ~

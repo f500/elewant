@@ -15,17 +15,8 @@ class ElePHPantSpec extends ObjectBehavior
 
         $this->beConstructedThrough('appear', [$elePHPantId, Breed::fromString(Breed::BLUE)]);
         $this->shouldHaveType(ElePHPant::class);
-        $this->elePHPantId()->shouldBeEqual($elePHPantId);
-        $this->type()->shouldBeEqual(Breed::fromString(Breed::BLUE));
-    }
-
-    public function getMatchers()
-    {
-        return [
-            'beEqual' => function ($subject, $other) {
-                return $subject->equals($other);
-            }
-        ];
+        $this->elePHPantId()->shouldEqual($elePHPantId);
+        $this->type()->shouldEqual(Breed::fromString(Breed::BLUE));
     }
 
 }
