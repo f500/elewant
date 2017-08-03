@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Domain\Events;
+namespace Elewant\Herding\Model\Events;
 
-use Elewant\Domain\Breed;
-use Elewant\Domain\ElePHPantId;
-use Elewant\Domain\HerdId;
+use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\ElePHPantId;
+use Elewant\Herding\Model\HerdId;
 use Prooph\EventSourcing\AggregateChanged;
 
 class ElePHPantWasAbandonedByHerd extends AggregateChanged

@@ -1,30 +1,36 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\Breed;
-use Elewant\Domain\Herd;
-use Elewant\Domain\ShepherdId;
-use Elewant\Domain\SorryIDoNotHaveThat;
+use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\Herd;
+use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\Model\SorryIDoNotHaveThat;
 use PhpSpec\ObjectBehavior;
 
 class HerdSpec extends ObjectBehavior
 {
-    /**
-     * @var ShepherdId
-     */
+    /** @var ShepherdId */
     private $shepherdId;
+
+    /** @var  string */
+    private $herdName;
 
     function let()
     {
         $this->shepherdId = ShepherdId::generate();
-        $this->beConstructedThrough('form', [$this->shepherdId]);
+        $this->herdName = 'Herd name';
+        $this->beConstructedThrough('form', [
+            $this->shepherdId,
+            $this->herdName
+        ]);
     }
 
     function it_forms()
     {
         $this->shouldHaveType(Herd::class);
         $this->shepherdId()->shouldEqual($this->shepherdId);
+        $this->name()->shouldEqual($this->herdName);
     }
 
     function it_embraces_one_new_elephpant()

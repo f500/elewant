@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\HerdId;
+use Elewant\Herding\Model\HerdId;
 use PhpSpec\ObjectBehavior;
 
 class HerdIdSpec extends ObjectBehavior

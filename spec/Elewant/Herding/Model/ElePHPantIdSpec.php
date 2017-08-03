@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\ElePHPantId;
+use Elewant\Herding\Model\ElePHPantId;
 use PhpSpec\ObjectBehavior;
 
 class ElePHPantIdSpec extends ObjectBehavior

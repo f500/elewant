@@ -1,6 +1,6 @@
 <?php
 
-namespace Elewant\Domain;
+namespace Elewant\Herding\Model;
 
 use Exception;
 

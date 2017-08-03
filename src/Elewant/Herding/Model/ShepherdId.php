@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Domain;
+namespace Elewant\Herding\Model;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class ElePHPantId
+final class ShepherdId
 {
     /**
      * @var Uuid
@@ -24,9 +24,9 @@ final class ElePHPantId
         return new self (Uuid::uuid4());
     }
 
-    public static function fromString(string $elePHPantId): self
+    public static function fromString(string $shepherdId): self
     {
-        return new self(UUid::fromString($elePHPantId));
+        return new self(UUid::fromString($shepherdId));
     }
 
     public function toString(): string

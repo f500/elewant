@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\Breed;
-use Elewant\Domain\SorryThatIsAnInvalid;
+use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\SorryThatIsAnInvalid;
 use PhpSpec\ObjectBehavior;
 
 class BreedSpec extends ObjectBehavior

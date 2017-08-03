@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Domain;
+namespace Elewant\Herding\Model;
 
 final class ElePHPant
 {

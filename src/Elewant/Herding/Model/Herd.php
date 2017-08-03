@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Domain;
+namespace Elewant\Herding\Model;
 
-use Elewant\Domain\Events\ElePHPantWasAbandonedByHerd;
-use Elewant\Domain\Events\ElePHPantWasEmbracedByHerd;
-use Elewant\Domain\Events\HerdWasFormed;
+use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
+use Elewant\Herding\Model\Events\ElePHPantWasEmbracedByHerd;
+use Elewant\Herding\Model\Events\HerdWasFormed;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 
@@ -27,13 +27,16 @@ final class Herd extends AggregateRoot
      */
     private $elePHPants = [];
 
-    public static function form(ShepherdId $shepherdId): self
+    /** @var  string */
+    private $name;
+
+    public static function form(ShepherdId $shepherdId, string $name): self
     {
         $herdId = HerdId::generate();
 
         $instance = new self();
 
-        $instance->recordThat(HerdWasFormed::tookPlace($herdId, $shepherdId));
+        $instance->recordThat(HerdWasFormed::tookPlace($herdId, $shepherdId, $name));
         return $instance;
     }
 
@@ -50,6 +53,11 @@ final class Herd extends AggregateRoot
     public function elePHPants(): array
     {
         return $this->elePHPants;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 
     public function embraceElePHPant(Breed $breed): void
@@ -88,7 +96,7 @@ final class Herd extends AggregateRoot
         switch (get_class($event)) {
             case HerdWasFormed::class:
                 /** @var HerdWasFormed $event */
-                $this->applyHerdWasFormed($event->herdId(), $event->shepherdId());
+                $this->applyHerdWasFormed($event->herdId(), $event->shepherdId(), $event->name());
                 break;
             case ElePHPantWasEmbracedByHerd::class:
                 /** @var ElePHPantWasEmbracedByHerd $event */
@@ -103,10 +111,11 @@ final class Herd extends AggregateRoot
         }
     }
 
-    private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId): void
+    private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name): void
     {
         $this->herdId = $herdId;
         $this->shepherdId = $shepherdId;
+        $this->name = $name;
     }
 
     private function applyAnElePHPantWasEmbracedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void

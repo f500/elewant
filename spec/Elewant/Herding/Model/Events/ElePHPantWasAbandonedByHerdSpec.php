@@ -1,11 +1,11 @@
 <?php
 
-namespace spec\Elewant\Domain\Events;
+namespace spec\Elewant\Herding\Model\Events;
 
-use Elewant\Domain\Breed;
-use Elewant\Domain\ElePHPantId;
-use Elewant\Domain\Events\ElePHPantWasAbandonedByHerd;
-use Elewant\Domain\HerdId;
+use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\ElePHPantId;
+use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
+use Elewant\Herding\Model\HerdId;
 use PhpSpec\ObjectBehavior;
 
 class ElePHPantWasAbandonedByHerdSpec extends ObjectBehavior

@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\ElePHPant;
-use Elewant\Domain\ElePHPantId;
-use Elewant\Domain\Breed;
+use Elewant\Herding\Model\ElePHPant;
+use Elewant\Herding\Model\ElePHPantId;
+use Elewant\Herding\Model\Breed;
 use PhpSpec\ObjectBehavior;
 
 class ElePHPantSpec extends ObjectBehavior

@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Elewant\Domain;
+namespace spec\Elewant\Herding\Model;
 
-use Elewant\Domain\ShepherdId;
+use Elewant\Herding\Model\ShepherdId;
 use PhpSpec\ObjectBehavior;
 
 class ShepherdIdSpec extends ObjectBehavior
