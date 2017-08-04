@@ -32,6 +32,7 @@ php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
+  disable_functions: "exec, passthru, shell_exec, system, proc_open, popen, curl_multi_exec"
   opcache.revalidate_freq: off
   opcache.validate_timestamps: on
   opcache.max_accelerated_files: 20480
@@ -56,6 +57,9 @@ nginx_use_realpath_root: yes
 
 nginx_dhparam_bits: 128
 
+nginx_http_headers:
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'"
+
 nginx_server_templates:
   - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/dev-server.conf.j2" }
 
@@ -70,3 +74,5 @@ elewant_db_user: elewant_develop
 elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
 elewant_delivery_address: staging@future500.nl
 elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
+elewant_twitter_client: ~
+elewant_twitter_secret: ~

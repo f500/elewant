@@ -1,29 +1,28 @@
 services:
-    elewant_security.user_provider:
-        class: Elewant\FrontendBundle\Security\UserProvider
-        arguments:
-            - "@elewant_repository.authentication"
+    # HWI OAuth
 
     hwi_oauth.account.connector:
         class: Elewant\FrontendBundle\Security\UserProvider
-        arguments:
-            - "@elewant_repository.authentication"
+        arguments: [ "@elewant.user.user_repository" ]
 
     hwi_oauth.registration.form:
         class: Elewant\FrontendBundle\Form\UserType
         factory: "form.factory:create"
-        arguments:
-            - Elewant\FrontendBundle\Form\UserType
+        arguments: [ Elewant\FrontendBundle\Form\UserType ]
 
     hwi_oauth.registration.form.handler:
         class: Elewant\FrontendBundle\Form\RegistrationFormHandler
 
-    # REPOSITORIES
+    # Elewant
 
-    elewant_repository.authentication:
-        class: Elewant\FrontendBundle\Repository\AuthenticationRepository
-        arguments:
-            - "@doctrine.orm.entity_manager"
+    elewant.user.user_provider:
+        class: Elewant\FrontendBundle\Security\UserProvider
+        arguments: [ "@elewant.user.user_repository" ]
+
+    elewant.user.user_repository:
+        class: Elewant\FrontendBundle\Repository\UserRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [ Elewant\FrontendBundle\Entity\User ]
 
 #  elewant.api_command_controller:
 #    class: Elewant\FrontendBundle\Controller\ApiCommandController

@@ -1,31 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\FrontendBundle\Form;
 
 use Elewant\FrontendBundle\Entity\User;
-use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\FormInterface;
 
 final class UserDataTransformer extends PropertyPathMapper
 {
     /**
-     * Maps the data of a list of forms into the properties of some data.
-     *
-     * @param FormInterface[]|\Traversable $forms A list of {@link FormInterface} instances
-     * @param mixed                        $data  Structured data
-     *
-     * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported.
+     * @param FormInterface[] $forms
+     * @param User            $user
      */
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$user) : void
     {
-        $userData = [];
         foreach ($forms as $form) {
-            $userData[$form->getName()] = $form->getData();
+            switch ($form->getName()) {
+                case 'displayName':
+                    $user->changeDisplayName($form->getData());
+                    break;
+                case 'country':
+                    $user->changeCountry($form->getData());
+                    break;
+            }
         }
-
-        /** @var User $user */
-        $user = $data;
-        $user->createFromForm($userData['displayname'], $userData['username']);
     }
 }

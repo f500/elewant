@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\FrontendBundle\Form;
 
 use Elewant\FrontendBundle\Entity\User;
@@ -10,18 +12,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options) : void
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('displayname', TextType::class)
+            ->add('username', TextType::class, ['disabled' => true])
+            ->add('displayName', TextType::class)
+            ->add('country', TextType::class)
             ->setDataMapper(new UserDataTransformer());
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver) : void
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults(['data_class' => User::class]);
     }
 }

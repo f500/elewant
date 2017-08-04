@@ -17,6 +17,10 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new \HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+
             new Elewant\FrontendBundle\ElewantFrontendBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \Prooph\Bundle\EventStore\ProophEventStoreBundle(),
@@ -45,10 +49,10 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
-            return '/dev/shm/elewant/var/cache/' . $this->getEnvironment();
+            return '/dev/shm/elewant/var/cache/'.$this->getEnvironment();
         }
 
-        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
+        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
     public function getLogDir()
@@ -57,11 +61,11 @@ class AppKernel extends Kernel
             return '/dev/shm/elewant/var/logs';
         }
 
-        return dirname(__DIR__) . '/var/logs';
+        return dirname(__DIR__).'/var/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

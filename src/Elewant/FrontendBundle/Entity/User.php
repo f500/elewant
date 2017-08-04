@@ -1,30 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\FrontendBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="Elewant\FrontendBundle\Repository\AuthenticationRepository")
- * @UniqueEntity("username")
+ * @ORM\Entity(repositoryClass="Elewant\FrontendBundle\Repository\UserRepository")
+ * @ORM\Table(options={"charset"="utf8mb4", "collate"="utf8mb4_unicode_ci"})
+ * @Assert\UniqueEntity("username")
+ *
+ * We cannot use `final` here, because of Doctrine proxies.
  */
-final class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     * @var integer
+     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @var int|null
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @var string
      */
     private $username;
@@ -33,7 +36,7 @@ final class User implements UserInterface
      * @ORM\Column(type="string")
      * @var string
      */
-    private $displayname;
+    private $displayName;
 
     /**
      * @ORM\Column(type="string")
@@ -42,120 +45,111 @@ final class User implements UserInterface
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserConnect", mappedBy="user", cascade={"persist"})
-     * @var UserConnect[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="Elewant\FrontendBundle\Entity\Connection", mappedBy="user", cascade={"persist"})
+     * @var ArrayCollection
      */
-    private $connects;
+    private $connections;
 
-    /**
-     * @param string $displayname
-     * @param string $username
-     *
-     * @return User
-     */
-    public static function create($displayname, $username)
+    public static function register(string $username, string $displayName, string $country) : User
     {
         $user = new self();
 
-        $user->displayname = (string)$displayname;
-        $user->username    = (string)$username;
+        $user->username    = $username;
+        $user->displayName = $displayName;
+        $user->country     = $country;
 
         return $user;
     }
 
     /**
-     * @return User
+     * Constructor is public for SymfonyForm.
+     * @todo: Discus what to do with this. This still allows anemic entities.
      */
-    public static function createFormInstance()
+    public function __construct()
     {
-        $user = new self();
-
-        return $user;
+        $this->connections = new ArrayCollection();
     }
 
-    /**
-     * @param string $displayname
-     * @param string $username
-     */
-    public function createFromForm($displayname, $username)
+    public function changeDisplayName(string $displayName) : void
     {
-        $this->displayname = $displayname;
-        $this->username    = $username;
+        $this->displayName = $displayName;
     }
 
-    /**
-     * @param string $resource
-     * @param string $resourceId
-     * @param string $token
-     */
-    public function connect($resource, $resourceId, $token)
+    public function changeCountry(string $country) : void
+    {
+        $this->country = $country;
+    }
+
+    public function connect(string $resource, string $resourceId, string $accessToken, string $refreshToken) : void
     {
         if ($this->hasConnect($resource)) {
             throw new \LogicException(
-                sprintf('Resource "%s" already connected to user "%s"', $resource, $this->id)
+                sprintf('Resource "%s" already connected to user "%d"', $resource, $this->id)
             );
         }
 
-        $this->connects->add(UserConnect::create($this, $resource, $resourceId, $token));
+        $this->connections->add(new Connection($this, $resource, $resourceId, $accessToken, $refreshToken));
     }
 
-    /**
-     * @param string $country
-     */
-    public function updateCountry($country)
-    {
-        $this->country = (string)$country;
-    }
-
-    /**
-     * @return integer
-     */
-    public function id()
+    public function id() : ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function displayname()
-    {
-        return $this->displayname;
-    }
-
-    /**
-     * @return string
-     */
-    public function username()
+    public function username() : string
     {
         return $this->username;
     }
 
-    /**
-     * @return UserConnect[]|ArrayCollection
-     */
-    public function connects()
+    public function displayName() : string
     {
-        return $this->connects;
+        return $this->displayName;
     }
 
-    /**
-     * @return string
-     */
-    public function country()
+    public function country() : string
     {
         return $this->country;
     }
 
     /**
-     * @param string $resource
-     *
-     * @return bool
+     * @return Connection[]
      */
-    private function hasConnect($resource)
+    public function connections() : array
     {
-        foreach ($this->connects as $connect) {
-            if ($connect->resource() === (string)$resource) {
+        return $this->connections->toArray();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles() : array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getUsername() : string
+    {
+        return '';
+    }
+
+    public function getPassword() : string
+    {
+        return '';
+    }
+
+    public function getSalt() : ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials() : void
+    {
+    }
+
+    private function hasConnect(string $resource) : bool
+    {
+        foreach ($this->connections as $connection) {
+            if ($connection->resource() === $resource) {
                 return true;
             }
         }
@@ -164,77 +158,29 @@ final class User implements UserInterface
     }
 
     /**
-     * Constructor is public for SymfonyForm
+     * We only save the `id` and `username`.
      */
-    public function __construct()
+    public function serialize() : string
     {
-        $this->connects = new ArrayCollection();
+        return json_encode(
+            [
+                'id'       => $this->id,
+                'username' => $this->username,
+            ]
+        );
     }
 
     /**
-     * Returns the roles granted to the user.
+     * We only save the `id` and `username`.
+     * The user-provider will refresh the user (to make it complete).
      *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
+     * @param string $serialized
      */
-    public function getRoles()
+    public function unserialize($serialized) : void
     {
-        return ['ROLE_USER'];
-    }
+        $data = json_decode($serialized, true);
 
-    /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
-     */
-    public function getPassword()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return null;
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-        return null;
+        $this->id       = $data['id'] ?? 0;
+        $this->username = $data['username'] ?? '';
     }
 }

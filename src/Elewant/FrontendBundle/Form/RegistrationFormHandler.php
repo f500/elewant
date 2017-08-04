@@ -10,9 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationFormHandler implements RegistrationFormHandlerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(Request $request, Form $form, UserResponseInterface $userInformation)
     {
         if (!$userInformation instanceof PathUserResponse) {
@@ -24,7 +21,10 @@ class RegistrationFormHandler implements RegistrationFormHandlerInterface
                 )
             );
         }
+
         $form->get('username')->setData($userInformation->getNickname());
+        $form->get('displayName')->setData($userInformation->getRealName());
+        $form->get('country')->setData($userInformation->getResponse()['location'] ?? '');
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

@@ -1,138 +1,148 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\FrontendBundle\Security;
 
 use Elewant\FrontendBundle\Entity\User;
-use Elewant\FrontendBundle\Repository\AuthenticationRepository;
+use Elewant\FrontendBundle\Repository\UserRepository;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
-use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
 {
     /**
-     * @var AuthenticationRepository
+     * @var UserRepository
      */
-    private $authenticationRepository;
+    private $repository;
 
-    /**
-     * @param AuthenticationRepository $authenticationRepository
-     */
-    public function __construct(AuthenticationRepository $authenticationRepository)
+    public function __construct(UserRepository $repository)
     {
-        $this->authenticationRepository = $authenticationRepository;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function loadUserByUsername($username)
-    {
-        // I have no idea what to do with this
+        $this->repository = $repository;
     }
 
     /**
-     * @inheritdoc
+     * @param string $username
+     *
+     * @return UserInterface
      */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    public function loadUserByUsername($username) : UserInterface
     {
-        $data = $response->getResponse();
+        $user = $this->repository->findUserByUsername($username);
 
-        $resource   = $response->getResourceOwner()->getName();
-        $resourceId = $data['id'];
-
-        $user = $this->authenticationRepository->findUserByResource($resource, $resourceId);
-
-        if (!$user) {
-            throw new AccountNotLinkedException(sprintf("User '%s' not found.", $data['name']));
-        }
-
-        return new SecurityUser($user->id(), $user->username(), $user->displayname());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function refreshUser(UserInterface $user)
-    {
-        if (!$this->supportsClass(get_class($user))) {
-            throw new UnsupportedUserException(sprintf('Unsupported user class "%s"', get_class($user)));
+        if ($user === null) {
+            throw new UsernameNotFoundException(
+                sprintf('User with username "%s" not found.', $username)
+            );
         }
 
         return $user;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function supportsClass($class)
+    public function refreshUser(UserInterface $user) : UserInterface
     {
-        return $class === SecurityUser::class;
+        if (!$this->supportsClass(get_class($user))) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+        }
+
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     /**
-     * Connects the response to the user object.
+     * @param string $class
      *
-     * @param UserInterface         $user     The user object
-     * @param UserResponseInterface $response The oauth response
-     *
-     * @throws \Exception
+     * @return bool
      */
-    public function connect(UserInterface $user, UserResponseInterface $response)
+    public function supportsClass($class) : bool
     {
-        if (!$response instanceof PathUserResponse) {
-            throw new \Exception('What to do now?');
+        return $class === User::class;
+    }
+
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response) : UserInterface
+    {
+        $resource   = $response->getResourceOwner()->getName();
+        $resourceId = (string) $response->getResponse()['id'] ?? 'UNKNOWN';
+
+        $user = $this->repository->findUserByResource($resource, $resourceId);
+
+        if ($user === null) {
+            throw new AccountNotLinkedException(
+                sprintf('User with resource "%s" and id "%s" not found.', $resource, $resourceId)
+            );
         }
 
-        if (null === $user->id()) {
-            $realUser = User::create($user->displayname(), $user->username());
+        return $user;
+    }
+
+    public function connect(UserInterface $user, UserResponseInterface $response) : void
+    {
+        if (!$this->supportsClass(get_class($user))) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+        }
+
+        /** @var User $user */
+        if ($user->id() === null) {
+            $user = User::register($response->getNickname(), $user->displayName(), $user->country());
         } else {
-            $realUser = $this->authenticationRepository->findUserById($user->id());
+            $user = $this->refreshUser($user);
         }
 
-        $resourceName = $response->getResourceOwner()->getName();
-        switch ($resourceName) {
+        switch ($response->getResourceOwner()->getName()) {
             case 'twitter':
-                $this->connectTwitter($realUser, $response);
+                $this->connectTwitter($user, $response);
                 break;
             case 'facebook':
-                $this->connectFacebook($realUser, $response);
+                $this->connectFacebook($user, $response);
                 break;
             default:
                 throw new \LogicException(
-                    sprintf('Cannot find connector for resource "%s"', $resourceName)
+                    sprintf(
+                        'Cannot connect user "%s" to resource "%s" with id "%s".',
+                        $user->username(),
+                        $response->getResourceOwner()->getName(),
+                        $response->getResponse()['id'] ?? 'UNKNOWN'
+                    )
                 );
         }
 
-        $this->authenticationRepository->saveUser($realUser);
+        $this->repository->saveUser($user);
     }
 
-    /**
-     * @param User             $user
-     * @param PathUserResponse $response
-     */
-    private function connectTwitter(User $user, PathUserResponse $response)
+    private function connectTwitter(User $user, UserResponseInterface $response) : void
     {
-        $userData = $response->getResponse();
+        $data = $response->getResponse();
 
-        $user->updateCountry($userData['location']);
-        $user->connect('twitter', $userData['id'], $response->getAccessToken());
+        if (!isset($data['id'])) {
+            throw new UnsupportedUserException(sprintf('Missing "id" in resource "twitter".'));
+        }
+
+        $user->connect(
+            'twitter',
+            (string) $data['id'],
+            (string) $response->getAccessToken(),
+            (string) $response->getRefreshToken()
+        );
     }
 
-    /**
-     * @param User             $user
-     * @param PathUserResponse $response
-     */
-    private function connectFacebook(User $user, PathUserResponse $response)
+    private function connectFacebook(User $user, UserResponseInterface $response) : void
     {
-        $userData = $response->getResponse();
+        $data = $response->getResponse();
 
-        $user->connect('facebook', $userData['id'], $response->getAccessToken());
+        if (!isset($data['id'])) {
+            throw new UnsupportedUserException(sprintf('Missing "id" in resource "facebook".'));
+        }
+
+        $user->connect(
+            'facebook',
+            (string) $data['id'],
+            (string) $response->getAccessToken(),
+            (string) $response->getRefreshToken()
+        );
     }
 }
