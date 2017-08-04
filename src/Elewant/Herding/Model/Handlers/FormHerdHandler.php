@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model\Handlers;
 
-use Elewant\Herding\Model\Command\FormHerd;
+use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\HerdCollection;
-use Elewant\Herding\Model\ShepherdId;
 
 final class FormHerdHandler
 {
@@ -26,10 +25,7 @@ final class FormHerdHandler
      */
     public function __invoke(FormHerd $command)
     {
-        $shepherdId = ShepherdId::fromString($command->userId());
-
-        $herd = Herd::form($shepherdId, $command->herdName());
+        $herd = Herd::form($command->shepherdId(), $command->herdName());
         $this->herdCollection->save($herd);
     }
-
 }

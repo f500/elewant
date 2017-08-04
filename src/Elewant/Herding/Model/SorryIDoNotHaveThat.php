@@ -16,4 +16,13 @@ final class SorryIDoNotHaveThat extends Exception
                 $breed->toString())
         );
     }
+
+    public static function herd(HerdId $herdId)
+    {
+        return new self(sprintf(
+                'Sorry, herdCollection does not have a herd with id %s',
+                $herdId->toString())
+        );
+    }
+
 }

@@ -14,17 +14,17 @@ final class ElePHPant
     /**
      * @var Breed
      */
-    private $type;
+    private $breed;
 
-    private function __construct(ElePHPantId $elePHPantId, Breed $type)
+    private function __construct(ElePHPantId $elePHPantId, Breed $breed)
     {
         $this->elePHPantId = $elePHPantId;
-        $this->type = $type;
+        $this->breed = $breed;
     }
 
-    public static function appear(ElePHPantId $elePHPantId, Breed $type): self
+    public static function appear(ElePHPantId $elePHPantId, Breed $breed): self
     {
-        return new self($elePHPantId, $type);
+        return new self($elePHPantId, $breed);
     }
 
     public function elePHPantId(): ElePHPantId
@@ -32,9 +32,9 @@ final class ElePHPant
         return $this->elePHPantId;
     }
 
-    public function type(): Breed
+    public function breed(): Breed
     {
-        return $this->type;
+        return $this->breed;
     }
 
 }

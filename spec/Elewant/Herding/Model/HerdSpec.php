@@ -82,7 +82,7 @@ class HerdSpec extends ObjectBehavior
         return [
             'containAnElePHPant' => function ($elePHPants, $type) {
                 foreach ($elePHPants as $elePHPant) {
-                    if ($elePHPant->type()->equals($type)) {
+                    if ($elePHPant->breed()->equals($type)) {
                         return true;
                     }
                 }
