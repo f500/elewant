@@ -7,11 +7,11 @@
         <option name="HTML_TEXT_WRAP" value="0" />
         <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
         <option name="HTML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+        <PHPCodeStyleSettings>
+          <option name="ALIGN_CLASS_CONSTANTS" value="true" />
+        </PHPCodeStyleSettings>
         <XML>
-          <option name="XML_ATTRIBUTE_WRAP" value="0" />
-          <option name="XML_TEXT_WRAP" value="0" />
-          <option name="XML_ALIGN_ATTRIBUTES" value="false" />
-          <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
       </value>
     </option>
