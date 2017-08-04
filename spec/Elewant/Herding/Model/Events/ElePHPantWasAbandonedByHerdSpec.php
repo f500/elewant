@@ -18,13 +18,13 @@ class ElePHPantWasAbandonedByHerdSpec extends ObjectBehavior
         $this->beConstructedThrough('tookPlace', [
             $herdId,
             $elePHPantId,
-            Breed::fromString(Breed::BLUE)
+            Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR)
         ]);
 
         $this->shouldHaveType(ElePHPantWasAbandonedByHerd::class);
         $this->aggregateId()->shouldReturn($herdId->toString());
         $this->herdId()->shouldEqual($herdId);
         $this->elePHPantId()->shouldEqual($elePHPantId);
-        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE));
+        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR));
     }
 }

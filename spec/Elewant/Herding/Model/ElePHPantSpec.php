@@ -13,10 +13,10 @@ class ElePHPantSpec extends ObjectBehavior
     {
         $elePHPantId = ElePHPantId::generate();
 
-        $this->beConstructedThrough('appear', [$elePHPantId, Breed::fromString(Breed::BLUE)]);
+        $this->beConstructedThrough('appear', [$elePHPantId, Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR)]);
         $this->shouldHaveType(ElePHPant::class);
         $this->elePHPantId()->shouldEqual($elePHPantId);
-        $this->type()->shouldEqual(Breed::fromString(Breed::BLUE));
+        $this->type()->shouldEqual(Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR));
     }
 
 }

@@ -4,11 +4,11 @@ namespace spec\Elewant\Herding\Model\Events;
 
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\ElePHPantId;
-use Elewant\Herding\Model\Events\ElePHPantWasEmbracedByHerd;
+use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\HerdId;
 use PhpSpec\ObjectBehavior;
 
-class ElePHPantWasEmbracedByHerdSpec extends ObjectBehavior
+class ElePHPantWasAdoptedByHerdSpec extends ObjectBehavior
 {
     function it_took_place()
     {
@@ -18,14 +18,14 @@ class ElePHPantWasEmbracedByHerdSpec extends ObjectBehavior
         $this->beConstructedThrough('tookPlace', [
             $herdId,
             $elePHPantId,
-            Breed::fromString(Breed::BLUE)
+            Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR)
         ]);
 
-        $this->shouldHaveType(ElePHPantWasEmbracedByHerd::class);
+        $this->shouldHaveType(ElePHPantWasAdoptedByHerd::class);
         $this->aggregateId()->shouldReturn($herdId->toString());
         $this->herdId()->shouldEqual($herdId);
         $this->elePHPantId()->shouldEqual($elePHPantId);
-        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE));
+        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR));
     }
 
 }

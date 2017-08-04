@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\Herding\Model;
 
 final class SorryThatIsAnInvalid extends \Exception

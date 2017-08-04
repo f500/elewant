@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Elewant\Herding\Model;
 
 use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
-use Elewant\Herding\Model\Events\ElePHPantWasEmbracedByHerd;
+use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasFormed;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
@@ -60,9 +60,9 @@ final class Herd extends AggregateRoot
         return $this->name;
     }
 
-    public function embraceElePHPant(Breed $breed): void
+    public function adoptElePHPant(Breed $breed): void
     {
-        $this->recordThat(ElePHPantWasEmbracedByHerd::tookPlace(
+        $this->recordThat(ElePHPantWasAdoptedByHerd::tookPlace(
             $this->herdId,
             ElePHPantId::generate(),
             $breed
@@ -98,9 +98,9 @@ final class Herd extends AggregateRoot
                 /** @var HerdWasFormed $event */
                 $this->applyHerdWasFormed($event->herdId(), $event->shepherdId(), $event->name());
                 break;
-            case ElePHPantWasEmbracedByHerd::class:
-                /** @var ElePHPantWasEmbracedByHerd $event */
-                $this->applyAnElePHPantWasEmbracedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
+            case ElePHPantWasAdoptedByHerd::class:
+                /** @var ElePHPantWasAdoptedByHerd $event */
+                $this->applyAnElePHPantWasAdoptedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
                 break;
             case ElePHPantWasAbandonedByHerd::class:
                 /** @var ElePHPantWasAbandonedByHerd $event */
@@ -118,7 +118,7 @@ final class Herd extends AggregateRoot
         $this->name = $name;
     }
 
-    private function applyAnElePHPantWasEmbracedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
+    private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
         $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }

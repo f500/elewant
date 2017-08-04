@@ -9,7 +9,7 @@ use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\HerdId;
 use Prooph\EventSourcing\AggregateChanged;
 
-class ElePHPantWasEmbracedByHerd extends AggregateChanged
+class ElePHPantWasAdoptedByHerd extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed) : self
     {

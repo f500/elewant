@@ -33,48 +33,48 @@ class HerdSpec extends ObjectBehavior
         $this->name()->shouldEqual($this->herdName);
     }
 
-    function it_embraces_one_new_elephpant()
+    function it_adopts_one_new_elephpant()
     {
-        $this->embraceElePHPant(Breed::fromString('blue'));
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldHaveCount(1);
-        $this->elePHPants()->shouldContainAnElePHPant(Breed::fromString('blue'));
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
     }
 
-    function it_embraces_two_new_elephpants()
+    function it_adopts_two_new_elephpants()
     {
-        $this->embraceElePHPant(Breed::fromString('blue'));
-        $this->embraceElePHPant(Breed::fromString('green'));
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->adoptElePHPant(Breed::greenZf2Regular());
         $this->elePHPants()->shouldHaveCount(2);
-        $this->elePHPants()->shouldContainAnElePHPant(Breed::fromString('blue'));
-        $this->elePHPants()->shouldContainAnElePHPant(Breed::fromString('green'));
-        $this->elePHPants()->shouldNotContainAnElePHPant(Breed::fromString('red'));
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
+        $this->elePHPants()->shouldNotContainAnElePHPant(Breed::redLaravelRegular());
     }
 
     function it_abandons_one_elephpant()
     {
-        $this->embraceElePHPant(Breed::fromString('blue'));
-        $this->embraceElePHPant(Breed::fromString('green'));
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->adoptElePHPant(Breed::greenZf2Regular());
         $this->elePHPants()->shouldHaveCount(2);
 
-        $this->abandonElePHPant(Breed::fromString('blue'));
+        $this->abandonElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldHaveCount(1);
-        $this->elePHPants()->shouldNotContainAnElePHPant(Breed::fromString('blue'));
-        $this->elePHPants()->shouldContainAnElePHPant(Breed::fromString('green'));
+        $this->elePHPants()->shouldNotContainAnElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
     }
 
     function it_throws_an_exception_when_abandoning_without_any_elephpants()
     {
         $this->shouldThrow(SorryIDoNotHaveThat::class)
-            ->duringAbandonElePHPant(Breed::fromString('green'));
+            ->duringAbandonElePHPant(Breed::greenZf2Regular());
     }
 
     function it_throws_an_exception_when_abandoning_a_not_owned_elephpant()
     {
-        $this->embraceElePHPant(Breed::fromString('blue'));
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldHaveCount(1);
 
         $this->shouldThrow(SorryIDoNotHaveThat::class)
-            ->duringAbandonElePHPant(Breed::fromString('green'));
+            ->duringAbandonElePHPant(Breed::greenZf2Regular());
     }
 
     public function getMatchers()
