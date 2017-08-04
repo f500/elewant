@@ -32,7 +32,8 @@
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "phpspec/phpspec": "^3.4"
+        "phpspec/phpspec": "^3.4",
+        "webmozart/assert": "^1.2"
     },
     "scripts": {
         "symfony-scripts": [
