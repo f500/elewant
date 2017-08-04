@@ -2,7 +2,7 @@
 
 namespace spec\Elewant\Herding\Model\Command;
 
-use Elewant\Herding\Model\Command\FormHerd;
+use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\ShepherdId;
 use PhpSpec\ObjectBehavior;
 

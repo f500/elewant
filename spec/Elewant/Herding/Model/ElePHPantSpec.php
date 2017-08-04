@@ -16,7 +16,7 @@ class ElePHPantSpec extends ObjectBehavior
         $this->beConstructedThrough('appear', [$elePHPantId, Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR)]);
         $this->shouldHaveType(ElePHPant::class);
         $this->elePHPantId()->shouldEqual($elePHPantId);
-        $this->type()->shouldEqual(Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR));
+        $this->breed()->shouldEqual(Breed::fromString(Breed::BLUE_ORIGINAL_REGULAR));
     }
 
 }

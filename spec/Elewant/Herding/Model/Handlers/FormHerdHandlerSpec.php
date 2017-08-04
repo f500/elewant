@@ -2,10 +2,11 @@
 
 namespace spec\Elewant\Herding\Model\Handlers;
 
-use Elewant\Herding\Model\Command\FormHerd;
+use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\Handlers\FormHerdHandler;
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\HerdCollection;
+use Elewant\Herding\Model\ShepherdId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -31,6 +32,10 @@ class FormHerdHandlerSpec extends ObjectBehavior
 
         $this->__invoke($command);
 
-        $this->herdCollection->save(Argument::type(Herd::class))->shouldHaveBeenCalled();
+        $this->herdCollection->save(Argument::that(function ($herd) {
+            return
+                $herd->shepherdId()->equals(ShepherdId::fromString('00000000-0000-0000-0000-000000000000')) &&
+                $herd->name() == 'Herd is the word';
+        }))->shouldHaveBeenCalled();
     }
 }

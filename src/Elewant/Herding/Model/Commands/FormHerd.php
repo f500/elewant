@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Command;
+namespace Elewant\Herding\Model\Commands;
 
 use Elewant\Herding\Model\ShepherdId;
 use Prooph\Common\Messaging\Command;

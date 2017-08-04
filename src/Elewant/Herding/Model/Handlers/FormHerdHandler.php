@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model\Handlers;
 
-use Elewant\Herding\Model\Command\FormHerd;
+use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\HerdCollection;
 

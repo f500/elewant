@@ -72,7 +72,7 @@ final class Herd extends AggregateRoot
     public function abandonElePHPant(Breed $breed)
     {
         foreach ($this->elePHPants as $elePHPant) {
-            if ($elePHPant->type()->equals($breed)) {
+            if ($elePHPant->breed()->equals($breed)) {
                 $this->recordThat(ElePHPantWasAbandonedByHerd::tookPlace(
                     $this->herdId,
                     $elePHPant->elePHPantId(),
