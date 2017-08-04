@@ -1,0 +1,27 @@
+prooph_service_bus:
+  command_buses:
+    herd_command_bus:
+      plugins:
+        - 'prooph_event_store_bus_bridge.transaction_manager'
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          'Elewant\Herding\Model\Commands\FormHerd': 'elewant.form_herd_handler'
+          'Elewant\Herding\Model\Commands\AdoptElePHPant': 'elewant.adopt_elephpant_handler'
+          'Elewant\Herding\Model\Commands\AbandonElePHPant': 'elewant.abandon_elephpant_handler'
+
+#  event_buses:
+#    herd_event_bus:
+#      plugins:
+#        - 'prooph_service_bus.on_event_invoke_strategy'
+#      router:
+#        type: 'prooph_service_bus.event_bus_router'
+#        routes:
+#          'Elewant\Herding\Model\Events\HerdWasFormed':
+#            - 'elewant.herd_projection.herd_projector'
+#
+#          'Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd':
+#            - 'elewant.herd_projection.herd_projector'
+#
+#          'Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd':
+#            - 'elewant.herd_projection.herd_projector'

@@ -1,4 +1,15 @@
 services:
-#    elewant_frontend.example:
-#        class: Elewant\FrontendBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+
+#  elewant.api_command_controller:
+#    class: Elewant\FrontendBundle\Controller\ApiCommandController
+#    arguments: ['@elewant_service_bus.elewant_command_bus', '@elewant_service_bus.message_factory']
+
+  elewant.form_herd_handler:
+    class: Elewant\Herding\Model\Handlers\FormHerdHandler
+    arguments: ['@herd_collection']
+  elewant.adopt_elephpant_handler:
+    class: Elewant\Herding\Model\Handlers\AdoptElePHPantHandler
+    arguments: ['@herd_collection']
+  elewant.abandon_elephpant_handler:
+    class: Elewant\Herding\Model\Handlers\AbandonElePHPantHandler
+    arguments: ['@herd_collection']
