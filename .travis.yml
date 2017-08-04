@@ -1,0 +1,30 @@
+language: php
+php:
+  - '7.1'
+
+branches:
+  - only:
+    - master
+    - develop
+
+addons:
+  hosts:
+    - elewant.loc
+
+cache:
+  directories:
+    - vendor
+
+install:
+  - composer install
+
+before_script:
+  - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - phpenv config-rm xdebug.ini
+
+script:
+  - vendor/bin/phpspec run --no-interaction
+
+notifications:
+  email:
+    on_success: change
