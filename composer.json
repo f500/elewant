@@ -14,7 +14,7 @@
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
@@ -25,9 +25,11 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
-        "prooph/event-store": "^7.2",
-        "prooph/pdo-event-store": "^1.4",
-        "prooph/event-sourcing": "^5.2"
+        "prooph/service-bus-symfony-bundle": "v0.2.x",
+        "prooph/event-store-symfony-bundle": "v0.2.x",
+        "prooph/event-sourcing": "^4.0",
+        "prooph/event-store-doctrine-adapter": "^3.2",
+        "prooph/event-store-bus-bridge": "^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
