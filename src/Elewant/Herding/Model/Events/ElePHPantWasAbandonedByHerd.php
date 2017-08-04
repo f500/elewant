@@ -15,7 +15,7 @@ class ElePHPantWasAbandonedByHerd extends AggregateChanged
     {
         return self::occur($herdId->toString(), [
             'elePHPantId' => $elePHPantId->toString(),
-            'breed' => $breed
+            'breed' => $breed->toString()
         ]);
     }
 
@@ -31,7 +31,7 @@ class ElePHPantWasAbandonedByHerd extends AggregateChanged
 
     public function breed(): Breed
     {
-        return $this->payload['breed'];
+        return Breed::fromString($this->payload['breed']);
     }
 
 }

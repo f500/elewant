@@ -4,7 +4,6 @@ namespace spec\Elewant\Herding\Model\Handlers;
 
 use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\Handlers\FormHerdHandler;
-use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\HerdCollection;
 use Elewant\Herding\Model\ShepherdId;
 use PhpSpec\ObjectBehavior;
@@ -12,7 +11,9 @@ use Prophecy\Argument;
 
 class FormHerdHandlerSpec extends ObjectBehavior
 {
-    /** @var HerdCollection */
+    /**
+     * @var HerdCollection
+     */
     private $herdCollection;
 
     function let(HerdCollection $herdCollection)

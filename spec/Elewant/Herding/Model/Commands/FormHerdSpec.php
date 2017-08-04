@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Elewant\Herding\Model\Command;
+namespace spec\Elewant\Herding\Model\Commands;
 
 use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Model\ShepherdId;

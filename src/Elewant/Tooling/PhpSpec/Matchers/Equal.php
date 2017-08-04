@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\Tooling\PhpSpec\Matchers;
 
 use PhpSpec\Exception\Example\FailureException;
