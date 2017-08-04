@@ -41,6 +41,9 @@ php7_ini_directives_global:
   xdebug.idekey: PHPSTORM
   xdebug.remote_enable: on
   xdebug.remote_connect_back: on
+  xdebug.remote_host: 192.168.77.1
+  xdebug.remote_autostart: on
+
 
 php7_ini_directives_fpm:
   session.cookie_secure: off

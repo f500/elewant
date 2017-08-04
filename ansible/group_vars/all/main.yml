@@ -68,7 +68,7 @@ php7_version: 7.1
 php7_enable_fpm: yes
 
 php7_extensions: [ apcu ]
-php7_versioned_extensions: [ curl, intl, mysql, zip, xml ]
+php7_versioned_extensions: [ curl, intl, mbstring, mysql, zip, xml ]
 
 php7_ini_directives_global:
   opcache.revalidate_freq: off
