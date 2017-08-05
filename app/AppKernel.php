@@ -21,10 +21,10 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
-            new Elewant\FrontendBundle\ElewantFrontendBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \Prooph\Bundle\EventStore\ProophEventStoreBundle(),
             new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
+
+            new Elewant\FrontendBundle\ElewantFrontendBundle(),
         ];
 
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
