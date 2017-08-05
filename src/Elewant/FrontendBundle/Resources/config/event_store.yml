@@ -21,8 +21,8 @@ services:
     tags:
       - { name: 'prooph_event_store.herd_store.plugin' }
 
-#  prooph_event_store_bus_bridge.herd_event_publisher:
-#    class: Prooph\EventStoreBusBridge\EventPublisher
-#    arguments: ['@prooph_service_bus.herd_event_bus']
-#    tags:
-#      - { name: 'prooph_event_store.herd_store.plugin' }
+  prooph_event_store_bus_bridge.herd_event_publisher:
+    class: Prooph\EventStoreBusBridge\EventPublisher
+    arguments: ['@prooph_service_bus.herd_event_bus']
+    tags:
+      - { name: 'prooph_event_store.herd_store.plugin' }
