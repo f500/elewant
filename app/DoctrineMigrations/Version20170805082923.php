@@ -27,6 +27,7 @@ class Version20170805082923 extends AbstractMigration
 
         $elephpant->addColumn('elephpant_id', 'string', ['length' => 36]);
         $elephpant->addColumn('herd_id', 'string', ['length' => 36]);
+        $elephpant->addColumn('breed', 'string', ['length' => 64]);
         $elephpant->addColumn('adopted_on', 'datetime');
         $elephpant->setPrimaryKey(['elephpant_id']);
         $elephpant->addIndex(['herd_id']);

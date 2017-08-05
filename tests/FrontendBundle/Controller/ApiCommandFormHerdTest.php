@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Tests\Elewant\FrontendBundle\Controller;
 
 use Elewant\Herding\Model\Events\HerdWasFormed;
-use Rhumsaa\Uuid\Uuid;
+use Elewant\Herding\Model\ShepherdId;
 
 class ApiCommandFormHerdTest extends ApiCommandBase
 {
     public function setUp()
     {
         parent::setUp();
-        $shepherdId   = Uuid::uuid4();
+        $shepherdId   = ShepherdId::generate();
         $this->client = $this->formHerd($shepherdId, 'MyHerdName');
     }
 
@@ -24,6 +24,9 @@ class ApiCommandFormHerdTest extends ApiCommandBase
     public function test_command_post_todo_emits_HerdWasFormed_event()
     {
         $this->assertCount(1, $this->recordedEvents);
-        $this->assertInstanceOf(HerdWasFormed::class, $this->recordedEvents[0]);
+
+        $eventUnderTest = $this->recordedEvents[0];
+        $this->assertInstanceOf(HerdWasFormed::class, $eventUnderTest);
+        $this->assertSame('MyHerdName', $eventUnderTest->name());
     }
 }
