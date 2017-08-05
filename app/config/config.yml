@@ -3,6 +3,10 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@ElewantFrontendBundle/Resources/config/services.yml" }
+    - { resource: "@ElewantFrontendBundle/Resources/config/services.yml" }
+    - { resource: "@ElewantFrontendBundle/Resources/config/event_store.yml" }
+    - { resource: "@ElewantFrontendBundle/Resources/config/service_bus.yml" }
+    - { resource: "@ElewantFrontendBundle/Resources/config/projection.yml" }
 
 parameters:
     locale: en

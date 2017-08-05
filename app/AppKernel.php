@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Elewant\FrontendBundle\ElewantFrontendBundle(),
+            new \Prooph\Bundle\EventStore\ProophEventStoreBundle(),
+            new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {

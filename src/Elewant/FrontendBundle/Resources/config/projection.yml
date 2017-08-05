@@ -1,0 +1,4 @@
+#services:
+#  proophdo.herd_projection.herd_projector:
+#    class: Elewant\Herding\Projection\HerdProjector
+#    arguments: ['@doctrine.dbal.default_connection', '@proophdo.todo_projection.user_finder']
