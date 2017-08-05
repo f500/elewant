@@ -4,11 +4,14 @@ parameters:
     database_name:     "elewant"
     database_user:     "elewant"
     database_password: "elewant"
+    database_unix_socket: /var/run/mysqld/mysqld.sock
+    database_password: ~
 
     mailer_transport:  "smtp"
     mailer_host:       "127.0.0.1"
     mailer_user:       ~
     mailer_password:   ~
+    mailer_delivery_address: ~
 
     secret:            "ThisTokenIsNotSoSecretChangeIt"
 
