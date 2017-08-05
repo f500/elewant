@@ -1,6 +1,6 @@
 prooph_service_bus:
   command_buses:
-    herd_command_bus:
+    herding_command_bus:
       plugins:
         - 'prooph_event_store_bus_bridge.transaction_manager'
       router:

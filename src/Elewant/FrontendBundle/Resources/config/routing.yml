@@ -1,0 +1,11 @@
+'command::form-herd':
+    path: '/api/commands/form-herd'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\FormHerd' }
+
+'command::adopt-elephpant':
+    path: '/api/commands/adopt-elephpant'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AdoptElePHPant' }
+
+'command::abandon-elephpant':
+    path: '/api/commands/abandon-elephpant'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonElePHPant' }

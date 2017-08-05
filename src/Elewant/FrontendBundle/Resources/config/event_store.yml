@@ -4,7 +4,7 @@ prooph_event_store:
       adapter: 'prooph_event_store.doctrine_adapter.herd_store'
       repositories:
         herd_collection:
-          repository_class: 'Elewant\Herding\Infrastructure\Repository\EventStoreHerdCollection'
+          repository_class: 'Elewant\Herding\Infrastructure\EventStoreHerdCollection'
           aggregate_type: 'Elewant\Herding\Model\Herd'
           aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
 

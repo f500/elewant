@@ -12,3 +12,7 @@ _errors:
 
 _main:
     resource: routing.yml
+
+elewant_api_test:
+    resource: "@ElewantFrontendBundle/Resources/config/routing.yml"
+    prefix:   /
