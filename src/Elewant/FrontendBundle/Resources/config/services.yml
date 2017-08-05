@@ -24,16 +24,18 @@ services:
         factory: [ "@doctrine.orm.entity_manager", getRepository ]
         arguments: [ Elewant\FrontendBundle\Entity\User ]
 
-#  elewant.api_command_controller:
-#    class: Elewant\FrontendBundle\Controller\ApiCommandController
-#    arguments: ['@elewant_service_bus.elewant_command_bus', '@elewant_service_bus.message_factory']
+    elewant.api_command_controller:
+        class: Elewant\FrontendBundle\Controller\ApiCommandController
+        arguments: ['@prooph_service_bus.herding_command_bus', '@prooph_service_bus.message_factory']
 
     elewant.form_herd_handler:
         class: Elewant\Herding\Model\Handlers\FormHerdHandler
         arguments: ['@herd_collection']
+
     elewant.adopt_elephpant_handler:
         class: Elewant\Herding\Model\Handlers\AdoptElePHPantHandler
         arguments: ['@herd_collection']
+
     elewant.abandon_elephpant_handler:
         class: Elewant\Herding\Model\Handlers\AbandonElePHPantHandler
         arguments: ['@herd_collection']

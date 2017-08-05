@@ -30,6 +30,7 @@ final class HerdProjector
                 'herd_id'     => $event->herdId()->toString(),
                 'shepherd_id' => $event->shepherdId()->toString(),
                 'name'        => $event->name(),
+                'formed_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
             ]
         );
     }
@@ -42,6 +43,7 @@ final class HerdProjector
                 'elephpant_id' => $event->elePHPantId()->toString(),
                 'herd_id'      => $event->herdId()->toString(),
                 'breed'        => $event->breed()->toString(),
+                'adopted_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
             ]
         );
     }

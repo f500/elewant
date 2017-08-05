@@ -1,0 +1,3 @@
+'command::form-herd':
+    path: '/api/commands/form-herd'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\FormHerd' }
