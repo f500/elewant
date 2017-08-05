@@ -75,5 +75,5 @@ elewant_db_user: elewant_develop
 elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
 elewant_delivery_address: staging@future500.nl
 elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
-elewant_twitter_client: ~
-elewant_twitter_secret: ~
+elewant_twitter_client: 'needs_client_id'
+elewant_twitter_secret: 'needs_client_secret'
