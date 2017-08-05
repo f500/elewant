@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Rhumsaa\Uuid\Uuid;
 
 final class HerdId
 {
@@ -14,7 +13,7 @@ final class HerdId
      */
     private $uuid;
 
-    private function __construct(UuidInterface $uuid)
+    private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
