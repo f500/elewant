@@ -27,6 +27,7 @@ mysql_slow_query_log_enabled: true
 # PHP
 
 php7_extensions: [ apcu, xdebug ]
+php7_versioned_extensions: [ curl, intl, mbstring, mysql, sqlite3, zip, xml ]
 
 php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
