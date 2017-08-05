@@ -1,24 +1,29 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        db_provider:
+            id: elewant.user.user_provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        secured_area:
             anonymous: ~
-            # activate different ways to authenticate
+            oauth:
+                oauth_user_provider:
+                    service: elewant.user.user_provider
+                resource_owners:
+                    twitter:  "/login/check-twitter"
+#                    facebook: "/login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+            logout:
+                path:   /logout
+                target: /
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
