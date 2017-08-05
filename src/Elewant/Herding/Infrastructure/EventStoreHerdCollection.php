@@ -1,13 +1,13 @@
 <?php
 
-namespace Elewant\Infrastructure;
+namespace Elewant\Herding\Infrastructure;
 
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\HerdCollection;
-use Prooph\EventSourcing\Aggregate\AggregateRepository;
-use Prooph\EventSourcing\Aggregate\AggregateType;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
+use Prooph\EventStore\Aggregate\AggregateRepository;
+use Prooph\EventStore\Aggregate\AggregateType;
 use Prooph\EventStore\EventStore;
 
 final class EventStoreHerdCollection extends AggregateRepository implements HerdCollection
@@ -27,7 +27,7 @@ final class EventStoreHerdCollection extends AggregateRepository implements Herd
 
     public function save(Herd $herd): void
     {
-        $this->saveAggregateRoot($herd);
+        $this->addAggregateRoot($herd);
     }
 
     /**
