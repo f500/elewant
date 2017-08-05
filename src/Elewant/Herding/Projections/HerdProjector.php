@@ -1,13 +1,13 @@
 <?php
 
-namespace Prooph\ProophessorDo\Projection\User;
+namespace Elewant\Herding\Projections;
 
 use Doctrine\DBAL\Connection;
 use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasFormed;
 
-final class UserProjector
+final class HerdProjector
 {
     const TABLE_HERD      = 'herd';
     const TABLE_ELEPHPANT = 'elephpant';
@@ -27,9 +27,9 @@ final class UserProjector
         $this->connection->insert(
             self::TABLE_HERD,
             [
-                'herd_id' => $event->herdId()->toString(),
+                'herd_id'     => $event->herdId()->toString(),
                 'shepherd_id' => $event->shepherdId()->toString(),
-                'name' => $event->name(),
+                'name'        => $event->name(),
             ]
         );
     }
@@ -40,8 +40,8 @@ final class UserProjector
             self::TABLE_ELEPHPANT,
             [
                 'elephpant_id' => $event->elePHPantId()->toString(),
-                'herd_id' => $event->herdId()->toString(),
-                'breed' => $event->breed()->toString(),
+                'herd_id'      => $event->herdId()->toString(),
+                'breed'        => $event->breed()->toString(),
             ]
         );
     }
