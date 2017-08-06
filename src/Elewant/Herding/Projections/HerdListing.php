@@ -18,12 +18,12 @@ final class HerdListing
         $this->connection = $connection;
     }
 
-    public function findAll(): array
+    public function findAll() : array
     {
         return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdProjector::TABLE_HERD));
     }
 
-    public function findById($herdId): array
+    public function findById($herdId)
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -43,6 +43,17 @@ final class HerdListing
             ->setParameter('herdId', $herdId);
 
         return $qb->execute()->fetchAll();
+    }
+
+    public function findElePHPantByElePHPantId($elePHPantId)
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb->select('*')
+            ->from(HerdProjector::TABLE_ELEPHPANT)
+            ->where('elephpant_id = :elephpantId')
+            ->setParameter('elephpantId', $elePHPantId);
+
+        return $qb->execute()->fetch();
     }
 
 }
