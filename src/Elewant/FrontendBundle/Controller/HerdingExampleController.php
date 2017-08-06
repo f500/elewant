@@ -25,8 +25,12 @@ class HerdingExampleController extends Controller
     /**
      * @Route("/", name="herd_list")
      */
-    public function testingListAction()
+    public function listHerdsAction()
     {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
         /** @var HerdListing $herdListing */
         $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
 
@@ -38,8 +42,12 @@ class HerdingExampleController extends Controller
     /**
      * @Route("/form", name="herd_form")
      */
-    public function testingFormAdoptAction()
+    public function formHerdAction()
     {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
         /** @var CommandBus $commandBus */
         $commandBus = $this->get('prooph_service_bus.herding_command_bus');
         shuffle($this->herdNameSeed);
@@ -54,8 +62,12 @@ class HerdingExampleController extends Controller
     /**
      * @Route("/{herdId}", name="herd_show")
      */
-    public function testingHerdAction($herdId)
+    public function showHerdAction($herdId)
     {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
         /** @var HerdListing $herdListing */
         $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
 
@@ -73,8 +85,12 @@ class HerdingExampleController extends Controller
     /**
      * @Route("/{herdId}/adopt/{breed}", name="herd_adopt")
      */
-    public function testingHerdAdoptAction($herdId, $breed)
+    public function adoptElePHPantAction($herdId, $breed)
     {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
         /** @var CommandBus $commandBus */
         $commandBus = $this->get('prooph_service_bus.herding_command_bus');
         $command    = AdoptElePHPant::byHerd($herdId, $breed);
@@ -87,8 +103,12 @@ class HerdingExampleController extends Controller
     /**
      * @Route("/{herdId}/abandon/{breed}", name="herd_abandon")
      */
-    public function testingHerdAbandonAction($herdId, $breed)
+    public function abandonElePHPantAction($herdId, $breed)
     {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
         /** @var CommandBus $commandBus */
         $commandBus = $this->get('prooph_service_bus.herding_command_bus');
         $command    = AbandonElePHPant::byHerd($herdId, $breed);
@@ -98,5 +118,7 @@ class HerdingExampleController extends Controller
         return $this->redirectToRoute('herd_show', ['herdId' => $herdId]);
     }
 
-
+    private function accessNotAllowed() {
+        return !$this->get('kernel')->isDebug();
+    }
 }
