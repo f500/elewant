@@ -69,6 +69,11 @@
       args:
         chdir: "{{ elewant_application_root }}"
 
+    - name: Run migrations
+      command: bin/console doctrine:migrations:migrate --no-interaction
+      args:
+        chdir: "{{ elewant_application_root }}"
+
     - name: Install npm packages
       npm:
         path: "{{ elewant_application_root }}"
