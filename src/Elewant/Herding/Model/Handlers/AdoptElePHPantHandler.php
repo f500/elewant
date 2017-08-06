@@ -24,7 +24,7 @@ final class AdoptElePHPantHandler
     {
         $herd = $this->herdCollection->get($command->herdId());
         if (!$herd) {
-            SorryIDoNotHaveThat::herd($command->herdId());
+            throw SorryIDoNotHaveThat::herd($command->herdId());
         }
 
         $herd->adoptElePHPant($command->breed());

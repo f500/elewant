@@ -1,4 +1,8 @@
 services:
+  elewant.herd_projection.herd_listing:
+    class: Elewant\Herding\Projections\HerdListing
+    arguments: ['@doctrine.dbal.default_connection']
+
   elewant.herd_projection.herd_projector:
     class: Elewant\Herding\Projections\HerdProjector
     arguments: ['@doctrine.dbal.default_connection']

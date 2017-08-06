@@ -1,0 +1,11 @@
+{% extends 'ElewantFrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_form') }}">Form a new herd</a></p>
+
+    {% for herd in herds %}
+        <a href="{{ path('herd_show', {'herdId': herd.herd_id}) }}">
+            {{ herd.name }} ({{ herd.herd_id }})
+        </a><br />
+    {% endfor %}
+{% endblock %}

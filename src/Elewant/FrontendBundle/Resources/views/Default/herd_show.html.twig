@@ -1,0 +1,20 @@
+{% extends 'ElewantFrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+    <ul>
+        <li>Name: {{ herd.name }}</li>
+        <li>HerdId: {{ herd.herd_id }}</li>
+        <li>ShepherdId: {{ herd.shepherd_id }}</li>
+        <li>Formed on: {{ herd.formed_on }}</li>
+    </ul>
+
+    <a href="{{ path('herd_adopt', {'herdId': herd.herd_id, 'breed': 'BLUE_ORIGINAL_REGULAR'}) }}">Adopt an original blue elephpant</a><br />
+    <a href="{{ path('herd_adopt', {'herdId': herd.herd_id, 'breed': 'BLACK_AMSTERDAMPHP_REGULAR'}) }}">Adopt an amsterdamPHP elephpant</a><br />
+    <a href="{{ path('herd_adopt', {'herdId': herd.herd_id, 'breed': 'WHITE_CONFOO_LARGE'}) }}">Adopt a ConFoo elephpant</a><br />
+
+    {% for elephpant in elephpants %}
+        {{ elephpant.breed }}<a href="{{ path('herd_abandon', {'herdId': herd.herd_id, 'breed': elephpant.breed}) }}">(abandon)</a></br >
+    {% endfor %}
+{% endblock %}

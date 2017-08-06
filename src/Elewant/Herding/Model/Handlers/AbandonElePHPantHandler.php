@@ -24,7 +24,7 @@ final class AbandonElePHPantHandler
     {
         $herd = $this->herdCollection->get($command->herdId());
         if (!$herd) {
-            SorryIDoNotHaveThat::herd($command->herdId());
+            throw SorryIDoNotHaveThat::herd($command->herdId());
         }
 
         $herd->abandonElePHPant($command->breed());
