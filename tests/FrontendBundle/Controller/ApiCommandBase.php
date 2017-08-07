@@ -57,6 +57,16 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/api/commands/abandon-elephpant', $payload);
     }
 
+    protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId)
+    {
+        $payload = [
+            'herdId'     => $herdId->toString(),
+            'shepherdId' => $shepherdId->toString(),
+        ];
+
+        return $this->request('POST', '/api/commands/abandon-herd', $payload);
+    }
+
     private function request(string $type, string $url, array $payload)
     {
         $client = $this->client();

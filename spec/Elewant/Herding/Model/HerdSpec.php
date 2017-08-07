@@ -5,6 +5,7 @@ namespace spec\Elewant\Herding\Model;
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\Model\SorryICanNotChangeHerd;
 use Elewant\Herding\Model\SorryIDoNotHaveThat;
 use PhpSpec\ObjectBehavior;
 
@@ -75,6 +76,32 @@ class HerdSpec extends ObjectBehavior
 
         $this->shouldThrow(SorryIDoNotHaveThat::class)
             ->duringAbandonElePHPant(Breed::greenZf2Regular());
+    }
+
+    function it_can_be_abandoned()
+    {
+        $this->shouldHaveType(Herd::class);
+        $this->isAbandoned()->shouldReturn(false);
+        $this->abandon();
+        $this->isAbandoned()->shouldReturn(true);
+    }
+
+    function it_cannot_be_abandoned_twice()
+    {
+        $this->shouldHaveType(Herd::class);
+        $this->abandon();
+
+        $this->isAbandoned()->shouldReturn(true);
+        $this->shouldThrow(SorryICanNotChangeHerd::class)->during('abandon');
+    }
+
+    function it_cannot_be_changed_once_it_is_abandoned()
+    {
+        $this->shouldHaveType(Herd::class);
+        $this->abandon();
+
+        $this->isAbandoned()->shouldReturn(true);
+        $this->shouldThrow(SorryICanNotChangeHerd::class)->during('adoptElePHPant', [Breed::blueOriginalRegular()]);
     }
 
     public function getMatchers()
