@@ -9,3 +9,7 @@
 'command::abandon-elephpant':
     path: '/api/commands/abandon-elephpant'
     defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonElePHPant' }
+
+'command::abandon-herd':
+    path: '/api/commands/abandon-herd'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonHerd' }

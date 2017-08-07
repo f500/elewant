@@ -46,16 +46,9 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         /** @var ElePHPantWasAbandonedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
 
-        $projectedElePHPants          = $this->retrieveHerdElePHPantsFromListing($eventUnderTest->herdId()->toString());
+        $shouldBeEmpty = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
 
-        $elePHPantIsStillProjected = false;
-        foreach ($projectedElePHPants as $elePHPant) {
-            if ($elePHPant['elephpant_id'] === $eventUnderTest->elePHPantId()->toString()) {
-                $elePHPantIsStillProjected = true;
-                break;
-            }
-        }
-        $this->assertFalse($elePHPantIsStillProjected,
+        $this->assertEmpty($shouldBeEmpty,
             sprintf('An ElePHPant (%s) is still projected after being abandonded.', $eventUnderTest->elePHPantId()->toString())
         );
     }

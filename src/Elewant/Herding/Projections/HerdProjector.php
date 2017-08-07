@@ -7,6 +7,7 @@ namespace Elewant\Herding\Projections;
 use Doctrine\DBAL\Connection;
 use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
+use Elewant\Herding\Model\Events\HerdWasAbandoned;
 use Elewant\Herding\Model\Events\HerdWasFormed;
 
 final class HerdProjector
@@ -59,6 +60,24 @@ final class HerdProjector
             ]
         );
     }
+
+    public function onHerdWasAbandoned(HerdWasAbandoned $event)
+    {
+        $this->connection->delete(
+            self::TABLE_ELEPHPANT,
+            [
+                'herd_id' => $event->herdId()->toString(),
+            ]
+        );
+
+        $this->connection->delete(
+            self::TABLE_HERD,
+            [
+                'herd_id' => $event->herdId()->toString(),
+            ]
+        );
+    }
+
 
     public function clearAllTables()
     {
