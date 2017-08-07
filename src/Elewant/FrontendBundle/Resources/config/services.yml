@@ -39,3 +39,7 @@ services:
     elewant.abandon_elephpant_handler:
         class: Elewant\Herding\Model\Handlers\AbandonElePHPantHandler
         arguments: ['@herd_collection']
+
+    elewant.abandon_herd_handler:
+        class: Elewant\Herding\Model\Handlers\AbandonHerdHandler
+        arguments: ['@herd_collection']

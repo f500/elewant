@@ -6,10 +6,14 @@ namespace Tests\Elewant\FrontendBundle\Controller;
 
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
+use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 
 class ApiCommandAbandonHerdTest extends ApiCommandBase
 {
+    /** @var  HerdId */
+    private $herdId;
+
     public function setUp()
     {
         parent::setUp();
@@ -19,21 +23,32 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
 
         $this->adoptElePHPant($this->herdId, Breed::blackAmsterdamphpRegular());
 
-        $this->client = $this->abandonHerd($this->herdid, $shepherdId);
+        $this->client = $this->abandonHerd($this->herdId, $shepherdId);
     }
 
-    public function test_command_post_todo_returns_http_status_202()
+    public function test_command_abandon_herd_returns_http_status_202()
     {
         $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_post_todo_emits_HerdWasAbandoned_event()
+    public function test_command_abandon_herd_emits_HerdWasAbandoned_event()
     {
-        $this->assertCount(1, $this->recordedEvents);
+        $this->assertCount(3, $this->recordedEvents);
 
-        $eventUnderTest = $this->recordedEvents[0];
+        $eventUnderTest = $this->recordedEvents[2];
         $this->assertInstanceOf(HerdWasAbandoned::class, $eventUnderTest);
         $this->assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
+
+    public function test_command_abandon_herd_created_a_correct_herd_projection()
+    {
+        /** @var HerdWasAbandoned $eventUnderTest */
+        $eventUnderTest = $this->recordedEvents[2];
+
+        $shouldBeEmpty = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
+
+        $this->assertEmpty($shouldBeEmpty);
+    }
+
 
 }

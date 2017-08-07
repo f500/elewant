@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Elewant\FrontendBundle\Controller;
 
 use Elewant\Herding\Model\Commands\AbandonElePHPant;
+use Elewant\Herding\Model\Commands\AbandonHerd;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
 use Elewant\Herding\Model\Commands\FormHerd;
 use Elewant\Herding\Projections\HerdListing;
@@ -36,7 +37,7 @@ class HerdingExampleController extends Controller
 
         $herds = $herdListing->findAll();
 
-        return $this->render('ElewantFrontendBundle:Default:herd_list.html.twig', ['herds' => $herds]);
+        return $this->render('ElewantFrontendBundle:Example:herd_list.html.twig', ['herds' => $herds]);
     }
 
     /**
@@ -79,11 +80,11 @@ class HerdingExampleController extends Controller
             'elephpants' => $elephpants,
         ];
 
-        return $this->render('ElewantFrontendBundle:Default:herd_show.html.twig', $data);
+        return $this->render('ElewantFrontendBundle:Example:herd_show.html.twig', $data);
     }
 
     /**
-     * @Route("/{herdId}/adopt/{breed}", name="herd_adopt")
+     * @Route("/{herdId}/adopt/{breed}", name="herd_adopt_elephpant")
      */
     public function adoptElePHPantAction($herdId, $breed)
     {
@@ -101,7 +102,7 @@ class HerdingExampleController extends Controller
     }
 
     /**
-     * @Route("/{herdId}/abandon/{breed}", name="herd_abandon")
+     * @Route("/{herdId}/abandon/{breed}", name="herd_abandon_elephpant")
      */
     public function abandonElePHPantAction($herdId, $breed)
     {
@@ -117,6 +118,25 @@ class HerdingExampleController extends Controller
 
         return $this->redirectToRoute('herd_show', ['herdId' => $herdId]);
     }
+
+    /**
+     * @Route("/{herdId}/abandon", name="herd_abandon")
+     */
+    public function abandonHerdAction($herdId)
+    {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
+        $command    = AbandonHerd::forShepherd($herdId, $this->shepherdId);
+
+        $commandBus->dispatch($command);
+
+        return $this->redirectToRoute('herd_list');
+    }
+
 
     private function accessNotAllowed() {
         return !$this->get('kernel')->isDebug();
