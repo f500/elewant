@@ -3,13 +3,15 @@
 {% block body %}
     <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
 
+    <p>
     <ul>
         <li>Name: {{ herd.name }}</li>
         <li>HerdId: {{ herd.herd_id }}</li>
         <li>ShepherdId: {{ herd.shepherd_id }}</li>
         <li>Formed on: {{ herd.formed_on }}</li>
     </ul>
-
+    </p>
+    
     <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'BLUE_ORIGINAL_REGULAR'}) }}">Adopt an original blue elephpant</a><br />
     <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'BLACK_AMSTERDAMPHP_REGULAR'}) }}">Adopt an amsterdamPHP elephpant</a><br />
     <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'WHITE_CONFOO_LARGE'}) }}">Adopt a ConFoo elephpant</a><br />

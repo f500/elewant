@@ -56,4 +56,27 @@ final class HerdListing
         return $qb->execute()->fetch();
     }
 
+    public function lastNewHerds(int $limit)
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb->select('*')
+            ->from(HerdProjector::TABLE_HERD)
+            ->orderBy('formed_on', 'DESC')
+            ->setMaxResults($limit);
+
+        return $qb->execute()->fetchAll();
+    }
+
+    public function lastNewElePHPants(int $limit)
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb->select('*')
+            ->from(HerdProjector::TABLE_ELEPHPANT)
+            ->orderBy('adopted_on', 'DESC')
+            ->setMaxResults($limit);
+
+        return $qb->execute()->fetchAll();
+    }
+
+
 }
