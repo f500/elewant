@@ -46,8 +46,14 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
         $eventUnderTest = $this->recordedEvents[2];
 
         $shouldBeEmpty = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
+        $shouldBeEmptyElePHPants = $this->retrieveHerdElePHPantsFromListing($eventUnderTest->herdId()->toString());
 
-        $this->assertEmpty($shouldBeEmpty);
+        $this->assertEmpty($shouldBeEmpty,
+            sprintf('A Herd (%s) is still projected after being abandonded.', $eventUnderTest->herdId()->toString())
+        );
+        $this->assertEmpty($shouldBeEmptyElePHPants,
+            sprintf('ElePHPants for a herd (%s) are still projected after the herd is abandonded.', $eventUnderTest->herdId()->toString())
+        );
     }
 
 
