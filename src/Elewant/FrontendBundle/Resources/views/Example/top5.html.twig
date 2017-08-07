@@ -1,0 +1,15 @@
+{% extends 'ElewantFrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+    <p>Last 5 formed Herds</p>
+    {% for herd in herds %}
+        <a href="{{ path('herd_show', {'herdId': herd.herd_id}) }}">{{ herd.name }} {{ herd.formed_on }}</a><br />
+    {% endfor %}
+
+    <p>Last 5 adopted ElePHPants</p>
+    {% for elephpant in elephpants %}
+        <a href="{{ path('herd_show', {'herdId': elephpant.herd_id}) }}">{{ elephpant.breed }} {{ elephpant.adopted_on }}</a><br />
+    {% endfor %}
+{% endblock %}

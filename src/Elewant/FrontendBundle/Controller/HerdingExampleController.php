@@ -61,6 +61,24 @@ class HerdingExampleController extends Controller
     }
 
     /**
+     * @Route("/top5", name="herd_top_5")
+     */
+    public function top5Action()
+    {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
+        /** @var HerdListing $herdListing */
+        $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
+
+        $herds = $herdListing->lastNewHerds(5);
+        $elePHPants = $herdListing->lastNewElePHPants(5);
+
+        return $this->render('ElewantFrontendBundle:Example:top5.html.twig', ['herds' => $herds, 'elephpants' => $elePHPants]);
+    }
+
+    /**
      * @Route("/{herdId}", name="herd_show")
      */
     public function showHerdAction($herdId)
@@ -136,7 +154,6 @@ class HerdingExampleController extends Controller
 
         return $this->redirectToRoute('herd_list');
     }
-
 
     private function accessNotAllowed() {
         return !$this->get('kernel')->isDebug();
