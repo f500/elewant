@@ -15,7 +15,7 @@ web_profiler:
 doctrine:
     dbal:
         driver:  pdo_sqlite
-        path: "%kernel.cache_dir%/sqlite.db3"
+        path: "%kernel.cache_dir%/sqlite.tests.db3"
         charset: UTF8
 
 swiftmailer:

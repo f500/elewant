@@ -6,6 +6,7 @@ namespace Tests\Elewant\FrontendBundle\Controller;
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\Projections\HerdListing;
 use Prooph\Common\Event\ActionEvent;
 use Prooph\EventStore\EventStore;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -86,4 +87,30 @@ abstract class ApiCommandBase extends WebTestCase
 
         return $client;
     }
+
+    protected function retrieveHerdFromListing($herdId)
+    {
+        /** @var HerdListing $herdListing */
+        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+
+        return $herdListing->findById($herdId);
+    }
+
+    protected function retrieveElePHPantFromListing($elePHPantId)
+    {
+        /** @var HerdListing $herdListing */
+        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+
+        return $herdListing->findElePHPantByElePHPantId($elePHPantId);
+    }
+
+    protected function retrieveHerdElePHPantsFromListing($herdId)
+    {
+        /** @var HerdListing $herdListing */
+        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+
+        return $herdListing->findElePHPantsByHerdId($herdId);
+    }
+
+
 }

@@ -24,12 +24,12 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         $this->client = $this->abandonElePHPant($this->herdId, Breed::blackAmsterdamphpRegular());
     }
 
-    public function test_command_post_todo_returns_http_status_202()
+    public function test_command_abandon_elephpant_returns_http_status_202()
     {
         $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_post_todo_emits_ElePHPantWasAdoptedByHerd_event()
+    public function test_command_abandon_elephpant_emits_ElePHPantWasAdoptedByHerd_event()
     {
         $this->assertCount(3, $this->recordedEvents);
 
@@ -40,4 +40,24 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         $this->assertTrue($this->adoptedElePHPantId->equals($eventUnderTest->elePHPantId()));
         $this->assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
+
+    public function test_command_abandon_elephpant_created_a_correct_herd_projection()
+    {
+        /** @var ElePHPantWasAbandonedByHerd $eventUnderTest */
+        $eventUnderTest = $this->recordedEvents[2];
+
+        $projectedElePHPants          = $this->retrieveHerdElePHPantsFromListing($eventUnderTest->herdId()->toString());
+
+        $elePHPantIsStillProjected = false;
+        foreach ($projectedElePHPants as $elePHPant) {
+            if ($elePHPant['elephpant_id'] === $eventUnderTest->elePHPantId()->toString()) {
+                $elePHPantIsStillProjected = true;
+                break;
+            }
+        }
+        $this->assertFalse($elePHPantIsStillProjected,
+            sprintf('An ElePHPant (%s) is still projected after being abandonded.', $eventUnderTest->elePHPantId()->toString())
+        );
+    }
+
 }
