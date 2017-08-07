@@ -59,4 +59,10 @@ final class HerdProjector
             ]
         );
     }
+
+    public function clearAllTables()
+    {
+        $this->connection->executeUpdate(sprintf('truncate table %s', self::TABLE_ELEPHPANT));
+        $this->connection->executeUpdate(sprintf('truncate table %s', self::TABLE_HERD));
+    }
 }
