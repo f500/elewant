@@ -129,7 +129,7 @@ class User implements UserInterface, \Serializable
 
     public function getUsername() : string
     {
-        return '';
+        return $this->username();
     }
 
     public function getPassword() : string
