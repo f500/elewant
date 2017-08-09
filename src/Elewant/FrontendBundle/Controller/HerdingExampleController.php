@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Elewant\FrontendBundle\Controller;
 
+use Elewant\FrontendBundle\Repository\HerdRepository;
 use Elewant\Herding\Model\Commands\AbandonElePHPant;
 use Elewant\Herding\Model\Commands\AbandonHerd;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
 use Elewant\Herding\Model\Commands\FormHerd;
-use Elewant\Herding\Projections\HerdListing;
 use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,10 +32,10 @@ class HerdingExampleController extends Controller
             return $this->redirectToRoute('root');
         }
 
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
+        /** @var HerdRepository $herdRepository */
+        $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $herds = $herdListing->findAll();
+        $herds = $herdRepository->findAll();
 
         return $this->render('ElewantFrontendBundle:Example:herd_list.html.twig', ['herds' => $herds]);
     }
@@ -69,13 +69,15 @@ class HerdingExampleController extends Controller
             return $this->redirectToRoute('root');
         }
 
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
+        /** @var HerdRepository $herdRepository */
+        $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $herds = $herdListing->lastNewHerds(5);
-        $elePHPants = $herdListing->lastNewElePHPants(5);
+        $data = [
+            'newest_herds' => $herdRepository->lastNewHerds(5),
+            'newest_elephpants' => $herdRepository->lastNewElePHPants(5),
+        ];
 
-        return $this->render('ElewantFrontendBundle:Example:top5.html.twig', ['herds' => $herds, 'elephpants' => $elePHPants]);
+        return $this->render('ElewantFrontendBundle:Example:top5.html.twig', $data);
     }
 
     /**
@@ -87,15 +89,13 @@ class HerdingExampleController extends Controller
             return $this->redirectToRoute('root');
         }
 
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->container->get('elewant.herd_projection.herd_listing');
+        /** @var HerdRepository $herdRepository */
+        $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $herd       = $herdListing->findById($herdId);
-        $elephpants = $herdListing->findElephpantsByHerdId($herdId);
+        $herd       = $herdRepository->find($herdId);
 
         $data = [
-            'herd'       => $herd,
-            'elephpants' => $elephpants,
+            'herd'       => $herd
         ];
 
         return $this->render('ElewantFrontendBundle:Example:herd_show.html.twig', $data);

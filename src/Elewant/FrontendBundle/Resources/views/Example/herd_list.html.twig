@@ -5,8 +5,8 @@
 
     <p>
     {% for herd in herds %}
-        <a href="{{ path('herd_show', {'herdId': herd.herd_id}) }}">{{ herd.name }}</a>
-        <a href="{{ path('herd_abandon', {'herdId': herd.herd_id}) }}">(abandon)</a><br />
+        <a href="{{ path('herd_show', {'herdId': herd.herdId}) }}">{{ herd.name }}</a>
+        <a href="{{ path('herd_abandon', {'herdId': herd.herdId}) }}">(abandon)</a><br />
     {% endfor %}
     </p>
 
