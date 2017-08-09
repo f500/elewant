@@ -9,7 +9,7 @@ use Elewant\Herding\Model\Breed;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="elephpant")
+ * @ORM\Table(indexes={@ORM\Index(columns={"adopted_on"})})
  */
 class Elephpant
 {
@@ -21,14 +21,7 @@ class Elephpant
     private $herd;
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="guid")
-     * @var string
-     */
-    private $herdId;
-
-    /**
-     * @ORM\Column(type="breed")
+     * @ORM\Column(type="breed", length=64)
      * @var Breed
      */
     private $breed;
@@ -41,6 +34,7 @@ class Elephpant
 
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="guid")
      * @var string
      */
@@ -64,11 +58,6 @@ class Elephpant
     public function elePHPantId(): string
     {
         return $this->elephpantId;
-    }
-
-    public function getHerdId() : string
-    {
-        return $this->herdId;
     }
 }
 

@@ -15,8 +15,8 @@ class Version20170805082923 extends AbstractMigration
     {
         $herd = $schema->createTable(HerdProjector::TABLE_HERD);
 
-        $herd->addColumn('herd_id', 'string', ['length' => 36]);
-        $herd->addColumn('shepherd_id', 'string', ['length' => 36]);
+        $herd->addColumn('herd_id', 'guid');
+        $herd->addColumn('shepherd_id', 'guid');
         $herd->addColumn('name', 'string', ['length' => 64]);
         $herd->addColumn('formed_on', 'datetime');
         $herd->setPrimaryKey(['herd_id']);
@@ -25,12 +25,12 @@ class Version20170805082923 extends AbstractMigration
 
         $elephpant = $schema->createTable(HerdProjector::TABLE_ELEPHPANT);
 
-        $elephpant->addColumn('elephpant_id', 'string', ['length' => 36]);
-        $elephpant->addColumn('herd_id', 'string', ['length' => 36]);
-        $elephpant->addColumn('breed', 'string', ['length' => 64]);
+        $elephpant->addColumn('elephpant_id', 'guid');
+        $elephpant->addColumn('herd_id', 'guid');
+        $elephpant->addColumn('breed', 'breed', ['length' => 64]);
         $elephpant->addColumn('adopted_on', 'datetime');
         $elephpant->setPrimaryKey(['elephpant_id']);
-        $elephpant->addIndex(['herd_id']);
+        $elephpant->addForeignKeyConstraint(HerdProjector::TABLE_HERD,['herd_id'], ['herd_id']);
         $elephpant->addIndex(['adopted_on']);
     }
 

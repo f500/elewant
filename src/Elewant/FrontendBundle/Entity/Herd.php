@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Herd
  * @ORM\Entity(repositoryClass="Elewant\FrontendBundle\Repository\HerdRepository")
- * @ORM\Table(options={"charset"="utf8mb4", "collate"="utf8mb4_unicode_ci"})
+ * @ORM\Table(indexes={@ORM\Index(columns={"formed_on"}),@ORM\Index(columns={"shepherd_id"})})
  */
 class Herd
 {
@@ -35,6 +35,7 @@ class Herd
 
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="guid")
      * @var string
      */
