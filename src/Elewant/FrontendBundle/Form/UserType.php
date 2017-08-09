@@ -6,11 +6,13 @@ namespace Elewant\FrontendBundle\Form;
 
 use Elewant\FrontendBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class UserType extends AbstractType implements DataMapperInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options) : void
     {
@@ -18,11 +20,39 @@ class UserType extends AbstractType
             ->add('username', TextType::class, ['disabled' => true])
             ->add('displayName', TextType::class)
             ->add('country', TextType::class)
-            ->setDataMapper(new UserDataTransformer());
+            ->setDataMapper($this);
     }
 
     public function configureOptions(OptionsResolver $resolver) : void
     {
-        $resolver->setDefaults(['data_class' => User::class]);
+        $resolver->setDefaults(
+            [
+                'data_class' => User::class,
+                'empty_data' => null,
+            ]
+        );
+    }
+
+    public function mapDataToForms($user, $forms) : void
+    {
+        if (!$user instanceof User) {
+            return;
+        }
+
+        /** @var FormInterface[] $form */
+        $form = iterator_to_array($forms);
+
+        $form['username']->setData($user->username());
+        $form['displayName']->setData($user->displayName());
+        $form['country']->setData($user->country());
+    }
+
+    public function mapFormsToData($forms, &$user) : void
+    {
+        /** @var FormInterface[] $form */
+        $form = iterator_to_array($forms);
+
+        $user->changeDisplayName((string) $form['displayName']->getData());
+        $user->changeCountry((string) $form['country']->getData());
     }
 }

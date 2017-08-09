@@ -6,13 +6,14 @@ namespace Elewant\FrontendBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Elewant\FrontendBundle\Repository\UserRepository")
  * @ORM\Table(options={"charset"="utf8mb4", "collate"="utf8mb4_unicode_ci"})
- * @Assert\UniqueEntity("username")
+ * @UniqueEntity("username")
  *
  * We cannot use `final` here, because of Doctrine proxies.
  */
@@ -28,18 +29,21 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
+     * @Assert\NotBlank
      * @var string
      */
     private $username;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      * @var string
      */
     private $displayName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      * @var string
      */
     private $country;
@@ -50,23 +54,11 @@ class User implements UserInterface, \Serializable
      */
     private $connections;
 
-    public static function register(string $username, string $displayName, string $country) : User
+    public function __construct(string $username, string $displayName, string $country)
     {
-        $user = new self();
-
-        $user->username    = $username;
-        $user->displayName = $displayName;
-        $user->country     = $country;
-
-        return $user;
-    }
-
-    /**
-     * Constructor is public for SymfonyForm.
-     * @todo: Discus what to do with this. This still allows anemic entities.
-     */
-    public function __construct()
-    {
+        $this->username    = $username;
+        $this->displayName = $displayName;
+        $this->country     = $country;
         $this->connections = new ArrayCollection();
     }
 
@@ -82,7 +74,7 @@ class User implements UserInterface, \Serializable
 
     public function connect(string $resource, string $resourceId, string $accessToken, string $refreshToken) : void
     {
-        if ($this->hasConnect($resource)) {
+        if ($this->hasConnection($resource)) {
             throw new \LogicException(
                 sprintf('Resource "%s" already connected to user "%d"', $resource, $this->id)
             );
@@ -146,7 +138,7 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    private function hasConnect(string $resource) : bool
+    private function hasConnection(string $resource) : bool
     {
         foreach ($this->connections as $connection) {
             if ($connection->resource() === $resource) {
@@ -158,29 +150,42 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * We only save the `id` and `username`.
+     * We don't use associations, so we can safely store the user in sessions.
+     * The user-provider will refresh the user, to make it complete and managed.
      */
     public function serialize() : string
     {
-        return json_encode(
+        return serialize(
             [
-                'id'       => $this->id,
-                'username' => $this->username,
+                'id'          => $this->id,
+                'username'    => $this->username,
+                'displayName' => $this->displayName,
+                'country'     => $this->country,
             ]
         );
     }
 
     /**
-     * We only save the `id` and `username`.
-     * The user-provider will refresh the user (to make it complete).
+     * We don't use associations, so we can safely store the user in sessions.
+     * The user-provider will refresh the user, to make it complete and managed.
      *
      * @param string $serialized
      */
     public function unserialize($serialized) : void
     {
-        $data = json_decode($serialized, true);
+        $data = unserialize($serialized);
 
-        $this->id       = $data['id'] ?? 0;
-        $this->username = $data['username'] ?? '';
+        if (!isset($data['id'])
+            || !isset($data['username'])
+            || !isset($data['displayName'])
+            || !isset($data['country'])
+        ) {
+            throw new \InvalidArgumentException('Corrupt serialized user: ' . $serialized);
+        }
+
+        $this->id          = $data['id'];
+        $this->username    = $data['username'];
+        $this->displayName = $data['displayName'];
+        $this->country     = $data['country'];
     }
 }

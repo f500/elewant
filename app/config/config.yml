@@ -70,8 +70,11 @@ hwi_oauth:
     firewall_names: [secured_area]
     resource_owners:
         twitter:
-            type:                twitter
-            client_id:           "%twitter_client_id%"
-            client_secret:       "%twitter_client_secret%"
+            type:          twitter
+            client_id:     "%twitter_client_id%"
+            client_secret: "%twitter_client_secret%"
     connect:
-        confirmation: true
+        confirmation:              true
+        registration_form:         elewant.security.registration.form
+        registration_form_handler: elewant.security.registration.form_handler
+        account_connector:         elewant.security.account.connector

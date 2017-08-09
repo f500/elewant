@@ -9,12 +9,6 @@ use Elewant\FrontendBundle\Entity\User;
 
 final class UserRepository extends EntityRepository
 {
-    public function saveUser(User $user) : void
-    {
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
-    }
-
     public function findUserByUsername(string $username) : ?User
     {
         $dql = <<<EOQ

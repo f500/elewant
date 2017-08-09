@@ -2,31 +2,41 @@
 
 namespace Elewant\FrontendBundle\Form;
 
+use Elewant\FrontendBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\Form\RegistrationFormHandlerInterface;
-use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class RegistrationFormHandler implements RegistrationFormHandlerInterface
 {
-    public function process(Request $request, Form $form, UserResponseInterface $userInformation)
+    /**
+     * @var UserProviderInterface
+     */
+    private $userProvider;
+
+    public function __construct(UserProviderInterface $userProvider)
     {
-        if (!$userInformation instanceof PathUserResponse) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected UserInformation to be class "%s" but got class "%s"',
-                    PathUserResponse::class,
-                    get_class($userInformation)
-                )
+        $this->userProvider = $userProvider;
+    }
+
+    public function process(Request $request, Form $form, UserResponseInterface $userInformation) : bool
+    {
+        try {
+            $user = $this->userProvider->loadUserByUsername($userInformation->getNickname());
+        } catch (UsernameNotFoundException $exception) {
+            $user = new User(
+                $userInformation->getNickname(),
+                $userInformation->getRealName(),
+                $userInformation->getResponse()['location'] ?? ''
             );
         }
 
-        $form->get('username')->setData($userInformation->getNickname());
-        $form->get('displayName')->setData($userInformation->getRealName());
-        $form->get('country')->setData($userInformation->getResponse()['location'] ?? '');
+        $form->setData($user);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
 
             return $form->isValid();

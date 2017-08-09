@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Elewant\FrontendBundle\Security;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ObjectManager;
 use Elewant\FrontendBundle\Entity\User;
 use Elewant\FrontendBundle\Repository\UserRepository;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,13 +21,13 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
 {
     /**
-     * @var UserRepository
+     * @var ManagerRegistry
      */
-    private $repository;
+    private $registry;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->repository = $repository;
+        $this->registry = $registry;
     }
 
     /**
@@ -34,12 +37,10 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      */
     public function loadUserByUsername($username) : UserInterface
     {
-        $user = $this->repository->findUserByUsername($username);
+        $user = $this->repository()->findUserByUsername($username);
 
         if ($user === null) {
-            throw new UsernameNotFoundException(
-                sprintf('User with username "%s" not found.', $username)
-            );
+            throw new UsernameNotFoundException(sprintf('User with username "%s" not found.', $username));
         }
 
         return $user;
@@ -74,7 +75,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         $resource   = $response->getResourceOwner()->getName();
         $resourceId = (string) $response->getResponse()['id'] ?? 'UNKNOWN';
 
-        $user = $this->repository->findUserByResource($resource, $resourceId);
+        $user = $this->repository()->findUserByResource($resource, $resourceId);
 
         if ($user === null) {
             throw new AccountNotLinkedException(
@@ -92,21 +93,13 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         }
 
         /** @var User $user */
-        if ($user->id() === null) {
-            $user = User::register($response->getNickname(), $user->displayName(), $user->country());
-        } else {
-            $user = $this->refreshUser($user);
-        }
 
         switch ($response->getResourceOwner()->getName()) {
             case 'twitter':
                 $this->connectTwitter($user, $response);
                 break;
-            case 'facebook':
-                $this->connectFacebook($user, $response);
-                break;
             default:
-                throw new \LogicException(
+                throw new AuthenticationException(
                     sprintf(
                         'Cannot connect user "%s" to resource "%s" with id "%s".',
                         $user->username(),
@@ -116,7 +109,8 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
                 );
         }
 
-        $this->repository->saveUser($user);
+        $this->manager()->persist($user);
+        $this->manager()->flush();
     }
 
     private function connectTwitter(User $user, UserResponseInterface $response) : void
@@ -124,7 +118,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         $data = $response->getResponse();
 
         if (!isset($data['id'])) {
-            throw new UnsupportedUserException(sprintf('Missing "id" in resource "twitter".'));
+            throw new AuthenticationException(sprintf('Missing "id" in resource "twitter".'));
         }
 
         $user->connect(
@@ -135,19 +129,16 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         );
     }
 
-    private function connectFacebook(User $user, UserResponseInterface $response) : void
+    private function manager() : ObjectManager
     {
-        $data = $response->getResponse();
+        return $this->registry->getManager();
+    }
 
-        if (!isset($data['id'])) {
-            throw new UnsupportedUserException(sprintf('Missing "id" in resource "facebook".'));
-        }
+    private function repository() : UserRepository
+    {
+        /** @var UserRepository $repository */
+        $repository = $this->registry->getRepository(User::class);
 
-        $user->connect(
-            'facebook',
-            (string) $data['id'],
-            (string) $response->getAccessToken(),
-            (string) $response->getRefreshToken()
-        );
+        return $repository;
     }
 }
