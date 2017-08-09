@@ -81,7 +81,11 @@ final class HerdProjector
 
     public function clearAllTables()
     {
-        $this->connection->executeUpdate(sprintf('truncate table %s', self::TABLE_ELEPHPANT));
-        $this->connection->executeUpdate(sprintf('truncate table %s', self::TABLE_HERD));
+        $platform = $this->connection->getDatabasePlatform();
+
+        $this->connection->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->connection->executeUpdate($platform->getTruncateTableSQL(self::TABLE_HERD));
+        $this->connection->executeUpdate($platform->getTruncateTableSQL(self::TABLE_ELEPHPANT));
+        $this->connection->query('SET FOREIGN_KEY_CHECKS=1');
     }
 }
