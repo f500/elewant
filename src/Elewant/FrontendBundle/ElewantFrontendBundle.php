@@ -17,6 +17,8 @@ class ElewantFrontendBundle extends Bundle
          * This is probably not the place to put a custom Doctrine type...
          * (no need to look at git blame: it was me: @f_u_e_n_t_e)
          */
-        Type::addType('breed', Breed::class);
+        if (!Type::hasType('breed')) {
+            Type::addType('breed', Breed::class);
+        }
     }
 }
