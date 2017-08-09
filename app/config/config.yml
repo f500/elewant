@@ -53,10 +53,17 @@ doctrine:
         user: "%database_user%"
         password: "%database_password%"
         charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        types:
+            breed:
+                class: Elewant\FrontendBundle\Entity\CustomType\Breed
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
 
 # Swiftmailer Configuration
 swiftmailer:

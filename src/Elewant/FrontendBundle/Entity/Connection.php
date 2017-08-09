@@ -8,10 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(
- *     options={"charset"="utf8mb4", "collate"="utf8mb4_unicode_ci"},
- *     indexes={@ORM\Index(name="resource_idx", columns={"resource", "resource_id"})}
- * )
+ * @ORM\Table(indexes={@ORM\Index(name="resource_idx", columns={"resource", "resource_id"})})
  *
  * We cannot use `final` here, because of Doctrine proxies.
  */
