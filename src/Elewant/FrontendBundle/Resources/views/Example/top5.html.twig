@@ -3,13 +3,17 @@
 {% block body %}
     <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
 
-    <p>Last 5 formed Herds</p>
-    {% for herd in herds %}
-        <a href="{{ path('herd_show', {'herdId': herd.herd_id}) }}">{{ herd.name }} {{ herd.formed_on }}</a><br />
+    <h4>Last 5 formed Herds</h4>
+    <p>
+    {% for herd in newest_herds %}
+        <a href="{{ path('herd_show', {'herdId': herd.herdId}) }}">{{ herd.name }} {{ herd.formedOn|date('Y-m-d H:i:s') }}</a><br />
     {% endfor %}
+    </p>
 
-    <p>Last 5 adopted ElePHPants</p>
-    {% for elephpant in elephpants %}
-        <a href="{{ path('herd_show', {'herdId': elephpant.herd_id}) }}">{{ elephpant.breed }} {{ elephpant.adopted_on }}</a><br />
+    <h4>Latest adopted ElePHPants</h4>
+    <p>
+    {% for elephpant in newest_elephpants %}
+        <a href="{{ path('herd_show', {'herdId': elephpant.herd.herdId}) }}">{{ elephpant.herd.name }} {{ elephpant.breed }} {{ elephpant.adoptedOn|date('Y-m-d H:i') }}</a><br />
     {% endfor %}
+    </p>
 {% endblock %}

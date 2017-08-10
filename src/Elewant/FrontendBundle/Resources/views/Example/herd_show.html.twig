@@ -6,17 +6,17 @@
     <p>
     <ul>
         <li>Name: {{ herd.name }}</li>
-        <li>HerdId: {{ herd.herd_id }}</li>
-        <li>ShepherdId: {{ herd.shepherd_id }}</li>
-        <li>Formed on: {{ herd.formed_on }}</li>
+        <li>HerdId: {{ herd.herdId }}</li>
+        <li>ShepherdId: {{ herd.shepherdId }}</li>
+        <li>Formed on: {{ herd.formedOn|date('Y-m-d H:i') }}</li>
     </ul>
     </p>
     
-    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'BLUE_ORIGINAL_REGULAR'}) }}">Adopt an original blue elephpant</a><br />
-    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'BLACK_AMSTERDAMPHP_REGULAR'}) }}">Adopt an amsterdamPHP elephpant</a><br />
-    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herd_id, 'breed': 'WHITE_CONFOO_LARGE'}) }}">Adopt a ConFoo elephpant</a><br />
+    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herdId, 'breed': 'BLUE_ORIGINAL_REGULAR'}) }}">Adopt an original blue elephpant</a><br />
+    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herdId, 'breed': 'BLACK_AMSTERDAMPHP_REGULAR'}) }}">Adopt an amsterdamPHP elephpant</a><br />
+    <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herdId, 'breed': 'WHITE_CONFOO_LARGE'}) }}">Adopt a ConFoo elephpant</a><br />
 
-    {% for elephpant in elephpants %}
-        {{ elephpant.breed }}<a href="{{ path('herd_abandon_elephpant', {'herdId': herd.herd_id, 'breed': elephpant.breed}) }}">(abandon)</a></br >
+    {% for elephpant in herd.elephpants %}
+        {{ elephpant.breed }}<a href="{{ path('herd_abandon_elephpant', {'herdId': herd.herdId, 'breed': elephpant.breed}) }}">(abandon)</a></br >
     {% endfor %}
 {% endblock %}

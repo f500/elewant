@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Elewant\FrontendBundle\Repository\UserRepository")
- * @ORM\Table(options={"charset"="utf8mb4", "collate"="utf8mb4_unicode_ci"})
+ * @ORM\Table
  * @UniqueEntity("username")
  *
  * We cannot use `final` here, because of Doctrine proxies.

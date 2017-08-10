@@ -20,6 +20,11 @@ services:
 
     # Elewant - Herding
 
+    elewant.herd.herd_repository:
+        class: Elewant\FrontendBundle\Repository\HerdRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [ Elewant\FrontendBundle\Entity\Herd ]
+
     elewant.api_command_controller:
         class: Elewant\FrontendBundle\Controller\ApiCommandController
         arguments: ['@prooph_service_bus.herding_command_bus', '@prooph_service_bus.message_factory']

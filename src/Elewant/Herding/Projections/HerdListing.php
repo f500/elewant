@@ -6,6 +6,12 @@ namespace Elewant\Herding\Projections;
 
 use Doctrine\DBAL\Connection;
 
+/**
+ * Class HerdListing
+ *
+ * This class is used for simple queries against the herd projection, in order to test the outcome
+ * of a command in end-to-end tests. It should _not_ be used in the FrontendBundle anywhere else.
+ */
 final class HerdListing
 {
     /**
@@ -55,28 +61,5 @@ final class HerdListing
 
         return $qb->execute()->fetch();
     }
-
-    public function lastNewHerds(int $limit)
-    {
-        $qb = $this->connection->createQueryBuilder();
-        $qb->select('*')
-            ->from(HerdProjector::TABLE_HERD)
-            ->orderBy('formed_on', 'DESC')
-            ->setMaxResults($limit);
-
-        return $qb->execute()->fetchAll();
-    }
-
-    public function lastNewElePHPants(int $limit)
-    {
-        $qb = $this->connection->createQueryBuilder();
-        $qb->select('*')
-            ->from(HerdProjector::TABLE_ELEPHPANT)
-            ->orderBy('adopted_on', 'DESC')
-            ->setMaxResults($limit);
-
-        return $qb->execute()->fetchAll();
-    }
-
 
 }
