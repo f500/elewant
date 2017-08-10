@@ -13,6 +13,7 @@ use Elewant\Herding\Model\Commands\FormHerd;
 use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/example")
@@ -20,9 +21,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HerdingExampleController extends Controller
 {
     private $shepherdId = '00000000-0000-0000-0000-000000000000';
-    private $herdNameSeed = ['honey','rob','delight','change','merciful','achiever','match','quick','spare',
-                             'chubby','grain','frame','division','nose','reply','icicle','improve','wool','amusing',
-                             'meek','substantial','bee','earn','word'];
+    private $herdNameSeed = [
+        'honey',
+        'rob',
+        'delight',
+        'change',
+        'merciful',
+        'achiever',
+        'match',
+        'quick',
+        'spare',
+        'chubby',
+        'grain',
+        'frame',
+        'division',
+        'nose',
+        'reply',
+        'icicle',
+        'improve',
+        'wool',
+        'amusing',
+        'meek',
+        'substantial',
+        'bee',
+        'earn',
+        'word',
+    ];
 
     /**
      * @Route("/", name="herd_list")
@@ -74,11 +98,35 @@ class HerdingExampleController extends Controller
         $herdRepository = $this->get('elewant.herd.herd_repository');
 
         $data = [
-            'newest_herds' => $herdRepository->lastNewHerds(5),
+            'newest_herds'      => $herdRepository->lastNewHerds(5),
             'newest_elephpants' => $herdRepository->lastNewElePHPants(5),
         ];
 
         return $this->render('ElewantFrontendBundle:Example:top5.html.twig', $data);
+    }
+
+    /**
+     * @Route("/search", name="herd_search")
+     */
+    public function searchAction(Request $request)
+    {
+        if ($this->accessNotAllowed()) {
+            return $this->redirectToRoute('root');
+        }
+
+        $data = [
+            'search' => $request->query->get('q'),
+            'matches'    => [],
+        ];
+
+        if ($request->query->get('q')) {
+            /** @var HerdRepository $herdRepository */
+            $herdRepository = $this->get('elewant.herd.herd_repository');
+
+            $data['matches'] = $herdRepository->search($request->query->get('q'));
+        }
+
+        return $this->render('ElewantFrontendBundle:Example:search.html.twig', $data);
     }
 
     /**
@@ -93,11 +141,11 @@ class HerdingExampleController extends Controller
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $herd       = $herdRepository->find($herdId);
+        $herd = $herdRepository->find($herdId);
 
         $data = [
-            'herd'       => $herd,
-            'breeds'     => Breed::availableTypes(),
+            'herd'   => $herd,
+            'breeds' => Breed::availableTypes(),
         ];
 
         if (count($herd->elephpants()) === 0) {
@@ -161,7 +209,8 @@ class HerdingExampleController extends Controller
         return $this->redirectToRoute('herd_list');
     }
 
-    private function accessNotAllowed() {
+    private function accessNotAllowed()
+    {
         return !$this->get('kernel')->isDebug();
     }
 }

@@ -48,5 +48,24 @@ EOQ;
         return $query->getResult();
     }
 
+    /**
+     * @param string $searchString
+     *
+     * @return Herd[]
+     */
+    public function search(string $searchString): array
+    {
+        $dql = <<<EOQ
+SELECT h
+FROM ElewantFrontendBundle:Herd h
+WHERE h.name LIKE :searchString
+ORDER BY h.formedOn DESC
+EOQ;
+
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('searchString', '%' . $searchString . '%');
+
+        return $query->getResult();
+    }
 
 }
