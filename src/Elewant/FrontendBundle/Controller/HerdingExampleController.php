@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Elewant\FrontendBundle\Controller;
 
 use Elewant\FrontendBundle\Repository\HerdRepository;
+use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\Commands\AbandonElePHPant;
 use Elewant\Herding\Model\Commands\AbandonHerd;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
@@ -95,10 +96,15 @@ class HerdingExampleController extends Controller
         $herd       = $herdRepository->find($herdId);
 
         $data = [
-            'herd'       => $herd
+            'herd'       => $herd,
+            'breeds'     => Breed::availableTypes(),
         ];
 
-        return $this->render('ElewantFrontendBundle:Example:herd_show.html.twig', $data);
+        if (count($herd->elephpants()) === 0) {
+            return $this->render('ElewantFrontendBundle:Example:herd_form.html.twig', $data);
+        } else {
+            return $this->render('ElewantFrontendBundle:Example:herd_show.html.twig', $data);
+        }
     }
 
     /**

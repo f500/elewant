@@ -72,12 +72,18 @@ class Breed
         $this->type = $type;
     }
 
-    public static function fromString(string $type): self
-    {
+    public static function availableTypes() {
         $reflected = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();
+        sort($validTypes);
 
-        if (!in_array($type, $validTypes)) {
+        return $validTypes;
+    }
+
+
+    public static function fromString(string $type): self
+    {
+        if (!in_array($type, self::availableTypes())) {
             throw SorryThatIsAnInvalid::breed($type);
         }
 

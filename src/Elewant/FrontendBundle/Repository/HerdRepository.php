@@ -16,9 +16,9 @@ final class HerdRepository extends EntityRepository
      *
      * @return Herd[]
      */
-    public function lastNewHerds(int $limit): array
+    public function lastNewHerds(int $limit) : array
     {
-        $dql = <<<EOQ
+        $dql   = <<<EOQ
 SELECT h
 FROM ElewantFrontendBundle:Herd h
 ORDER BY h.formedOn DESC
@@ -34,7 +34,7 @@ EOQ;
      *
      * @return Elephpant[]
      */
-    public function lastNewElePHPants(int $limit): array
+    public function lastNewElePHPants(int $limit) : array
     {
         $dql = <<<EOQ
 SELECT e

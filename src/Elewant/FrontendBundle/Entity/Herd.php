@@ -77,5 +77,20 @@ class Herd
         return $this->elephpants;
     }
 
+    public function elePHPantBreedCounts(): Collection
+    {
+        $result = [];
+        foreach ($this->elephpants as $elephpant) {
+            $breed = $elephpant->breed()->toString();
+            if (!isset($result[$breed])) {
+                $result[$breed] = 0;
+            }
+            $result[$breed]++;
+        }
+
+        return new ArrayCollection($result);
+    }
+
+
 }
 
