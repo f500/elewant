@@ -6,6 +6,7 @@ namespace Elewant\AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Elewant\Herding\Model\ShepherdId;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,6 +27,12 @@ class User implements UserInterface, \Serializable
      * @var int|null
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="shepherd_id", unique=true)
+     * @var ShepherdId
+     */
+    private $shepherdId;
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
@@ -56,6 +63,8 @@ class User implements UserInterface, \Serializable
 
     public function __construct(string $username, string $displayName, string $country)
     {
+        $this->shepherdId  = ShepherdId::generate();
+        $this->connections = new ArrayCollection();
         $this->username    = $username;
         $this->displayName = $displayName;
         $this->country     = $country;
@@ -86,6 +95,11 @@ class User implements UserInterface, \Serializable
     public function id() : ?int
     {
         return $this->id;
+    }
+
+    public function shepherdId() : ShepherdId
+    {
+        return $this->shepherdId();
     }
 
     public function username() : string
@@ -158,6 +172,7 @@ class User implements UserInterface, \Serializable
         return serialize(
             [
                 'id'          => $this->id,
+                'shepherdId'  => $this->shepherdId->toString(),
                 'username'    => $this->username,
                 'displayName' => $this->displayName,
                 'country'     => $this->country,
@@ -176,6 +191,7 @@ class User implements UserInterface, \Serializable
         $data = unserialize($serialized);
 
         if (!isset($data['id'])
+            || !isset($data['shepherdId'])
             || !isset($data['username'])
             || !isset($data['displayName'])
             || !isset($data['country'])
@@ -184,6 +200,7 @@ class User implements UserInterface, \Serializable
         }
 
         $this->id          = $data['id'];
+        $this->shepherdId  = ShepherdId::fromString($data['shepherdId']);
         $this->username    = $data['username'];
         $this->displayName = $data['displayName'];
         $this->country     = $data['country'];

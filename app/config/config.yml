@@ -57,8 +57,9 @@ doctrine:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
         types:
-            breed:
-                class: Elewant\AppBundle\Entity\CustomType\Breed
+            breed:       Elewant\AppBundle\Entity\CustomType\Breed
+            shepherd_id: Elewant\AppBundle\Entity\CustomType\ShepherdId
+        schema_filter: "/^(?!event_stream).*$/"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
