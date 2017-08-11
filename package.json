@@ -32,7 +32,7 @@
   "scripts": {
     "clean-css": "cleancss --skip-advanced --source-map --output web/build/css/elewant.min.css web/build/css/elewant.css",
     "postcss": "postcss --config node_modules/bootstrap/build/postcss.config.js --replace web/build/css/*.css",
-    "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/FrontendBundle/Resources/assets/scss/elewant.scss web/build/css/elewant.css",
+    "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/AppBundle/Resources/assets/scss/elewant.scss web/build/css/elewant.css",
     "uglify": "uglifyjs --compress warnings=false --mangle --comments '/^!/' --output web/build/js/elewant.min.js web/build/js/elewant.js"
   }
 }

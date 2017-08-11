@@ -1,0 +1,15 @@
+{% extends 'ElewantAppBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_top_5') }}">View top5 lists</a></p>
+
+    <p>
+    {% for herd in herds %}
+        <a href="{{ path('herd_show', {'herdId': herd.herdId}) }}">{{ herd.name }}</a>
+        <a href="{{ path('herd_abandon', {'herdId': herd.herdId}) }}">(abandon)</a><br />
+    {% endfor %}
+    </p>
+    <p><a href="{{ path('herd_search') }}">Search herds</a></p>
+
+    <p><a href="{{ path('herd_form') }}">Form a new herd</a></p>
+{% endblock %}
