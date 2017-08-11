@@ -1,15 +1,18 @@
 {% extends 'ElewantFrontendBundle::layout.html.twig' %}
 
 {% block body %}
-    <p><a href="{{ path('herd_top_5') }}">View top5 lists</a></p>
+    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+    <form method="get" action="">
+        <input type="text" name="q" value="{{ search }}">
+        <input type="submit" name="search" value="Search">
+    </form>
 
     <p>
-    {% for herd in herds %}
+    {% for herd in matches %}
         <a href="{{ path('herd_show', {'herdId': herd.herdId}) }}">{{ herd.name }}</a>
         <a href="{{ path('herd_abandon', {'herdId': herd.herdId}) }}">(abandon)</a><br />
     {% endfor %}
     </p>
-    <p><a href="{{ path('herd_search') }}">Search herds</a></p>
 
-    <p><a href="{{ path('herd_form') }}">Form a new herd</a></p>
 {% endblock %}

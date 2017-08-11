@@ -1,0 +1,32 @@
+{% extends 'ElewantFrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+    <p>
+    {% for breed in breeds %}
+        <a href="#" onclick="abandon('{{ breed }}')">-</a> {{ breed }}: <span id="{{ breed }}_COUNT">0</span> <a href="#" onclick="adopt('{{ breed }}')">+</a></br >
+    {% endfor %}
+    </p>
+
+    <script>
+        function adopt(breed)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", '/example/{{ herd.herdId }}/adopt/' + breed );
+            xmlHttp.send( null );
+            var counter = document.getElementById(breed + '_COUNT');
+            counter.innerHTML = parseInt(counter.innerHTML) + 1;
+        }
+        function abandon(breed)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", '/example/{{ herd.herdId }}/abandon/' + breed );
+            xmlHttp.send( null );
+            var counter = document.getElementById(breed + '_COUNT');
+            counter.innerHTML = parseInt(counter.innerHTML) - 1;
+        }
+
+    </script>
+
+{% endblock %}
