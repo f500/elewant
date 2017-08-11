@@ -12,11 +12,25 @@ class Version20170804131152 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $user = $schema->createTable('user');
+        $user->addColumn('id', 'integer', ['unsigned' => true, 'autoincrement' => true, 'notNull' => true]);
+        $user->addColumn('username', 'string', ['length' => 191, 'notNull' => true]);
+        $user->addColumn('display_name', 'string', ['length' => 255, 'notNull' => true]);
+        $user->addColumn('country', 'string', ['length' => 255, 'notNull' => true]);
+        $user->addUniqueIndex(['username']);
+        $user->setPrimaryKey(['id']);
 
-        $this->addSql('CREATE TABLE `connection` (id INT UNSIGNED AUTO_INCREMENT NOT NULL, user_id INT UNSIGNED NOT NULL, resource VARCHAR(32) NOT NULL, resource_id VARCHAR(128) NOT NULL, access_token VARCHAR(255) NOT NULL, refresh_token VARCHAR(255) NOT NULL, INDEX IDX_29F77366A76ED395 (user_id), INDEX resource_idx (resource, resource_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT UNSIGNED AUTO_INCREMENT NOT NULL, username VARCHAR(191) NOT NULL, display_name VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE `connection` ADD CONSTRAINT FK_29F77366A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $connection = $schema->createTable('connection');
+        $connection->addColumn('id', 'integer', ['unsigned' => true, 'autoincrement' => true, 'notNull' => true]);
+        $connection->addColumn('user_id', 'integer', ['unsigned' => true, 'notNull' => true]);
+        $connection->addColumn('resource', 'string', ['length' => 32, 'notNull' => true]);
+        $connection->addColumn('resource_id', 'string', ['length' => 128, 'notNull' => true]);
+        $connection->addColumn('access_token', 'string', ['length' => 255, 'notNull' => true]);
+        $connection->addColumn('refresh_token', 'string', ['length' => 255, 'notNull' => true]);
+        $connection->addIndex(['user_id']);
+        $connection->addIndex(['resource', 'resource_id'], 'resource_idx');
+        $connection->setPrimaryKey(['id']);
+        $connection->addForeignKeyConstraint('user', ['user_id'], ['id']);
     }
 
     /**
@@ -24,10 +38,10 @@ class Version20170804131152 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $connection = $schema->getTable('connection');
+        $connection->dropIndex('FK_29F77366A76ED395');
 
-        $this->addSql('ALTER TABLE `connection` DROP FOREIGN KEY FK_29F77366A76ED395');
-        $this->addSql('DROP TABLE `connection`');
-        $this->addSql('DROP TABLE user');
+        $schema->dropTable('connection');
+        $schema->dropTable('user');
     }
 }
