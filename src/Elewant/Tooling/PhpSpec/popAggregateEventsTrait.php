@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Elewant\Tooling\PhpSpec;
 
-use Prooph\EventSourcing\Aggregate\AggregateType;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
+use Prooph\EventStore\Aggregate\AggregateType;
 
 trait popAggregateEventsTrait
 {
