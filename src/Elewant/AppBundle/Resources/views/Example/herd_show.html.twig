@@ -1,0 +1,35 @@
+{% extends 'ElewantAppBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+    <p>
+    <ul>
+        <li>Name: {{ herd.name }}</li>
+        <li>HerdId: {{ herd.herdId }}</li>
+        <li>ShepherdId: {{ herd.shepherdId }}</li>
+        <li>Formed on: {{ herd.formedOn|date('Y-m-d H:i') }}</li>
+    </ul>
+    </p>
+
+    <p>
+        <select name="breedChoice" id="breedChoice">
+            {% for breed in breeds %} }}
+                <option value="{{ breed }}">{{ breed }}</option>
+            {% endfor %}
+        </select>
+        <button id="adoptivate">Adopt</button>
+    </p>
+    <script type="text/javascript">
+        var button = document.getElementById('adoptivate');
+        button.onclick = function () {
+            var breed = document.getElementById('breedChoice');
+            document.location = '/example/{{ herd.herdId }}/adopt/' + breed.options[breed.selectedIndex].value;
+        };
+    </script>
+
+    {% for breed, count in herd.elePHPantBreedCounts %}
+        <a href="{{ path('herd_abandon_elephpant', {'herdId': herd.herdId, 'breed': breed}) }}">-</a> {{ breed }}: {{ count }}
+        <a href="{{ path('herd_adopt_elephpant', {'herdId': herd.herdId, 'breed': breed}) }}">+</a></br >
+    {% endfor %}
+{% endblock %}

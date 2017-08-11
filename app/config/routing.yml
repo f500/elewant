@@ -20,6 +20,6 @@ logout:
     path: /logout
 
 elewant_frontend:
-    resource: "@ElewantFrontendBundle/Controller/"
+    resource: "@ElewantAppBundle/Controller/"
     type:     annotation
     prefix:   /

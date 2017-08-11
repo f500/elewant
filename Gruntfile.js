@@ -66,18 +66,18 @@ module.exports = function (grunt) {
             },
             elewant: {
                 files: {
-                    'web/build/js/elewant.js': 'src/Elewant/FrontendBundle/Resources/assets/js/elewant.js'
+                    'web/build/js/elewant.js': 'src/Elewant/AppBundle/Resources/assets/js/elewant.js'
                 }
             }
         },
 
         watch: {
             src: {
-                files: 'src/Elewant/FrontendBundle/Resources/assets/js/elewant.js',
+                files: 'src/Elewant/AppBundle/Resources/assets/js/elewant.js',
                 tasks: ['copy:elewant', 'exec:uglify']
             },
             sass: {
-                files: 'src/Elewant/FrontendBundle/Resources/assets/scss/*.scss',
+                files: 'src/Elewant/AppBundle/Resources/assets/scss/*.scss',
                 tasks: ['build-css']
             }
         },

@@ -2,10 +2,10 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@ElewantFrontendBundle/Resources/config/event_store.yml" }
-    - { resource: "@ElewantFrontendBundle/Resources/config/projection.yml" }
-    - { resource: "@ElewantFrontendBundle/Resources/config/service_bus.yml" }
-    - { resource: "@ElewantFrontendBundle/Resources/config/services.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/event_store.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/projection.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/services.yml" }
 
 parameters:
     locale: en
@@ -58,7 +58,7 @@ doctrine:
             collate: utf8mb4_unicode_ci
         types:
             breed:
-                class: Elewant\FrontendBundle\Entity\CustomType\Breed
+                class: Elewant\AppBundle\Entity\CustomType\Breed
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
