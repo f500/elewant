@@ -33,6 +33,9 @@ final class Breed extends Type
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if ($value === null) {
+            return null;
+        }
         return BreedType::fromString($value);
     }
 
@@ -41,7 +44,18 @@ final class Breed extends Type
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
+        if ($value === null) {
+            return null;
+        }
         /** @var BreedType $value */
         $value->toString();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
     }
 }
