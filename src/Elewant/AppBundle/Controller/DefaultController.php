@@ -14,6 +14,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('ElewantAppBundle:Default:index.html.twig');
+        return $this->render(
+            'ElewantAppBundle:Default:index.html.twig',
+            ['shrinking_navbar' => true]
+        );
     }
 }

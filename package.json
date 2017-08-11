@@ -8,21 +8,20 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-easing": "0.0.1",
-    "startbootstrap-agency": "^4.0.0-alpha",
-    "tether": "^1.4.0"
+    "popper.js": "^1.11.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "clean-css-cli": "^4.1.6",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-exec": "^2.0.0",
+    "grunt-exec": "^3.0.0",
     "load-grunt-tasks": "^3.5.2",
     "node-sass": "^4.5.3",
-    "popper.js": "^1.11.1",
     "postcss-cli": "^4.1.0",
-    "uglify-js": "^3.0.24"
+    "uglify-js": "^3.0.27"
   },
   "main": "Gruntfile.js",
   "repository": {
