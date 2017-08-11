@@ -15,6 +15,16 @@ module.exports = function (grunt) {
             build: 'web/build'
         },
 
+        concat: {
+            src: {
+                src: [
+                    'src/Elewant/AppBundle/Resources/assets/js/agency-theme.js',
+                    'src/Elewant/AppBundle/Resources/assets/js/elewant.js'
+                ],
+                dest: 'web/build/js/elewant.js'
+            }
+        },
+
         copy: {
             jquery: {
                 files: {
@@ -30,10 +40,12 @@ module.exports = function (grunt) {
                     'web/build/js/jquery-easing.min.js.map': 'node_modules/jquery-easing/dist/jquery.easing.1.3.umd.min.js.map'
                 }
             },
-            tether: {
+            popper: {
                 files: {
-                    'web/build/js/tether.js': 'node_modules/tether/dist/js/tether.js',
-                    'web/build/js/tether.min.js': 'node_modules/tether/dist/js/tether.min.js'
+                    'web/build/js/popper.js': 'node_modules/popper.js/dist/umd/popper.js',
+                    'web/build/js/popper.js.map': 'node_modules/popper.js/dist/umd/popper.js.map',
+                    'web/build/js/popper.min.js': 'node_modules/popper.js/dist/umd/popper.min.js',
+                    'web/build/js/popper.min.js.map': 'node_modules/popper.js/dist/umd/popper.min.js.map'
                 }
             },
             bootstrap: {
@@ -41,18 +53,6 @@ module.exports = function (grunt) {
                     'web/build/js/bootstrap.js': 'node_modules/bootstrap/dist/js/bootstrap.js',
                     'web/build/js/bootstrap.min.js': 'node_modules/bootstrap/dist/js/bootstrap.min.js'
                 }
-            },
-            agency: {
-                files: {
-                    'web/build/js/agency.js': 'node_modules/startbootstrap-agency/js/agency.js',
-                    'web/build/js/agency.min.js': 'node_modules/startbootstrap-agency/js/agency.min.js'
-                }
-            },
-            'agency-images': {
-                expand: true,
-                cwd: 'node_modules/startbootstrap-agency/img',
-                src: '**',
-                dest: 'web/build/img/'
             },
             'font-awesome': {
                 files: {
@@ -62,11 +62,6 @@ module.exports = function (grunt) {
                     'web/build/fonts/fontawesome-webfont.ttf': 'node_modules/font-awesome/fonts/fontawesome-webfont.ttf',
                     'web/build/fonts/fontawesome-webfont.woff': 'node_modules/font-awesome/fonts/fontawesome-webfont.woff',
                     'web/build/fonts/fontawesome-webfont.woff2': 'node_modules/font-awesome/fonts/fontawesome-webfont.woff2'
-                }
-            },
-            elewant: {
-                files: {
-                    'web/build/js/elewant.js': 'src/Elewant/AppBundle/Resources/assets/js/elewant.js'
                 }
             }
         },
@@ -101,7 +96,7 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('build-js', ['copy', 'exec:uglify']);
+    grunt.registerTask('build-js', ['concat', 'copy', 'exec:uglify']);
     grunt.registerTask('build-css', ['exec:sass', 'exec:postcss', 'exec:clean-css']);
     grunt.registerTask('build', ['clean:build', 'build-css', 'build-js']);
     grunt.registerTask('default', ['build']);

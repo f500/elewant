@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{% block title %}Elewant - Agency - Start Bootstrap theme{% endblock %}</title>
+    <title>{% block title %}Home{% endblock %} &bull; Elewant</title>
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
@@ -19,13 +19,16 @@
 
 <body id="page-top">
 
+{% include 'ElewantAppBundle:Layout:navbar.html.twig' %}
+
 {% block body %}{% endblock %}
+
+{% include 'ElewantAppBundle:Layout:footer.html.twig' %}
 
 <script type="application/javascript" src="{{ asset('build/js/jquery.min.js') }}"></script>
 <script type="application/javascript" src="{{ asset('build/js/jquery-easing.min.js') }}"></script>
-<script type="application/javascript" src="{{ asset('build/js/tether.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('build/js/popper.min.js') }}"></script>
 <script type="application/javascript" src="{{ asset('build/js/bootstrap.min.js') }}"></script>
-<script type="application/javascript" src="{{ asset('build/js/agency.min.js') }}"></script>
 
 <script type="application/javascript" src="{{ asset('build/js/elewant.min.js') }}"></script>
 

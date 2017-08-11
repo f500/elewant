@@ -1,26 +1,9 @@
-// Bootstrap & Agency (Start Bootstrap theme)
+// Custom variables
+@import "variables";
+
+// Bootstrap
 @import "../../../../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../../../../node_modules/startbootstrap-agency/scss/agency";
-
-// Temporary navbar container fix until Bootstrap 4 is patched
-
-.navbar-toggler {
-  z-index: 1;
-}
-
-@media (max-width: 576px) {
-  nav > .container {
-    width: 100%;
-  }
-}
-
+// Theme (based on Start Bootstrap - Agency)
+@import "agency-theme";
 // Font Awesome
-
 @import "../../../../../../node_modules/font-awesome/scss/font-awesome";
-
-$fa-font-size-base: $font-size-base;
-$fa-line-height-base: $line-height-base;
-$fa-border-color: $gray-lighter;
-$fa-inverse: $white;
-
-// Elewant
