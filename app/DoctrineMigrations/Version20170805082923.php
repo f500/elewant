@@ -14,7 +14,6 @@ class Version20170805082923 extends AbstractMigration
     public function up(Schema $schema)
     {
         $herd = $schema->createTable(HerdProjector::TABLE_HERD);
-
         $herd->addColumn('herd_id', 'guid');
         $herd->addColumn('shepherd_id', 'guid');
         $herd->addColumn('name', 'string', ['length' => 64]);
@@ -24,7 +23,6 @@ class Version20170805082923 extends AbstractMigration
         $herd->addIndex(['formed_on']);
 
         $elephpant = $schema->createTable(HerdProjector::TABLE_ELEPHPANT);
-
         $elephpant->addColumn('elephpant_id', 'guid');
         $elephpant->addColumn('herd_id', 'guid');
         $elephpant->addColumn('breed', 'breed', ['length' => 64]);
