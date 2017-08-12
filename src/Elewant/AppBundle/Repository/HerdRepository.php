@@ -7,6 +7,7 @@ namespace Elewant\AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Elewant\AppBundle\Entity\Elephpant;
 use Elewant\AppBundle\Entity\Herd;
+use Elewant\Herding\Model\ShepherdId;
 
 final class HerdRepository extends EntityRepository
 {
@@ -67,4 +68,19 @@ EOQ;
 
         return $query->getResult();
     }
+
+    public function findOneByShepherdId(ShepherdId $shepherdId) :? Herd
+    {
+        $dql   = <<<EOQ
+SELECT h
+FROM ElewantAppBundle:Herd h
+WHERE h.shepherdId = :shepherdId
+EOQ;
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('shepherdId', $shepherdId->toString());
+
+        return $query->getSingleResult();
+
+    }
+
 }
