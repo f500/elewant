@@ -51,7 +51,7 @@ final class ShepherdId extends Type
             return null;
         }
         /** @var ShepherdIdType $value */
-        $value->toString();
+        return $value->toString();
     }
 
     /**
