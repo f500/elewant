@@ -7,11 +7,14 @@ namespace Elewant\AppBundle\Security;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Elewant\AppBundle\Entity\User;
+use Elewant\AppBundle\Event\UserHasRegistered;
 use Elewant\AppBundle\Repository\UserRepository;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -25,9 +28,15 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      */
     private $registry;
 
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EventDispatcher
+     */
+    private $eventDispatcher;
+
+    public function __construct(ManagerRegistry $registry, EventDispatcherInterface $eventDispatcher)
     {
-        $this->registry = $registry;
+        $this->registry        = $registry;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -111,6 +120,9 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
 
         $this->manager()->persist($user);
         $this->manager()->flush();
+
+        $event = new UserHasRegistered($user);
+        $this->eventDispatcher->dispatch(UserHasRegistered::NAME, $event);
     }
 
     private function connectTwitter(User $user, UserResponseInterface $response) : void

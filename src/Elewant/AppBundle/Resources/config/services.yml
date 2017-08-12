@@ -1,10 +1,10 @@
 services:
 
-    # Elewant - Frontend
+    # Elewant - App
 
     elewant.security.user_provider:
         class: Elewant\AppBundle\Security\UserProvider
-        arguments: [ "@doctrine" ]
+        arguments: [ "@doctrine", "@event_dispatcher" ]
 
     elewant.security.registration.form:
         class: Elewant\AppBundle\Form\UserType
@@ -17,6 +17,12 @@ services:
 
     elewant.security.account.connector:
         alias: elewant.security.user_provider
+
+    elewant.event_subscriber.new_user:
+        class: Elewant\AppBundle\EventSubscriber\NewUserSubscriber
+        arguments: ["@elewant.herd.herd_repository", "@prooph_service_bus.herding_command_bus"]
+        tags:
+            - { name: kernel.event_subscriber }
 
     # Elewant - Herding
 

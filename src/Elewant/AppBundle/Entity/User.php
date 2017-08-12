@@ -99,7 +99,7 @@ class User implements UserInterface, \Serializable
 
     public function shepherdId() : ShepherdId
     {
-        return $this->shepherdId();
+        return $this->shepherdId;
     }
 
     public function username() : string
