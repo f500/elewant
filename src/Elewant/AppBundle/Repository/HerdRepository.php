@@ -79,8 +79,7 @@ EOQ;
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('shepherdId', $shepherdId->toString());
 
-        return $query->getSingleResult();
-
+        return $query->getOneOrNullResult();
     }
 
 }
