@@ -10,10 +10,10 @@ ufw_rules_to_create:
 # MYSQL
 
 mysql_bind_address: 192.168.77.77
-mysql_root_password: 2lqYqTXfjIQ6746mrzB25ug0xedaxDcl # Place in secure.yml for non-develop groups!
+mysql_root_password: ~ # See secure.yml
 
 mysql_passwords:
-  elewant_develop: uj8bgtQyq0qhz3Z85iVi5Sgr6AawUH4r # Place in secure.yml for non-develop groups!
+  elewant_develop: ~ # See secure.yml
 
 mysql_databases:
   - elewant_develop
@@ -73,7 +73,7 @@ elewant_server_name: develop.elewant.loc
 elewant_db_name: elewant_develop
 elewant_db_user: elewant_develop
 elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
-elewant_delivery_address: staging@future500.nl
-elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
-elewant_twitter_client: 'needs_client_id'
-elewant_twitter_secret: 'needs_client_secret'
+elewant_delivery_address: recipient-override@future500.nl
+elewant_secret: ~ # See secure.yml
+elewant_twitter_client: ~ # See secure.yml
+elewant_twitter_secret: ~ # See secure.yml
