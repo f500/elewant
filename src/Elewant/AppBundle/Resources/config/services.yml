@@ -1,3 +1,8 @@
+imports:
+    - { resource: "@ElewantAppBundle/Resources/config/event_store.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/projection.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
+
 services:
 
     # Elewant - App

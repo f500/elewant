@@ -2,9 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@ElewantAppBundle/Resources/config/event_store.yml" }
-    - { resource: "@ElewantAppBundle/Resources/config/projection.yml" }
-    - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
     - { resource: "@ElewantAppBundle/Resources/config/services.yml" }
 
 parameters:
