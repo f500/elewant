@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Elewant\UserBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/")
+     */
+    public function indexAction()
+    {
+        return $this->render('ElewantUserBundle:Default:index.html.twig');
+    }
+}

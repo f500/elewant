@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
 
             new Elewant\AppBundle\ElewantAppBundle(),
+            new Elewant\UserBundle\ElewantUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {

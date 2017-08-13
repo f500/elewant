@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@ElewantAppBundle/Resources/config/services.yml" }
+    - { resource: "@ElewantUserBundle/Resources/config/services.yml" }
 
 parameters:
     locale: en
