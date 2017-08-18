@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Controller;
+namespace Elewant\ExampleBundle\Controller;
 
 use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\Herding\Model\Breed;
@@ -62,7 +62,7 @@ class HerdingExampleController extends Controller
 
         $herds = $herdRepository->findAll();
 
-        return $this->render('ElewantAppBundle:Example:herd_list.html.twig', ['herds' => $herds]);
+        return $this->render('ElewantExampleBundle::herd_list.html.twig', ['herds' => $herds]);
     }
 
     /**
@@ -102,7 +102,7 @@ class HerdingExampleController extends Controller
             'newest_elephpants' => $herdRepository->lastNewElePHPants(5),
         ];
 
-        return $this->render('ElewantAppBundle:Example:top5.html.twig', $data);
+        return $this->render('ElewantExampleBundle::top5.html.twig', $data);
     }
 
     /**
@@ -126,7 +126,7 @@ class HerdingExampleController extends Controller
             $data['matches'] = $herdRepository->search($request->query->get('q'));
         }
 
-        return $this->render('ElewantAppBundle:Example:search.html.twig', $data);
+        return $this->render('ElewantExampleBundle::search.html.twig', $data);
     }
 
     /**
@@ -149,9 +149,9 @@ class HerdingExampleController extends Controller
         ];
 
         if (count($herd->elephpants()) === 0) {
-            return $this->render('ElewantAppBundle:Example:herd_form.html.twig', $data);
+            return $this->render('ElewantExampleBundle::herd_form.html.twig', $data);
         } else {
-            return $this->render('ElewantAppBundle:Example:herd_show.html.twig', $data);
+            return $this->render('ElewantExampleBundle::herd_show.html.twig', $data);
         }
     }
 
