@@ -95,9 +95,22 @@ $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
 
 // Global Components
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   overflow-x: hidden;
   @include body-font;
+}
+
+.body-shrink-always {
+  // Sticky navbar
+  padding-top: 54px;
+
+  // Semi-sticky footer
+  margin-bottom: 90px;
 }
 
 .text-primary {
@@ -643,6 +656,13 @@ footer {
   color: $white;
   padding: 25px 0;
   text-align: center;
+
+  // Semi-sticky footer
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+
   span.copyright {
     font-size: 90%;
     line-height: 40px;
