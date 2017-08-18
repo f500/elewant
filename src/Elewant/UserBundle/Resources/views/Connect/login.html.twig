@@ -1,15 +1,14 @@
 {% extends 'HWIOAuthBundle::layout.html.twig' %}
 
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
+
 {% block hwi_oauth_content %}
 
     <div class="container">
         <section>
 
             {% if error is defined and error %}
-                <div class="alert alert-danger" role="alert">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                    {{ error }}
-                </div>
+                {{ utils.alert(error, 'danger') }}
             {% endif %}
 
             {% for owner in hwi_oauth_resource_owners() %}

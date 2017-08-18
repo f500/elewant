@@ -1,3 +1,5 @@
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
+
 <header>
     <div class="container">
 
@@ -14,10 +16,7 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <div class="alert alert-danger" role="alert">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                Welcome {{ app.user.displayName }}!
-            </div>
+            {{ utils.alert('Welcome ' ~ app.user.displayName ~ '!', 'success') }}
         {% endif %}
 
     </div>
