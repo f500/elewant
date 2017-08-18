@@ -49,6 +49,9 @@ php7_ini_directives_global:
 php7_ini_directives_fpm:
   session.cookie_secure: off
 
+php7_ini_directives_fpm:
+  disable_functions: "passthru, system, proc_open, popen, curl_multi_exec"
+
 # NGINX
 
 nginx_user: "{{ php7_fpm_pool_user }}"

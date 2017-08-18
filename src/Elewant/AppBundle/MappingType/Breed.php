@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Entity\CustomType;
+namespace Elewant\AppBundle\MappingType;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use Elewant\Herding\Model\ShepherdId as ShepherdIdType;
+use Elewant\Herding\Model\Breed as BreedType;
 
-final class ShepherdId extends Type
+final class Breed extends Type
 {
-    const NAME = 'shepherd_id';
+    const NAME = 'breed';
 
     /**
      * {@inheritdoc}
@@ -25,9 +25,6 @@ final class ShepherdId extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $fieldDeclaration['length'] = 36;
-        $fieldDeclaration['fixed'] = true;
-
         return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
 
@@ -39,7 +36,7 @@ final class ShepherdId extends Type
         if ($value === null) {
             return null;
         }
-        return ShepherdIdType::fromString($value);
+        return BreedType::fromString($value);
     }
 
     /**
@@ -50,8 +47,8 @@ final class ShepherdId extends Type
         if ($value === null) {
             return null;
         }
-        /** @var ShepherdIdType $value */
-        return $value->toString();
+        /** @var BreedType $value */
+        $value->toString();
     }
 
     /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Form;
+namespace Elewant\UserBundle\Form;
 
-use Elewant\AppBundle\Entity\User;
+use Elewant\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

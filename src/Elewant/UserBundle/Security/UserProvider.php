@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Security;
+namespace Elewant\UserBundle\Security;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
-use Elewant\AppBundle\Entity\User;
-use Elewant\AppBundle\Event\UserHasRegistered;
-use Elewant\AppBundle\Repository\UserRepository;
+use Elewant\UserBundle\Entity\User;
+use Elewant\UserBundle\Event\UserHasRegistered;
+use Elewant\UserBundle\Repository\UserRepository;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;

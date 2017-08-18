@@ -13,13 +13,15 @@ hwi_oauth_login:
 twitter_login:
     path: /login/check-twitter
 
-facebook_login:
-    path: /login/check-facebook
-
 logout:
     path: /logout
 
-elewant_frontend:
+elewant_app:
     resource: "@ElewantAppBundle/Controller/"
     type:     annotation
     prefix:   /
+
+#elewant_user:
+#    resource: "@ElewantUserBundle/Controller/"
+#    type:     annotation
+#    prefix:   /

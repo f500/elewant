@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Repository;
+namespace Elewant\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Elewant\AppBundle\Entity\User;
+use Elewant\UserBundle\Entity\User;
 
 final class UserRepository extends EntityRepository
 {
@@ -13,7 +13,7 @@ final class UserRepository extends EntityRepository
     {
         $dql = <<<EOQ
 SELECT u
-FROM ElewantAppBundle:User u
+FROM ElewantUserBundle:User u
 LEFT JOIN u.connections c
 WHERE u.username = :username
 EOQ;
@@ -28,7 +28,7 @@ EOQ;
     {
         $dql = <<<EOQ
 SELECT u
-FROM ElewantAppBundle:User u
+FROM ElewantUserBundle:User u
 LEFT JOIN u.connections c
 WHERE c.resource = :resource AND c.resourceId = :resourceId
 EOQ;

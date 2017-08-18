@@ -1,8 +1,8 @@
 <?php
 
-namespace Elewant\AppBundle\Form;
+namespace Elewant\UserBundle\Form;
 
-use Elewant\AppBundle\Entity\User;
+use Elewant\UserBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\Form\RegistrationFormHandlerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use Symfony\Component\Form\Form;

@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
 
             new Elewant\AppBundle\ElewantAppBundle(),
-
+            new Elewant\UserBundle\ElewantUserBundle(),
             new Elewant\ExampleBundle\ElewantExampleBundle(),
         ];
 
@@ -34,7 +34,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
 
-            if ('dev' === $this->getEnvironment()) {
+            if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
@@ -51,10 +51,10 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
-            return '/dev/shm/elewant/var/cache/'.$this->getEnvironment();
+            return '/dev/shm/elewant/var/cache/' . $this->getEnvironment();
         }
 
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
     }
 
     public function getLogDir()
@@ -63,11 +63,11 @@ class AppKernel extends Kernel
             return '/dev/shm/elewant/var/logs';
         }
 
-        return dirname(__DIR__).'/var/logs';
+        return dirname(__DIR__) . '/var/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }

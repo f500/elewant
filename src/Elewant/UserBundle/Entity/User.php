@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Entity;
+namespace Elewant\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Elewant\AppBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Elewant\UserBundle\Repository\UserRepository")
  * @ORM\Table
  * @UniqueEntity("username")
  *
@@ -56,7 +56,7 @@ class User implements UserInterface, \Serializable
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\Connection", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Elewant\UserBundle\Entity\Connection", mappedBy="user", cascade={"persist"})
      * @var ArrayCollection
      */
     private $connections;

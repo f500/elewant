@@ -1,35 +1,20 @@
+imports:
+    - { resource: "@ElewantAppBundle/Resources/config/event_store.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/projection.yml" }
+    - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
+
 services:
 
-    # Elewant - App
-
-    elewant.security.user_provider:
-        class: Elewant\AppBundle\Security\UserProvider
-        arguments: [ "@doctrine", "@event_dispatcher" ]
-
-    elewant.security.registration.form:
-        class: Elewant\AppBundle\Form\UserType
-        factory: "form.factory:create"
-        arguments: [ Elewant\AppBundle\Form\UserType ]
-
-    elewant.security.registration.form_handler:
-        class: Elewant\AppBundle\Form\RegistrationFormHandler
-        arguments: [ "@elewant.security.user_provider" ]
-
-    elewant.security.account.connector:
-        alias: elewant.security.user_provider
+    elewant.herd.herd_repository:
+        class: Elewant\AppBundle\Repository\HerdRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [ Elewant\AppBundle\Entity\Herd ]
 
     elewant.event_subscriber.new_user:
         class: Elewant\AppBundle\EventSubscriber\NewUserSubscriber
         arguments: ["@elewant.herd.herd_repository", "@prooph_service_bus.herding_command_bus"]
         tags:
             - { name: kernel.event_subscriber }
-
-    # Elewant - Herding
-
-    elewant.herd.herd_repository:
-        class: Elewant\AppBundle\Repository\HerdRepository
-        factory: [ "@doctrine.orm.entity_manager", getRepository ]
-        arguments: [ Elewant\AppBundle\Entity\Herd ]
 
     elewant.api_command_controller:
         class: Elewant\AppBundle\Controller\ApiCommandController
