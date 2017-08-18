@@ -1,3 +1,7 @@
+{% macro icon(icon) %}
+    <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
+{% endmacro %}
+
 {% macro alert(message, type, icon) %}
     {% if not icon %}
         {% if type == 'success' %}

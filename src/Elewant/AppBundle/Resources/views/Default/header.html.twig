@@ -9,8 +9,7 @@
 
             {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                    Join the herd
+                    {{ utils.icon('twitter') }} Join the herd
                 </a>
             {% endif %}
         </div>
