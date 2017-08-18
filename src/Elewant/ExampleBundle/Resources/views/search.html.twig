@@ -1,0 +1,24 @@
+{% extends 'ElewantAppBundle::Layout/base.html.twig' %}
+
+{% block body %}
+    <section id="herd_list">
+        <div class="row text-md-center">
+            <div class="col-md-8">
+                <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+
+                <form method="get" action="">
+                    <input type="text" name="q" value="{{ search }}">
+                    <input type="submit" name="search" value="Search">
+                </form>
+
+                <p>
+                    {% for herd in matches %}
+                        <a href="{{ path('herd_show', {'herdId': herd.herdId}) }}">{{ herd.name }}</a>
+                        <a href="{{ path('herd_abandon', {'herdId': herd.herdId}) }}">(abandon)</a><br />
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
