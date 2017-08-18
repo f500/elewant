@@ -1,10 +1,25 @@
 {% extends 'HWIOAuthBundle::layout.html.twig' %}
 
 {% block hwi_oauth_content %}
-    {% if error is defined and error %}
-        <span>{{ error }}</span>
-    {% endif %}
-    {% for owner in hwi_oauth_resource_owners() %}
-        <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />
-    {% endfor %}
+
+    <div class="container">
+        <section>
+
+            {% if error is defined and error %}
+                <div class="alert alert-danger" role="alert">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% for owner in hwi_oauth_resource_owners() %}
+                <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-lg btn-primary" role="button">
+                    <i class="fa fa-{{ owner }}" aria-hidden="true"></i>
+                    Login with {{ owner | trans({}, 'HWIOAuthBundle') }}
+                </a>
+            {% endfor %}
+
+        </section>
+    </div>
+
 {% endblock hwi_oauth_content %}
