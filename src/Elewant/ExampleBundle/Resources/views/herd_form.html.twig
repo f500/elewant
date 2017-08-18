@@ -1,14 +1,21 @@
-{% extends 'ElewantAppBundle::layout.html.twig' %}
+{% extends 'ElewantAppBundle::Layout/base.html.twig' %}
 
 {% block body %}
-    <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
+    <section id="herd_list">
+        <div class="row text-md-center">
+            <div class="col-md-12">
+                <p><a href="{{ path('herd_list') }}">Back to herd list</a></p>
 
-    <p>
-        {% for breed in breeds %}
-            <a href="#" onclick="abandon('{{ breed }}')">-</a> {{ breed }}: <span id="{{ breed }}_COUNT">0</span>
-            <a href="#" onclick="adopt('{{ breed }}')">+</a></br >
-        {% endfor %}
-    </p>
+                <p>
+                    {% for breed in breeds %}
+                        <a href="#" onclick="abandon('{{ breed }}')">-</a> {{ breed }}:
+                        <span id="{{ breed }}_COUNT">0</span>
+                        <a href="#" onclick="adopt('{{ breed }}')">+</a></br >
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </section>
 
     <script>
         function adopt(breed) {

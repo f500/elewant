@@ -26,6 +26,7 @@ class AppKernel extends Kernel
 
             new Elewant\AppBundle\ElewantAppBundle(),
             new Elewant\UserBundle\ElewantUserBundle(),
+            new Elewant\ExampleBundle\ElewantExampleBundle(),
         ];
 
         if (in_array($this->getEnvironment(), $this->developmentEnvironments, true)) {
