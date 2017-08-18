@@ -18,9 +18,6 @@ hwi_oauth_login:
 twitter_login:
     path: /login/check-twitter
 
-facebook_login:
-    path: /login/check-facebook
-
 logout:
     path: /logout
 
