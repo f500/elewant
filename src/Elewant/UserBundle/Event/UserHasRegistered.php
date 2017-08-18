@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Event;
+namespace Elewant\UserBundle\Event;
 
-use Elewant\AppBundle\Entity\User;
+use Elewant\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
 
 final class UserHasRegistered extends Event
 {
     const NAME = 'user.has.registered';
 
-    /** @var User */
+    /**
+     * @var User
+     */
     protected $user;
 
     public function __construct(User $user)
@@ -19,7 +21,7 @@ final class UserHasRegistered extends Event
         $this->user = $user;
     }
 
-    public function user()
+    public function user() : User
     {
         return $this->user;
     }

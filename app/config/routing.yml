@@ -1,8 +1,3 @@
-elewant_user:
-    resource: "@ElewantUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
@@ -21,7 +16,12 @@ twitter_login:
 logout:
     path: /logout
 
-elewant_frontend:
+#elewant_user:
+#    resource: "@ElewantUserBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
+
+elewant_app:
     resource: "@ElewantAppBundle/Controller/"
     type:     annotation
     prefix:   /

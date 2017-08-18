@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Entity;
+namespace Elewant\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,7 +47,7 @@ class Connection
     private $refreshToken;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Elewant\AppBundle\Entity\User", inversedBy="connections")
+     * @ORM\ManyToOne(targetEntity="Elewant\UserBundle\Entity\User", inversedBy="connections")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @var User
      */

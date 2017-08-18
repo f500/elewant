@@ -1,4 +1,17 @@
 services:
-#    elewant_user.example:
-#        class: Elewant\UserBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    elewant.security.user_provider:
+        class: Elewant\UserBundle\Security\UserProvider
+        arguments: [ "@doctrine", "@event_dispatcher" ]
+
+    elewant.security.registration.form:
+        class: Elewant\UserBundle\Form\UserType
+        factory: "form.factory:create"
+        arguments: [ Elewant\UserBundle\Form\UserType ]
+
+    elewant.security.registration.form_handler:
+        class: Elewant\UserBundle\Form\RegistrationFormHandler
+        arguments: [ "@elewant.security.user_provider" ]
+
+    elewant.security.account.connector:
+        alias: elewant.security.user_provider
