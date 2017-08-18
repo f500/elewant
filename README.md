@@ -44,6 +44,12 @@ Fetch roles from Ansible Galaxy:
 
     ansible-galaxy install -r ansible/galaxy_roles.yml -f
 
+Create a local group_vars file for the develop environment, adjust it according to your needs.
+
+    cp ansible/group_vars/develop/local.dist ansible/group_vars/develop/local.yml
+
+If you want to be able to log in with twitter, you'll need to create an application at twitter, then place your key & secret in `local.yml`.
+
 Bring your box up:
 
     vagrant up --provision
