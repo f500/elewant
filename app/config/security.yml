@@ -18,6 +18,7 @@ security:
                 resource_owners:
                     twitter:  hwi_oauth_twitter_login_check
                 login_path:   hwi_oauth_twitter_login
+                default_target_path: herd_tending
                 failure_path: root
                 use_forward:  false
             logout:

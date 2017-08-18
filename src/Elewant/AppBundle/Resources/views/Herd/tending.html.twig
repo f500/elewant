@@ -1,0 +1,27 @@
+{% extends 'ElewantAppBundle::Layout/base.html.twig' %}
+
+{% block content %}
+    <section id="herd_tending">
+        <h3>{{ herd.name }}</h3>
+
+        <div class="row">
+            {% for breed, count in herd.elePHPantBreedCounts %}
+                <div class="col-3">
+                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
+                    {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed, 'count': count} %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr>
+
+    <p>
+        <select name="breedChoice" id="breedChoice">
+            {% for breed in breeds|sort %} }}
+                <option value="{{ breed }}">{{ ("herding.breed." ~ breed)|trans }}</option>
+            {% endfor %}
+        </select>
+        <button id="adoptivate">Adopt</button>
+    </p>
+
+{% endblock %}

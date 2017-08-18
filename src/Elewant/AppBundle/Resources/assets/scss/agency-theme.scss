@@ -284,7 +284,7 @@ header {
 // Global Section Styles
 
 section {
-  padding: 100px 0;
+  padding: 50px 0;
   h2.section-heading {
     font-size: 40px;
     margin-top: 0;
@@ -302,7 +302,7 @@ section {
 
 @include media-breakpoint-up(md) {
   section {
-    padding: 150px 0;
+    padding: 50px 0;
   }
 }
 

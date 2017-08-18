@@ -5,6 +5,11 @@ imports:
 
 services:
 
+    elewant.twig.breed_extention:
+        class: Elewant\AppBundle\Twig\BreedExtension
+        tags:
+            - { name: twig.extension }
+
     elewant.herd.herd_repository:
         class: Elewant\AppBundle\Repository\HerdRepository
         factory: [ "@doctrine.orm.entity_manager", getRepository ]
