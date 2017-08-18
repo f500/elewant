@@ -16,12 +16,12 @@ twitter_login:
 logout:
     path: /logout
 
-#elewant_user:
-#    resource: "@ElewantUserBundle/Controller/"
-#    type:     annotation
-#    prefix:   /
-
 elewant_app:
     resource: "@ElewantAppBundle/Controller/"
     type:     annotation
     prefix:   /
+
+#elewant_user:
+#    resource: "@ElewantUserBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
