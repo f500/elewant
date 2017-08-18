@@ -1,0 +1,18 @@
+{% extends 'ElewantAppBundle:Layout:base.html.twig' %}
+
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
+
+{% block body %}
+
+    <div class="container mt-3">
+
+        {# Alerts #}
+
+        {{ utils.alert('You successfully read this important alert message.', 'success') }}
+        {{ utils.alert('Better check yourself, you\'re not looking too good.', 'warning') }}
+        {{ utils.alert('Change a few things up and try submitting again.', 'danger') }}
+        {{ utils.alert('This alert needs your attention, but it\'s not super important.') }}
+
+    </div>
+
+{% endblock %}
