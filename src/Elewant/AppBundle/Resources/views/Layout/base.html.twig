@@ -17,7 +17,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 </head>
 
-<body id="page-top">
+<body id="page-top"{% if not shrinking_navbar|default(false) %} class="body-shrink-always"{% endif %}>
 
 {% include 'ElewantAppBundle:Layout:navbar.html.twig' %}
 
