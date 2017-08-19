@@ -10,10 +10,13 @@ hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix:   /login
 
-twitter_login:
+hwi_oauth_twitter_login:
+    path: /connect/twitter
+
+hwi_oauth_twitter_login_check:
     path: /login/check-twitter
 
-logout:
+hwi_oauth_logout:
     path: /logout
 
 elewant_app:

@@ -238,9 +238,10 @@ header {
   background-size: cover;
   text-align: center;
   color: white;
+  height: 100vh;
+
   .intro-text {
     padding-top: 100px;
-    padding-bottom: 50px;
     .intro-lead-in {
       @include serif-font;
       font-style: italic;
@@ -262,7 +263,6 @@ header {
   header {
     .intro-text {
       padding-top: 250px;
-      padding-bottom: 250px;
       .intro-lead-in {
         @include serif-font;
         font-style: italic;

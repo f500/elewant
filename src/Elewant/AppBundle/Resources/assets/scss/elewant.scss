@@ -7,3 +7,9 @@
 @import "agency-theme";
 // Font Awesome
 @import "../../../../../../node_modules/font-awesome/scss/font-awesome";
+
+
+// Alert icons
+.alert .fa {
+  margin-right: 0.5rem;
+}

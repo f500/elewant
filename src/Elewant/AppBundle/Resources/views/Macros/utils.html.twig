@@ -1,0 +1,25 @@
+{% macro icon(icon) %}
+    <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
+{% endmacro %}
+
+{% macro alert(message, type, icon) %}
+    {% if not icon %}
+        {% if type == 'success' %}
+            {% set icon = 'check-circle-o' %}
+        {% elseif type == 'warning' %}
+            {% set icon = 'exclamation-triangle' %}
+        {% elseif type == 'danger' %}
+            {% set icon = 'exclamation-circle' %}
+        {% else %}
+            {% set icon = 'info-circle' %}
+        {% endif %}
+    {% endif %}
+
+    <div class="alert alert-{{ type | default('info') }} alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
+        {{ message }}
+    </div>
+{% endmacro %}

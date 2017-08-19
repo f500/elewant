@@ -16,13 +16,13 @@ security:
                 oauth_user_provider:
                     service:  elewant.security.user_provider
                 resource_owners:
-                    twitter:  "/login/check-twitter"
-                login_path:   /login
-                failure_path: /login
+                    twitter:  hwi_oauth_twitter_login_check
+                login_path:   hwi_oauth_twitter_login
+                failure_path: root
                 use_forward:  false
             logout:
-                path:   /logout
-                target: /
+                path:   hwi_oauth_logout
+                target: root
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

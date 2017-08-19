@@ -1,11 +1,22 @@
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
 
-<!-- Header -->
 <header>
     <div class="container">
+
         <div class="intro-text">
             <div class="intro-lead-in">Welcome elePHPants around the world!</div>
             <div class="intro-heading">It's nice to meet you</div>
-            <a href="#services" class="page-scroll btn btn-xl"><i class="fa fa-twitter"></i> Join the herd</a>
+
+            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
+                    {{ utils.icon('twitter') }} Join the herd
+                </a>
+            {% endif %}
         </div>
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {{ utils.alert('Welcome ' ~ app.user.displayName ~ '!', 'success') }}
+        {% endif %}
+
     </div>
 </header>

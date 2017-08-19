@@ -19,4 +19,14 @@ class DefaultController extends Controller
             ['shrinking_navbar' => true]
         );
     }
+
+    /**
+     * @Route("/style-guide", name="style_guide")
+     */
+    public function styleGuideAction()
+    {
+        return $this->render(
+            'ElewantAppBundle:Default:style_guide.html.twig'
+        );
+    }
 }
