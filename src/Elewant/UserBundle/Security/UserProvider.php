@@ -135,7 +135,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         $user->connect(
             'twitter',
             (string) $data['id'],
-            (string) $response->getAccessToken(),
+            $response->getAccessToken(),
             (string) $response->getRefreshToken()
         );
     }
