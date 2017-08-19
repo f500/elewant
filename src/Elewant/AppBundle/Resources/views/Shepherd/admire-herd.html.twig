@@ -1,0 +1,17 @@
+{% extends 'ElewantAppBundle::Layout/base.html.twig' %}
+
+{% block content %}
+    <section id="herd_tending">
+        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
+
+        <div class="row">
+            {% for breed, count in herd.elePHPantBreedCounts %}
+                <div class="col-3 text-center mt-2">
+                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+{% endblock %}
