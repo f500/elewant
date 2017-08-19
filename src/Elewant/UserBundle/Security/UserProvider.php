@@ -111,7 +111,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
                 throw new AuthenticationException(
                     sprintf(
                         'Cannot connect user "%s" to resource "%s" with id "%s".',
-                        $user->username(),
+                        $user->getUsername(),
                         $response->getResourceOwner()->getName(),
                         $response->getResponse()['id'] ?? 'UNKNOWN'
                     )
