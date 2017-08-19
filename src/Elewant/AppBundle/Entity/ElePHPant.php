@@ -9,9 +9,9 @@ use Elewant\Herding\Model\Breed;
 
 /**
  * @ORM\Entity
- * @ORM\Table(indexes={@ORM\Index(columns={"adopted_on"})})
+ * @ORM\Table(name="elephpant", indexes={@ORM\Index(columns={"adopted_on"})})
  */
-class Elephpant
+class ElePHPant
 {
     /**
      * @ORM\ManyToOne(targetEntity="Elewant\AppBundle\Entity\Herd", inversedBy="elephpants")

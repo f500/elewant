@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Herd
  * @ORM\Entity(repositoryClass="Elewant\AppBundle\Repository\HerdRepository")
  * @ORM\Table(indexes={@ORM\Index(columns={"formed_on"}),@ORM\Index(columns={"shepherd_id"})})
  */
@@ -42,7 +41,7 @@ class Herd
     private $herdId;
 
     /**
-     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\Elephpant", mappedBy="herd", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\ElePHPant", mappedBy="herd", cascade={"persist"})
      * @var ArrayCollection
      */
     private $elephpants;

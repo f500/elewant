@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Elewant\AppBundle\Entity\Elephpant;
+use Elewant\AppBundle\Entity\ElePHPant;
 use Elewant\AppBundle\Entity\Herd;
 use Elewant\Herding\Model\ShepherdId;
 
@@ -33,13 +33,13 @@ EOQ;
     /**
      * @param int $limit
      *
-     * @return Elephpant[]
+     * @return ElePHPant[]
      */
     public function lastNewElePHPants(int $limit) : array
     {
         $dql = <<<EOQ
 SELECT e
-FROM ElewantAppBundle:Elephpant e
+FROM ElewantAppBundle:ElePHPant e
 ORDER BY e.adoptedOn DESC
 EOQ;
 
