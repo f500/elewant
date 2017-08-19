@@ -21,7 +21,11 @@
 
 {% include 'ElewantAppBundle:Layout:navbar.html.twig' %}
 
-{% block body %}{% endblock %}
+{% block body %}
+<div class="content container">
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}
 
 {% include 'ElewantAppBundle:Layout:footer.html.twig' %}
 

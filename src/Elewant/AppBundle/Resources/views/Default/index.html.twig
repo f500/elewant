@@ -3,9 +3,8 @@
 {% block body %}
 
     {% include 'ElewantAppBundle:Default:header.html.twig' %}
-    {% include 'ElewantAppBundle:Default:services.html.twig' %}
-    {% include 'ElewantAppBundle:Default:portfolio.html.twig' %}
     {% include 'ElewantAppBundle:Default:about.html.twig' %}
+    {% include 'ElewantAppBundle:Default:newest_herds.html.twig' with {'herds': newestHerds}%}
     {% include 'ElewantAppBundle:Default:team.html.twig' %}
 
 {% endblock %}

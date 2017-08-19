@@ -1,0 +1,5 @@
+<div class="mx-auto elephpant-controls input-group input-group-sm w-50">
+    <span class="input-group-btn"><button class="btn btn-outline-dark abandon" type="button" data-breed="{{ breed }}">-</button></span>
+    <input type="text" style="width:15px;" class="form-control {{ breed }}" value="{{ count|default(0) }}" aria-label="Count" disabled>
+    <span class="input-group-btn"><button class="btn btn-outline-dark adopt" type="button" data-breed="{{ breed }}">+</button></span>
+</div>
