@@ -6,11 +6,11 @@
         <a class="navbar-brand page-scroll" href="{{ path('root') }}">Elewant</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link page-scroll" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link page-scroll" href="#portfolio">Portfolio</a></li>
                 <li class="nav-item"><a class="nav-link page-scroll" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link page-scroll" href="#newest_herds">Newest Herds</a></li>
                 <li class="nav-item"><a class="nav-link page-scroll" href="#team">Team</a></li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">My Herd</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('hwi_oauth_logout') }}">Logout</a></li>
                 {% endif %}
             </ul>
