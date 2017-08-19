@@ -86,6 +86,7 @@ class Herd
             }
             $result[$breed]++;
         }
+        ksort($result);
 
         return new ArrayCollection($result);
     }

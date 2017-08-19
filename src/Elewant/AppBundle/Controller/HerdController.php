@@ -14,6 +14,7 @@ use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -35,11 +36,7 @@ class HerdController extends Controller
             'breeds' => Breed::availableTypes(),
         ];
 
-        if (count($herd->elephpants()) === 0) {
-            return $this->render('ElewantAppBundle:Herd:form.html.twig', $data);
-        } else {
-            return $this->render('ElewantAppBundle:Herd:tending.html.twig', $data);
-        }
+        return $this->render('ElewantAppBundle:Herd:tending.html.twig', $data);
     }
 
     /**
@@ -54,8 +51,7 @@ class HerdController extends Controller
         $command    = AdoptElePHPant::byHerd($herd->herdId(), $breed);
 
         $commandBus->dispatch($command);
-
-        return $this->redirectToRoute('herd_tending');
+        return new JsonResponse('adoption underway');
     }
 
     /**
@@ -71,7 +67,7 @@ class HerdController extends Controller
 
         $commandBus->dispatch($command);
 
-        return $this->redirectToRoute('herd_tending');
+        return new JsonResponse('abandonment underway');
     }
 
     /**
