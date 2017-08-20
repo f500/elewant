@@ -7,8 +7,8 @@ $(function() {
             url: '/herd/adopt/' + breedChoice,
             data: [],
             success: function () {
-                var countInput = $(".elephpant-controls input." + breedChoice);
-                countInput.val(parseInt(countInput.val()) + 1);
+                var countInput = $(".elephpant-controls .count-" + breedChoice);
+                countInput.html(parseInt(countInput.html()) + 1);
             }
         });
     });
@@ -20,8 +20,8 @@ $(function() {
             url: '/herd/abandon/' + breedChoice,
             data: [],
             success: function () {
-                var countInput = $(".elephpant-controls input." + breedChoice);
-                countInput.val(parseInt(countInput.val()) - 1);
+                var countInput = $(".elephpant-controls .count-" + breedChoice);
+                countInput.html(parseInt(countInput.html()) - 1);
             }
         });
     });
