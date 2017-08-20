@@ -17,11 +17,11 @@
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>{{ herd.formedOn|date('Y-m-d') }}</h4>
-                                <h4 class="subheading">{{ herd.name }} <a href=""></a></h4>
+                                <h4 class="subheading">{{ herd.name }} <a href="{{ path('shepherd_admire_herd', {'username': herd.name }) }}">L</a></h4>
                             </div>
                             <div class="timeline-body">
                                 <p class="text-muted">
-                                {% for breed, count in herd.elePHPantBreedCounts|slice(1,4, true) %}
+                                {% for breed, count in herd.elePHPantBreedCounts|slice(0,4, true) %}
                                     {{ ("herding.breed." ~ breed)|trans }} ({{ count }})<br />
                                 {% else %}
                                     no ElePHPants yet...

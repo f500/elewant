@@ -25,8 +25,7 @@ class ShepherdController extends Controller
      */
     public function shepherdAdmireHerdAction($username)
     {
-        $user = $this->getUserByName($username);
-        $herd = $this->getHerd($user);
+        $herd = $this->getHerdByUsername($username);
 
         $data = [
             'herd' => $herd,
@@ -49,23 +48,24 @@ class ShepherdController extends Controller
         try {
             $user = $userProvider->loadUserByUsername($username);
         } catch (UsernameNotFoundException $e) {
-            throw $this->createNotFoundException(sprintf('There is not Shepherd called %s...', $username));
+            throw $this->createNotFoundException('There is no Shepherd with that name...');
         }
 
         return $user;
     }
 
     /**
-     * @param User|UserInterface $user
+     * @param string $username
      *
      * @return Herd
-     * @throws NotFoundHttpException
+     * @internal param string $user
+     *
      */
-    private function getHerd(User $user) : Herd
+    private function getHerdByUsername(string $username) : Herd
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
-        $herd           = $herdRepository->findOneByShepherdId($user->shepherdId());
+        $herd           = $herdRepository->findOneByName($username);
 
         if ($herd === null) {
             throw $this->createNotFoundException('This Shepherd does not seem to have a Herd...');

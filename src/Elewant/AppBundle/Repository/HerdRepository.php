@@ -82,4 +82,17 @@ EOQ;
         return $query->getOneOrNullResult();
     }
 
+    public function findOneByName(string $name) :? Herd
+    {
+        $dql   = <<<EOQ
+SELECT h
+FROM ElewantAppBundle:Herd h
+WHERE h.name = :name
+EOQ;
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('name', $name);
+
+        return $query->getOneOrNullResult();
+    }
+
 }
