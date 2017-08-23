@@ -14,16 +14,26 @@
   margin-right: 0.5rem;
 }
 
+.elephpant-icon {
+  fill: white;
+}
+
 .elephpant-controls {
   font-size: smaller;
 }
 
+.elephpant {
+  box-shadow: 0 0 5px silver;
+}
+
 .elephpant.regular {
+  padding: 1.25rem .8rem 0 1.15rem;
   height: 4rem;
   width: 4rem;
 }
 
 .elephpant.large {
+  padding: 1.75rem 1rem 1rem 1.5rem;
   height: 6rem;
   width: 6rem;
 }
@@ -63,4 +73,8 @@
 }
 .elephpant.yellow {
   background-color: #FFFF00;
+}
+.elephpant.yellow .elephpant-icon,
+.elephpant.white .elephpant-icon {
+  fill: #000;
 }
