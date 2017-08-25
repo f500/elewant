@@ -19,7 +19,7 @@ security:
                     twitter:  hwi_oauth_twitter_login_check
                 login_path:   hwi_oauth_twitter_login
                 default_target_path: herd_tending
-                failure_path: root
+                failure_path: hwi_oauth_connect
                 use_forward:  false
             logout:
                 path:   hwi_oauth_logout
