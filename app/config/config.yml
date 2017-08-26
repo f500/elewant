@@ -38,6 +38,8 @@ framework:
 # Twig Configuration
 twig:
     debug: "%kernel.debug%"
+    form_themes:
+        - "ElewantAppBundle:Form:bootstrap_4_layout.html.twig"
     strict_variables: "%kernel.debug%"
 
 # Doctrine Configuration
@@ -72,6 +74,7 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# HWI OAuth Configuration
 hwi_oauth:
     firewall_names: [secured_area]
     resource_owners:
