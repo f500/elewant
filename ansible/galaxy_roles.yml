@@ -1,17 +1,16 @@
 ---
 
-- src: f500.debian
-- src: f500.bash
-- src: f500.bashrc
-- src: f500.locale
-- src: f500.ntp
-- src: f500.ufw
-- src: f500.ufw_rules
-- src: f500.vim
-
-- src: HanXHX.mysql
-- src: f500.php7
-- src: f500.php_composer
-- src: f500.nginx
-- src: f500.nodejs
-- src: f500.project_deploy
+- { src: f500.debian, version: v2.1.0 }
+- { src: f500.bash, version: v1.0.0 }
+- { src: f500.bashrc, version: v1.1.0 }
+- { src: f500.locale, version: v1.0.0 }
+- { src: f500.ntp, version: v1.0.2 }
+- { src: f500.ufw, version: v3.0.0 }
+- { src: f500.ufw_rules, version: v3.0.2 }
+- { src: f500.vim, version: v1.0.0 }
+- { src: f500.php7, version: v1.0.1 }
+- { src: f500.php_composer, version: v2.1.0 }
+- { src: f500.nginx, version: v3.1.0 }
+- { src: f500.nodejs, version: v2.0.0 }
+- { src: f500.project_deploy, version: v3.2.1 }
+- { src: HanXHX.mysql }

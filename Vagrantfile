@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
 
         config_develop.vm.provision :ansible do |ansible|
             ansible.inventory_path = "ansible/hosts"
-            ansible.playbook = "ansible/provision.yml"
+            ansible.playbook = "ansible/provision/provision.yml"
             ansible.limit = "develop"
         end
     end
@@ -60,7 +60,6 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "ansible/setup_local_production_server.yml"
             ansible.limit = "prodsim"
             ansible.raw_arguments = "--user=vagrant"
-            ansible.raw_arguments = "--ask-vault-pass"
             ansible.host_key_checking = "False"
         end
     end

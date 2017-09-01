@@ -1,0 +1,18 @@
+---
+
+- name: add deploy group
+  group: name={{ deployment_user_group }}
+
+- name: add deploy user
+  user: name={{ deployment_user }} group={{ deployment_user_group }} groups={{ deployment_user_groups|join(',') }} shell=/bin/bash password={{ deployment_user_password }}
+
+- name: add personal authorized key
+  authorized_key: user={{ deployment_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: add deploy user public key
+  copy: content="{{ deployment_user_public_key }}" dest=/home/{{ deployment_user }}/.ssh/id_rsa.pub owner={{ deployment_user }} group={{ deployment_user }}  mode=0600
+  when: deployment_user_public_key is defined
+
+- name: add deploy user private key
+  template: src=private_key.j2 dest=/home/{{ deployment_user }}/.ssh/id_rsa owner={{ deployment_user }} group={{ deployment_user }}  mode=0600
+  when: deployment_user_private_key is defined

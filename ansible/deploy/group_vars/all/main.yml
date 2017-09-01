@@ -1,0 +1,44 @@
+---
+
+elewant_github_repo: git@github.com:f500/elewant.git
+deploy_user: deploy
+nginx_user: www-data
+
+# APP
+
+elewant_application_root: ~
+elewant_application_env: prod
+elewant_server_name: ~
+elewant_php_socket: "{{ php7_fpm_pool_listen }}"
+elewant_db_socket: "{{ mysql_socket }}"
+
+web_writable_folders:
+  - { name: "{{ deploy_helper.new_release_path }}/var/cache", recursive: false }
+  - { name: "{{ deploy_helper.new_release_path }}/var/logs", recursive: false }
+  - { name: "{{ deploy_helper.shared_path }}/var/sessions", recursive: false }
+
+project_root: "{{ elewant_application_root }}"
+project_git_repo: "{{ elewant_github_repo }}"
+project_deploy_strategy: git
+
+project_environment:
+  SYMFONY_ENV: "prod"
+
+project_templates:
+  - name: parameters.yml
+    src: "{{ playbook_dir }}/templates/app/parameters.yml.j2"
+    dest: "app/config/parameters.yml"
+
+project_deploy_hook_on_finalize: "{{ playbook_dir }}/hooks/perform-build.yml"
+
+project_shared_children:
+  - path: "/var/sessions"
+    src: "sessions"
+
+project_has_composer: yes
+project_copy_previous_composer_vendors: yes
+project_has_npm: yes
+project_copy_previous_npm_modules: yes
+
+project_clean: true
+project_keep_releases: 3

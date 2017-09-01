@@ -1,5 +1,7 @@
 ---
 
+ssh_provision_user: provision
+
 # DEBIAN
 
 debian_repo_url: ftp.nl.debian.org
@@ -27,10 +29,10 @@ locale_env:
 # NTP
 
 ntp_restrict_policies:
-  - "restrict default ignore"
-  - "restrict -6 default ignore"
-  - "restrict 127.0.0.1"
-  - "restrict -6 ::1"
+  - "default ignore"
+  - "-6 default ignore"
+  - "127.0.0.1"
+  - "-6 ::1"
 
 # UFW
 
@@ -44,7 +46,7 @@ ufw_rules_to_create:
 mysql_origin: default
 mysql_vendor: mariadb
 
-mysql_config_template: "{{ inventory_dir }}/templates/mysql/my.cnf.j2"
+mysql_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
 
 mysql_bind_address: 127.0.0.1
 mysql_port: 3306
@@ -71,7 +73,7 @@ php7_extensions: [ apcu ]
 php7_versioned_extensions: [ curl, intl, mbstring, mysql, zip, xml ]
 
 php7_ini_directives_global:
-  disable_functions: "exec, passthru, shell_exec, system, proc_open, popen, curl_multi_exec"
+  disable_functions: "exec, passthru, shell_exec, system, popen, curl_multi_exec"
   opcache.revalidate_freq: off
   opcache.validate_timestamps: off
   opcache.max_accelerated_files: 20480
@@ -88,7 +90,7 @@ nginx_http_headers:
   Content-Security-Policy: "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'"
 
 nginx_server_templates:
-  - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/prod-server.conf.j2" }
+  - { name: elewant, src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2" }
 
 # APP
 

@@ -1,0 +1,8 @@
+---
+
+deployment_user: deploy
+deployment_user_group: deploy
+deployment_user_groups: ['www-data']
+deployment_user_public_key: ~
+deployment_user_private_key: ~
+deployment_user_github_api_key: ~

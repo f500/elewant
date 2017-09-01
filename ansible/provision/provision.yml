@@ -1,8 +1,27 @@
 ---
 
+- name: Provision production
+  hosts: production
+  become: yes
+  remote_user: "{{ ssh_provision_user }}"
+  gather_facts: yes
+
+  roles:
+    - { role: deployment_user,
+        deployment_user: '{{ elewant_deploy_user_username }}',
+        deployment_user_password: "{{ elewant_deploy_user_password }}",
+        deployment_user_public_key: "{{ elewant_deploy_user_public_key }}",
+        deployment_user_private_key: "{{ elewant_deploy_user_private_key }}"
+      }
+
+  tasks:
+    - name: Add github.com to known_hosts file
+      lineinfile: dest=/etc/ssh/ssh_known_hosts line="{{ lookup('pipe', 'ssh-keyscan github.com') }}" state=present  create=yes mode=0644
+
 - name: Provision globally
   hosts: all
   become: yes
+  remote_user: "{{ ssh_provision_user }}"
   gather_facts: yes
 
   pre_tasks:
@@ -16,6 +35,7 @@
 
   roles:
     - f500.debian
+    - install_apt_packages
     - f500.locale
     - f500.ntp
     - f500.ufw
@@ -29,6 +49,13 @@
     - f500.php_composer
     - f500.nginx
     - f500.nodejs
+
+  tasks:
+    - name: Create the logs folder
+      file: path=/home/logs state=directory
+
+    - name: Add write privileges for the web user
+      acl: name=/home/logs entity={{ nginx_user }} etype=user permissions=rw default=yes state=present
 
   post_tasks:
     - name: Install apt packages
@@ -47,6 +74,9 @@
       with_items:
         - grunt-cli
 
+    - name: Install grunt
+      npm: name=grunt-cli state=present global=yes
+
 - name: Provision develop environment
   hosts: develop
   become: no
@@ -60,9 +90,7 @@
         insertafter: EOF
 
     - name: Copy parameters.yml
-      template:
-        src: "{{ inventory_dir }}/templates/app/parameters.yml.j2"
-        dest: /vagrant/app/config/parameters.yml
+      command: "cp {{ elewant_application_root }}/app/config/parameters.yml.dist {{ elewant_application_root }}/app/config/parameters.yml"
 
     - name: Install composer packages
       command: composer install --quiet --no-ansi --no-interaction

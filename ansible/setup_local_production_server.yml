@@ -1,8 +1,11 @@
 ---
 
 - name: Setup Local Production Server
-  hosts: production
+  hosts: prodsim
   become: yes
+
+  vars:
+      production_ssh_user: "provision"
 
   tasks:
     - name: add inital user

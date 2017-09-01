@@ -2,7 +2,7 @@
     "name": "f500/elewant",
     "license": "MIT",
     "type": "project",
-    "description": "The elePHPant exchange program",
+    "description": "The ElePHPant exchange program",
     "autoload": {
         "psr-4": {
             "Elewant\\": "src/Elewant/"

@@ -1,0 +1,18 @@
+---
+
+# APP
+
+elewant_application_root: /home/deploy/staging.elewant.com
+elewant_application_env: prod
+elewant_server_name: staging.elewant.com
+
+elewant_db_name: elewant_staging
+elewant_db_user: elewant_staging
+elewant_db_socket: /var/run/mysqld/mysqld.sock
+
+elewant_db_password:    ~ # secure.yml
+elewant_secret:         ~ # secure.yml
+elewant_twitter_client: ~ # secure.yml
+elewant_twitter_secret: ~ # secure.yml
+
+elewant_delivery_address: staging@future500.nl
