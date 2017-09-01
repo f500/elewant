@@ -78,6 +78,11 @@ WebTestCase as a base. The tests are located in the `/test` folder.
     vendor/bin/phpunit tests/Path/To/A/Folder/
     vendor/bin/phpunit tests/Path/To/A/Specific/File.php
 
+Additionally, we use the PHPStan static analysis tool to verify that we do not have any detectable PHP errors. 
+
+    # running phpstan
+    vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src
+
 For your convenience, there is also a file that ruins both suites back to back. That's also what Travis does.
 
     # running all the tests
