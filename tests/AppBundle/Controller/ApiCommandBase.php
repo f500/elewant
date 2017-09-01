@@ -84,7 +84,12 @@ abstract class ApiCommandBase extends WebTestCase
 
     private function client()
     {
-        $client      = static::createClient();
+        $client = static::createClient();
+
+        if ($client->getContainer() === null) {
+            throw new \RuntimeException('Kernel has been shutdown or not started yet.');
+        }
+
         $this->store = $client->getContainer()->get('prooph_event_store.herd_store');
         $this->store->getActionEventEmitter()->attachListener(
             'commit.post',

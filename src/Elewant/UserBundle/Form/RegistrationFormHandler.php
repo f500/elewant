@@ -29,7 +29,7 @@ class RegistrationFormHandler implements RegistrationFormHandlerInterface
         } catch (UsernameNotFoundException $exception) {
             $user = new User(
                 $userInformation->getNickname(),
-                $userInformation->getRealName(),
+                (string) $userInformation->getRealName(),
                 $userInformation->getResponse()['location'] ?? ''
             );
         }

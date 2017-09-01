@@ -10,6 +10,9 @@ use Elewant\Herding\Model\ShepherdId;
 
 class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 {
+    private $herdId;
+    private $adoptedElePHPantId;
+
     public function setUp()
     {
         parent::setUp();

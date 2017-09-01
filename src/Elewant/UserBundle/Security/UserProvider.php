@@ -13,7 +13,6 @@ use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -29,7 +28,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
     private $registry;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
@@ -111,7 +110,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
                 throw new AuthenticationException(
                     sprintf(
                         'Cannot connect user "%s" to resource "%s" with id "%s".',
-                        $user->username(),
+                        $user->getUsername(),
                         $response->getResourceOwner()->getName(),
                         $response->getResponse()['id'] ?? 'UNKNOWN'
                     )
@@ -136,7 +135,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         $user->connect(
             'twitter',
             (string) $data['id'],
-            (string) $response->getAccessToken(),
+            $response->getAccessToken(),
             (string) $response->getRefreshToken()
         );
     }

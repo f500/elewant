@@ -40,7 +40,8 @@
         "symfony/phpunit-bridge": "^3.3",
         "phpspec/phpspec": "^3.4",
         "webmozart/assert": "^1.2",
-        "phpunit/phpunit": "^6.3"
+        "phpunit/phpunit": "^6.3",
+        "phpstan/phpstan": "^0.8.3"
     },
     "scripts": {
         "symfony-scripts": [
