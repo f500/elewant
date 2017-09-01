@@ -33,6 +33,7 @@ class HerdController extends Controller
         $herd = $this->getHerd($user);
 
         $data = [
+            'user'   => $user,
             'herd'   => $herd,
             'breeds' => Breed::availableTypes(),
         ];
