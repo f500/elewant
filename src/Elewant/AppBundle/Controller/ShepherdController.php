@@ -58,8 +58,7 @@ class ShepherdController extends Controller
      * @param string $username
      *
      * @return Herd
-     * @internal param string $user
-     *
+     * @throws NotFoundHttpException
      */
     private function getHerdByUsername(string $username) : Herd
     {

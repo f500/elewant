@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -51,6 +52,7 @@ class HerdController extends Controller
         $command    = AdoptElePHPant::byHerd($herd->herdId(), $breed);
 
         $commandBus->dispatch($command);
+
         return new JsonResponse('adoption underway');
     }
 
@@ -74,12 +76,17 @@ class HerdController extends Controller
      * @param User|UserInterface $user
      *
      * @return Herd
+     * @throws NotFoundHttpException
      */
-    private function getHerd(User $user):? Herd
+    private function getHerd(User $user) : Herd
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
-        $herd = $herdRepository->findOneByShepherdId($user->shepherdId());
+        $herd           = $herdRepository->findOneByShepherdId($user->shepherdId());
+
+        if ($herd === null) {
+            throw $this->createNotFoundException('This Shepherd does not seem to have a Herd...');
+        }
 
         return $herd;
     }
