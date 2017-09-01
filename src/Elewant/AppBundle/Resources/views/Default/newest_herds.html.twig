@@ -35,13 +35,16 @@
                     </li>
                     {% endfor %}
 
-                    <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            <h4>Be Part
-                                <br>Of Our
-                                <br>Story!</h4>
-                        </div>
-                    </li>
+                    {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>Join
+                                    <br>The
+                                    <br>Herd!</h4>
+                            </div>
+                        </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>

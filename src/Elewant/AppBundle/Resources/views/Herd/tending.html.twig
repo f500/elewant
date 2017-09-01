@@ -1,13 +1,12 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
 
 {% block content %}
     <section id="herd_tending">
-        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
+        <h3 class="mx-auto text-center">{{ user.displayname }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
-            <p>
-                Macro: message instructing the user to create their herd<br />
-            </p>
+            {{ utils.alert('Hey ' ~ app.user.displayName ~ ', you do not have any ElePHPants yet. Add them if you own them!', 'warning') }}
         {% endif %}
 
         <div class="row">
