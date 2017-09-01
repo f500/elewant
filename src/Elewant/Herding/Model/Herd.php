@@ -160,7 +160,8 @@ final class Herd extends AggregateRoot
         }
     }
 
-    private function applyHerdWasAbandoned($herdId, $shepherdId) {
+    private function applyHerdWasAbandoned($herdId, $shepherdId)
+    {
         $this->abandoned = true;
     }
 
