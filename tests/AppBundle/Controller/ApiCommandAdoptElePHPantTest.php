@@ -7,6 +7,7 @@ namespace Tests\Elewant\AppBundle\Controller;
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\ShepherdId;
+use PHPUnit\Framework\TestCase;
 
 class ApiCommandAdoptElePHPantTest extends ApiCommandBase
 {
@@ -25,19 +26,19 @@ class ApiCommandAdoptElePHPantTest extends ApiCommandBase
 
     public function test_command_adopt_elephpant_returns_http_status_202()
     {
-        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
+        TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
     public function test_command_adopt_elephpant_emits_ElePHPantWasAdoptedByHerd_event()
     {
-        $this->assertCount(2, $this->recordedEvents);
+        TestCase::assertCount(2, $this->recordedEvents);
 
         /** @var ElePHPantWasAdoptedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[1];
 
-        $this->assertInstanceOf(ElePHPantWasAdoptedByHerd::class, $eventUnderTest);
-        $this->assertSame(Breed::BLACK_AMSTERDAMPHP_REGULAR, $eventUnderTest->breed()->toString());
-        $this->assertTrue($this->herdId->equals($eventUnderTest->herdId()));
+        TestCase::assertInstanceOf(ElePHPantWasAdoptedByHerd::class, $eventUnderTest);
+        TestCase::assertSame(Breed::BLACK_AMSTERDAMPHP_REGULAR, $eventUnderTest->breed()->toString());
+        TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
     public function test_command_adopt_elephpant_created_a_correct_herd_projection()
@@ -52,7 +53,7 @@ class ApiCommandAdoptElePHPantTest extends ApiCommandBase
             'adopted_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
         $projectedElePHPant          = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
-        $this->assertSame($expectedElePHPantProjection, $projectedElePHPant);
+        TestCase::assertSame($expectedElePHPantProjection, $projectedElePHPant);
     }
 
 }
