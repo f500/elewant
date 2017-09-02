@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-sm navbar-inverse{% if not shrinking_navbar|default(false) %} navbar-shrink navbar-shrink-always{% endif %}" id="mainNav">
+<nav class="navbar fixed-top navbar-expand-md navbar-inverse{% if not shrinking_navbar|default(false) %} navbar-shrink navbar-shrink-always{% endif %}" id="mainNav">
     <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu <i class="fa fa-bars"></i>
@@ -8,6 +8,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link page-scroll" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link page-scroll" href="#newest_herds">Newest Herds</a></li>
+                <li class="nav-item"><a class="nav-link page-scroll" href="#contributors">Contributors</a></li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">My Herd</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('hwi_oauth_logout') }}">Logout</a></li>
