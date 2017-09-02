@@ -21,7 +21,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ApiCommandController
+/**
+ * This controller is only used in the develop and test environments.
+ */
+final class TestApiCommandController
 {
     /**
      * @var CommandBus
