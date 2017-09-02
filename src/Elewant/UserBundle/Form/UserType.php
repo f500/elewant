@@ -7,6 +7,7 @@ namespace Elewant\UserBundle\Form;
 use Elewant\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -19,7 +20,7 @@ class UserType extends AbstractType implements DataMapperInterface
         $builder
             ->add('username', TextType::class, ['disabled' => true])
             ->add('displayName', TextType::class)
-            ->add('country', TextType::class)
+            ->add('country', CountryType::class)
             ->setDataMapper($this);
     }
 
