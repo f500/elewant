@@ -1,29 +1,30 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
+{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
 
 {% block content %}
     <section id="herd_tending">
-        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
+        <h3 class="mx-auto text-center">{{ user.displayname }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
-            <p>
-                Macro: message instructing the user to create their herd<br />
-            </p>
+            {{ utils.alert('Hey ' ~ app.user.displayName ~ ', you do not have any ElePHPants yet. Add them if you own them!', 'warning') }}
         {% endif %}
 
         <div class="row">
             {% for breed, count in herd.elePHPantBreedCounts %}
-                <div class="col-3 text-center mt-2">
+                <div class="col-2 text-center mt-2">
                     {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
                     {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed, 'count': count} %}
                 </div>
             {% endfor %}
         </div>
 
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adoptElePHPants">
-            Adopt new ElePHPants
-        </button>
+        <div class="row justify-content-md-center">
+            <div class="col-3 mt-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adoptElePHPants">
+                    Adopt new ElePHPants
+                </button>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade bd-example-modal-lg" id="adoptElePHPants" tabindex="-1" role="dialog" aria-labelledby="adoptElePHPantsLabel" aria-hidden="true">
@@ -38,8 +39,8 @@
                     <div class="modal-body">
                         REGULAR SIZED:
                         <div class="row">
-                            {% for breed in breeds if 'REGULAR' in breed  %}
-                                <div class="col-4 text-center mt-2">
+                            {% for breed in breeds if 'REGULAR' in breed %}
+                                <div class="col-2 text-center mt-2">
                                     {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
                                     {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
                                 </div>
@@ -47,8 +48,8 @@
                         </div>
                         LARGE:
                         <div class="row">
-                            {% for breed in breeds if 'LARGE' in breed  %}
-                                <div class="col-4 text-center mt-2">
+                            {% for breed in breeds if 'LARGE' in breed %}
+                                <div class="col-3 text-center mt-2">
                                     {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
                                     {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
                                 </div>

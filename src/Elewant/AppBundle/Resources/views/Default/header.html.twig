@@ -11,12 +11,11 @@
                 <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
                     {{ utils.icon('twitter') }} Join the herd
                 </a>
+            {% else %}
+                <a href="{{ path('herd_tending') }}" class="page-scroll btn btn-xl">
+                    {{ utils.icon('edit') }} Manage your herd
+                </a>
             {% endif %}
         </div>
-
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            {{ utils.alert('Welcome ' ~ app.user.displayName ~ '!', 'success') }}
-        {% endif %}
-
     </div>
 </header>
