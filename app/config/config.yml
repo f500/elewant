@@ -7,6 +7,8 @@ imports:
 
 parameters:
     locale: en
+    github_username: f500
+    github_repository: elewant
 
 # Framework Configuration
 framework:

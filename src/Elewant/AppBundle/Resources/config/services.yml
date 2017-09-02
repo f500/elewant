@@ -4,9 +4,21 @@ imports:
     - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
 
 services:
+    elewant.githubService:
+        class: Elewant\AppBundle\Service\GithubService
+        arguments: [ %github_username%, %github_repository% ]
 
     elewant.twig.breed_extention:
         class: Elewant\AppBundle\Twig\BreedExtension
+        tags:
+            - { name: twig.extension }
+    elewant.twig.contributors_extension:
+        class: Elewant\AppBundle\Twig\ContributorsExtension
+        arguments: ["@elewant.githubService"]
+        tags:
+            -  { name: twig.extension }
+    twig.extension.array:
+        class: Twig_Extensions_Extension_Array
         tags:
             - { name: twig.extension }
 
