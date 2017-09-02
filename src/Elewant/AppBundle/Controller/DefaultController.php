@@ -29,6 +29,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/history", name="history")
+     */
+    public function historyAction()
+    {
+        return $this->render(
+            'ElewantAppBundle:Default:history.html.twig',
+            []
+        );
+    }
+
+    /**
      * @Route("/style-guide", name="style_guide")
      */
     public function styleGuideAction()
