@@ -8,6 +8,7 @@ use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
+use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonHerdTest extends ApiCommandBase
 {
@@ -28,16 +29,16 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
 
     public function test_command_abandon_herd_returns_http_status_202()
     {
-        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
+        TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
     public function test_command_abandon_herd_emits_HerdWasAbandoned_event()
     {
-        $this->assertCount(3, $this->recordedEvents);
+        TestCase::assertCount(3, $this->recordedEvents);
 
         $eventUnderTest = $this->recordedEvents[2];
-        $this->assertInstanceOf(HerdWasAbandoned::class, $eventUnderTest);
-        $this->assertTrue($this->herdId->equals($eventUnderTest->herdId()));
+        TestCase::assertInstanceOf(HerdWasAbandoned::class, $eventUnderTest);
+        TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
     public function test_command_abandon_herd_created_a_correct_herd_projection()
@@ -48,10 +49,10 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
         $shouldBeEmpty = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
         $shouldBeEmptyElePHPants = $this->retrieveHerdElePHPantsFromListing($eventUnderTest->herdId()->toString());
 
-        $this->assertEmpty($shouldBeEmpty,
+        TestCase::assertEmpty($shouldBeEmpty,
             sprintf('A Herd (%s) is still projected after being abandonded.', $eventUnderTest->herdId()->toString())
         );
-        $this->assertEmpty($shouldBeEmptyElePHPants,
+        TestCase::assertEmpty($shouldBeEmptyElePHPants,
             sprintf('ElePHPants for a herd (%s) are still projected after the herd is abandonded.', $eventUnderTest->herdId()->toString())
         );
     }

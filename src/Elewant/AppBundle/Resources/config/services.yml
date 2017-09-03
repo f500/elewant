@@ -22,7 +22,7 @@ services:
             - { name: kernel.event_subscriber }
 
     elewant.api_command_controller:
-        class: Elewant\AppBundle\Controller\ApiCommandController
+        class: Elewant\AppBundle\Controller\TestApiCommandController
         arguments: ['@prooph_service_bus.herding_command_bus', '@prooph_service_bus.message_factory']
 
     elewant.form_herd_handler:

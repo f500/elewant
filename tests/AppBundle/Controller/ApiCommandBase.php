@@ -34,7 +34,7 @@ abstract class ApiCommandBase extends WebTestCase
             'herdName'   => $name,
         ];
 
-        return $this->request('POST', '/api/commands/form-herd', $payload);
+        return $this->request('POST', '/testapi/commands/form-herd', $payload);
     }
 
     protected function adoptElePHPant(HerdId $herdId, Breed $breed)
@@ -44,7 +44,7 @@ abstract class ApiCommandBase extends WebTestCase
             'breed'  => $breed->toString(),
         ];
 
-        return $this->request('POST', '/api/commands/adopt-elephpant', $payload);
+        return $this->request('POST', '/testapi/commands/adopt-elephpant', $payload);
     }
 
     protected function abandonElePHPant(HerdId $herdId, Breed $breed)
@@ -54,7 +54,7 @@ abstract class ApiCommandBase extends WebTestCase
             'breed'  => $breed->toString(),
         ];
 
-        return $this->request('POST', '/api/commands/abandon-elephpant', $payload);
+        return $this->request('POST', '/testapi/commands/abandon-elephpant', $payload);
     }
 
     protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId)
@@ -64,7 +64,7 @@ abstract class ApiCommandBase extends WebTestCase
             'shepherdId' => $shepherdId->toString(),
         ];
 
-        return $this->request('POST', '/api/commands/abandon-herd', $payload);
+        return $this->request('POST', '/testapi/commands/abandon-herd', $payload);
     }
 
     private function request(string $type, string $url, array $payload)
