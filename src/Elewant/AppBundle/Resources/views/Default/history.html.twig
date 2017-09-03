@@ -1,0 +1,69 @@
+{% extends 'ElewantAppBundle:Layout:base.html.twig' %}
+
+{% block body %}
+
+    <section id="history">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-10">
+                    <h2 class="section-heading">History</h2>
+                    <h3 class="section-subheading text-muted">Elewant, where did it come from?</h3>
+
+                    <p class="text">This project is the brain-child of Elena de la Fuente,
+                        in combination with everyone at <a href="https://future500.nl">Future500 B.V.</a>.
+                        The name is a combination of the words "want" and "elePHPant".
+                        The idea is that we make it easier in the community to swap and share the lovely plush PHP mascots,
+                        the ElePHPants.<br />
+                        <br />
+                        It was originally conceived in 2015, and consequently forgotten. Because, well, work happened...
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-7">
+                    <p class="text">When we decided to really build it, we took some time to discuss our technical options.
+                        The main focus of this project is for us to learn, and maybe teach, the technology being used. Rather
+                        than building something as fast as possible with familiar building blocks, the team decided to to
+                        use things we had never used before. Check out the
+                        <a href="https://github.com/f500/elewant/blob/develop/README.md">README.md</a> file to see what
+                        technology choices where made.<br />
+                        Most importantly, you'll see that we decided to build an EventSourced system. Why, you ask?
+                    </p>
+                </div>
+                <div class="col col-lg-3">
+                    <img class="img-fluid img-thumbnail rounded" src="{{ asset('bundles/elewantapp/img/history-1.png') }}">
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-10">
+                    <blockquote class="blockquote">
+                        <p class="text">Did you build this <i>just</i> so that you could use Event Sourcing??
+                            <span class="blockquote-footer">Jeroen van der Gulik (@n0x13)</span>
+                        </p>
+                    </blockquote>
+                    <p class="text">The answer, as with many things, is "it's complicated". But we really hope that by
+                        building and using this system together, we can learn and experience what it's like to have an
+                        event sourced project in production. A project that serves a purpose beyond classroom examples.
+                    </p>
+                    <p class="text">
+                        So enjoy, and don't forget to
+                        {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <a href="{{ path('hwi_oauth_twitter_login') }}">Join the herd!</a>
+                        {% else %}
+                            <a href="{{ path('herd_tending') }}">Manage your herd!</a>
+                        {% endif %}
+                    </p>
+
+                    <p class="text">
+                        Kind regards,<br />
+                        <br />
+                        Elena, Jasper, Mitchel, Mark and Ramon
+
+                        <img class="img-fluid img-thumbnail rounded" src="{{ asset('bundles/elewantapp/img/history-2.png') }}">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
