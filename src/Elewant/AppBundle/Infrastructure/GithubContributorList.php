@@ -2,11 +2,10 @@
 
 namespace Elewant\AppBundle\Service;
 
-
 use GuzzleHttp\Psr7\Request;
 use Http\Adapter\Guzzle6\Client;
 
-class GithubService
+class GithubContributorList implements ContributorList
 {
     protected $client;
     protected $username;
@@ -26,7 +25,7 @@ class GithubService
         $this->client = Client::createWithConfig(['timeout' => 2]);
     }
 
-    public function getAllContributors(): array
+    public function allContributors(): array
     {
         $request = new Request(
             'GET',
