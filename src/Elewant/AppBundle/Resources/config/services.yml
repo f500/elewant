@@ -4,9 +4,13 @@ imports:
     - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
 
 services:
-    elewant.githubService:
-        class: Elewant\AppBundle\Service\GithubService
-        arguments: [ %github_username%, %github_repository% ]
+    httplug.plugin.cache:
+        class: Http\Client\Common\Plugin\CachePlugin
+        arguments: [ "@cache.app", "@httplug.stream_factory" ]
+
+    elewant.contributor_list:
+        class: Elewant\AppBundle\Infrastructure\GithubContributorList
+        arguments: [ %github_username%, %github_repository%, '@httplug.message_factory', '@httplug.client.guzzle' ]
 
     elewant.twig.breed_extention:
         class: Elewant\AppBundle\Twig\BreedExtension
@@ -14,7 +18,7 @@ services:
             - { name: twig.extension }
     elewant.twig.contributors_extension:
         class: Elewant\AppBundle\Twig\ContributorsExtension
-        arguments: ["@elewant.githubService"]
+        arguments: ["@elewant.contributor_list"]
         tags:
             -  { name: twig.extension }
     twig.extension.array:

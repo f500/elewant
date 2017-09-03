@@ -2,14 +2,14 @@
 
 namespace Elewant\AppBundle\Twig;
 
-use Elewant\AppBundle\Service\GithubService;
+use Elewant\AppBundle\Service\ContributorList;
 use Twig_SimpleFunction;
 
 class ContributorsExtension extends \Twig_Extension
 {
     protected $githubService;
 
-    public function __construct(GithubService $githubService)
+    public function __construct(ContributorList $githubService)
     {
         $this->githubService = $githubService;
     }
@@ -17,13 +17,13 @@ class ContributorsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('getContributors', [$this, 'getContributors']),
+            new Twig_SimpleFunction('contributors', [$this, 'contributors']),
         ];
     }
 
-    public function getContributors(): array
+    public function contributors(): array
     {
-        return $this->githubService->getAllContributors();
+        return $this->githubService->allContributors();
     }
 
     /**
