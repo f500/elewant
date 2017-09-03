@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new \Prooph\Bundle\EventStore\ProophEventStoreBundle(),
             new \Prooph\Bundle\ServiceBus\ProophServiceBusBundle(),
 
+            new Http\HttplugBundle\HttplugBundle(),
+
             new Elewant\AppBundle\ElewantAppBundle(),
             new Elewant\UserBundle\ElewantUserBundle(),
             new Elewant\ExampleBundle\ElewantExampleBundle(),

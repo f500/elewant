@@ -59,7 +59,7 @@ nginx_use_realpath_root: yes
 nginx_dhparam_bits: 128
 
 nginx_http_headers:
-  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'"
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'"
 
 nginx_server_templates:
   - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/dev-server.conf.j2" }
