@@ -6,7 +6,7 @@
 
         <div class="row">
             {% for breed, count in herd.elePHPantBreedCounts %}
-                <div class="col-3 text-center mt-2">
+                <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
                     {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
                 </div>
             {% endfor %}
