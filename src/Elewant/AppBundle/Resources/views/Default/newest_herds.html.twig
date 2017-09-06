@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="timeline">
-                    {% for herd in newestHerds %}
+                    {% for herd in newest_herds %}
                         <li class="{% if loop.index is odd %}timeline-inverted{% endif %}">
                             <div class="timeline-image">
                                 <img class="rounded-circle img-fluid" src="{{ asset('bundles/elewantapp/img/newest-herds/' ~ loop.index ~ '.jpg') }}" alt="">
