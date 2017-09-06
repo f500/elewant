@@ -291,11 +291,6 @@ class Breed
         return new self(self::RED_LARAVEL_LARGE);
     }
 
-    public static function blueApigilityLarge(): self
-    {
-        return new self(self::BLUE_APIGILITY_LARGE);
-    }
-
     public static function blueZrayLarge(): self
     {
         return new self(self::BLUE_ZRAY_LARGE);
@@ -311,11 +306,6 @@ class Breed
         return new self(self::WHITE_CONFOO_LARGE);
     }
 
-    public static function goldOpengoodiesLarge(): self
-    {
-        return new self(self::GOLD_OPENGOODIES_LARGE);
-    }
-
     public static function blueOpengoodiesLarge(): self
     {
         return new self(self::BLUE_OPENGOODIES_LARGE);
@@ -324,11 +314,6 @@ class Breed
     public static function pinkOpengoodiesLarge(): self
     {
         return new self(self::PINK_OPENGOODIES_LARGE);
-    }
-
-    public static function multicoloredHaphpyLarge(): self
-    {
-        return new self(self::MULTICOLORED_HAPHPY_LARGE);
     }
 
     public static function tealZendLarge(): self
