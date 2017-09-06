@@ -14,6 +14,7 @@ addons:
 cache:
   directories:
     - vendor
+    - node_modules
 
 install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
