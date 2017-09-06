@@ -23,7 +23,8 @@ class DefaultController extends Controller
             'ElewantAppBundle:Default:index.html.twig',
             [
                 'shrinking_navbar' => true,
-                'newestHerds'      => $newestHerds,
+                'only_anchors_in_navbar' => true,
+                'newest_herds'      => $newestHerds,
             ]
         );
     }
