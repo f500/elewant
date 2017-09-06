@@ -33,6 +33,12 @@ ul.invalid-feedback {
   box-shadow: 0 0 5px silver;
 }
 
+.elephpant.micro {
+  padding: 0.1rem 0.10rem 0 0.10rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .elephpant.regular {
   padding: 1.25rem .8rem 0 1.15rem;
   height: 4rem;
@@ -46,45 +52,50 @@ ul.invalid-feedback {
 }
 
 .elephpant.black {
-  background-color: #000000;
+  background-color: #0C111F;
 }
 .elephpant.blue {
-  background-color: #2196F3;
+  background-color: #3E91C5;
+}
+.elephpant.brown {
+  background-color: #71330E;
 }
 .elephpant.gold {
   background-color: #D4AF37;
 }
+.elephpant.gray {
+  background-color: #7C8475;
+}
 .elephpant.green {
-  background-color: #74FF33;
+  background-color: #5A9C3C;
 }
 .elephpant.multicolored {
-  background: -webkit-linear-gradient(left,pink,indigo,blue,green,yellow,orange,red); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(left,pink,indigo,blue,green,yellow,orange,red); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(left,pink,indigo,blue,green,yellow,orange,red); /* For Fx 3.6 to 15 */
-  background: linear-gradient(to right,pink,indigo,blue,green,yellow,orange,red); /* Standard syntax */
+  background: -webkit-linear-gradient(left,#F669C7,#3E91C5,#1155A9,#5A9C3C,#EDDE61,#F8533A,#ED052C); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(left,#F669C7,#3E91C5,#1155A9,#5A9C3C,#EDDE61,#F8533A,#ED052C); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(left,#F669C7,#3E91C5,#1155A9,#5A9C3C,#EDDE61,#F8533A,#ED052C); /* For Fx 3.6 to 15 */
+  background: linear-gradient(to right,#F669C7,#3E91C5,#1155A9,#5A9C3C,#EDDE61,#F8533A,#ED052C); /* Standard syntax */
 }
 .elephpant.orange {
-  background-color: #FCBE04;
+  background-color: #F8533A;
 }
 .elephpant.pink {
-  background-color: #ff69b4;
+  background-color: #F669C7;
 }
 .elephpant.purple {
-  background-color: #800080;
+  background-color: #8F77A7;
 }
 .elephpant.red {
-  background-color: #FF0000;
+  background-color: #ED052C;
 }
 .elephpant.teal {
-  background-color: #008080;
+  background-color: #189897;
 }
 .elephpant.white {
-  background-color: #FFFFFF;
+  background-color: #F0F0F0;
 }
 .elephpant.yellow {
-  background-color: #FFF59D;
+  background-color: #EDDE61;
 }
-.elephpant.yellow .elephpant-icon,
 .elephpant.white .elephpant-icon {
-  fill: #000;
+  fill: #0C111F;
 }
