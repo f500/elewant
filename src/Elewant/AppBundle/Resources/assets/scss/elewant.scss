@@ -9,6 +9,13 @@
 @import "../../../../../../node_modules/font-awesome/scss/font-awesome";
 
 
+// Alert page
+.alert {
+  .list-unstyled {
+    margin: 1rem 0;
+  }
+}
+
 // Alert icons
 .alert .fa {
   margin-right: 0.5rem;

@@ -43,6 +43,7 @@ twig:
     form_themes:
         - "ElewantAppBundle:Form:bootstrap_4_layout.html.twig"
     strict_variables: "%kernel.debug%"
+    exception_controller: elewant.exception_controller:showAction
 
 # Doctrine Configuration
 doctrine:
