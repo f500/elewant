@@ -12,6 +12,10 @@ services:
         class: Elewant\AppBundle\Infrastructure\GithubContributorList
         arguments: [ %github_username%, %github_repository%, '@httplug.message_factory', '@httplug.client.guzzle' ]
 
+    elewant.exception_controller:
+        class: Elewant\AppBundle\Controller\ExceptionController
+        arguments: ['@twig', '%kernel.debug%']
+
     elewant.twig.breed_extention:
         class: Elewant\AppBundle\Twig\BreedExtension
         tags:

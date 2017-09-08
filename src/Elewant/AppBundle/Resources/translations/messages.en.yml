@@ -1,3 +1,7 @@
+error:
+  404: "The requested page could not be found"
+  500: "Oops, something went wrong"
+
 herding:
   breed:
     BLACK_AMSTERDAMPHP_REGULAR: "MurPHPy"
