@@ -2,15 +2,15 @@
 
 {% block hwi_oauth_content %}
 
-    <h3>{{ 'header.register' | trans({'%name%': userInformation.realName}, 'HWIOAuthBundle') }}</h3>
+    <h3>{{ 'header.register' | trans({'%name%': userInformation.realName}, 'ElewantUserBundle') }}</h3>
 
     <div class="row">
         <div class="col-md-9 col-lg-6">
             {{ form_start(form, {'action': path('hwi_oauth_connect_registration', {'key': key}), 'attr': {'class': 'hwi_oauth_registration_register'}}) }}
             {{ form_widget(form) }}
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">{{ 'connect.registration.submit'|trans({}, 'HWIOAuthBundle') }}</button>
-                <a href="{{ path('hwi_oauth_connect') }}" class="btn">{{ 'connect.registration.cancel' | trans({}, 'HWIOAuthBundle') }}</a>
+                <button type="submit" class="btn btn-primary">{{ 'connect.registration.submit'|trans({}, 'ElewantUserBundle') }}</button>
+                <a href="{{ path('hwi_oauth_connect') }}" class="btn">{{ 'connect.registration.cancel' | trans({}, 'ElewantUserBundle') }}</a>
             </div>
             {{ form_end(form) }}
         </div>

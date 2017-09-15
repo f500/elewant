@@ -2,6 +2,8 @@
 
 {% block hwi_oauth_content %}
 
-    <h3>{{ 'header.success' | trans({'%name%': userInformation.realName}, 'HWIOAuthBundle') }}</h3>
+    <h3>{{ 'header.success' | trans({}, 'ElewantUserBundle') }}</h3>
+    <p>{{ 'paragraph.connecting' | trans({'%name%': app.user.displayName, '%service%': ('service.' ~ service) | trans({}, 'ElewantUserBundle')}, 'ElewantUserBundle') | nl2br }}</p>
+    <p><a href="{{ path('herd_tending') }}">{{ 'paragraph.herd_tending' | trans({}, 'ElewantUserBundle') }}</a></p>
 
 {% endblock hwi_oauth_content %}
