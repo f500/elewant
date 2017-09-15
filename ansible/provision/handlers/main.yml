@@ -1,0 +1,12 @@
+---
+
+- name: restart sshd
+  service: name="ssh" state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted
+  register: restarted_nginx
+  when: not started_nginx|changed
+
+- name: reload supervisord
+  command: supervisorctl reload

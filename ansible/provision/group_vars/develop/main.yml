@@ -1,5 +1,9 @@
 ---
 
+# GENERAL
+
+ssh_provision_user: "vagrant"
+
 # UFW
 
 ufw_rules_to_create:
@@ -10,17 +14,17 @@ ufw_rules_to_create:
 # MYSQL
 
 mysql_bind_address: 192.168.77.77
-#mysql_root_password: <see local.yml>
+mysql_root_password: elewant
 
-#mysql_passwords:
-#  elewant_develop: <see local.yml>
+mysql_passwords:
+  elewant_develop: elewant
 
 mysql_databases:
-  - elewant_develop
+  - elewant
   - elewant_test
 
 mysql_users:
-  - { name: elewant_develop, password: "{{ mysql_passwords.elewant_develop }}", priv: "elewant_develop.*:ALL/elewant_test.*:ALL", host: "%" }
+  - { name: elewant, password: "{{ mysql_passwords.elewant_develop }}", priv: "elewant.*:ALL/elewant_test.*:ALL", host: "%" }
 
 mysql_slow_query_log_enabled: true
 
@@ -46,6 +50,7 @@ php7_ini_directives_global:
   xdebug.remote_host: 192.168.77.1
   xdebug.remote_autostart: on
 
+
 php7_ini_directives_fpm:
   session.cookie_secure: off
   disable_functions: "passthru, system, proc_open, popen, curl_multi_exec"
@@ -62,7 +67,12 @@ nginx_http_headers:
   Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'"
 
 nginx_server_templates:
-  - { name: elewant, src: "{{ inventory_dir }}/templates/nginx/dev-server.conf.j2" }
+  - name: elewant
+    src: "{{ playbook_dir }}/templates/nginx/dev-server.conf.j2"
+    server_name: develop.elewant.loc
+    web_root: "/vagrant/web"
+    index: app_dev.php
+    headers: "{{ nginx_http_headers }}"
 
 # APP
 
@@ -73,8 +83,7 @@ elewant_server_name: develop.elewant.loc
 elewant_db_name: elewant_develop
 elewant_db_user: elewant_develop
 elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
-
-#elewant_delivery_address: <see local.yml>
-#elewant_secret: <see local.yml>
-#elewant_twitter_client: <see local.yml>
-#elewant_twitter_secret: <see local.yml>
+elewant_delivery_address: staging@future500.nl
+elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
+elewant_twitter_client: 'needs_client_id'
+elewant_twitter_secret: 'needs_client_secret'

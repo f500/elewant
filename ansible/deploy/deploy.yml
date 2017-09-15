@@ -1,0 +1,8 @@
+---
+- name: Deploy the application
+  hosts: webserver
+  remote_user: "{{ deploy_user }}"
+  become: no
+
+  roles:
+    - f500.project_deploy

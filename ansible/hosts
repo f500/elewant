@@ -5,4 +5,12 @@ develop.elewant.loc
 prodsim.elewant.loc
 
 [production]
-elewant.future500.nl
+elewant.com
+
+[staging]
+elewant.com
+
+[webserver:children]
+prodsim
+production
+staging
