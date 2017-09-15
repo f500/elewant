@@ -42,4 +42,11 @@
         }
     });
 
+    $(document).ready(function () {
+        if ($('#mainNav').offset().top > 100) {
+            var top = document.documentElement.scrollTop || document.body.scrollTop;
+            document.documentElement.scrollTop = document.body.scrollTop = top - 54;
+        }
+    });
+
 })(jQuery);

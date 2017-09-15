@@ -1,7 +1,7 @@
 Welcome to the Herding domain
 -----------------------------
 
-Here, we start with a `Herd`. A `Herd` is managed by a shepherd, who is represented here by nothing
+Here, we start with a `Herd`. A `Herd` is tended to by a shepherd, who is represented here by nothing
 more than a `ShepherdId`.
 
 When a new herd starts, it is `Formed`. A herd consists of `ElePHPants`. When a herd accepts a new ElePHPant, 
@@ -30,7 +30,7 @@ to link to _something_ signifying a specific user in the outside world.
 - @verschoof
 
 
-**2017-08-01** Herd management is different from trading. A separate `Trading` domain will be used when we start implementing 
+**2017-08-01** Herd tending is different from trading. A separate `Trading` domain will be used when we start implementing 
 trades. Therefore, herds do not need to know about pictures of ElePHPants being sold or specific production batch numbers 
 or other trade related data.
 - @ramondelafuente

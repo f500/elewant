@@ -168,32 +168,26 @@ h1, h2, h3, h4, h5, h6 {
     padding: 13px;
     right: 0;
   }
-  .container {
-    .navbar-brand {
-      color: $theme-primary;
-      @include script-font;
-      &:hover,
-      &:focus,
-      &:active,
-      &.active {
-        color: darken($theme-primary, 10%);
-      }
+  .navbar-brand {
+    color: $theme-primary;
+    @include script-font;
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: darken($theme-primary, 10%);
     }
-    .navbar-nav {
-      .nav-item {
-        .nav-link {
-          font-size: 90%;
-          padding: 0.75em 0;
-          @include heading-font;
-          font-weight: 400;
-          letter-spacing: 1px;
-          color: white;
-          &:hover,
-          &.active {
-            color: $theme-primary;
-          }
-        }
-      }
+  }
+  .navbar-nav .nav-item .nav-link {
+    font-size: 90%;
+    padding: 0.75em 0;
+    @include heading-font;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: white;
+    &:hover,
+    &.active {
+      color: $theme-primary;
     }
   }
 }
@@ -212,11 +206,12 @@ h1, h2, h3, h4, h5, h6 {
       -moz-transition: all 0.3s;
       transition: all 0.3s;
     }
-    .navbar-nav {
-      .nav-item {
-        .nav-link {
-          padding: 1.1em 1em !important;
-        }
+    .navbar-nav .nav-item {
+      .nav-link {
+        padding: 1.1em 0.75em;
+      }
+      &:last-child .nav-link {
+        padding-right: 0;
       }
     }
     &.navbar-shrink {
@@ -238,7 +233,7 @@ header {
   background-size: cover;
   text-align: center;
   color: white;
-  height: 100vh;
+  min-height: 100vh;
 
   .intro-text {
     padding-top: 100px;
@@ -285,6 +280,9 @@ header {
 
 section {
   padding: 50px 0;
+  &.index-section {
+    min-height: 100vh;
+  }
   h2.section-heading {
     font-size: 40px;
     margin-top: 0;
@@ -297,12 +295,6 @@ section {
     font-style: italic;
     font-weight: 400;
     margin-bottom: 75px;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  section {
-    padding: 50px 0;
   }
 }
 
@@ -447,7 +439,7 @@ section {
       text-align: center;
       h4 {
         font-size: 10px;
-        margin-top: 12px;
+        margin-top: 5px;
         line-height: 14px;
       }
     }
@@ -510,7 +502,7 @@ section {
         margin-left: -50px;
         h4 {
           font-size: 13px;
-          margin-top: 16px;
+          margin-top: 7px;
           line-height: 18px;
         }
       }
@@ -536,8 +528,8 @@ section {
         margin-left: -75px;
         h4 {
           font-size: 18px;
-          margin-top: 30px;
-          line-height: 26px;
+          margin-top: 20px;
+          line-height: 24px;
         }
       }
       &.timeline-inverted > .timeline-panel {
@@ -559,7 +551,8 @@ section {
         height: 170px;
         margin-left: -85px;
         h4 {
-          margin-top: 40px;
+          margin-top: 26px;
+          line-height: 26px;
         }
       }
       &.timeline-inverted > .timeline-panel {

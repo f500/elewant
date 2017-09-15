@@ -1,6 +1,6 @@
 {% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
 
-<section id="newest_herds">
+<section id="newest_herds" class="index-section ">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -42,7 +42,7 @@
                             {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                                 <h4>Join<br>The<br>Herd!</h4>
                             {% else %}
-                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>Manage<br>Your<br>Herd!</h4></a>
+                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>Tend<br>To<br>Your<br>Herd!</h4></a>
                             {% endif %}
                         </div>
                     </li>
