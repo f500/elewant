@@ -53,7 +53,7 @@
                         {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <a href="{{ path('hwi_oauth_twitter_login') }}">Join the herd!</a>
                         {% else %}
-                            <a href="{{ path('herd_tending') }}">Manage your herd!</a>
+                            <a href="{{ path('herd_tending') }}">Tend to your herd!</a>
                         {% endif %}
                     </p>
 
