@@ -2,7 +2,7 @@
 
 {% block content %}
     <section id="herd_tending">
-        <h3 class="mx-auto text-center">{{ user.displayname }}</h3>
+        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
         <div class="row">
             {% for breed, count in herd.elePHPantBreedCounts %}

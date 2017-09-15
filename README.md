@@ -44,11 +44,11 @@ Fetch roles from Ansible Galaxy:
 
     ansible-galaxy install -r ansible/galaxy_roles.yml -f
 
-Create a local group_vars file for the develop environment, adjust it according to your needs.
+Create a local parameters file for the develop environment, adjust it according to your needs.
 
-    cp ansible/group_vars/develop/local.dist ansible/group_vars/develop/local.yml
+    cp app/config/parameters.yml.dist app/config/parameters.yml
 
-If you want to be able to log in with twitter, you'll need to create an application at twitter, then place your key & secret in `local.yml`.
+If you want to be able to log in with twitter, you'll need to create an application at twitter, then place your key & secret in `parameters.yml`.
 
 Bring your box up:
 
@@ -94,3 +94,8 @@ Normally these are kept in `var/cache`, `var/logs` and `var/sessions`.
 
 On the `develop` vagrant machine these are moved to `/dev/shm/elewant/var/cache`, `/dev/shm/elewant/var/logs` and `/dev/shm/elewant/var/sessions`.
 Moving them out of the synced folder (and into a shared memory disk) greatly improves performance.
+
+### Deploy (only for those who have access to the production server)
+
+    # Staging
+    ansible-playbook -i ansible/hosts ansible/deploy/deploy.yml --limit=staging --extra="project_version=develop" --ask-vault-pass
