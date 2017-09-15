@@ -168,32 +168,26 @@ h1, h2, h3, h4, h5, h6 {
     padding: 13px;
     right: 0;
   }
-  .container {
-    .navbar-brand {
-      color: $theme-primary;
-      @include script-font;
-      &:hover,
-      &:focus,
-      &:active,
-      &.active {
-        color: darken($theme-primary, 10%);
-      }
+  .navbar-brand {
+    color: $theme-primary;
+    @include script-font;
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: darken($theme-primary, 10%);
     }
-    .navbar-nav {
-      .nav-item {
-        .nav-link {
-          font-size: 90%;
-          padding: 0.75em 0;
-          @include heading-font;
-          font-weight: 400;
-          letter-spacing: 1px;
-          color: white;
-          &:hover,
-          &.active {
-            color: $theme-primary;
-          }
-        }
-      }
+  }
+  .navbar-nav .nav-item .nav-link {
+    font-size: 90%;
+    padding: 0.75em 0;
+    @include heading-font;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: white;
+    &:hover,
+    &.active {
+      color: $theme-primary;
     }
   }
 }
@@ -212,11 +206,12 @@ h1, h2, h3, h4, h5, h6 {
       -moz-transition: all 0.3s;
       transition: all 0.3s;
     }
-    .navbar-nav {
-      .nav-item {
-        .nav-link {
-          padding: 1.1em 1em !important;
-        }
+    .navbar-nav .nav-item {
+      .nav-link {
+        padding: 1.1em 0.75em;
+      }
+      &:last-child .nav-link {
+        padding-right: 0;
       }
     }
     &.navbar-shrink {
