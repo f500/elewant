@@ -14,6 +14,7 @@ final class BreedExtension extends Twig_Extension
         return [
             new Twig_SimpleFilter('breedColor', [$this, 'breedColorFilter']),
             new Twig_SimpleFilter('breedSize', [$this, 'breedSizeFilter']),
+            new Twig_SimpleFilter('breedName', [$this, 'breedNameFilter']),
         ];
     }
 
@@ -27,4 +28,12 @@ final class BreedExtension extends Twig_Extension
         $parts = explode("_", $breed);
         return strtolower(end($parts));
     }
+
+    public function breedNameFilter(string $breed): string
+    {
+        $parts = explode("_", $breed);
+        $parts = array_slice($parts, 1, -1);
+        return strtolower(implode('_',$parts));
+    }
+
 }
