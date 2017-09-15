@@ -11,7 +11,7 @@ final class SorryIDoNotHaveThat extends Exception
     public static function typeOfElePHPant(Herd $herd, Breed $breed)
     {
         return new self(sprintf(
-                'Sorry, herd %s does not have any %s elePHPants',
+                'Sorry, herd %s does not have any %s ElePHPants',
                 $herd->herdId()->toString(),
                 $breed->toString())
         );
