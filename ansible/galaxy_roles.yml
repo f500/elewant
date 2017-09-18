@@ -12,5 +12,5 @@
 - { src: f500.php_composer, version: v2.1.0 }
 - { src: f500.nginx, version: v3.1.0 }
 - { src: f500.nodejs, version: v2.0.0 }
-- { src: f500.project_deploy, version: v3.2.1 }
+- { src: f500.project_deploy, version: v3.2.2 }
 - { src: HanXHX.mysql }
