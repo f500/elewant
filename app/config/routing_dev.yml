@@ -16,8 +16,3 @@ _main:
 elewant_api_test:
     resource: "@ElewantAppBundle/Resources/config/routing.yml"
     prefix:   /
-
-elewant_example:
-    resource: "@ElewantExampleBundle/Controller/"
-    type:     annotation
-    prefix:   /

@@ -40,7 +40,7 @@ final class NewUserSubscriber implements EventSubscriberInterface
         $user = $event->user();
 
         if (!$this->herdRepository->findOneByShepherdId($user->shepherdId())) {
-            $command = FormHerd::forShepherd($user->shepherdId()->toString(), $user->username());
+            $command = FormHerd::forShepherd($user->shepherdId()->toString(), $user->displayName());
             $this->commandBus->dispatch($command);
         }
     }

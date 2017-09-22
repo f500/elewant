@@ -11,22 +11,22 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="timeline">
-                    {% for herd in newest_herds %}
+                    {% for entry in newest_herds %}
                         <li class="{% if loop.index is odd %}timeline-inverted{% endif %}">
                             <div class="timeline-image">
                                 <img class="rounded-circle img-fluid" src="{{ asset('bundles/elewantapp/img/newest-herds/' ~ loop.index ~ '.jpg') }}" alt="">
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>{{ herd.formedOn|date('Y-m-d') }}</h4>
+                                    <h4>{{ entry.herd.formedOn|date('Y-m-d') }}</h4>
                                     <h4 class="subheading">
-                                        <a href="{{ path('shepherd_admire_herd', {'username': herd.name }) }}">{{ utils.icon('external-link fa-fw') }}</a>
-                                        {{ herd.name }}
+                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ utils.icon('external-link fa-fw') }}</a>
+                                        {{ entry.herd.name }}
                                     </h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">
-                                        {% for breed, count in herd.elePHPantBreedCounts|slice(0,4, true) %}
+                                        {% for breed, count in entry.herd.elePHPantBreedCounts|slice(0,4, true) %}
                                             - {{ ("herding.breed." ~ breed)|trans }}<br />
                                         {% else %}
                                             no ElePHPants yet...
