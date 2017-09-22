@@ -405,8 +405,6 @@ section {
         height: 100%;
         opacity: 0;
         transition: all ease .5s;
-        -webkit-transition: all ease .5s;
-        -moz-transition: all ease .5s;
         &:hover {
           opacity: 1;
         }
@@ -768,8 +766,6 @@ ul.social-buttons {
       line-height: 40px;
       color: white;
       outline: none;
-      -webkit-transition: all .3s;
-      -moz-transition: all .3s;
       transition: all .3s;
       &:hover,
       &:focus,
@@ -802,7 +798,6 @@ ul.social-buttons {
   .modal-content {
     border-radius: 0;
     background-clip: border-box;
-    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     min-height: 100%;
@@ -846,20 +841,12 @@ ul.social-buttons {
       margin-left: 35px;
       background-color: $gray-darker;
       transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      /* IE 9 */
-      -webkit-transform: rotate(45deg);
-      /* Safari and Chrome */
       z-index: 1051;
       .rl {
         height: 75px;
         width: 1px;
         background-color: $gray-darker;
         transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        /* IE 9 */
-        -webkit-transform: rotate(90deg);
-        /* Safari and Chrome */
         z-index: 1052;
       }
     }
