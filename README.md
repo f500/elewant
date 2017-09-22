@@ -95,7 +95,15 @@ Normally these are kept in `var/cache`, `var/logs` and `var/sessions`.
 On the `develop` vagrant machine these are moved to `/dev/shm/elewant/var/cache`, `/dev/shm/elewant/var/logs` and `/dev/shm/elewant/var/sessions`.
 Moving them out of the synced folder (and into a shared memory disk) greatly improves performance.
 
+### Provision (only for those who have access to the production server)
+
+    # Production
+    ansible-playbook -i ansible/hosts-provision ansible/provision/playbook.yml --limit=production --ask-vault-pass
+
 ### Deploy (only for those who have access to the production server)
 
     # Staging
-    ansible-playbook -i ansible/hosts ansible/deploy/deploy.yml --limit=staging --extra="project_version=develop" --ask-vault-pass
+    ansible-playbook -i ansible/hosts-deploy ansible/deploy/playbook.yml --limit=staging --extra="project_version=develop" --ask-vault-pass
+
+    # Production
+    ansible-playbook -i ansible/hosts-deploy ansible/deploy/playbook.yml --limit=production --extra="project_version=master" --ask-vault-pass

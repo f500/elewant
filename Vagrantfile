@@ -23,8 +23,8 @@ Vagrant.configure("2") do |config|
         end
 
         config_develop.vm.provision :ansible do |ansible|
-            ansible.inventory_path = "ansible/hosts"
-            ansible.playbook = "ansible/provision/provision.yml"
+            ansible.inventory_path = "ansible/hosts-provision"
+            ansible.playbook = "ansible/provision/playbook.yml"
             ansible.limit = "develop"
         end
     end
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
         # Ansible is only used to create a user, the rest is done on the
         # commandline with ansible-playbook commands.
         config_prodsim.vm.provision :ansible do |ansible|
-            ansible.inventory_path = "ansible/hosts"
+            ansible.inventory_path = "ansible/hosts-provision"
             ansible.playbook = "ansible/setup_local_production_server.yml"
             ansible.limit = "prodsim"
             ansible.raw_arguments = "--user=vagrant"

@@ -90,7 +90,9 @@
         insertafter: EOF
 
     - name: Copy parameters.yml
-      command: "cp {{ elewant_application_root }}/app/config/parameters.yml.dist {{ elewant_application_root }}/app/config/parameters.yml"
+      template:
+        src: "{{ playbook_dir }}/../deploy/templates/app/parameters.yml.j2"
+        dest: "{{ elewant_application_root }}/app/config/parameters.yml"
 
     - name: Install composer packages
       command: composer install --quiet --no-ansi --no-interaction

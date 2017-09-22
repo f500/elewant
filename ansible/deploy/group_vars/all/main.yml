@@ -15,7 +15,7 @@ elewant_db_socket: "{{ mysql_socket }}"
 web_writable_folders:
   - { name: "{{ deploy_helper.new_release_path }}/var/cache", recursive: false }
   - { name: "{{ deploy_helper.new_release_path }}/var/logs", recursive: false }
-  - { name: "{{ deploy_helper.shared_path }}/var/sessions", recursive: false }
+  - { name: "{{ deploy_helper.shared_path }}/sessions", recursive: false }
 
 project_root: "{{ elewant_application_root }}"
 project_git_repo: "{{ elewant_github_repo }}"

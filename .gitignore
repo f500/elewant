@@ -4,7 +4,7 @@
 !.idea/inspectionProfiles/
 /.vagrant/
 /ansible/galaxy_roles/
-/ansible/group_vars/develop/local.yml
+/ansible/provision/group_vars/develop/override_locally.yml
 /app/config/parameters.yml
 /build/
 /node_modules/
