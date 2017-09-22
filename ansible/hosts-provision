@@ -6,11 +6,3 @@ prodsim.elewant.loc
 
 [production]
 elewant.com
-
-[staging]
-elewant.com
-
-[webserver:children]
-prodsim
-production
-staging

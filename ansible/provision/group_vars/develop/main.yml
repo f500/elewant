@@ -80,10 +80,10 @@ elewant_application_root: /vagrant
 elewant_application_env: dev
 elewant_server_name: develop.elewant.loc
 
-elewant_db_name: elewant_develop
-elewant_db_user: elewant_develop
+elewant_db_name: elewant
+elewant_db_user: elewant
 elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
-elewant_delivery_address: staging@future500.nl
+elewant_delivery_address: "~"
 elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
 elewant_twitter_client: 'needs_client_id'
 elewant_twitter_secret: 'needs_client_secret'

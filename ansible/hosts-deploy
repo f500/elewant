@@ -1,0 +1,13 @@
+[prodsim]
+prodsim.elewant.loc
+
+[production]
+elewant.com
+
+[staging]
+staging.elewant.com
+
+[webserver:children]
+prodsim
+production
+staging

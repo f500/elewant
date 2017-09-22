@@ -1,0 +1,18 @@
+---
+
+# APP
+
+elewant_application_root: /home/deploy/elewant.com
+elewant_application_env: prod
+elewant_server_name: elewant.com
+
+elewant_db_name: elewant_production
+elewant_db_user: elewant_production
+elewant_db_socket: /var/run/mysqld/mysqld.sock
+
+elewant_db_password:    ~ # secure.yml
+elewant_secret:         ~ # secure.yml
+elewant_twitter_client: ~ # secure.yml
+elewant_twitter_secret: ~ # secure.yml
+
+elewant_delivery_address: "~"
