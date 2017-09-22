@@ -143,13 +143,13 @@ h1, h2, h3, h4, h5, h6 {
 // Restyled Primary Buttons
 
 .btn-primary {
-  @include button-variant(white, $theme-primary, $theme-primary);
+  @include button-variant($white, $theme-primary, $theme-primary);
   @include heading-font;
   font-weight: 700;
 }
 
 .btn-xl {
-  @include button-variant(white, $theme-primary, $theme-primary);
+  @include button-variant($white, $theme-primary, $theme-primary);
   @include heading-font;
   font-weight: 700;
   border-radius: 3px;
@@ -195,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: .625rem 0;
   }
   .navbar-toggler {
-    color: white;
+    color: $white;
     background-color: $theme-primary;
     font-size: .75rem;
     text-transform: uppercase;
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 1rem;
     text-align: right;
     .nav-item .nav-link {
-      color: white;
+      color: $white;
       font-size: .875rem;
       @include heading-font;
       font-weight: 400;
@@ -318,7 +318,7 @@ header {
   background-position: center center;
   background-size: cover;
   text-align: center;
-  color: white;
+  color: $white;
   min-height: 100vh;
 
   .intro-text {
@@ -419,12 +419,11 @@ section {
           text-align: center;
           top: 50%;
           margin-top: -12px;
-          color: white;
+          color: $white;
           i {
             margin-top: -12px;
           }
-          h3,
-          h4 {
+          h3, h4 {
             margin: 0;
           }
         }
@@ -433,7 +432,7 @@ section {
     .portfolio-caption {
       max-width: 400px;
       margin: 0 auto;
-      background-color: white;
+      background-color: $white;
       text-align: center;
       padding: 25px;
       h4 {
@@ -516,7 +515,7 @@ section {
       position: absolute;
       z-index: 100;
       background-color: $theme-primary;
-      color: white;
+      color: $white;
       border-radius: 100%;
       border: 7px solid #f1f1f1;
       text-align: center;
@@ -653,7 +652,7 @@ section {
   img {
     height: 225px;
     width: 225px;
-    border: 7px solid white;
+    border: 7px solid $white;
   }
   h4 {
     margin-top: 25px;
@@ -681,7 +680,7 @@ section#contact {
   background-position: center;
   background-repeat: no-repeat;
   .section-heading {
-    color: white;
+    color: $white;
   }
   .form-group {
     margin-bottom: 25px;
