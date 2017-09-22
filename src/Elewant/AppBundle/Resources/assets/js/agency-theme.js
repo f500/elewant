@@ -8,8 +8,8 @@
         $('html, body')
             .stop()
             .animate(
-                {scrollTop: ($($anchor.attr('href')).offset().top - 54)},
-                1250,
+                {scrollTop: ($($anchor.attr('href')).offset().top - 57)},
+                800,
                 'easeInOutExpo'
             );
 
@@ -19,7 +19,7 @@
     // Highlight the top nav as scrolling occurs
     $('body').scrollspy({
         target: '#mainNav',
-        offset: 54
+        offset: 57
     });
 
     // Closes the Responsive Menu on Menu Item Click
@@ -35,7 +35,7 @@
             return;
         }
 
-        if (nav.offset().top > 100) {
+        if (nav.offset().top > 89) {
             nav.addClass('navbar-shrink');
         } else {
             nav.removeClass('navbar-shrink');
@@ -43,9 +43,9 @@
     });
 
     $(document).ready(function () {
-        if ($('#mainNav').offset().top > 100) {
+        if ($('#mainNav').offset().top > 89) {
             var top = document.documentElement.scrollTop || document.body.scrollTop;
-            document.documentElement.scrollTop = document.body.scrollTop = top - 54;
+            document.documentElement.scrollTop = document.body.scrollTop = top - 57;
         }
     });
 

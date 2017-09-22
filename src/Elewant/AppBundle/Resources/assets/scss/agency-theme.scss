@@ -107,10 +107,13 @@ body {
 
 .body-shrink-always {
   // Sticky navbar
-  padding-top: 54px;
+  padding-top: 3.5rem;
 
   // Semi-sticky footer
-  margin-bottom: 90px;
+  margin-bottom: 11.5rem;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 5.5rem;
+  }
 }
 
 .text-primary {
@@ -140,13 +143,13 @@ h1, h2, h3, h4, h5, h6 {
 // Restyled Primary Buttons
 
 .btn-primary {
-  @include button-variant(white, $theme-primary, $theme-primary);
+  @include button-variant($white, $theme-primary, $theme-primary);
   @include heading-font;
   font-weight: 700;
 }
 
 .btn-xl {
-  @include button-variant(white, $theme-primary, $theme-primary);
+  @include button-variant($white, $theme-primary, $theme-primary);
   @include heading-font;
   font-weight: 700;
   border-radius: 3px;
@@ -158,68 +161,151 @@ h1, h2, h3, h4, h5, h6 {
 
 #mainNav {
   background-color: $gray-darker;
-  .navbar-toggler {
-    border: 0;
-    color: white;
-    background-color: $theme-primary;
-    font-size: 12px;
-    text-transform: uppercase;
-    @include heading-font;
-    padding: 13px;
-    right: 0;
-  }
+  box-shadow: 0 0 .5rem .1875rem $gray-darker;
+  line-height: 1;
+  padding: .5rem 2rem;
+  margin: 0 -1rem;
   .navbar-brand {
     color: $theme-primary;
+    font-size: 1.25rem;
     @include script-font;
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
+    padding: 0;
+    margin: -0.5rem 0;
+    &:hover, &:focus, &:active, &.active {
       color: darken($theme-primary, 10%);
     }
   }
-  .navbar-nav .nav-item .nav-link {
-    font-size: 90%;
-    padding: 0.75em 0;
+  .navbar-brand-line {
+    display: block;
+    position: fixed;
+    top: 3.5rem;
+    left: 0;
+    right: 0;
+    border-top: .0625rem solid $theme-primary;
+  }
+  .navbar-brand-image {
+    display: inline-block;
+    width: 4.1003rem;
+    height: 2.8125rem;
+    margin: .75rem 1.25rem -0.0625rem 0;
+  }
+  .navbar-brand-text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: .625rem 0;
+  }
+  .navbar-toggler {
+    color: $white;
+    background-color: $theme-primary;
+    font-size: .75rem;
+    text-transform: uppercase;
     @include heading-font;
-    font-weight: 400;
-    letter-spacing: 1px;
-    color: white;
-    &:hover,
-    &.active {
-      color: $theme-primary;
+    border: 0;
+    padding: .875rem;
+  }
+  .navbar-nav {
+    margin-top: 1rem;
+    text-align: right;
+    .nav-item .nav-link {
+      color: $white;
+      font-size: .875rem;
+      @include heading-font;
+      font-weight: 400;
+      letter-spacing: 1px;
+      padding: .8125rem 0;
+      &:hover, &.active {
+        color: $theme-primary;
+      }
     }
   }
 }
 
 @include media-breakpoint-up(sm) {
   #mainNav {
-    background-color: transparent;
-    padding: 25px 0;
-    -webkit-transition: padding 0.3s;
-    -moz-transition: padding 0.3s;
-    transition: padding 0.3s;
-    border: none;
+    background-color: rgba(34, 34, 34, .75);
+    box-shadow: 0 0 .5rem .1875rem rgba(34, 34, 34, .75);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: background-color .3s, box-shadow .3s, padding .3s;
     .navbar-brand {
-      font-size: 2em;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
+      font-size: 1.75em;
+      margin-top: -1.5rem;
+      margin-bottom: -1.5rem;
+      transition: font-size .3s, margin .3s;
     }
-    .navbar-nav .nav-item {
-      .nav-link {
-        padding: 1.1em 0.75em;
-      }
-      &:last-child .nav-link {
-        padding-right: 0;
-      }
+    .navbar-brand-line {
+      top: 5.5rem;
+      transition: top .3s;
+    }
+    .navbar-brand-image {
+      width: 6.6515rem;
+      height: 4.5625rem;
+      margin-left: -2.5512rem;
+      margin-top: 1rem;
+      transition: width .3s, height .3s, margin .3s;
+    }
+    .navbar-brand-text {
+      padding-top: .375rem;
+      padding-bottom: .375rem;
+      transition: padding .3s;
+    }
+    .navbar-collapse {
+      margin-bottom: -1rem;
+      transition: margin .3s, height .35s ease;
+    }
+    .navbar-nav {
+      margin-top: 2rem;
+      transition: margin .3s;
     }
     &.navbar-shrink {
       background-color: $gray-darker;
-      padding: 0;
+      box-shadow: 0 0 .5rem .1875rem $gray-darker;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
       .navbar-brand {
-        padding: 12px 0;
-        font-size: 1.25em;
+        font-size: 1.25rem;
+        margin-top: -0.5rem;
+        margin-bottom: -0.5rem;
+      }
+      .navbar-brand-line {
+        top: 3.5rem;
+      }
+      .navbar-brand-image {
+        width: 4.1003rem;
+        height: 2.8125rem;
+        margin-left: 0;
+        margin-top: .75rem;
+      }
+      .navbar-brand-text {
+        padding-top: .625rem;
+        padding-bottom: .625rem;
+      }
+      .navbar-collapse {
+        margin-bottom: 0;
+      }
+      .navbar-nav {
+        margin-top: 1rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #mainNav {
+    .navbar-collapse {
+      margin-bottom: 0;
+    }
+    .navbar-nav, &.navbar-shrink .navbar-nav {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: right;
+      .nav-item .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+      }
+      .nav-item:last-child .nav-link {
+        padding-right: 0;
       }
     }
   }
@@ -232,24 +318,23 @@ header {
   background-position: center center;
   background-size: cover;
   text-align: center;
-  color: white;
+  color: $white;
   min-height: 100vh;
 
   .intro-text {
-    padding-top: 100px;
+    line-height: 1;
+    padding-top: 6rem;
     .intro-lead-in {
       @include serif-font;
       font-style: italic;
-      font-size: 20px;
-      line-height: 20px;
-      margin-bottom: 25px;
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
     }
     .intro-heading {
       @include heading-font;
       font-weight: 700;
-      font-size: 50px;
-      line-height: 50px;
-      margin-bottom: 25px;
+      font-size: 1.875rem;
+      margin-bottom: 3rem;
     }
   }
 }
@@ -279,8 +364,9 @@ header {
 // Global Section Styles
 
 section {
-  padding: 50px 0;
+  padding: 3rem 0;
   &.index-section {
+    box-sizing: content-box;
     min-height: 100vh;
   }
   h2.section-heading {
@@ -322,9 +408,7 @@ section {
         width: 100%;
         height: 100%;
         opacity: 0;
-        transition: all ease 0.5s;
-        -webkit-transition: all ease 0.5s;
-        -moz-transition: all ease 0.5s;
+        transition: all ease .5s;
         &:hover {
           opacity: 1;
         }
@@ -336,12 +420,11 @@ section {
           text-align: center;
           top: 50%;
           margin-top: -12px;
-          color: white;
+          color: $white;
           i {
             margin-top: -12px;
           }
-          h3,
-          h4 {
+          h3, h4 {
             margin: 0;
           }
         }
@@ -350,7 +433,7 @@ section {
     .portfolio-caption {
       max-width: 400px;
       margin: 0 auto;
-      background-color: white;
+      background-color: $white;
       text-align: center;
       padding: 25px;
       h4 {
@@ -433,7 +516,7 @@ section {
       position: absolute;
       z-index: 100;
       background-color: $theme-primary;
-      color: white;
+      color: $white;
       border-radius: 100%;
       border: 7px solid #f1f1f1;
       text-align: center;
@@ -570,7 +653,7 @@ section {
   img {
     height: 225px;
     width: 225px;
-    border: 7px solid white;
+    border: 7px solid $white;
   }
   h4 {
     margin-top: 25px;
@@ -598,7 +681,7 @@ section#contact {
   background-position: center;
   background-repeat: no-repeat;
   .section-heading {
-    color: white;
+    color: $white;
   }
   .form-group {
     margin-bottom: 25px;
@@ -642,64 +725,76 @@ section#contact {
   }
 }
 
+// Social Buttons
+
+.social-buttons {
+  margin-bottom: 0;
+  li {
+    a {
+      background-color: $gray-darker;
+      color: $white;
+      font-size: 1.25rem;
+      line-height: 2.5rem;
+      display: inline-block;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 100%;
+      outline: none;
+      transition: all .3s;
+      &:hover, &:focus, &:active {
+        background-color: $theme-primary;
+      }
+    }
+  }
+}
+
 // Footer
 
 footer {
   background-color: $gray-darker;
   color: $white;
-  padding: 25px 0;
+  font-size: .875rem;
+  @include heading-font;
   text-align: center;
-
+  text-transform: none;
+  line-height: 2.5rem;
+  padding: 1.5rem 0;
   // Semi-sticky footer
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 90px;
-
-  span.copyright {
-    font-size: 90%;
-    line-height: 40px;
-    @include heading-font;
-    text-transform: none;
+  height: 11.5rem;
+  // End - Semi-sticky footer
+  .copyright {
+    line-height: 2.5rem;
+    margin: 0;
   }
-  ul.quicklinks {
-    font-size: 90%;
-    margin-bottom: 0;
-    line-height: 40px;
-    @include heading-font;
-    text-transform: none;
-  }
-}
-
-// Social Buttons
-
-ul.social-buttons {
-  margin-bottom: 0;
-  li {
-    a {
-      display: block;
-      background-color: $gray-darker;
-      height: 40px;
-      width: 40px;
-      border-radius: 100%;
-      font-size: 20px;
-      line-height: 40px;
-      color: white;
-      outline: none;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: $theme-primary;
-      }
-    }
-  }
-  footer & {
+  .social-buttons {
+    margin: .5rem 0;
     li a {
       background-color: $white;
       color: $gray-darker;
+    }
+  }
+  .quicklinks {
+    margin: 0;
+    li {
+      margin: 0 .25rem;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  footer {
+    height: 5.5rem;
+    .copyright {
+      text-align: left;
+    }
+    .social-buttons {
+      margin: 0;
+    }
+    .quicklinks {
+      text-align: right;
     }
   }
 }
@@ -720,7 +815,6 @@ ul.social-buttons {
   .modal-content {
     border-radius: 0;
     background-clip: border-box;
-    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     min-height: 100%;
@@ -756,7 +850,7 @@ ul.social-buttons {
     right: 25px;
     cursor: pointer;
     &:hover {
-      opacity: 0.3;
+      opacity: .3;
     }
     .lr {
       height: 75px;
@@ -764,20 +858,12 @@ ul.social-buttons {
       margin-left: 35px;
       background-color: $gray-darker;
       transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      /* IE 9 */
-      -webkit-transform: rotate(45deg);
-      /* Safari and Chrome */
       z-index: 1051;
       .rl {
         height: 75px;
         width: 1px;
         background-color: $gray-darker;
         transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        /* IE 9 */
-        -webkit-transform: rotate(90deg);
-        /* Safari and Chrome */
         z-index: 1052;
       }
     }
