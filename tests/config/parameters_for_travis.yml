@@ -5,7 +5,7 @@ parameters:
     database_unix_socket: /var/run/mysqld/mysqld.sock
     database_name:     "elewant"
     database_user:     "elewant"
-    database_password: ~
+    database_password: "elewant"
 
     mailer_transport:  "smtp"
     mailer_host:       "127.0.0.1"
