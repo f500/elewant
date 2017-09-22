@@ -1,13 +1,19 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-inverse{% if not shrinking_navbar|default(false) %} navbar-shrink navbar-shrink-always{% endif %}" id="mainNav">
     <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% else %}#page-top{% endif %}">
+            <img class="navbar-brand-image" src="{{ asset('bundles/elewantapp/img/elewant-v2.png') }}" alt="">
+            <span class="navbar-brand-text">Elewant</span>
+            <span class="navbar-brand-line"></span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
             Menu <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand page-scroll" href="{{ path('root') }}">Elewant</a>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+        <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#about">About</a></li>
-                <li class="nav-item"><a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#newest_herds">Newest Herds</a></li>
+                <li class="nav-item"><a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#newest_herds">New Herds</a></li>
                 <li class="nav-item"><a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#contributors">Contributors</a></li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">My Herd</a></li>

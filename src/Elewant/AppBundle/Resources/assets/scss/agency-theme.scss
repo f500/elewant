@@ -107,7 +107,7 @@ body {
 
 .body-shrink-always {
   // Sticky navbar
-  padding-top: 54px;
+  padding-top: 3.5rem;
 
   // Semi-sticky footer
   margin-bottom: 90px;
@@ -158,68 +158,151 @@ h1, h2, h3, h4, h5, h6 {
 
 #mainNav {
   background-color: $gray-darker;
-  .navbar-toggler {
-    border: 0;
-    color: white;
-    background-color: $theme-primary;
-    font-size: 12px;
-    text-transform: uppercase;
-    @include heading-font;
-    padding: 13px;
-    right: 0;
-  }
+  box-shadow: 0 0 .5rem .1875rem $gray-darker;
+  line-height: 1;
+  padding: .5rem 2rem;
+  margin: 0 -1rem;
   .navbar-brand {
     color: $theme-primary;
+    font-size: 1.25rem;
     @include script-font;
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
+    padding: 0;
+    margin: -0.5rem 0;
+    &:hover, &:focus, &:active, &.active {
       color: darken($theme-primary, 10%);
     }
   }
-  .navbar-nav .nav-item .nav-link {
-    font-size: 90%;
-    padding: 0.75em 0;
-    @include heading-font;
-    font-weight: 400;
-    letter-spacing: 1px;
+  .navbar-brand-line {
+    display: block;
+    position: fixed;
+    top: 3.5rem;
+    left: 0;
+    right: 0;
+    border-top: .0625rem solid $theme-primary;
+  }
+  .navbar-brand-image {
+    display: inline-block;
+    width: 4.1003rem;
+    height: 2.8125rem;
+    margin: .75rem 1.25rem -0.0625rem 0;
+  }
+  .navbar-brand-text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: .625rem 0;
+  }
+  .navbar-toggler {
     color: white;
-    &:hover,
-    &.active {
-      color: $theme-primary;
+    background-color: $theme-primary;
+    font-size: .75rem;
+    text-transform: uppercase;
+    @include heading-font;
+    border: 0;
+    padding: .875rem;
+  }
+  .navbar-nav {
+    margin-top: 1rem;
+    text-align: right;
+    .nav-item .nav-link {
+      color: white;
+      font-size: .875rem;
+      @include heading-font;
+      font-weight: 400;
+      letter-spacing: 1px;
+      padding: .8125rem 0;
+      &:hover, &.active {
+        color: $theme-primary;
+      }
     }
   }
 }
 
 @include media-breakpoint-up(sm) {
   #mainNav {
-    background-color: transparent;
-    padding: 25px 0;
-    -webkit-transition: padding 0.3s;
-    -moz-transition: padding 0.3s;
-    transition: padding 0.3s;
-    border: none;
+    background-color: rgba(34, 34, 34, .75);
+    box-shadow: 0 0 .5rem .1875rem rgba(34, 34, 34, .75);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: background-color .3s, box-shadow .3s, padding .3s;
     .navbar-brand {
-      font-size: 2em;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
+      font-size: 1.75em;
+      margin-top: -1.5rem;
+      margin-bottom: -1.5rem;
+      transition: font-size .3s, margin .3s;
     }
-    .navbar-nav .nav-item {
-      .nav-link {
-        padding: 1.1em 0.75em;
-      }
-      &:last-child .nav-link {
-        padding-right: 0;
-      }
+    .navbar-brand-line {
+      top: 5.5rem;
+      transition: top .3s;
+    }
+    .navbar-brand-image {
+      width: 6.6515rem;
+      height: 4.5625rem;
+      margin-left: -2.5512rem;
+      margin-top: 1rem;
+      transition: width .3s, height .3s, margin .3s;
+    }
+    .navbar-brand-text {
+      padding-top: .375rem;
+      padding-bottom: .375rem;
+      transition: padding .3s;
+    }
+    .navbar-collapse {
+      margin-bottom: -1rem;
+      transition: margin .3s, height .35s ease;
+    }
+    .navbar-nav {
+      margin-top: 2rem;
+      transition: margin .3s;
     }
     &.navbar-shrink {
       background-color: $gray-darker;
-      padding: 0;
+      box-shadow: 0 0 .5rem .1875rem $gray-darker;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
       .navbar-brand {
-        padding: 12px 0;
-        font-size: 1.25em;
+        font-size: 1.25rem;
+        margin-top: -0.5rem;
+        margin-bottom: -0.5rem;
+      }
+      .navbar-brand-line {
+        top: 3.5rem;
+      }
+      .navbar-brand-image {
+        width: 4.1003rem;
+        height: 2.8125rem;
+        margin-left: 0;
+        margin-top: .75rem;
+      }
+      .navbar-brand-text {
+        padding-top: .625rem;
+        padding-bottom: .625rem;
+      }
+      .navbar-collapse {
+        margin-bottom: 0;
+      }
+      .navbar-nav {
+        margin-top: 1rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #mainNav {
+    .navbar-collapse {
+      margin-bottom: 0;
+    }
+    .navbar-nav, &.navbar-shrink .navbar-nav {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: right;
+      .nav-item .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+      }
+      .nav-item:last-child .nav-link {
+        padding-right: 0;
       }
     }
   }
@@ -236,20 +319,19 @@ header {
   min-height: 100vh;
 
   .intro-text {
-    padding-top: 100px;
+    line-height: 1;
+    padding-top: 6rem;
     .intro-lead-in {
       @include serif-font;
       font-style: italic;
-      font-size: 20px;
-      line-height: 20px;
-      margin-bottom: 25px;
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
     }
     .intro-heading {
       @include heading-font;
       font-weight: 700;
-      font-size: 50px;
-      line-height: 50px;
-      margin-bottom: 25px;
+      font-size: 1.875rem;
+      margin-bottom: 3rem;
     }
   }
 }
@@ -322,9 +404,9 @@ section {
         width: 100%;
         height: 100%;
         opacity: 0;
-        transition: all ease 0.5s;
-        -webkit-transition: all ease 0.5s;
-        -moz-transition: all ease 0.5s;
+        transition: all ease .5s;
+        -webkit-transition: all ease .5s;
+        -moz-transition: all ease .5s;
         &:hover {
           opacity: 1;
         }
@@ -686,9 +768,9 @@ ul.social-buttons {
       line-height: 40px;
       color: white;
       outline: none;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      transition: all .3s;
       &:hover,
       &:focus,
       &:active {
@@ -756,7 +838,7 @@ ul.social-buttons {
     right: 25px;
     cursor: pointer;
     &:hover {
-      opacity: 0.3;
+      opacity: .3;
     }
     .lr {
       height: 75px;
