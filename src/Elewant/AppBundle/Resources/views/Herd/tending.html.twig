@@ -3,7 +3,7 @@
 
 {% block content %}
     <section id="herd_tending">
-        <h3 class="mx-auto text-center">{{ user.displayname }}</h3>
+        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
             {{ utils.alert('Hey ' ~ app.user.displayName ~ ', you do not have any ElePHPants yet. Add them if you own them!', 'warning') }}

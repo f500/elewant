@@ -20,14 +20,16 @@ final class HerdRepository extends EntityRepository
     public function lastNewHerds(int $limit) : array
     {
         $dql   = <<<EOQ
-SELECT h
+SELECT h as herd, u.username
 FROM ElewantAppBundle:Herd h
+JOIN ElewantUserBundle:User u WITH h.shepherdId = u.shepherdId
 ORDER BY h.formedOn DESC
 EOQ;
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setMaxResults($limit);
 
-        return $query->getResult();
+        $herdsAndUsers = $query->getResult();
+        return $herdsAndUsers;
     }
 
     /**
