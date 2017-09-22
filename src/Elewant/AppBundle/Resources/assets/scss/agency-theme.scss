@@ -110,7 +110,10 @@ body {
   padding-top: 3.5rem;
 
   // Semi-sticky footer
-  margin-bottom: 90px;
+  margin-bottom: 11.5rem;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 5.5rem;
+  }
 }
 
 .text-primary {
@@ -722,62 +725,76 @@ section#contact {
   }
 }
 
+// Social Buttons
+
+.social-buttons {
+  margin-bottom: 0;
+  li {
+    a {
+      background-color: $gray-darker;
+      color: $white;
+      font-size: 1.25rem;
+      line-height: 2.5rem;
+      display: inline-block;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 100%;
+      outline: none;
+      transition: all .3s;
+      &:hover, &:focus, &:active {
+        background-color: $theme-primary;
+      }
+    }
+  }
+}
+
 // Footer
 
 footer {
   background-color: $gray-darker;
   color: $white;
-  padding: 25px 0;
+  font-size: .875rem;
+  @include heading-font;
   text-align: center;
-
+  text-transform: none;
+  line-height: 2.5rem;
+  padding: 1.5rem 0;
   // Semi-sticky footer
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 90px;
-
-  span.copyright {
-    font-size: 90%;
-    line-height: 40px;
-    @include heading-font;
-    text-transform: none;
+  height: 11.5rem;
+  // End - Semi-sticky footer
+  .copyright {
+    line-height: 2.5rem;
+    margin: 0;
   }
-  ul.quicklinks {
-    font-size: 90%;
-    margin-bottom: 0;
-    line-height: 40px;
-    @include heading-font;
-    text-transform: none;
-  }
-}
-
-// Social Buttons
-
-ul.social-buttons {
-  margin-bottom: 0;
-  li {
-    a {
-      display: block;
-      background-color: $gray-darker;
-      height: 40px;
-      width: 40px;
-      border-radius: 100%;
-      font-size: 20px;
-      line-height: 40px;
-      color: white;
-      outline: none;
-      transition: all .3s;
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: $theme-primary;
-      }
-    }
-  }
-  footer & {
+  .social-buttons {
+    margin: .5rem 0;
     li a {
       background-color: $white;
       color: $gray-darker;
+    }
+  }
+  .quicklinks {
+    margin: 0;
+    li {
+      margin: 0 .25rem;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  footer {
+    height: 5.5rem;
+    .copyright {
+      text-align: left;
+    }
+    .social-buttons {
+      margin: 0;
+    }
+    .quicklinks {
+      text-align: right;
     }
   }
 }
