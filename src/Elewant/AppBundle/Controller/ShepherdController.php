@@ -8,8 +8,10 @@ use Elewant\AppBundle\Entity\Herd;
 use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\UserBundle\Entity\User;
 use Elewant\UserBundle\Security\UserProvider;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,9 +23,9 @@ class ShepherdController extends Controller
 {
 
     /**
-     * @Route("/{username}", name="shepherd_admire_herd")
+     * @Route("/admire/{username}", name="shepherd_admire_herd")
      */
-    public function shepherdAdmireHerdAction($username)
+    public function admireHerdAction($username)
     {
         $user = $this->getUserByUsername($username);
         $herd = $this->getHerd($user);
@@ -35,6 +37,21 @@ class ShepherdController extends Controller
 
         return $this->render('ElewantAppBundle:Shepherd:admire_herd.html.twig', $data);
     }
+
+    /**
+     * @Route("/search", name="shepherd_search")
+     */
+    public function searchAction(Request $request)
+    {
+        /** @var HerdRepository $herdRepository */
+        $herdRepository = $this->get('elewant.herd.herd_repository');
+
+        $query = $request->get('q');
+        $usernames = $herdRepository->search($query);
+
+        return $this->json($usernames);
+    }
+
 
     /**
      * @param string $username
