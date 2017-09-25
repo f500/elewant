@@ -19,6 +19,11 @@ class GithubContributorList implements ContributorList
     protected $repository;
 
     /**
+     * @var array
+     */
+    protected $blacklist;
+
+    /**
      * @var MessageFactory
      */
     private $requestFactory;
@@ -28,13 +33,14 @@ class GithubContributorList implements ContributorList
      */
     protected $client;
 
-    public function __construct(string $username, string $repository, MessageFactory $requestFactory, HttpClient $client)
+    public function __construct(string $username, string $repository, MessageFactory $requestFactory, HttpClient $client, array $blacklist = [])
     {
         $this->username   = $username;
         $this->repository = $repository;
 
         $this->requestFactory = $requestFactory;
         $this->client         = $client;
+        $this->blacklist      = $blacklist;
     }
 
     public function allContributors() : array
@@ -48,6 +54,9 @@ class GithubContributorList implements ContributorList
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             $responseData = json_decode($response->getBody(), true);
             foreach ($responseData as $contributorData) {
+                if (in_array($contributorData['login'], $this->blacklist)) {
+                    continue;
+                }
                 $contributors[] = GithubContributor::fromGithubApiCall($contributorData);
             }
         }
