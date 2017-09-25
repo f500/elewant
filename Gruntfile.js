@@ -40,6 +40,12 @@ module.exports = function (grunt) {
                     'web/build/js/jquery-easing.min.js.map': 'node_modules/jquery-easing/dist/jquery.easing.1.3.umd.min.js.map'
                 }
             },
+            'jquery-easy-autocomplete': {
+                files: {
+                    'web/build/js/jquery.easy-autocomplete.js': 'node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.js',
+                    'web/build/js/jquery.easy-autocomplete.min.js': 'node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.min.js'
+                }
+            },
             popper: {
                 files: {
                     'web/build/js/popper.js': 'node_modules/popper.js/dist/umd/popper.js',

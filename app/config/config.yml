@@ -9,6 +9,7 @@ parameters:
     locale: en
     github_username: f500
     github_repository: elewant
+    github_contributor_blacklist: ['waffle-iron']
 
 # Framework Configuration
 framework:

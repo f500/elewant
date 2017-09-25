@@ -36,7 +36,12 @@ And eventually:
 
 ### Getting started
 
-Add hosts to your hostsfile:
+You will need some tools on your local system:
+
+    [Virtual box](https://www.virtualbox.org/)
+    [Ansible](https://www.ansible.com/)
+
+Add the following line to your hostsfile:
 
     192.168.77.77   develop.elewant.loc
 
@@ -44,11 +49,8 @@ Fetch roles from Ansible Galaxy:
 
     ansible-galaxy install -r ansible/galaxy_roles.yml -f
 
-Create a local parameters file for the develop environment, adjust it according to your needs.
-
-    cp app/config/parameters.yml.dist app/config/parameters.yml
-
-If you want to be able to log in with twitter, you'll need to create an application at twitter, then place your key & secret in `parameters.yml`.
+If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com, 
+then place your key & secret in a file called `ansible/provision/group_vars/develop/override_locally.yml`.
 
 Bring your box up:
 

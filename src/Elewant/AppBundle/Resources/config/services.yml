@@ -10,7 +10,12 @@ services:
 
     elewant.contributor_list:
         class: Elewant\AppBundle\Infrastructure\GithubContributorList
-        arguments: [ %github_username%, %github_repository%, '@httplug.message_factory', '@httplug.client.guzzle' ]
+        arguments:
+          - '%github_username%'
+          - '%github_repository%'
+          - '@httplug.message_factory'
+          - '@httplug.client.guzzle'
+          - '%github_contributor_blacklist%'
 
     elewant.exception_controller:
         class: Elewant\AppBundle\Controller\ExceptionController

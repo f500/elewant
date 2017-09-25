@@ -2,6 +2,10 @@ error:
   404: "The requested page could not be found"
   500: "Oops, something went wrong"
 
+
+contributor:
+  contributions: '[1,9] Some nice additions|[10,29] Quite a few changes|[30,99] A lof of work done!|[100,+Inf[ No private life'
+
 herding:
   breed:
     BLACK_AMSTERDAMPHP_REGULAR: "AmsterdamPHP"

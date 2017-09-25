@@ -1,6 +1,27 @@
+$(function () {
+    $("#search-input").easyAutocomplete({
+        url: function (q) {
+            return "/shepherd/search?q=" + q;
+        },
+        list: {
+            maxNumberOfElements: 6,
+            onChooseEvent: function() {
+                var username = $("#search-input").getSelectedItemData().username;
+                window.location.href = "/shepherd/admire/" + username;
+            }
+        },
+        theme: "bootstrap",
+        getValue: "name",
+        template: {
+            type: "description",
+            fields: {
+                description: "username"
+            }
+        },
+        requestDelay: 300
+    });
 
-$(function() {
-    $(".elephpant-controls .adopt").click(function(event) {
+    $(".elephpant-controls .adopt").click(function (event) {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
@@ -13,7 +34,7 @@ $(function() {
         });
     });
 
-    $(".elephpant-controls .abandon").click(function(event) {
+    $(".elephpant-controls .abandon").click(function (event) {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
