@@ -59,9 +59,12 @@ EOQ;
     public function search(string $searchString) : array
     {
         $dql = <<<EOQ
-SELECT h
+SELECT h.name, u.username
 FROM ElewantAppBundle:Herd h
-WHERE h.name LIKE :searchString
+JOIN ElewantUserBundle:User u WITH h.shepherdId = u.shepherdId
+WHERE 
+  h.name LIKE :searchString 
+  OR u.username LIKE :searchString
 ORDER BY h.formedOn DESC
 EOQ;
 

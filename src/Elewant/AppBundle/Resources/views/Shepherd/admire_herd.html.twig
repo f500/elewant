@@ -1,6 +1,14 @@
 {% extends 'ElewantAppBundle:Layout:base.html.twig' %}
 
 {% block content %}
+    <section id="search">
+        <div class="col-sm-12">
+            <div class="form-group col-sm-4">
+                <input id="search-input" class="form-control" placeholder="Search..." autocomplete="off">
+            </div>
+        </div>
+    </section>
+
     <section id="herd_tending">
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
