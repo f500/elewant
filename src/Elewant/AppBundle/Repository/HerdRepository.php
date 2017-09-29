@@ -75,7 +75,7 @@ EOQ;
         return $query->getResult();
     }
 
-    public function findOneByShepherdId(ShepherdId $shepherdId):? Herd
+    public function findOneByShepherdId(ShepherdId $shepherdId): ?Herd
     {
         $dql   = <<<EOQ
 SELECT h
@@ -88,7 +88,7 @@ EOQ;
         return $query->getOneOrNullResult();
     }
 
-    public function findOneByName(string $name):? Herd
+    public function findOneByName(string $name): ?Herd
     {
         $dql   = <<<EOQ
 SELECT h
