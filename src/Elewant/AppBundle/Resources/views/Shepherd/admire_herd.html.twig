@@ -1,6 +1,7 @@
 {% extends 'ElewantAppBundle:Layout:base.html.twig' %}
 
 {% block content %}
+
     <section id="search">
         <div class="col-sm-12">
             <div class="form-group col-sm-4">
@@ -11,7 +12,6 @@
 
     <section id="herd_tending">
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
-
         <div class="row">
             {% for breed, count in herd.elePHPantBreedCounts %}
                 <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
@@ -19,7 +19,6 @@
                 </div>
             {% endfor %}
         </div>
-
     </section>
 
 {% endblock %}

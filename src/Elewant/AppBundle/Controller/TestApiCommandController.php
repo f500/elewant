@@ -89,7 +89,7 @@ final class TestApiCommandController
         return JsonResponse::create(null, Response::HTTP_ACCEPTED);
     }
 
-    private function getPayloadFromRequest(Request $request) : array
+    private function getPayloadFromRequest(Request $request): array
     {
         $payload = json_decode($request->getContent(), true);
 

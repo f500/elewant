@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\AppBundle\Twig;
 
 use Elewant\AppBundle\Service\ContributorList;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class ContributorsExtension extends \Twig_Extension
+class ContributorsExtension extends AbstractExtension
 {
     protected $githubService;
 
@@ -17,7 +20,7 @@ class ContributorsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('contributors', [$this, 'contributors']),
+            new TwigFunction('contributors', [$this, 'contributors']),
         ];
     }
 

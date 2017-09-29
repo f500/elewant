@@ -5,7 +5,7 @@ $(function () {
         },
         list: {
             maxNumberOfElements: 6,
-            onChooseEvent: function() {
+            onChooseEvent: function () {
                 var username = $("#search-input").getSelectedItemData().username;
                 window.location.href = "/shepherd/admire/" + username;
             }
@@ -47,7 +47,7 @@ $(function () {
         });
     });
 
-    $('#adoptElePHPants').on('hidden.bs.modal', function (e) {
+    $('#adoptElePHPants').on('hidden.bs.modal', function () {
         location.reload();
     });
 });

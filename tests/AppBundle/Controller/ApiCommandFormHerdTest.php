@@ -40,13 +40,13 @@ class ApiCommandFormHerdTest extends ApiCommandBase
         /** @var HerdWasFormed $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[0];
 
-        $expectedHerdProjection  = [
+        $expectedHerdProjection = [
             'herd_id'     => $eventUnderTest->herdId()->toString(),
             'shepherd_id' => $eventUnderTest->shepherdId()->toString(),
             'name'        => $eventUnderTest->name(),
             'formed_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
-        $projectedHerd = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
+        $projectedHerd          = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedHerdProjection, $projectedHerd);
     }
 }

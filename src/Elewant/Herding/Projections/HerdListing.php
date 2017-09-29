@@ -24,7 +24,7 @@ final class HerdListing
         $this->connection = $connection;
     }
 
-    public function findAll() : array
+    public function findAll(): array
     {
         return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdProjector::TABLE_HERD));
     }
@@ -40,7 +40,7 @@ final class HerdListing
         return $qb->execute()->fetch();
     }
 
-    public function findElePHPantsByHerdId($herdId) : array
+    public function findElePHPantsByHerdId($herdId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')

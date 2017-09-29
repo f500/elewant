@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Elewant\AppBundle\Twig;
 
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-final class BreedExtension extends Twig_Extension
+final class BreedExtension extends AbstractExtension
 {
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('breedColor', [$this, 'breedColorFilter']),
-            new Twig_SimpleFilter('breedSize', [$this, 'breedSizeFilter']),
-            new Twig_SimpleFilter('breedName', [$this, 'breedNameFilter']),
+            new TwigFilter('breedColor', [$this, 'breedColorFilter']),
+            new TwigFilter('breedSize', [$this, 'breedSizeFilter']),
+            new TwigFilter('breedName', [$this, 'breedNameFilter']),
         ];
     }
 
@@ -26,6 +26,7 @@ final class BreedExtension extends Twig_Extension
     public function breedSizeFilter(string $breed): string
     {
         $parts = explode("_", $breed);
+
         return strtolower(end($parts));
     }
 
@@ -33,7 +34,7 @@ final class BreedExtension extends Twig_Extension
     {
         $parts = explode("_", $breed);
         $parts = array_slice($parts, 1, -1);
-        return strtolower(implode('_',$parts));
-    }
 
+        return strtolower(implode('_', $parts));
+    }
 }

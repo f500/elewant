@@ -12,9 +12,12 @@ final class HerdWasAbandoned extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, ShepherdId $shepherdId): self
     {
-        return self::occur($herdId->toString(), [
-            'shepherdId' => $shepherdId->toString(),
-        ]);
+        return self::occur(
+            $herdId->toString(),
+            [
+                'shepherdId' => $shepherdId->toString(),
+            ]
+        );
     }
 
     public function herdId(): HerdId

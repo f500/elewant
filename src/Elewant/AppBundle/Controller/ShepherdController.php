@@ -8,7 +8,6 @@ use Elewant\AppBundle\Entity\Herd;
 use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\UserBundle\Entity\User;
 use Elewant\UserBundle\Security\UserProvider;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +45,7 @@ class ShepherdController extends Controller
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $query = $request->get('q');
+        $query     = $request->get('q');
         $usernames = $herdRepository->search($query);
 
         return $this->json($usernames);
@@ -59,7 +58,7 @@ class ShepherdController extends Controller
      * @return User|UserInterface
      * @throws NotFoundHttpException
      */
-    private function getUserByUsername(string $username) : UserInterface
+    private function getUserByUsername(string $username): UserInterface
     {
         /** @var UserProvider $userProvider */
         $userProvider = $this->get('elewant.security.user_provider');
@@ -79,7 +78,7 @@ class ShepherdController extends Controller
      * @return Herd
      * @throws NotFoundHttpException
      */
-    private function getHerd(User $user) : Herd
+    private function getHerd(User $user): Herd
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');

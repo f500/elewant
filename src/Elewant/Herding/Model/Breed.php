@@ -72,8 +72,9 @@ class Breed
         $this->type = $type;
     }
 
-    public static function availableTypes() {
-        $reflected = new ReflectionClass(self::class);
+    public static function availableTypes()
+    {
+        $reflected  = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();
 
         sort($validTypes);
@@ -114,6 +115,7 @@ class Breed
     public static function __callStatic($name, $arguments)
     {
         $name = strtoupper(preg_replace('/\B([A-Z])/', '_$1', $name));
+
         return self::fromString($name);
     }
 
