@@ -36,6 +36,7 @@ final class Breed extends Type
         if ($value === null) {
             return null;
         }
+
         return BreedType::fromString($value);
     }
 

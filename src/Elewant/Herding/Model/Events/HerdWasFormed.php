@@ -12,10 +12,13 @@ final class HerdWasFormed extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, ShepherdId $shepherdId, string $name): self
     {
-        return self::occur($herdId->toString(), [
-            'shepherdId' => $shepherdId->toString(),
-            'name' => $name
-        ]);
+        return self::occur(
+            $herdId->toString(),
+            [
+                'shepherdId' => $shepherdId->toString(),
+                'name'       => $name,
+            ]
+        );
     }
 
     public function herdId(): HerdId

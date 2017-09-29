@@ -20,11 +20,14 @@ class HerdSpec extends ObjectBehavior
     function let()
     {
         $this->shepherdId = ShepherdId::generate();
-        $this->herdName = 'Herd name';
-        $this->beConstructedThrough('form', [
-            $this->shepherdId,
-            $this->herdName
-        ]);
+        $this->herdName   = 'Herd name';
+        $this->beConstructedThrough(
+            'form',
+            [
+                $this->shepherdId,
+                $this->herdName,
+            ]
+        );
     }
 
     function it_forms()
@@ -113,8 +116,9 @@ class HerdSpec extends ObjectBehavior
                         return true;
                     }
                 }
+
                 return false;
-            }
+            },
         ];
     }
 

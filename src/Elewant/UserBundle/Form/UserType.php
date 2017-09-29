@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType implements DataMapperInterface
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) : void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('username', TextType::class, ['disabled' => true])
@@ -23,7 +23,7 @@ class UserType extends AbstractType implements DataMapperInterface
             ->setDataMapper($this);
     }
 
-    public function configureOptions(OptionsResolver $resolver) : void
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
@@ -33,7 +33,7 @@ class UserType extends AbstractType implements DataMapperInterface
         );
     }
 
-    public function mapDataToForms($user, $forms) : void
+    public function mapDataToForms($user, $forms): void
     {
         if (!$user instanceof User) {
             return;
@@ -47,7 +47,7 @@ class UserType extends AbstractType implements DataMapperInterface
         $form['country']->setData($user->country());
     }
 
-    public function mapFormsToData($forms, &$user) : void
+    public function mapFormsToData($forms, &$user): void
     {
         /** @var FormInterface[] $form */
         $form = iterator_to_array($forms);

@@ -26,7 +26,7 @@ final class ShepherdId extends Type
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
         $fieldDeclaration['length'] = 36;
-        $fieldDeclaration['fixed'] = true;
+        $fieldDeclaration['fixed']  = true;
 
         return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
@@ -39,6 +39,7 @@ final class ShepherdId extends Type
         if ($value === null) {
             return null;
         }
+
         return ShepherdIdType::fromString($value);
     }
 
@@ -50,6 +51,7 @@ final class ShepherdId extends Type
         if ($value === null) {
             return null;
         }
+
         /** @var ShepherdIdType $value */
         return $value->toString();
     }

@@ -17,7 +17,7 @@ final class HerdRepository extends EntityRepository
      *
      * @return Herd[]
      */
-    public function lastNewHerds(int $limit) : array
+    public function lastNewHerds(int $limit): array
     {
         $dql   = <<<EOQ
 SELECT h as herd, u.username
@@ -29,6 +29,7 @@ EOQ;
         $query->setMaxResults($limit);
 
         $herdsAndUsers = $query->getResult();
+
         return $herdsAndUsers;
     }
 
@@ -37,7 +38,7 @@ EOQ;
      *
      * @return ElePHPant[]
      */
-    public function lastNewElePHPants(int $limit) : array
+    public function lastNewElePHPants(int $limit): array
     {
         $dql = <<<EOQ
 SELECT e
@@ -56,7 +57,7 @@ EOQ;
      *
      * @return Herd[]
      */
-    public function search(string $searchString) : array
+    public function search(string $searchString): array
     {
         $dql = <<<EOQ
 SELECT h.name, u.username
@@ -74,7 +75,7 @@ EOQ;
         return $query->getResult();
     }
 
-    public function findOneByShepherdId(ShepherdId $shepherdId) :? Herd
+    public function findOneByShepherdId(ShepherdId $shepherdId): ?Herd
     {
         $dql   = <<<EOQ
 SELECT h
@@ -87,7 +88,7 @@ EOQ;
         return $query->getOneOrNullResult();
     }
 
-    public function findOneByName(string $name) :? Herd
+    public function findOneByName(string $name): ?Herd
     {
         $dql   = <<<EOQ
 SELECT h

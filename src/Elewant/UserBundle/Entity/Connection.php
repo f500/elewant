@@ -67,27 +67,27 @@ class Connection
         $this->refreshToken = $refreshToken;
     }
 
-    public function id() : ?int
+    public function id(): ?int
     {
         return $this->id;
     }
 
-    public function resource() : string
+    public function resource(): string
     {
         return $this->resource;
     }
 
-    public function resourceId() : string
+    public function resourceId(): string
     {
         return $this->resourceId;
     }
 
-    public function accessToken() : string
+    public function accessToken(): string
     {
         return $this->accessToken;
     }
 
-    public function refreshToken() : string
+    public function refreshToken(): string
     {
         return $this->refreshToken;
     }

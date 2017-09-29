@@ -38,8 +38,8 @@ class AbandonHerdHandlerSpec extends ObjectBehavior
     function it_handles_abandon_herd()
     {
         $shepherdId = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
-        $herd   = Herd::form($shepherdId, 'Herd name');
-        $herdId = $herd->herdId();
+        $herd       = Herd::form($shepherdId, 'Herd name');
+        $herdId     = $herd->herdId();
 
         $command = AbandonHerd::forShepherd($herdId->toString(), $shepherdId->toString());
 

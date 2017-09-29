@@ -28,7 +28,7 @@ final class Herd extends AggregateRoot
     /** @var  string */
     private $name;
 
-    public static function form(ShepherdId $shepherdId, string $name) : self
+    public static function form(ShepherdId $shepherdId, string $name): self
     {
         $herdId = HerdId::generate();
 
@@ -39,27 +39,27 @@ final class Herd extends AggregateRoot
         return $instance;
     }
 
-    public function herdId() : HerdId
+    public function herdId(): HerdId
     {
         return $this->herdId;
     }
 
-    public function shepherdId() : ShepherdId
+    public function shepherdId(): ShepherdId
     {
         return $this->shepherdId;
     }
 
-    public function elePHPants() : array
+    public function elePHPants(): array
     {
         return $this->elePHPants;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function isAbandoned() : bool
+    public function isAbandoned(): bool
     {
         return $this->abandoned;
     }
@@ -76,7 +76,7 @@ final class Herd extends AggregateRoot
         );
     }
 
-    public function adoptElePHPant(Breed $breed) : void
+    public function adoptElePHPant(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
 
@@ -110,12 +110,12 @@ final class Herd extends AggregateRoot
         throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
     }
 
-    protected function aggregateId() : string
+    protected function aggregateId(): string
     {
         return $this->herdId->toString();
     }
 
-    protected function apply(AggregateChanged $event) : void
+    protected function apply(AggregateChanged $event): void
     {
         switch (get_class($event)) {
             case HerdWasFormed::class:
@@ -139,19 +139,19 @@ final class Herd extends AggregateRoot
         }
     }
 
-    private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name) : void
+    private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name): void
     {
         $this->herdId     = $herdId;
         $this->shepherdId = $shepherdId;
         $this->name       = $name;
     }
 
-    private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed) : void
+    private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
         $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }
 
-    private function applyAnElePHPantWasAbandonedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed) : void
+    private function applyAnElePHPantWasAbandonedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
         foreach ($this->elePHPants as $key => $elePHPant) {
             if ($elePHPant->elePHPantId()->equals($elePHPantId)) {

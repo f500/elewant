@@ -19,8 +19,10 @@ class PurgeEventStoreCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $helper = $this->getHelper('question');
-        $question = new ConfirmationQuestion('<error>CAUTION! This will empty the Event store, are you sure? (y/N)</error>', false);
+        $helper   = $this->getHelper('question');
+        $question = new ConfirmationQuestion(
+            '<error>CAUTION! This will empty the Event store, are you sure? (y/N)</error>', false
+        );
 
         if (!$helper->ask($input, $output, $question)) {
             return;

@@ -22,9 +22,9 @@ class DefaultController extends Controller
         return $this->render(
             'ElewantAppBundle:Default:index.html.twig',
             [
-                'shrinking_navbar' => true,
+                'shrinking_navbar'       => true,
                 'only_anchors_in_navbar' => true,
-                'newest_herds'      => $newestHerds,
+                'newest_herds'           => $newestHerds,
             ]
         );
     }

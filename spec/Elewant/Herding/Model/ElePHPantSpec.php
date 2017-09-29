@@ -2,9 +2,9 @@
 
 namespace spec\Elewant\Herding\Model;
 
+use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\ElePHPant;
 use Elewant\Herding\Model\ElePHPantId;
-use Elewant\Herding\Model\Breed;
 use PhpSpec\ObjectBehavior;
 
 class ElePHPantSpec extends ObjectBehavior

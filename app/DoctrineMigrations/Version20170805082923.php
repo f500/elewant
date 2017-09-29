@@ -28,7 +28,7 @@ class Version20170805082923 extends AbstractMigration
         $elephpant->addColumn('breed', 'breed', ['length' => 64]);
         $elephpant->addColumn('adopted_on', 'datetime');
         $elephpant->setPrimaryKey(['elephpant_id']);
-        $elephpant->addForeignKeyConstraint(HerdProjector::TABLE_HERD,['herd_id'], ['herd_id']);
+        $elephpant->addForeignKeyConstraint(HerdProjector::TABLE_HERD, ['herd_id'], ['herd_id']);
         $elephpant->addIndex(['adopted_on']);
     }
 

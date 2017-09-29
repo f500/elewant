@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -28,7 +29,7 @@ class HerdController extends Controller
     /**
      * @Route("/tending", name="herd_tending")
      */
-    public function herdTendingAction(UserInterface $user)
+    public function herdTendingAction(UserInterface $user): Response
     {
         $herd = $this->getHerd($user);
 
@@ -44,7 +45,7 @@ class HerdController extends Controller
     /**
      * @Route("/adopt/{breed}", name="herd_adopt_breed")
      */
-    public function adoptElePHPantAction(UserInterface $user, $breed)
+    public function adoptElePHPantAction(UserInterface $user, string $breed): Response
     {
         $herd = $this->getHerd($user);
 
@@ -60,7 +61,7 @@ class HerdController extends Controller
     /**
      * @Route("/abandon/{breed}", name="herd_abandon_breed")
      */
-    public function abandonElePHPantAction(UserInterface $user, $breed)
+    public function abandonElePHPantAction(UserInterface $user, string $breed): Response
     {
         $herd = $this->getHerd($user);
 
@@ -79,7 +80,7 @@ class HerdController extends Controller
      * @return Herd
      * @throws NotFoundHttpException
      */
-    private function getHerd(User $user) : Herd
+    private function getHerd(User $user): Herd
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
@@ -91,5 +92,4 @@ class HerdController extends Controller
 
         return $herd;
     }
-
 }

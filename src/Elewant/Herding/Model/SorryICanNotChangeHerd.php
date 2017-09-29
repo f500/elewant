@@ -10,9 +10,11 @@ final class SorryICanNotChangeHerd extends Exception
 {
     public static function becauseItWasAbandoned(Herd $herd)
     {
-        return new self(sprintf(
+        return new self(
+            sprintf(
                 'Sorry, herd %s can not be changed because it was abandoned',
                 $herd->herdId()->toString()
-        ));
+            )
+        );
     }
 }
