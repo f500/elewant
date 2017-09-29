@@ -4,64 +4,103 @@ imports:
     - { resource: "@ElewantAppBundle/Resources/config/service_bus.yml" }
 
 services:
-    httplug.plugin.cache:
-        class: Http\Client\Common\Plugin\CachePlugin
-        arguments: [ "@cache.app", "@httplug.stream_factory" ]
+
+    # ASSET
+
+    elewant.asset_version_strategy:
+        class: Elewant\AppBundle\Asset\FileVersionStrategy
+        public: false
+        arguments:
+            - "%kernel.project_dir%/VERSION"
+
+    # CONTRIBUTOR
 
     elewant.contributor_list:
         class: Elewant\AppBundle\Infrastructure\GithubContributorList
         arguments:
-          - '%github_username%'
-          - '%github_repository%'
-          - '@httplug.message_factory'
-          - '@httplug.client.guzzle'
-          - '%github_contributor_blacklist%'
+            - "%github_username%"
+            - "%github_repository%"
+            - "@httplug.message_factory"
+            - "@httplug.client.guzzle"
+            - "%github_contributor_blacklist%"
+
+    # CONTROLLER
+
+    elewant.api_command_controller:
+        class: Elewant\AppBundle\Controller\TestApiCommandController
+        arguments:
+            - "@prooph_service_bus.herding_command_bus"
+            - "@prooph_service_bus.message_factory"
 
     elewant.exception_controller:
         class: Elewant\AppBundle\Controller\ExceptionController
-        arguments: ['@twig', '%kernel.debug%']
+        arguments:
+            - "@twig"
+            - "%kernel.debug%"
+
+    # COMMAND
+
+    elewant.form_herd_handler:
+        class: Elewant\Herding\Model\Handlers\FormHerdHandler
+        arguments:
+            - "@herd_collection"
+
+    elewant.adopt_elephpant_handler:
+        class: Elewant\Herding\Model\Handlers\AdoptElePHPantHandler
+        arguments:
+            - "@herd_collection"
+
+    elewant.abandon_elephpant_handler:
+        class: Elewant\Herding\Model\Handlers\AbandonElePHPantHandler
+        arguments:
+            - "@herd_collection"
+
+    elewant.abandon_herd_handler:
+        class: Elewant\Herding\Model\Handlers\AbandonHerdHandler
+        arguments:
+            - "@herd_collection"
+
+    # EVENT
+
+    elewant.event_subscriber.new_user:
+        class: Elewant\AppBundle\EventSubscriber\NewUserSubscriber
+        arguments:
+            - "@elewant.herd.herd_repository"
+            - "@prooph_service_bus.herding_command_bus"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # HTTP
+
+    httplug.plugin.cache:
+        class: Http\Client\Common\Plugin\CachePlugin
+        arguments:
+            - "@cache.app"
+            - "@httplug.stream_factory"
+
+    # REPOSITORY
+
+    elewant.herd.herd_repository:
+        class: Elewant\AppBundle\Repository\HerdRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments:
+            - Elewant\AppBundle\Entity\Herd
+
+    # TWIG
+
+    elewant.twig.array_extension:
+        class: Twig\Extensions\ArrayExtension
+        tags:
+            - { name: twig.extension }
 
     elewant.twig.breed_extention:
         class: Elewant\AppBundle\Twig\BreedExtension
         tags:
             - { name: twig.extension }
+
     elewant.twig.contributors_extension:
         class: Elewant\AppBundle\Twig\ContributorsExtension
-        arguments: ["@elewant.contributor_list"]
-        tags:
-            -  { name: twig.extension }
-    twig.extension.array:
-        class: Twig_Extensions_Extension_Array
+        arguments:
+            - "@elewant.contributor_list"
         tags:
             - { name: twig.extension }
-
-    elewant.herd.herd_repository:
-        class: Elewant\AppBundle\Repository\HerdRepository
-        factory: [ "@doctrine.orm.entity_manager", getRepository ]
-        arguments: [ Elewant\AppBundle\Entity\Herd ]
-
-    elewant.event_subscriber.new_user:
-        class: Elewant\AppBundle\EventSubscriber\NewUserSubscriber
-        arguments: ["@elewant.herd.herd_repository", "@prooph_service_bus.herding_command_bus"]
-        tags:
-            - { name: kernel.event_subscriber }
-
-    elewant.api_command_controller:
-        class: Elewant\AppBundle\Controller\TestApiCommandController
-        arguments: ['@prooph_service_bus.herding_command_bus', '@prooph_service_bus.message_factory']
-
-    elewant.form_herd_handler:
-        class: Elewant\Herding\Model\Handlers\FormHerdHandler
-        arguments: ['@herd_collection']
-
-    elewant.adopt_elephpant_handler:
-        class: Elewant\Herding\Model\Handlers\AdoptElePHPantHandler
-        arguments: ['@herd_collection']
-
-    elewant.abandon_elephpant_handler:
-        class: Elewant\Herding\Model\Handlers\AbandonElePHPantHandler
-        arguments: ['@herd_collection']
-
-    elewant.abandon_herd_handler:
-        class: Elewant\Herding\Model\Handlers\AbandonHerdHandler
-        arguments: ['@herd_collection']

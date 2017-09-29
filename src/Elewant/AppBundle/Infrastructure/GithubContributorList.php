@@ -59,7 +59,7 @@ class GithubContributorList implements ContributorList
 
         $response = $this->client->sendRequest($request);
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
-            $responseData = json_decode($response->getBody(), true);
+            $responseData = json_decode((string) $response->getBody(), true);
             foreach ($responseData as $contributorData) {
                 if (in_array($contributorData['login'], $this->blacklist)) {
                     continue;
