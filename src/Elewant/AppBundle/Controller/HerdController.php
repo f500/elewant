@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Route("/herd")
+ * @Route("/herd", options={"expose"=true})
  * @Security("has_role('ROLE_USER')")
  */
 class HerdController extends Controller
