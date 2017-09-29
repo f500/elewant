@@ -13,3 +13,7 @@
 'command::abandon-herd':
     path: '/testapi/commands/abandon-herd'
     defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonHerd' }
+
+'command::rename-herd':
+    path: '/testapi/commands/rename-herd'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\RenameHerd' }
