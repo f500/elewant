@@ -213,9 +213,13 @@ h1, h2, h3, h4, h5, h6 {
       font-weight: 400;
       letter-spacing: 1px;
       padding: .8125rem 0;
-      &:hover, &.active {
-        color: $theme-primary;
-      }
+    }
+    .nav-item.active .nav-link,
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus,
+    .nav-item .nav-link:active,
+    .nav-item .nav-link.active {
+      color: $theme-primary;
     }
   }
 }
