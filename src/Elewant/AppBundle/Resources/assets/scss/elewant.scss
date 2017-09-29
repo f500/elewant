@@ -9,6 +9,12 @@
 // easyAutocomplete
 @import "../../../../../../node_modules/easy-autocomplete/src/sass/easy-autocomplete";
 
+// Font Awesome
+.fa-li {
+  line-height: 1.5;
+  top: 0;
+}
+
 // Alert page
 .alert {
   .list-unstyled {

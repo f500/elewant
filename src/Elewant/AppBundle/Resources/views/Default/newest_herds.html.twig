@@ -1,5 +1,3 @@
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
-
 <section id="newest_herds" class="index-section">
     <div class="container">
 
@@ -23,7 +21,7 @@
                                 <div class="timeline-heading">
                                     <h4>{{ entry.herd.formedOn|date('Y-m-d') }}</h4>
                                     <h4 class="subheading">
-                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ utils.icon('external-link fa-fw') }}</a>
+                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ icon('external-link fw') }}</a>
                                         {{ entry.herd.name }}
                                     </h4>
                                 </div>

@@ -1,5 +1,4 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
 {% trans_default_domain "herd" %}
 
 {% block content %}
@@ -9,7 +8,7 @@
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
-            {{ utils.alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
+            {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
         {% endif %}
 
         <div class="row text-center">

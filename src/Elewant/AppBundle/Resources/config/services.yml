@@ -103,6 +103,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    elewant.twig.components_extension:
+        class: Elewant\AppBundle\Twig\ComponentsExtension
+        tags:
+            - { name: twig.extension }
+
     elewant.twig.contributors_extension:
         class: Elewant\AppBundle\Twig\ContributorsExtension
         arguments:

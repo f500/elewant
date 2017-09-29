@@ -1,18 +1,58 @@
 {% extends 'ElewantAppBundle:Layout:base.html.twig' %}
 
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
-
 {% block body %}
 
-    <div class="container mt-3">
+    <section>
+        <div class="container">
 
-        {# Alerts #}
+            <h2>Alerts</h2>
 
-        {{ utils.alert('You successfully read this important alert message.', 'success') }}
-        {{ utils.alert('Better check yourself, you\'re not looking too good.', 'warning') }}
-        {{ utils.alert('Change a few things up and try submitting again.', 'danger') }}
-        {{ utils.alert('This alert needs your attention, but it\'s not super important.') }}
+            {{ alert('You successfully read this important alert message.', 'success') }}
+            {{ alert('Better check yourself, you\'re not looking too good.', 'warning') }}
+            {{ alert('Change a few things up and try submitting again.', 'danger') }}
+            {{ alert('This alert needs your attention, but it\'s not super important.') }}
 
-    </div>
+            <h2 class="mt-5">Icons</h2>
+
+            <div class="row">
+                <div class="col text-center">
+                    {{ icon('camera-retro') }}
+                </div>
+                <div class="col text-center">
+                    {{ icon('camera-retro 4x') }}
+                </div>
+                <div class="col">
+                    <ul class="fa-ul">
+                        <li>{{ icon('check-square li') }} Checked</li>
+                        <li>{{ icon('square li') }} Unchecked</li>
+                    </ul>
+                </div>
+                <div class="col text-center">
+                    {{ icon('spinner spin 2x') }}
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="col text-center">
+                    {{ icon('shield rotate-180') }}
+                </div>
+                <div class="col text-center">
+                    <span class="fa-stack fa-lg">
+                        {{ icon('square-o stack-2x') }}
+                        {{ icon('twitter stack-1x') }}
+                    </span>
+                </div>
+                <div class="col text-center">
+                    <button type="button" class="btn btn-danger" aria-label="Delete">{{ icon('trash-o') }}</button>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="form-email">Email address</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">{{ icon('envelope-o fw') }}</div>
+                        <input type="text" class="form-control" id="form-email" placeholder="Email address">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 {% endblock %}
