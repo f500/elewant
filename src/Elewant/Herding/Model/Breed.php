@@ -19,6 +19,7 @@ class Breed
     const BLUE_ZEND_REGULAR                 = 'BLUE_ZEND_REGULAR';
     const BLUE_ZRAY_REGULAR                 = 'BLUE_ZRAY_REGULAR';
     const BROWN_TRUENORTHPHP_REGULAR        = 'BROWN_TRUENORTHPHP_REGULAR';
+    const DENIM_ZEND_REGULAR                = "DENIM_ZEND_REGULAR";
     const GOLD_OPENGOODIES_REGULAR          = 'GOLD_OPENGOODIES_REGULAR';
     const GRAY_HACK_REGULAR                 = 'GRAY_HACK_REGULAR';
     const GREEN_ZF2_REGULAR                 = 'GREEN_ZF2_REGULAR';
@@ -47,6 +48,7 @@ class Breed
     const BLUE_ZEND_LARGE                 = 'BLUE_ZEND_LARGE';
     const BLUE_ZRAY_LARGE                 = 'BLUE_ZRAY_LARGE';
     const BROWN_TRUENORTHPHP_LARGE        = 'BROWN_TRUENORTHPHP_LARGE';
+    const DENIM_ZEND_LARGE                = "DENIM_ZEND_LARGE";
     const GREEN_ZF2_LARGE                 = 'GREEN_ZF2_LARGE';
     const MULTICOLORED_PHPDIVERSITY_LARGE = 'MULTICOLORED_PHPDIVERSITY_LARGE';
     const ORANGE_PHPARCH_LARGE            = 'ORANGE_PHPARCH_LARGE';
