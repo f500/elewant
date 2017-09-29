@@ -5,7 +5,13 @@ imports:
 
 services:
 
+    # ASSET
 
+    elewant.asset_version_strategy:
+        class: Elewant\AppBundle\Asset\FileVersionStrategy
+        public: false
+        arguments:
+            - "%kernel.project_dir%/VERSION"
 
     # CONTRIBUTOR
 
