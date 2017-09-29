@@ -34,6 +34,9 @@ But also:
 And eventually: 
 - How to deal with legacy code ;-)
 
+Feel free to add anything you learn, no matter how small, to <docs/lessons_learned.md>
+
+
 ### Getting started
 
 You will need some tools on your local system:
@@ -108,4 +111,4 @@ Moving them out of the synced folder (and into a shared memory disk) greatly imp
     ansible-playbook -i ansible/hosts-deploy ansible/deploy/playbook.yml --limit=staging --extra="project_version=develop" --ask-vault-pass
 
     # Production
-    ansible-playbook -i ansible/hosts-deploy ansible/deploy/playbook.yml --limit=production --extra="project_version=master" --ask-vault-pass
+    ansible-playbook -i ansible/hosts-deploy ansible/deploy/playbook.yml --limit=production --extra="project_version=[VERSION]" --ask-vault-pass
