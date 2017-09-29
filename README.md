@@ -97,6 +97,10 @@ Normally these are kept in `var/cache`, `var/logs` and `var/sessions`.
 On the `develop` vagrant machine these are moved to `/dev/shm/elewant/var/cache`, `/dev/shm/elewant/var/logs` and `/dev/shm/elewant/var/sessions`.
 Moving them out of the synced folder (and into a shared memory disk) greatly improves performance.
 
+### Moar docs
+
+You can find more docs in the [/docs](/docs) folder.
+
 ### Provision (only for those who have access to the production server)
 
     # Production
