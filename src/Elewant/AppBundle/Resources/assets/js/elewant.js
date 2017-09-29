@@ -25,7 +25,7 @@ $(function () {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: Routing.generate('herd_adopt', { 'breed': breedChoice }),
+            url: Routing.generate('herd_adopt_breed', { 'breed': breedChoice }),
             data: [],
             success: function () {
                 var countInput = $(".elephpant-controls .count-" + breedChoice);
@@ -38,7 +38,7 @@ $(function () {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: Routing.generate('herd_adopt', { 'breed': breedChoice }),
+            url: Routing.generate('herd_abandon_breed', { 'breed': breedChoice }),
             data: [],
             success: function () {
                 var countInput = $(".elephpant-controls .count-" + breedChoice);
