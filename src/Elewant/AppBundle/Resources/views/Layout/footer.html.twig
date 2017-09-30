@@ -3,7 +3,7 @@
         <div class="row no-gutters">
 
             <div class="col-md">
-                <p class="copyright">Copyright &copy; {{ 'now'|date('Y') }}
+                <p class="copyright">{{ 'site.footer.copyright'|trans }} &copy; {{ 'now'|date('Y') }}
                     <a href="http://www.future500.nl/" target="_blank" rel="noopener noreferrer">Future500 B.V.</a>
                 </p>
             </div>
@@ -19,10 +19,10 @@
             <div class="col-md">
                 <ul class="quicklinks list-inline">
                     <li class="list-inline-item">
-                        <a href="{{ asset('bundles/elewantapp/txt/privacy-policy.txt') }}" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                        <a href="{{ asset('bundles/elewantapp/txt/privacy-policy.txt') }}" target="_blank" rel="noopener noreferrer">{{ 'site.footer.privacy-policy'|trans }}</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ asset('bundles/elewantapp/txt/terms-of-service.txt') }}" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                        <a href="{{ asset('bundles/elewantapp/txt/terms-of-service.txt') }}" target="_blank" rel="noopener noreferrer">{{ 'site.footer.terms-of-service'|trans }}</a>
                     </li>
                 </ul>
             </div>

@@ -87,7 +87,7 @@ class HerdController extends Controller
         $herd           = $herdRepository->findOneByShepherdId($user->shepherdId());
 
         if ($herd === null) {
-            throw $this->createNotFoundException('This Shepherd does not seem to have a Herd...');
+            throw $this->createNotFoundException('error.herd.herd-not-found');
         }
 
         return $herd;

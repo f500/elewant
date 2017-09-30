@@ -5,7 +5,7 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Our Amazing Contributors</h2>
+                <h2 class="section-heading">{{ 'site.contributors.heading'|trans }}</h2>
             </div>
         </div>
 
@@ -15,13 +15,13 @@
                     <div class="team-member">
                         <img src="{{ contributor.avatarUrl }}" class="mx-auto rounded-circle" alt="">
                         <h4>{{ contributor.name }}</h4>
-                        <p class="text-muted">({{ 'contributor.contributions'|transchoice(contributor.contributionCount) }})</p>
+                        <p class="text-muted">({{ 'site.contributors.contributions'|transchoice(contributor.contributionCount) }})</p>
                     </div>
                 </div>
             {% else %}
                 <div class="col-sm-4 text-center">
                     <div class="team-member">
-                        Contributors could not be loaded
+                        {{ 'site.contributors.failed-to-load'|trans }}
                     </div>
                 </div>
             {% endfor %}
@@ -29,8 +29,10 @@
 
         <div class="row justify-content-md-center">
             <div class="col col-lg-10 text-center">
-                <p class="large text-muted">You can find the repository on
-                    <a href="https://github.com/f500/elewant">github</a>, and become one of the awesome contributors in no time at all!<br /><br />
+                <p class="large text-muted">
+                    {% trans with {"%link%": "<a href='https://github.com/f500/elewant'>github</a>"} %}
+                        site.contributors.invitation
+                    {% endtrans %}
                 </p>
             </div>
         </div>
