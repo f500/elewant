@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Route("/shepherd")
+ * @Route("/shepherd", options={"expose"=true})
  */
 class ShepherdController extends Controller
 {

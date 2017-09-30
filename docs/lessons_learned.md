@@ -28,3 +28,13 @@ extremely useful!
 to call the `equals()` method on the subject. Neat.
 
 ---
+
+**name:** Ramon de la Fuente
+
+**I learned about:** The FOS JS routing bundle. I was hardcoding routes into the javascript,
+but that is a problem if you ever want to change the url structure. The JS routing bundle gives
+access to routes from within javascript. I followed the manual 
+<http://symfony.com/doc/master/bundles/FOSJsRoutingBundle/index.html>, works like a charm.
+
+---
+

@@ -1,13 +1,13 @@
 $(function () {
     $("#search-input").easyAutocomplete({
         url: function (q) {
-            return "/shepherd/search?q=" + q;
+            return Routing.generate('shepherd_search', {'q': q});
         },
         list: {
             maxNumberOfElements: 6,
             onChooseEvent: function () {
                 var username = $("#search-input").getSelectedItemData().username;
-                window.location.href = "/shepherd/admire/" + username;
+                window.location.href = Routing.generate('shepherd_admire_herd', {'username': username});
             }
         },
         theme: "bootstrap",
@@ -25,7 +25,7 @@ $(function () {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: '/herd/adopt/' + breedChoice,
+            url: Routing.generate('herd_adopt_breed', { 'breed': breedChoice }),
             data: [],
             success: function () {
                 var countInput = $(".elephpant-controls .count-" + breedChoice);
@@ -38,7 +38,7 @@ $(function () {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: '/herd/abandon/' + breedChoice,
+            url: Routing.generate('herd_abandon_breed', { 'breed': breedChoice }),
             data: [],
             success: function () {
                 var countInput = $(".elephpant-controls .count-" + breedChoice);
