@@ -32,7 +32,7 @@ final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalc
             $from,
             $to,
             $this->numberOfNewHerds($herds),
-            $this->numberOfNewElephpants($herds)
+            $this->numberOfNewElePHPants($herds)
         );
     }
 
