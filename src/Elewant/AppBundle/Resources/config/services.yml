@@ -91,6 +91,13 @@ services:
         arguments:
             - Elewant\AppBundle\Entity\Herd
 
+    # STATISTICS
+
+    elewant.statistics.herding:
+        class: Elewant\AppBundle\Infrastructure\DoctrineHerdingStatisticsCalculator
+        arguments:
+            - "@elewant.herd.herd_repository"
+
     # TWIG
 
     elewant.twig.array_extension:
@@ -114,3 +121,12 @@ services:
             - "@elewant.contributor_list"
         tags:
             - { name: twig.extension }
+
+    # TWITTER
+    elewant.twitter.client:
+        class: Abraham\TwitterOAuth\TwitterOAuth
+        arguments:
+            - "%elewant_tweets_app_consumerkey%"
+            - "%elewant_tweets_app_consumersecret%"
+            - "%elewant_tweets_app_accesstoken%"
+            - "%elewant_tweets_app_accesstokensecret%"
