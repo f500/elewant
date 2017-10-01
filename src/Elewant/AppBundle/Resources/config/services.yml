@@ -75,6 +75,14 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    elewant.event_subscriber.notify_twitter:
+        class: Elewant\AppBundle\EventSubscriber\NotifyTwitter
+        arguments:
+            - "@elewant.twitter.client"
+            - "%elewant_tweets_are_active%"
+        tags:
+            - { name: kernel.event_subscriber }
+
     # HTTP
 
     httplug.plugin.cache:
