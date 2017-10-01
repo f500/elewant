@@ -16,3 +16,9 @@ elewant_twitter_client: ~ # secure.yml
 elewant_twitter_secret: ~ # secure.yml
 
 elewant_delivery_address: staging@future500.nl
+
+elewant_tweets_are_active:            false
+elewant_tweets_app_consumerkey:       "~"
+elewant_tweets_app_consumersecret:    "~"
+elewant_tweets_app_accesstoken:       "~"
+elewant_tweets_app_accesstokensecret: "~"
