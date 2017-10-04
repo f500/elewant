@@ -3,6 +3,11 @@
     "license": "MIT",
     "type": "project",
     "description": "The ElePHPant exchange program",
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Elewant\\": "src/Elewant/"

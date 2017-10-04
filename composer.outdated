@@ -1,0 +1,48 @@
+composer/ca-bundle                  1.0.7   ! 1.0.8   Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.
+doctrine/cache                      v1.7.0  ! v1.7.1  Caching library offering an object-oriented API for many cache backends
+doctrine/common                     v2.7.3  ! v2.8.1  Common Library for Doctrine projects
+doctrine/dbal                       v2.5.13 ! v2.6.2  Database Abstraction Layer
+doctrine/doctrine-bundle            1.6.8   ! 1.7.1   Symfony DoctrineBundle
+doctrine/doctrine-cache-bundle      1.3.0   ! 1.3.1   Symfony Bundle for Doctrine Cache
+doctrine/instantiator               1.0.5   ! 1.1.0   A small, lightweight utility to instantiate objects in PHP without invoking their constructors
+doctrine/orm                        v2.5.6  ! v2.5.11 Object-Relational-Mapper for PHP
+jean85/pretty-package-versions      1.0.1   ! 1.0.2   A wrapper for ocramius/pretty-package-versions to get pretty versions strings
+kriswallsmith/buzz                  v0.15   ! v0.15.1 Lightweight HTTP client
+nette/bootstrap                     v2.4.4  ! v2.4.5  Nette Bootstrap
+nette/di                            v2.4.9  ! v2.4.10 Nette Dependency Injection Component
+nette/php-generator                 v3.0.1  ! v3.1.0  🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.1 features.
+nette/utils                         v2.4.7  ! v2.4.8  Nette Utility Classes
+nikic/php-parser                    v3.1.0  ! v3.1.1  A PHP parser written in PHP
+ocramius/package-versions           1.1.2   ! 1.1.3   Composer plugin that provides efficient querying for installed package versions (no runtime IO)
+paragonie/random_compat             v2.0.10 ! v2.0.11 PHP 5.x polyfill for random_bytes() and random_int() from PHP 7
+phpdocumentor/reflection-common     1.0     ! 1.0.1   Common reflection classes used by phpdocumentor to reflect the code structure
+phpdocumentor/reflection-docblock   3.2.1   ~ 4.1.1   With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in ...
+phpdocumentor/type-resolver         0.3.0   ~ 0.4.0  
+phpspec/phpspec                     3.4.1   ~ 4.0.3   Specification-oriented BDD framework for PHP 5.6+
+phpspec/prophecy                    v1.7.0  ! v1.7.2  Highly opinionated mocking framework for PHP 5.3+
+phpstan/phpstan                     0.8.3   ! 0.8.5   PHPStan - PHP Static Analysis Tool
+phpunit/php-token-stream            2.0.0   ! 2.0.1   Wrapper around PHP's tokenizer extension.
+phpunit/phpunit                     6.3.0   ! 6.3.1   The PHP Unit Testing framework.
+prooph/common                       v3.7.1  ~ v4.1.0  Common classes used across prooph packages
+prooph/event-sourcing               v4.0    ~ v5.2.0  PHP EventSourcing library
+prooph/event-store                  v6.6.0  ~ v7.2.2  PHP EventStore Implementation
+prooph/event-store-bus-bridge       v2.0    ~ v3.0.2  Marry CQRS with Event Sourcing
+prooph/service-bus                  v5.2.0  ~ v6.1.0  PHP Enterprise Service Bus Implementation supporting CQRS and DDD
+prooph/service-bus-symfony-bundle   v0.2    ~ v0.4.1 
+ramsey/uuid                         2.9.0   ~ 3.7.1   A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).
+sensio/distribution-bundle          v5.0.20 ! v5.0.21 Base bundle for Symfony Distributions
+sensio/framework-extra-bundle       v3.0.26 ~ v4.0.0  This bundle provides a way to configure your controllers with annotations
+sensio/generator-bundle             v3.1.5  ! v3.1.6  This bundle generates code for you
+sensiolabs/security-checker         v4.0.4  ! v4.1.5  A security checker for your composer.lock
+swiftmailer/swiftmailer             v5.4.8  ~ v6.0.2  Swiftmailer, free feature-rich PHP mailer
+symfony/monolog-bundle              v3.1.0  ! v3.1.1  Symfony MonologBundle
+symfony/phpunit-bridge              v3.3.6  ! v3.3.9  Symfony PHPUnit Bridge
+symfony/polyfill-apcu               v1.4.0  ! v1.5.0  Symfony polyfill backporting apcu_* functions to lower PHP versions
+symfony/polyfill-intl-icu           v1.4.0  ! v1.5.0  Symfony polyfill for intl's ICU-related data and classes
+symfony/polyfill-mbstring           v1.4.0  ! v1.5.0  Symfony polyfill for the Mbstring extension
+symfony/polyfill-php56              v1.4.0  ! v1.5.0  Symfony polyfill backporting some PHP 5.6+ features to lower PHP versions
+symfony/polyfill-php70              v1.4.0  ! v1.5.0  Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions
+symfony/polyfill-util               v1.4.0  ! v1.5.0  Symfony utilities for portability of PHP codes
+symfony/swiftmailer-bundle          v2.6.2  ~ v3.1.0  Symfony SwiftmailerBundle
+symfony/symfony                     v3.3.4  ! v3.3.9  The Symfony PHP framework
+twig/twig                           v2.4.3  ! v2.4.4  Twig, the flexible, fast, and secure template language for PHP
