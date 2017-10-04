@@ -28,7 +28,7 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% for breed, count in entry.herd.elePHPantBreedCounts|slice(0,4, true) %}
-                                            - {{ ("breed." ~ breed)|trans({}, "herd") }}<br />
+                                            - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
                                         {% else %}
                                             {{ 'site.newest-herds.empty-herd'|trans }}
                                         {% endfor %}
