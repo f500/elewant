@@ -32,16 +32,20 @@ final class ComponentsExtension extends AbstractExtension
             }
         }
 
-        $message = twig_escape_filter($env, $message, 'html');
-        $type    = twig_escape_filter($env, $type, 'html');
+        $template = $env->createTemplate(
+            <<<EOT
+<div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ icon(icon) }} {{ message }}
+</div>
+EOT
+        );
 
-        return
-            '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">'
-            . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
-            . '<span aria-hidden="true">&times;</span>'
-            . '</button>'
-            . $this->icon($env, $icon) . ' ' . $message
-            . '</div>';
+        return $template->render(
+            ['message' => $message, 'type' => $type, 'icon' => $icon]
+        );
     }
 
     public function icon(Environment $env, string $icons): string
