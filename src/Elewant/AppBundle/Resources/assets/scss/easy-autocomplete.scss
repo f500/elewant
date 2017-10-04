@@ -1,0 +1,72 @@
+.easy-autocomplete {
+  position: relative;
+
+  a {
+    display: block;
+    outline: 0;
+  }
+}
+
+.easy-autocomplete-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: $zindex-dropdown;
+
+  ul {
+    display: none;
+    position: relative;
+    top: -$dropdown-border-width;
+    padding: $dropdown-item-padding-y 0;
+    margin: 0;
+    font-size: $font-size-base;
+    color: $body-color;
+    text-align: left;
+    list-style: none;
+    background-color: $dropdown-bg;
+    background-clip: border-box;
+    border: $dropdown-border-width solid $dropdown-border-color;
+    border-top-style: dotted;
+    @include border-radius($border-radius);
+    @include box-shadow($dropdown-box-shadow);
+
+    li {
+      display: block;
+      clear: both;
+      padding: ($dropdown-item-padding-y * .5) $input-btn-padding-x;
+      line-height: 1.5;
+      font-weight: $font-weight-normal;
+      color: $dropdown-link-color;
+      white-space: nowrap;
+
+      div {
+        display: block;
+        font-weight: normal;
+        word-break: break-all;
+      }
+
+      b {
+        font-weight: 700;
+      }
+
+      &.selected {
+        color: $dropdown-link-active-color;
+        text-decoration: none;
+        background-color: $dropdown-link-active-bg;
+      }
+    }
+  }
+}
+
+.eac-description {
+  .eac-item span {
+    color: $gray-500;
+    font-style: italic;
+    font-size: .9rem;
+  }
+
+  .selected .eac-item span {
+    color: $white;
+  }
+}

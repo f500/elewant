@@ -2,6 +2,19 @@
 @import "../../../../../../node_modules/bootstrap/scss/variables";
 
 // Bootstrap
+
+$white: #fff;
+$gray-100: #f8f8f8;
+$gray-200: #eee;
+$gray-300: #ddd;
+$gray-400: #ccc;
+$gray-500: #aaa;
+$gray-600: #777;
+$gray-700: #555;
+$gray-800: #333;
+$gray-900: #222;
+$black: #000;
+
 $blue: #3256aa;
 $indigo: #5235af;
 $purple: #7d2baa;
@@ -12,16 +25,7 @@ $yellow: #fecc36;
 $green: #2bcb2b;
 $teal: #25ae73;
 $cyan: #209898;
-
-$gray-100: #f8f8f8;
-$gray-200: #eee;
-$gray-300: #ddd;
-$gray-400: #ccc;
-$gray-500: #aaa;
-$gray-600: #777;
-$gray-700: #555;
-$gray-800: #333;
-$gray-900: #222;
+$brown: #654400;
 
 $theme-colors: (
         primary: $yellow,
@@ -33,6 +37,9 @@ $theme-colors: (
         light: $gray-100,
         dark: $gray-800
 );
+
+$component-active-bg: $yellow;
+$dropdown-link-active-bg: $component-active-bg;
 
 // Theme (based on Start Bootstrap - Agency)
 $theme-primary: $yellow;

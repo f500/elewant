@@ -1,12 +1,12 @@
 $(function () {
-    $("#search-input").easyAutocomplete({
+    $("#find-a-herd").easyAutocomplete({
         url: function (q) {
             return Routing.generate('shepherd_search', {'q': q});
         },
         list: {
             maxNumberOfElements: 6,
             onChooseEvent: function () {
-                var username = $("#search-input").getSelectedItemData().username;
+                var username = $("#find-a-herd").getSelectedItemData().username;
                 window.location.href = Routing.generate('shepherd_admire_herd', {'username': username});
             }
         },
