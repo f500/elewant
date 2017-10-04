@@ -48,17 +48,30 @@ EOT
         );
     }
 
-    public function icon(Environment $env, string $icons): string
+    public function icon(Environment $env, string $icons, array $attributes = []): string
     {
         $icons = preg_split('/\s+/', $icons);
         $icons = array_map(
             function (string $part) use ($env) {
-                return twig_escape_filter($env, ' fa-' . $part, 'html');
+                return 'fa-' . $part . ' ';
             },
             $icons
         );
         $icons = implode('', $icons);
 
-        return '<i class="fa' . $icons . '" aria-hidden="true"></i>';
+        $attributes['class']       = 'fa ' . trim($icons . ($attributes['class'] ?? ''));
+        $attributes['aria-hidden'] = 'true';
+
+        $html = '<i';
+        foreach ($attributes as $attribute => $value) {
+            $html .= sprintf(
+                ' %s="%s"',
+                twig_escape_filter($env, $attribute, 'html'),
+                twig_escape_filter($env, $value, 'html')
+            );
+        }
+        $html .= '></i>';
+
+        return $html;
     }
 }
