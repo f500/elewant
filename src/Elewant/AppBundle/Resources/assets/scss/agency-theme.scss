@@ -170,7 +170,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.25rem;
     @include script-font;
     padding: 0;
-    margin: -0.5rem 0;
+    margin: -.5rem 0;
     &:hover, &:focus, &:active, &.active {
       color: darken($theme-primary, 10%);
     }
@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     width: 4.1003rem;
     height: 2.8125rem;
-    margin: .75rem 1.25rem -0.0625rem 0;
+    margin: .75rem 1.25rem -.0625rem 0;
   }
   .navbar-brand-text {
     display: inline-block;
