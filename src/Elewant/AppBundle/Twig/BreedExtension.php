@@ -12,29 +12,40 @@ final class BreedExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('breedColor', [$this, 'breedColorFilter']),
-            new TwigFilter('breedSize', [$this, 'breedSizeFilter']),
-            new TwigFilter('breedName', [$this, 'breedNameFilter']),
+            new TwigFilter('breed_color', [$this, 'breedColorFilter']),
+            new TwigFilter('breed_size', [$this, 'breedSizeFilter']),
+            new TwigFilter('breed_name', [$this, 'breedNameFilter']),
         ];
     }
 
     public function breedColorFilter(string $breed): string
     {
-        return strtolower(explode("_", $breed)[0]);
+        $color = explode('_', $breed);
+        $color = array_shift($color);
+        $color = strtolower($color);
+        $color = 'elephpant-' . $color;
+
+        return $color;
     }
 
     public function breedSizeFilter(string $breed): string
     {
-        $parts = explode("_", $breed);
+        $size = explode('_', $breed);
+        $size = array_pop($size);
+        $size = strtolower($size);
+        $size = 'elephpant-' . $size;
 
-        return strtolower(end($parts));
+        return $size;
     }
 
     public function breedNameFilter(string $breed): string
     {
-        $parts = explode("_", $breed);
-        $parts = array_slice($parts, 1, -1);
+        $name = explode('_', $breed);
+        $name = array_slice($name, 1, -1);
+        $name = implode('-', $name);
+        $name = strtolower($name);
+        $name = 'elephpant-' . $name;
 
-        return strtolower(implode('_', $parts));
+        return $name;
     }
 }

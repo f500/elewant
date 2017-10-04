@@ -14,8 +14,7 @@
         <div class="row text-center">
             {% for breed, count in herd.elePHPantBreedCounts %}
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 mt-2">
-                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                    {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed, 'count': count} %}
+                    {{ elephpant(breed, count, true) }}
                 </div>
             {% endfor %}
         </div>
@@ -56,8 +55,7 @@
                     <div class="row mt-2">
                         {% for breed in breeds if 'REGULAR' in breed %}
                             <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
-                                {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                                {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
+                                {{ elephpant(breed, 0, true) }}
                             </div>
                         {% endfor %}
                     </div>
@@ -69,8 +67,7 @@
                     <div class="row">
                         {% for breed in breeds if 'LARGE' in breed %}
                             <div class="col-lg-4 col-sm-4 col-6 text-center mt-2">
-                                {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                                {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
+                                {{ elephpant(breed, 0, true) }}
                             </div>
                         {% endfor %}
                     </div>
