@@ -44,15 +44,19 @@
   }
 
   &.elephpant-blue {
-    background-color: $blue;
+    background-color: $blue-light;
   }
 
   &.elephpant-brown {
     background-color: $brown;
   }
 
+  &.elephpant-denim {
+    background-color: $denim;
+  }
+
   &.elephpant-gold {
-    background-color: $yellow;
+    background-color: $gold;
   }
 
   &.elephpant-gray {
@@ -64,11 +68,11 @@
   }
 
   &.elephpant-multicolored.elephpant-phpdiversity {
-    background: linear-gradient(to right, $purple, $indigo, $blue, $cyan, $green, $yellow, $orange, $red, $pink);
+    background: linear-gradient(to right, $purple, $indigo, $blue, $cyan, $green, $yellow, $orange, $red);
   }
 
   &.elephpant-multicolored.elephpant-haphpy {
-    background: linear-gradient(to bottom, $red, $yellow, $red, $yellow, $red, $yellow, $red, $yellow, $red);
+    background: linear-gradient(to bottom, $red, $red, $gold, $red, $red, $gold, $red, $red, $gold, $red, $red);
   }
 
   &.elephpant-orange {
@@ -76,7 +80,7 @@
   }
 
   &.elephpant-pink {
-    background-color: $pink;
+    background-color: $pink-light;
   }
 
   &.elephpant-purple {
@@ -92,7 +96,7 @@
   }
 
   &.elephpant-yellow {
-    background-color: $yellow;
+    background-color: $yellow-light;
   }
 
   &.elephpant-white {
