@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExportableFileTemplateSettings">
+    <includes_templates>
+      <template name="PHP Class Doc Comment.php" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="PHP File Header.php" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="PHP Function Doc Comment.php" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="PHP Interface Doc Comment.php" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="PHP Trait Doc Comment.php" reformat="true" live-template-enabled="false" enabled="false" />
+    </includes_templates>
+  </component>
+</project>
