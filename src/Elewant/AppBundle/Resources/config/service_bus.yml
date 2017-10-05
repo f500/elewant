@@ -10,6 +10,7 @@ prooph_service_bus:
           'Elewant\Herding\Model\Commands\AdoptElePHPant': 'elewant.adopt_elephpant_handler'
           'Elewant\Herding\Model\Commands\AbandonElePHPant': 'elewant.abandon_elephpant_handler'
           'Elewant\Herding\Model\Commands\AbandonHerd': 'elewant.abandon_herd_handler'
+          'Elewant\Herding\Model\Commands\RenameHerd': 'elewant.rename_herd_handler'
 
   event_buses:
     herd_event_bus:
@@ -23,6 +24,8 @@ prooph_service_bus:
           'Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd':
             - 'elewant.herd_projection.herd_projector'
           'Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd':
+            - 'elewant.herd_projection.herd_projector'
+          'Elewant\Herding\Model\Events\HerdWasRenamed':
             - 'elewant.herd_projection.herd_projector'
           'Elewant\Herding\Model\Events\HerdWasAbandoned':
             - 'elewant.herd_projection.herd_projector'
@@ -38,6 +41,8 @@ prooph_service_bus:
           'Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd':
             - 'elewant.herd_projection.herd_projector'
           'Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd':
+            - 'elewant.herd_projection.herd_projector'
+          'Elewant\Herding\Model\Events\HerdWasRenamed':
             - 'elewant.herd_projection.herd_projector'
           'Elewant\Herding\Model\Events\HerdWasAbandoned':
             - 'elewant.herd_projection.herd_projector'

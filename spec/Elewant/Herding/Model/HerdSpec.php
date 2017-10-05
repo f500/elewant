@@ -81,6 +81,13 @@ class HerdSpec extends ObjectBehavior
             ->duringAbandonElePHPant(Breed::greenZf2Regular());
     }
 
+    function it_can_be_renamed()
+    {
+        $this->name()->shouldEqual($this->herdName);
+        $this->rename('new name');
+        $this->name()->shouldEqual('new name');
+    }
+
     function it_can_be_abandoned()
     {
         $this->shouldHaveType(Herd::class);

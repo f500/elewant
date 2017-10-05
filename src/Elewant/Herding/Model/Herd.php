@@ -8,6 +8,7 @@ use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
 use Elewant\Herding\Model\Events\HerdWasFormed;
+use Elewant\Herding\Model\Events\HerdWasRenamed;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 
@@ -76,6 +77,18 @@ final class Herd extends AggregateRoot
         );
     }
 
+    public function rename(string $newName): void
+    {
+        $this->guardIsNotAbandoned();
+
+        $this->recordThat(
+            HerdWasRenamed::tookPlace(
+                $this->herdId,
+                $newName
+            )
+        );
+    }
+
     public function adoptElePHPant(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
@@ -130,6 +143,10 @@ final class Herd extends AggregateRoot
                 /** @var ElePHPantWasAbandonedByHerd $event */
                 $this->applyAnElePHPantWasAbandonedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
                 break;
+            case HerdWasRenamed::class:
+                /** @var HerdWasRenamed $event */
+                $this->applyHerdWasRenamed($event->newHerdName());
+                break;
             case HerdWasAbandoned::class:
                 /** @var HerdWasAbandoned $event */
                 $this->applyHerdWasAbandoned($event->herdId(), $event->shepherdId());
@@ -163,6 +180,11 @@ final class Herd extends AggregateRoot
     private function applyHerdWasAbandoned($herdId, $shepherdId)
     {
         $this->abandoned = true;
+    }
+
+    private function applyHerdWasRenamed(string $newHerdName)
+    {
+        $this->name = $newHerdName;
     }
 
     private function guardIsNotAbandoned()

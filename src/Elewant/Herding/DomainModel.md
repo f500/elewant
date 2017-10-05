@@ -6,7 +6,7 @@ more than a `ShepherdId`.
 
 When a new herd starts, it is `Formed`. A herd consists of `ElePHPants`. When a herd accepts a new ElePHPant, 
 that is called `Adopting`. When a shepherd removes an ElePHPant from a herd, that is called `Abandoning`. 
-If a shepherd decides to end a herd, that entire herd is `Abandoned`.
+If a shepherd decides to end a herd, that entire herd is `Abandoned`. A Herd can also be `Renamed`.
 
 Every `ElePHPant` is a certain `Breed`. When looking at a Herd, we can look at all it's ElePHPants, but
 also at every _unique_ Breed in that Herd, and the total number of ElePHPants of each Breed. 

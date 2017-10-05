@@ -55,6 +55,11 @@ services:
         arguments:
             - "@herd_collection"
 
+    elewant.rename_herd_handler:
+        class: Elewant\Herding\Model\Handlers\RenameHerdHandler
+        arguments:
+            - "@herd_collection"
+
     elewant.abandon_herd_handler:
         class: Elewant\Herding\Model\Handlers\AbandonHerdHandler
         arguments:
