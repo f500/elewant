@@ -84,7 +84,7 @@ EOT
     {
         $icons = preg_split('/\s+/', $icons);
         $icons = array_map(
-            function (string $part) use ($env) {
+            function (string $part) {
                 return 'fa-' . $part . ' ';
             },
             $icons
@@ -94,16 +94,14 @@ EOT
         $attributes['class']       = 'fa ' . trim($icons . ($attributes['class'] ?? ''));
         $attributes['aria-hidden'] = 'true';
 
-        $html = '<i';
-        foreach ($attributes as $attribute => $value) {
-            $html .= sprintf(
-                ' %s="%s"',
-                twig_escape_filter($env, $attribute, 'html'),
-                twig_escape_filter($env, $value, 'html')
-            );
-        }
-        $html .= '></i>';
+        $template = $env->createTemplate(
+            <<<EOT
+<i{% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}></i>
+EOT
+        );
 
-        return $html;
+        return $template->render(
+            ['attributes' => $attributes]
+        );
     }
 }
