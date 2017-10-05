@@ -52,7 +52,8 @@
         "phpspec/phpspec": "^3.4",
         "webmozart/assert": "^1.2",
         "phpunit/phpunit": "^6.3",
-        "phpstan/phpstan": "^0.8.3"
+        "phpstan/phpstan": "^0.8.3",
+        "squizlabs/php_codesniffer": "^3.1"
     },
     "scripts": {
         "symfony-scripts": [
