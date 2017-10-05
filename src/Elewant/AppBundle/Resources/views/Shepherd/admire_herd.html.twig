@@ -3,9 +3,10 @@
 {% block content %}
 
     <section id="search">
-        <div class="col-sm-12">
-            <div class="form-group col-sm-4">
-                <input id="search-input" class="form-control" placeholder="{{ 'site.search'|trans }}" autocomplete="off">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="sr-only" for="find-a-herd">{{ 'site.search'|trans }}</label>
+                <input type="text" id="find-a-herd" class="form-control" placeholder="{{ 'site.search'|trans }}">
             </div>
         </div>
     </section>
@@ -13,9 +14,9 @@
     <section id="herd_tending">
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
         <div class="row">
-            {% for breed, count in herd.elePHPantBreedCounts %}
-                <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
-                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
+            {% for breed, amount in herd.elePHPantBreedCounts %}
+                <div class="col-6 col-sm-4 col-lg-3">
+                    {{ elephpant(breed, amount) }}
                 </div>
             {% endfor %}
         </div>

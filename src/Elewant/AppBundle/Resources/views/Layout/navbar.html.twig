@@ -23,7 +23,7 @@
                     <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#contributors">{{ 'site.navbar.contributors'|trans }}</a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">{{ 'site.navbar.my-herd'|trans }}</a></li>
+                    <li class="nav-item{% if app.request.attributes.get('_route') == 'herd_tending' %} active{% endif %}"><a class="nav-link" href="{{ path('herd_tending') }}">{{ 'site.navbar.my-herd'|trans }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('hwi_oauth_logout') }}">{{ 'site.navbar.logout'|trans }}</a></li>
                 {% endif %}
             </ul>

@@ -1,5 +1,3 @@
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
-
 <header>
     <div class="container">
 
@@ -9,11 +7,11 @@
 
             {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
-                    {{ utils.icon('twitter') }} {{ 'site.join-the-herd'|trans }}
+                    {{ icon('twitter') }} {{ 'site.join-the-herd'|trans }}
                 </a>
             {% else %}
                 <a href="{{ path('herd_tending') }}" class="page-scroll btn btn-xl">
-                    {{ utils.icon('edit') }} {{ 'site.tend-to-your-herd'|trans }}
+                    {{ icon('edit') }} {{ 'site.tend-to-your-herd'|trans }}
                 </a>
             {% endif %}
         </div>
