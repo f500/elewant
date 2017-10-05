@@ -15,6 +15,14 @@ learned by looking at, or working on, this project.
 **name:** Ramon de la Fuente
 
 **I learned about:** 
+PHPspec supports templates. So now we have declare(strict_types=1) and final classes by default.
+(check the /.phpspec folder)
+
+---
+
+**name:** Ramon de la Fuente
+
+**I learned about:** 
 The Prooph libraries used to build an event-sourced system. I found the
 Prooph documentation a little lacking, but the [Proophessor](https://github.com/prooph/proophessor)
 and [Proophessor-do-symfony](https://github.com/prooph/proophessor-do-symfony) projects where
