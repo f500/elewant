@@ -1,5 +1,6 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
 {% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
+{% trans_default_domain "herd" %}
 
 {% block content %}
 
@@ -8,7 +9,7 @@
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
-            {{ utils.alert('Hey ' ~ app.user.displayName ~ ', you do not have any ElePHPants yet. Add them if you own them!', 'warning') }}
+            {{ utils.alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
         {% endif %}
 
         <div class="row text-center">
@@ -23,7 +24,7 @@
         <div class="row mx-auto text-center">
             <div class="col-12 mt-2">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adoptElePHPants">
-                    Adopt new ElePHPants
+                    {{ 'adopt-button'|trans }}
                 </button>
             </div>
         </div>
@@ -35,7 +36,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="adoptElePHPantsLabel">Add new ElePHPants to your Herd</h5>
+                    <h5 class="modal-title" id="adoptElePHPantsLabel">{{ 'adopting-elephpants-title'|trans }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -43,15 +44,14 @@
                 <div class="modal-body">
                     <div class="row mt-2">
                         <div class="col">
-                            Adopting ElePHPants is sometimes hard work. You see, you'll need to identify the breed
-                            correctly! You might get enough from the color and the description, but if you are in
-                            doubt, please check the definitive resource on the subject:
-                            <a href="http://afieldguidetoelephpants.net/#index" target="_blank" rel="noopener noreferrer">A Field Guide to Elephpants</a>
+                            {% trans with {'%link%': '<a href="http://afieldguidetoelephpants.net/#index" target="_blank" rel="noopener noreferrer">A Field Guide to Elephpants</a>'} %}
+                                adopting-help-text
+                            {% endtrans %}
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col text-center">
-                            <h5>Regular sized:</h5>
+                            <h5>{{ 'size-regular'|trans }}</h5>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col text-center">
-                            <h5>Large:</h5>
+                            <h5>{{ 'size-large'|trans }}</h5>
                         </div>
                     </div>
                     <div class="row">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finished</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'finished-button'|trans }}</button>
                 </div>
             </div>
         </div>

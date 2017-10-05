@@ -14,17 +14,17 @@
         <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#about">About</a>
+                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#about">{{ 'site.navbar.about'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#newest_herds">New Herds</a>
+                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#newest_herds">{{ 'site.navbar.newest-herds'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#contributors">Contributors</a>
+                    <a class="nav-link page-scroll" href="{% if not only_anchors_in_navbar|default(false) %}{{ path('root') }}{% endif %}#contributors">{{ 'site.navbar.contributors'|trans }}</a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">My Herd</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('hwi_oauth_logout') }}">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('herd_tending') }}">{{ 'site.navbar.my-herd'|trans }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('hwi_oauth_logout') }}">{{ 'site.navbar.logout'|trans }}</a></li>
                 {% endif %}
             </ul>
         </div>

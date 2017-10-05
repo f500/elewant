@@ -66,7 +66,7 @@ class ShepherdController extends Controller
         try {
             $user = $userProvider->loadUserByUsername($username);
         } catch (UsernameNotFoundException $e) {
-            throw $this->createNotFoundException('There is no Shepherd with that name...');
+            throw $this->createNotFoundException('error.shepherd.not-found');
         }
 
         return $user;
@@ -85,7 +85,7 @@ class ShepherdController extends Controller
         $herd           = $herdRepository->findOneByShepherdId($user->shepherdId());
 
         if ($herd === null) {
-            throw $this->createNotFoundException('This Shepherd does not seem to have a Herd...');
+            throw $this->createNotFoundException('error.shepherd.herd-not-found');
         }
 
         return $herd;
