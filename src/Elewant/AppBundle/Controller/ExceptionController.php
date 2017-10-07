@@ -22,7 +22,7 @@ final class ExceptionController extends OriginalExceptionController
         parent::__construct($twig, $debug);
     }
 
-    public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
+    public function showAction(Request $request, FlattenException $exception, ?DebugLoggerInterface $logger = null)
     {
         if ($this->debug) {
             return parent::showAction($request, $exception, $logger);
