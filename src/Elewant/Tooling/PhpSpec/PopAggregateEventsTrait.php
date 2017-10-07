@@ -8,7 +8,7 @@ use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
 
-trait popAggregateEventsTrait
+trait PopAggregateEventsTrait
 {
     /**
      * @var AggregateTranslator
