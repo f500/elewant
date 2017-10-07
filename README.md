@@ -75,7 +75,7 @@ actually the case.
     vendor/bin/phpspec run spec/Path/To/A/Specific/File.php
 
 Then there are some tests that try to run the application through the framework, after bootstrapping. This helps to
-verify that all the configuration/wiring is in order. Those tests are written in phpunit, but using the Symfony
+verify that all the configuration/wiring is in order. Those tests are written in [phpunit](https://phpunit.de/), but using the Symfony
 WebTestCase as a base. The tests are located in the `/test` folder.
 
     # running the phpunit test suite:
@@ -83,12 +83,22 @@ WebTestCase as a base. The tests are located in the `/test` folder.
     vendor/bin/phpunit tests/Path/To/A/Folder/
     vendor/bin/phpunit tests/Path/To/A/Specific/File.php
 
-Additionally, we use the PHPStan static analysis tool to verify that we do not have any detectable PHP errors. 
+Additionally, we use the [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer/wiki) code style analysis tool to verify 
+that we do not violate the coding standards. There is a configuration file in the root called phpcs.xml, but it's
+basically PSR2 + some newer PHP7+ rules.
+
+    # running phpcs
+    vendor/bin/phpcs
+    vendor/bin/phpcs src/Path/To/A/Folder/
+    vendor/bin/phpcs src/Path/To/A/Specific/File.php
+
+Additionally, we use the [PHPStan](https://github.com/phpstan/phpstan) static analysis tool to verify that we do not 
+have any detectable PHP errors. 
 
     # running phpstan
     vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src
 
-For your convenience, there is also a file that ruins both suites back to back. That's also what Travis does.
+For your convenience, there is also a file that ruins all suites back to back. That's also what Travis does.
 
     # running all the tests
     bin/run_tests
