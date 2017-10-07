@@ -25,5 +25,4 @@ final class HerdingStatisticsGenerated extends Event
     {
         return $this->statistics;
     }
-
 }

@@ -45,7 +45,9 @@ final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalc
     {
         return array_reduce(
             $herds->toArray(),
-            function ($totalCount, Herd $herd) { return $totalCount + count($herd->elePHPants()); },
+            function ($totalCount, Herd $herd) {
+                return $totalCount + count($herd->elePHPants());
+            },
             0
         );
     }
@@ -58,5 +60,4 @@ final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalc
 
         return $this->herdRepository->matching($criteria);
     }
-
 }

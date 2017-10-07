@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Elewant\AppBundle\Statistics;
 
-use DateTime;
 use DateTimeInterface;
 
 final class CalculatedHerdingStatistics

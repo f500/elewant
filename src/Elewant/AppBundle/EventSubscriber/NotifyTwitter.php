@@ -49,5 +49,4 @@ final class NotifyTwitter implements EventSubscriberInterface
             $this->twitterClient->post("statuses/update", ["status" => $status]);
         }
     }
-
 }
