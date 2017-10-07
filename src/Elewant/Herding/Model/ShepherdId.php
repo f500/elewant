@@ -20,7 +20,7 @@ final class ShepherdId
 
     public static function generate(): self
     {
-        return new self (Uuid::uuid4());
+        return new self(Uuid::uuid4());
     }
 
     public static function fromString(string $shepherdId): self
