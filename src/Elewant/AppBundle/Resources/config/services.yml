@@ -24,6 +24,32 @@ services:
             - "@httplug.client.guzzle"
             - "%github_contributor_blacklist%"
 
+    # CONSOLE
+
+    elewant.console.herding_statistics:
+        class: Elewant\AppBundle\Command\HerdingStatisticsCommand
+        arguments:
+            - "@elewant.statistics.herding"
+            - "@event_dispatcher"
+        tags:
+          - { name: console.command }
+
+    elewant.console.purge_eventstore:
+        class: Elewant\AppBundle\Command\PurgeEventStoreCommand
+        arguments:
+            - "@doctrine.dbal.default_connection"
+        tags:
+          - { name: console.command }
+
+    elewant.console.rebuild_herdprojection:
+        class: Elewant\AppBundle\Command\RebuildHerdProjectionCommand
+        arguments:
+            - "@elewant.herd_projection.herd_projector"
+            - "@prooph_event_store.herd_store"
+            - "@prooph_service_bus.herd_replay_bus"
+        tags:
+          - { name: console.command }
+
     # CONTROLLER
 
     elewant.api_command_controller:
@@ -75,6 +101,14 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    elewant.event_subscriber.notify_twitter:
+        class: Elewant\AppBundle\EventSubscriber\NotifyTwitter
+        arguments:
+            - "@elewant.twitter.client"
+            - "%elewant_tweets_are_active%"
+        tags:
+            - { name: kernel.event_subscriber }
+
     # HTTP
 
     httplug.plugin.cache:
@@ -90,6 +124,13 @@ services:
         factory: [ "@doctrine.orm.entity_manager", getRepository ]
         arguments:
             - Elewant\AppBundle\Entity\Herd
+
+    # STATISTICS
+
+    elewant.statistics.herding:
+        class: Elewant\AppBundle\Infrastructure\DoctrineHerdingStatisticsCalculator
+        arguments:
+            - "@elewant.herd.herd_repository"
 
     # TWIG
 
@@ -114,3 +155,12 @@ services:
             - "@elewant.contributor_list"
         tags:
             - { name: twig.extension }
+
+    # TWITTER
+    elewant.twitter.client:
+        class: Abraham\TwitterOAuth\TwitterOAuth
+        arguments:
+            - "%elewant_tweets_app_consumerkey%"
+            - "%elewant_tweets_app_consumersecret%"
+            - "%elewant_tweets_app_accesstoken%"
+            - "%elewant_tweets_app_accesstokensecret%"

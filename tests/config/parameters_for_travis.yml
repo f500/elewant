@@ -17,3 +17,9 @@ parameters:
 
     twitter_client_id:     "id"
     twitter_client_secret: "secret"
+
+    elewant_tweets_are_active:            False
+    elewant_tweets_app_consumerkey:       ~
+    elewant_tweets_app_consumersecret:    ~
+    elewant_tweets_app_accesstoken:       ~
+    elewant_tweets_app_accesstokensecret: ~

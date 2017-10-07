@@ -17,7 +17,7 @@ class DefaultController extends Controller
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
-        $newestHerds    = $herdRepository->lastNewHerds(4);
+        $newestHerds    = $herdRepository->newestHerds(4);
 
         return $this->render(
             'ElewantAppBundle:Default:index.html.twig',
