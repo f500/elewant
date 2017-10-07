@@ -28,5 +28,4 @@ class HerdWasRenamed extends AggregateChanged
     {
         return $this->payload['newHerdName'];
     }
-
 }

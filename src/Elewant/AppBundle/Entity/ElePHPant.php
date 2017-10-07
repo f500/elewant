@@ -60,4 +60,3 @@ class ElePHPant
         return $this->elephpantId;
     }
 }
-

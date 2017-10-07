@@ -61,5 +61,4 @@ final class HerdListing
 
         return $qb->execute()->fetch();
     }
-
 }

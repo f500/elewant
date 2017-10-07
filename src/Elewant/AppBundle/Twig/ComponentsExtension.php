@@ -49,7 +49,7 @@ EOT
         );
     }
 
-    public function elephpant(Environment $env, string $breed, int $amount = null, bool $allowControl = false): string
+    public function elephpant(Environment $env, string $breed, ?int $amount = null, bool $allowControl = false): string
     {
         $template = $env->createTemplate(
             <<<EOT

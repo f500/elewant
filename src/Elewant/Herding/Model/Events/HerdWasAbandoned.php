@@ -29,5 +29,4 @@ final class HerdWasAbandoned extends AggregateChanged
     {
         return ShepherdId::fromString($this->payload['shepherdId']);
     }
-
 }

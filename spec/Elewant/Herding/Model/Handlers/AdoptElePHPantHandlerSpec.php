@@ -11,14 +11,14 @@ use Elewant\Herding\Model\HerdCollection;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Model\SorryIDoNotHaveThat;
-use Elewant\Tooling\PhpSpec\popAggregateEventsTrait;
+use Elewant\Tooling\PhpSpec\PopAggregateEventsTrait;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Webmozart\Assert\Assert;
 
 class AdoptElePHPantHandlerSpec extends ObjectBehavior
 {
-    use popAggregateEventsTrait;
+    use PopAggregateEventsTrait;
 
     /** @var HerdCollection */
     private $herdCollection;

@@ -36,5 +36,4 @@ class ElePHPantWasAdoptedByHerd extends AggregateChanged
     {
         return Breed::fromString($this->payload['breed']);
     }
-
 }

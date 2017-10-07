@@ -13,19 +13,19 @@ final class ElePHPantId
      */
     private $uuid;
 
-    private function __construct(UUid $uuid)
+    private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
 
     public static function generate(): self
     {
-        return new self (Uuid::uuid4());
+        return new self(Uuid::uuid4());
     }
 
     public static function fromString(string $elePHPantId): self
     {
-        return new self(UUid::fromString($elePHPantId));
+        return new self(Uuid::fromString($elePHPantId));
     }
 
     public function toString(): string

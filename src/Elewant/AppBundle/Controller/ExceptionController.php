@@ -22,7 +22,7 @@ final class ExceptionController extends OriginalExceptionController
         parent::__construct($twig, $debug);
     }
 
-    public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
+    public function showAction(Request $request, FlattenException $exception, ?DebugLoggerInterface $logger = null)
     {
         if ($this->debug) {
             return parent::showAction($request, $exception, $logger);
@@ -32,7 +32,8 @@ final class ExceptionController extends OriginalExceptionController
         $message = $exception->getMessage();
 
         return new Response(
-            $this->twig->render('ElewantAppBundle:Exception:error.html.twig', ['code' => $code, 'message' => $message]), $code
+            $this->twig->render('ElewantAppBundle:Exception:error.html.twig', ['code' => $code, 'message' => $message]),
+            $code
         );
     }
 }

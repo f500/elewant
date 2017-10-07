@@ -193,5 +193,4 @@ final class Herd extends AggregateRoot
             throw SorryICanNotChangeHerd::becauseItWasAbandoned($this);
         }
     }
-
 }
