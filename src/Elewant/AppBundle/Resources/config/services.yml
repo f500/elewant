@@ -24,6 +24,32 @@ services:
             - "@httplug.client.guzzle"
             - "%github_contributor_blacklist%"
 
+    # CONSOLE
+
+    elewant.console.herding_statistics:
+        class: Elewant\AppBundle\Command\HerdingStatisticsCommand
+        arguments:
+            - "@elewant.statistics.herding"
+            - "@event_dispatcher"
+        tags:
+          - { name: console.command }
+
+    elewant.console.purge_eventstore:
+        class: Elewant\AppBundle\Command\PurgeEventStoreCommand
+        arguments:
+            - "@doctrine.dbal.default_connection"
+        tags:
+          - { name: console.command }
+
+    elewant.console.rebuild_herdprojection:
+        class: Elewant\AppBundle\Command\RebuildHerdProjectionCommand
+        arguments:
+            - "@elewant.herd_projection.herd_projector"
+            - "@prooph_event_store.herd_store"
+            - "@prooph_service_bus.herd_replay_bus"
+        tags:
+          - { name: console.command }
+
     # CONTROLLER
 
     elewant.api_command_controller:
