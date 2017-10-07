@@ -13,7 +13,7 @@ final class ElePHPantId
      */
     private $uuid;
 
-    private function __construct(UUid $uuid)
+    private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
@@ -25,7 +25,7 @@ final class ElePHPantId
 
     public static function fromString(string $elePHPantId): self
     {
-        return new self(UUid::fromString($elePHPantId));
+        return new self(Uuid::fromString($elePHPantId));
     }
 
     public function toString(): string

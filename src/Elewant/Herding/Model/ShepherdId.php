@@ -13,7 +13,7 @@ final class ShepherdId
      */
     private $uuid;
 
-    private function __construct(UUid $uuid)
+    private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
@@ -25,7 +25,7 @@ final class ShepherdId
 
     public static function fromString(string $shepherdId): self
     {
-        return new self(UUid::fromString($shepherdId));
+        return new self(Uuid::fromString($shepherdId));
     }
 
     public function toString(): string
