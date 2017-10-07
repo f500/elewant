@@ -35,6 +35,10 @@ final class NotifyTwitter implements EventSubscriberInterface
 
     public function sendHerdingStatisticsWhen(HerdingStatisticsGenerated $event)
     {
+        if (!$this->tweetsAreActive) {
+            return;
+        }
+
         $statistics = $event->statistics();
 
         $status = sprintf(
@@ -45,8 +49,6 @@ final class NotifyTwitter implements EventSubscriberInterface
             $statistics->numberOfNewElePHPants()
         );
 
-        if ($this->tweetsAreActive) {
-            $this->twitterClient->post("statuses/update", ["status" => $status]);
-        }
+        $this->twitterClient->post("statuses/update", ["status" => $status]);
     }
 }
