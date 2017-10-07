@@ -100,5 +100,4 @@ EOQ;
 
         return $query->getOneOrNullResult();
     }
-
 }

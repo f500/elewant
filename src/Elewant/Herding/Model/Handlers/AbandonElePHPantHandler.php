@@ -30,5 +30,4 @@ final class AbandonElePHPantHandler
         $herd->abandonElePHPant($command->breed());
         $this->herdCollection->save($herd);
     }
-
 }

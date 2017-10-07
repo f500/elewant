@@ -90,7 +90,5 @@ class Herd
 
         return new ArrayCollection($result);
     }
-
-
 }
 

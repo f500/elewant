@@ -44,5 +44,4 @@ final class NewUserSubscriber implements EventSubscriberInterface
             $this->commandBus->dispatch($command);
         }
     }
-
 }

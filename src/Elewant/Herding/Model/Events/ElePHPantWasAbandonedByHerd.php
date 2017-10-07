@@ -36,5 +36,4 @@ class ElePHPantWasAbandonedByHerd extends AggregateChanged
     {
         return Breed::fromString($this->payload['breed']);
     }
-
 }

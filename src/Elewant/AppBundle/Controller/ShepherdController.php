@@ -90,5 +90,4 @@ class ShepherdController extends Controller
 
         return $herd;
     }
-
 }

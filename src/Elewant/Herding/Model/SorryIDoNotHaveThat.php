@@ -28,5 +28,4 @@ final class SorryIDoNotHaveThat extends Exception
             )
         );
     }
-
 }
