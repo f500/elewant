@@ -1,0 +1,24 @@
+{% extends 'ElewantAppBundle:Layout:base.html.twig' %}
+
+{% block body %}
+
+    <section id="dev_list_users">
+        <div class="container">
+            <h3>Login with:</h3>
+            {% for user in users %}
+                <a href="{{ path('dev_login_as', { 'username': user.username }) }}" class="btn btn-link">
+                    {{ icon('eye') }} {{ user.username }}
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="dev_generate_new_user">
+        <div class="container">
+            <a href="{{ path('dev_generate_new_user') }}" class="btn btn-primary">
+                {{ icon('plus') }} Generate a new user
+            </a>
+        </div>
+    </section>
+
+{% endblock body %}
