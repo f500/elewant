@@ -22,11 +22,6 @@ Run `visudo` to give provision user sudo rights
     chmod 600 /home/provision/.ssh/authorized_keys
     chown provision:provision /home/provision/.ssh -R
 
-Provisioning Production
-=======================
-
-    ansible-playbook -i ansible/hosts ansible/provision/provision.yml --ask-vault-pass --limit=production
-
 Provisioning Prodsim
 ====================
 
@@ -45,3 +40,9 @@ After the vagrant up, the playbook `setup_local_production_server.yml` has been 
 After you did a successful provision you can deploy your application to your prodsim
 
     ansible-playbook -i ansible/hosts ansible/deploy/deploy.yml --extra-vars "project_version=develop" --limit=prodsim --ask-vault-pass
+
+
+Provisioning Production
+=======================
+
+    ansible-playbook -i ansible/hosts-provision ansible/provision/playbook.yml --limit=production --ask-vault-pass
