@@ -4,7 +4,7 @@
 
     <section id="dev_list_users">
         <div class="container">
-            <h3>Login with:</h3>
+            <h3>{{ 'development.login_with'|trans }}:</h3>
             {% for user in users %}
                 <a href="{{ path('dev_login_as', { 'username': user.username }) }}" class="btn btn-link">
                     {{ icon('eye') }} {{ user.username }}
@@ -16,7 +16,7 @@
     <section id="dev_generate_new_user">
         <div class="container">
             <a href="{{ path('dev_generate_new_user') }}" class="btn btn-primary">
-                {{ icon('plus') }} Generate a new user
+                {{ icon('plus') }} {{ 'development.generate_new_user'|trans }}
             </a>
         </div>
     </section>
