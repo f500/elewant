@@ -1,5 +1,5 @@
 
-    private function %name%(%arguments%)
+    public function %name%(%arguments%)
     {
         // TODO: write logic here
     }
