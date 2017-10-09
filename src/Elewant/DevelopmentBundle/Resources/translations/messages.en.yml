@@ -1,0 +1,6 @@
+site:
+  development_login: "Developer login"
+
+development:
+  login_with: "Login with"
+  generate_new_user: "Generate a new user"

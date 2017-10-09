@@ -1,5 +1,5 @@
 Adding functionality to the model
----------------------------------
+=================================
 
 Hey everyone. I'm glad you made it here. I'll try to explain how to "add functionality
 to the model" by using an example: adding a command to rename a Herd.

@@ -1,5 +1,5 @@
 Lessons Learned
----------------
+===============
 
 Hi there. We're proud to be a project aimed at learning, where anyone can join in 
 no matter their skill level. So we would like you to share with us what is it you've
