@@ -29,6 +29,9 @@ final class Herd extends AggregateRoot
     /** @var  string */
     private $name;
 
+    /** @var  BreedCollection */
+    private $breeds;
+
     public static function form(ShepherdId $shepherdId, string $name): self
     {
         $herdId = HerdId::generate();
@@ -58,6 +61,11 @@ final class Herd extends AggregateRoot
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function breeds(): BreedCollection
+    {
+        return $this->breeds;
     }
 
     public function isAbandoned(): bool
@@ -105,6 +113,7 @@ final class Herd extends AggregateRoot
     public function abandonElePHPant(Breed $breed)
     {
         $this->guardIsNotAbandoned();
+        $this->guardContainsThisBreed($breed);
 
         foreach ($this->elePHPants as $elePHPant) {
             if ($elePHPant->breed()->equals($breed)) {
@@ -161,15 +170,18 @@ final class Herd extends AggregateRoot
         $this->herdId     = $herdId;
         $this->shepherdId = $shepherdId;
         $this->name       = $name;
+        $this->breeds     = BreedCollection::fromArray([]);
     }
 
     private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
+        $this->breeds->add($breed);
         $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }
 
     private function applyAnElePHPantWasAbandonedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
     {
+        $this->breeds->remove($breed);
         foreach ($this->elePHPants as $key => $elePHPant) {
             if ($elePHPant->elePHPantId()->equals($elePHPantId)) {
                 unset($this->elePHPants[$key]);
@@ -192,5 +204,10 @@ final class Herd extends AggregateRoot
         if ($this->abandoned) {
             throw SorryICanNotChangeHerd::becauseItWasAbandoned($this);
         }
+    }
+
+    private function guardContainsThisBreed($breed)
+    {
+        return $this->breeds->contains($breed);
     }
 }

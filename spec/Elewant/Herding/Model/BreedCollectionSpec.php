@@ -29,19 +29,68 @@ class BreedCollectionSpec extends ObjectBehavior
         $this->isEmpty()->shouldReturn(false);
     }
 
-    function it_returns_breeds()
+    function it_adds_breeds()
     {
         $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
         $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
         $this->add($confoo);
         $this->add($amsterdamPHP);
 
-        $expected = [
-            $confoo,
-            $amsterdamPHP,
-        ];
+        $expected = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+            ]
+        );
 
-        $this->breeds()->shouldReturn($expected);
+        $this->equals($expected)->shouldReturn(true);
+    }
+
+    function it_removes_breeds()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $zf2          = Breed::fromString(Breed::GREEN_ZF2_LARGE);
+
+        $initialCollection = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+                $zf2,
+            ]
+        );
+
+        $this->add($confoo);
+        $this->add($amsterdamPHP);
+        $this->add($zf2);
+        $this->equals($initialCollection)->shouldReturn(true);
+
+        $expected = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+            ]
+        );
+
+        $this->remove($zf2);
+        $this->equals($expected)->shouldReturn(true);
+    }
+
+
+    function it_knows_when_it_contains_a_specific_breed()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $this->add($confoo);
+        $this->add($amsterdamPHP);
+
+        $this->contains($confoo)->shouldReturn(true);
+        $this->contains($amsterdamPHP)->shouldReturn(true);
+    }
+
+    function it_knows_when_it_does_not_contain_a_specific_breed()
+    {
+        $this->contains(Breed::fromString(Breed::WHITE_CONFOO_LARGE));
     }
 
     function it_does_not_add_the_same_breed_more_than_once()
@@ -51,11 +100,11 @@ class BreedCollectionSpec extends ObjectBehavior
         $this->add($confoo);
         $this->add($confoo);
 
-        $expected = [
+        $expected = BreedCollection::fromArray([
             $confoo,
-        ];
+        ]);
 
-        $this->breeds()->shouldReturn($expected);
+        $this->equals($expected)->shouldReturn(true);
     }
 
     function it_equals_another_empty_breedcollection()
@@ -103,7 +152,7 @@ class BreedCollectionSpec extends ObjectBehavior
             [
                 $confoo,
                 $amsterdamPHP,
-                $zf2
+                $zf2,
             ]
         );
 
@@ -111,7 +160,7 @@ class BreedCollectionSpec extends ObjectBehavior
             [
                 $confoo,
                 $amsterdamPHP,
-                $zf2
+                $zf2,
             ]
         );
 
@@ -120,7 +169,7 @@ class BreedCollectionSpec extends ObjectBehavior
         $this->equals($expected)->shouldReturn(true);
     }
 
-    function it_diffs_with_another_breedcollection()
+    function it_is_missing_breeds_when_compared_to_a_different_breedcollection()
     {
         $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
         $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
@@ -130,20 +179,95 @@ class BreedCollectionSpec extends ObjectBehavior
             [
                 $confoo,
                 $amsterdamPHP,
-                $zf2
+                $zf2,
             ]
         );
 
         $expected = BreedCollection::fromArray(
             [
                 $amsterdamPHP,
-                $zf2
+                $zf2,
             ]
         );
 
         $this->add($confoo);
-        $actualCollection = $this->diff($other);
+        $actualCollection = $this->isMissingBreedsWhenComparedTo($other);
         $actualCollection->equals($expected)->shouldReturn(true);
     }
 
+    function it_does_not_missing_any_breeds_when_compared_to_a_similar_breedcollection()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $zf2          = Breed::fromString(Breed::GREEN_ZF2_LARGE);
+
+        $other = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+                $zf2,
+            ]
+        );
+
+        $expected = BreedCollection::fromArray([]);
+
+        $this->add($confoo);
+        $this->add($amsterdamPHP);
+        $this->add($zf2);
+        $actualCollection = $this->isMissingBreedsWhenComparedTo($other);
+        $actualCollection->equals($expected)->shouldReturn(true);
+    }
+
+
+    function it_has_breeds_in_common_with_an_overlapping_breedcollection()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $zf2          = Breed::fromString(Breed::GREEN_ZF2_LARGE);
+
+        $other = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+                $zf2,
+            ]
+        );
+
+        $expected = BreedCollection::fromArray(
+            [
+                $confoo,
+            ]
+        );
+
+        $this->add($confoo);
+        $actualCollection = $this->hasBreedsInCommonWith($other);
+        $actualCollection->equals($expected)->shouldReturn(true);
+    }
+
+    function it_has_no_breeds_in_common_with_a_non_overlapping_breedcollection()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $zf2          = Breed::fromString(Breed::GREEN_ZF2_LARGE);
+
+        $other = BreedCollection::fromArray(
+            [
+                $confoo,
+                $amsterdamPHP,
+            ]
+        );
+
+        $expected = BreedCollection::fromArray([]);
+
+        $this->add($zf2);
+        $actualCollection = $this->hasBreedsInCommonWith($other);
+        $actualCollection->equals($expected)->shouldReturn(true);
+    }
+
+    function it_returns_all_breeds()
+    {
+        $this->beConstructedThrough('all');
+        $this->shouldHaveType(BreedCollection::class);
+        $this->contains(Breed::fromString(Breed::WHITE_CONFOO_LARGE))->shouldReturn(true);
+    }
 }

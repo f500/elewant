@@ -25,12 +25,22 @@ final class BreedCollection
         return $collection;
     }
 
+    public static function all(): self
+    {
+        $collection = new self();
+        foreach (Breed::availableTypes() as $type) {
+            $collection->add(Breed::fromString($type));
+        }
+
+        return $collection;
+    }
+
     public function isEmpty(): bool
     {
         return count($this->breeds) === 0;
     }
 
-    public function add(Breed $breed)
+    public function add(Breed $breed): void
     {
         if (in_array($breed, $this->breeds)) {
             return;
@@ -39,19 +49,28 @@ final class BreedCollection
         $this->breeds[] = $breed;
     }
 
-    public function breeds()
+    public function remove(Breed $breed): void
+    {
+        if (!in_array($breed, $this->breeds)) {
+            return;
+        }
+
+        $this->breeds = array_diff($this->breeds, [$breed]);
+    }
+
+    public function breeds(): array
     {
         return $this->breeds;
     }
 
-    public function equals(BreedCollection $otherCollection)
+    public function equals(BreedCollection $otherCollection): bool
     {
         $diff = array_diff($this->breeds, $otherCollection->breeds);
 
         return empty($diff) && count($this->breeds) === count($otherCollection->breeds);
     }
 
-    public function merge(BreedCollection $otherCollection)
+    public function merge(BreedCollection $otherCollection): void
     {
         array_map(
             function (Breed $breed) {
@@ -61,10 +80,23 @@ final class BreedCollection
         );
     }
 
-    public function diff(BreedCollection $otherCollection)
+    public function isMissingBreedsWhenComparedTo(BreedCollection $otherCollection): self
     {
         $newBreeds = array_diff($otherCollection->breeds, $this->breeds);
 
         return BreedCollection::fromArray($newBreeds);
+    }
+
+    public function hasBreedsInCommonWith(BreedCollection $otherCollection): self
+    {
+        $newBreeds = array_intersect($otherCollection->breeds, $this->breeds);
+
+        return BreedCollection::fromArray($newBreeds);
+    }
+
+
+    public function contains(Breed $breed): bool
+    {
+        return in_array($breed, $this->breeds);
     }
 }
