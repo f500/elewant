@@ -21,7 +21,7 @@ final class UserHasRegistered extends Event
         $this->user = $user;
     }
 
-    public function user() : User
+    public function user(): User
     {
         return $this->user;
     }

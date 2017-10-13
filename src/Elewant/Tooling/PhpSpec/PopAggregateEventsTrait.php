@@ -8,9 +8,11 @@ use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
 
-trait popAggregateEventsTrait
+trait PopAggregateEventsTrait
 {
-    /** @var  AggregateTranslator */
+    /**
+     * @var AggregateTranslator
+     */
     private $aggregateTranslator;
 
     protected function popRecordedEvent(AggregateRoot $aggregateRoot): array
@@ -18,10 +20,7 @@ trait popAggregateEventsTrait
         return $this->getAggregateTranslator()->extractPendingStreamEvents($aggregateRoot);
     }
 
-    /**
-     * @return object
-     */
-    protected function reconstituteAggregateFromHistory(string $aggregateRootClass, array $events)
+    protected function reconstituteAggregateFromHistory(string $aggregateRootClass, array $events): object
     {
         return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
             AggregateType::fromAggregateRootClass($aggregateRootClass),
@@ -37,5 +36,4 @@ trait popAggregateEventsTrait
 
         return $this->aggregateTranslator;
     }
-
 }

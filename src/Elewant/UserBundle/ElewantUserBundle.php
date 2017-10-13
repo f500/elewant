@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class ElewantUserBundle extends Bundle
 {
-    public function getParent() : string
+    public function getParent(): string
     {
         return 'HWIOAuthBundle';
     }

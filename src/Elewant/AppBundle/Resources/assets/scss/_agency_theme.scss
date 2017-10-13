@@ -170,7 +170,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.25rem;
     @include script-font;
     padding: 0;
-    margin: -0.5rem 0;
+    margin: -.5rem 0;
     &:hover, &:focus, &:active, &.active {
       color: darken($theme-primary, 10%);
     }
@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     width: 4.1003rem;
     height: 2.8125rem;
-    margin: .75rem 1.25rem -0.0625rem 0;
+    margin: .75rem 1.25rem -.0625rem 0;
   }
   .navbar-brand-text {
     display: inline-block;
@@ -213,9 +213,13 @@ h1, h2, h3, h4, h5, h6 {
       font-weight: 400;
       letter-spacing: 1px;
       padding: .8125rem 0;
-      &:hover, &.active {
-        color: $theme-primary;
-      }
+    }
+    .nav-item.active .nav-link,
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus,
+    .nav-item .nav-link:active,
+    .nav-item .nav-link.active {
+      color: $theme-primary;
     }
   }
 }
@@ -524,6 +528,9 @@ section {
         font-size: 10px;
         margin-top: 5px;
         line-height: 14px;
+      }
+      a {
+        word-spacing: 999px;
       }
     }
     &.timeline-inverted > .timeline-panel {

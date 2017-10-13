@@ -20,11 +20,14 @@ class HerdSpec extends ObjectBehavior
     function let()
     {
         $this->shepherdId = ShepherdId::generate();
-        $this->herdName = 'Herd name';
-        $this->beConstructedThrough('form', [
-            $this->shepherdId,
-            $this->herdName
-        ]);
+        $this->herdName   = 'Herd name';
+        $this->beConstructedThrough(
+            'form',
+            [
+                $this->shepherdId,
+                $this->herdName,
+            ]
+        );
     }
 
     function it_forms()
@@ -78,6 +81,13 @@ class HerdSpec extends ObjectBehavior
             ->duringAbandonElePHPant(Breed::greenZf2Regular());
     }
 
+    function it_can_be_renamed()
+    {
+        $this->name()->shouldEqual($this->herdName);
+        $this->rename('new name');
+        $this->name()->shouldEqual('new name');
+    }
+
     function it_can_be_abandoned()
     {
         $this->shouldHaveType(Herd::class);
@@ -113,8 +123,9 @@ class HerdSpec extends ObjectBehavior
                         return true;
                     }
                 }
+
                 return false;
-            }
+            },
         ];
     }
 

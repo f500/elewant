@@ -17,14 +17,14 @@ class DefaultController extends Controller
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
-        $newestHerds    = $herdRepository->lastNewHerds(4);
+        $newestHerds    = $herdRepository->newestHerds(4);
 
         return $this->render(
             'ElewantAppBundle:Default:index.html.twig',
             [
-                'shrinking_navbar' => true,
+                'shrinking_navbar'       => true,
                 'only_anchors_in_navbar' => true,
-                'newest_herds'      => $newestHerds,
+                'newest_herds'           => $newestHerds,
             ]
         );
     }

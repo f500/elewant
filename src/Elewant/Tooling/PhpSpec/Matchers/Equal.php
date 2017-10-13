@@ -58,11 +58,13 @@ final class Equal extends BasicMatcher
      */
     protected function getFailureException($name, $subject, array $arguments)
     {
-        return new FailureException(sprintf(
-            'Expected %s to equal %s, but it does not.',
-            $this->presenter->presentValue($subject),
-            $this->presenter->presentValue($arguments[0])
-        ));
+        return new FailureException(
+            sprintf(
+                'Expected %s to equal %s, but it does not.',
+                $this->presenter->presentValue($subject),
+                $this->presenter->presentValue($arguments[0])
+            )
+        );
     }
 
     /**
@@ -70,10 +72,12 @@ final class Equal extends BasicMatcher
      */
     protected function getNegativeFailureException($name, $subject, array $arguments)
     {
-        return new FailureException(sprintf(
-            'Expected %s not to equal %s, but it does.',
-            $this->presenter->presentValue($subject),
-            $this->presenter->presentValue($arguments[0])
-        ));
+        return new FailureException(
+            sprintf(
+                'Expected %s not to equal %s, but it does.',
+                $this->presenter->presentValue($subject),
+                $this->presenter->presentValue($arguments[0])
+            )
+        );
     }
 }

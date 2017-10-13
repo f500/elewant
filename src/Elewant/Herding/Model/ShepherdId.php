@@ -13,19 +13,19 @@ final class ShepherdId
      */
     private $uuid;
 
-    private function __construct(UUid $uuid)
+    private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
 
     public static function generate(): self
     {
-        return new self (Uuid::uuid4());
+        return new self(Uuid::uuid4());
     }
 
     public static function fromString(string $shepherdId): self
     {
-        return new self(UUid::fromString($shepherdId));
+        return new self(Uuid::fromString($shepherdId));
     }
 
     public function toString(): string

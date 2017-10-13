@@ -1,13 +1,13 @@
 $(function () {
-    $("#search-input").easyAutocomplete({
+    $("#find-a-herd").easyAutocomplete({
         url: function (q) {
-            return "/shepherd/search?q=" + q;
+            return Routing.generate('shepherd_search', {'q': q});
         },
         list: {
             maxNumberOfElements: 6,
-            onChooseEvent: function() {
-                var username = $("#search-input").getSelectedItemData().username;
-                window.location.href = "/shepherd/admire/" + username;
+            onChooseEvent: function () {
+                var username = $("#find-a-herd").getSelectedItemData().username;
+                window.location.href = Routing.generate('shepherd_admire_herd', {'username': username});
             }
         },
         theme: "bootstrap",
@@ -21,33 +21,35 @@ $(function () {
         requestDelay: 300
     });
 
-    $(".elephpant-controls .adopt").click(function (event) {
+    $(".elephpant-adopt").click(function (event) {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: '/herd/adopt/' + breedChoice,
+            url: Routing.generate('herd_adopt_breed', { 'breed': breedChoice }),
             data: [],
+            context: this,
             success: function () {
-                var countInput = $(".elephpant-controls .count-" + breedChoice);
-                countInput.html(parseInt(countInput.html()) + 1);
+                var countInput = $(this).siblings('.elephpant-amount');
+                countInput.text(parseInt(countInput.text()) + 1);
             }
         });
     });
 
-    $(".elephpant-controls .abandon").click(function (event) {
+    $(".elephpant-abandon").click(function (event) {
         var breedChoice = $(event.target).data("breed");
 
         $.ajax({
-            url: '/herd/abandon/' + breedChoice,
+            url: Routing.generate('herd_abandon_breed', { 'breed': breedChoice }),
             data: [],
+            context: this,
             success: function () {
-                var countInput = $(".elephpant-controls .count-" + breedChoice);
-                countInput.html(parseInt(countInput.html()) - 1);
+                var countInput = $(this).siblings('.elephpant-amount');
+                countInput.text(parseInt(countInput.text()) - 1);
             }
         });
     });
 
-    $('#adoptElePHPants').on('hidden.bs.modal', function (e) {
+    $('#adoptElePHPants').on('hidden.bs.modal', function () {
         location.reload();
     });
 });

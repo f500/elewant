@@ -9,7 +9,7 @@ use Elewant\UserBundle\Entity\User;
 
 final class UserRepository extends EntityRepository
 {
-    public function findUserByUsername(string $username) : ?User
+    public function findUserByUsername(string $username): ?User
     {
         $dql = <<<EOQ
 SELECT u
@@ -24,7 +24,7 @@ EOQ;
         return $query->getOneOrNullResult();
     }
 
-    public function findUserByResource(string $resource, string $id) : ?User
+    public function findUserByResource(string $resource, string $id): ?User
     {
         $dql = <<<EOQ
 SELECT u

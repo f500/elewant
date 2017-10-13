@@ -1,0 +1,23 @@
+title: "History"
+subtitle: "Elewant, where did it come from?"
+first-paragraph: >
+  This project is the brain-child of Elena de la Fuente,
+  in combination with everyone at %link%.
+  The name is a combination of the words "want" and "elePHPant".
+  The idea is that we make it easier in the community to swap and share the lovely plush PHP mascots,
+  the ElePHPants.
+second-paragraph: "It was originally conceived in 2015, and consequently forgotten. Because, well, work happened..."
+third-paragraph: >
+  When we decided to really build it, we took some time to discuss our technical options.
+  The main focus of this project is for us to learn, and maybe teach, the technology being used. Rather
+  than building something as fast as possible with familiar building blocks, the team decided to to
+  use things we had never used before. Check out the %link% file to see what technology choices where made.
+fourth-paragraph: "Most importantly, you'll see that we decided to build an EventSourced system. Why, you ask?"
+fifth-paragraph: "Wait... did you build this <i>just</i> so that you could use Event Sourcing??"
+sixth-paragraph: >
+  The answer, as with many things, is "it's complicated". But we really hope that by
+  building and using this system together, we can learn and experience what it's like to have an
+  event sourced project in production. A project that serves a purpose beyond classroom examples.
+seventh-paragraph: "Of course, it would not hurt if this project persuades someone to join us at %link%..."
+eight-paragraph: "So enjoy, and don't forget to %link%!"
+kind-regards: "Kind regards,"

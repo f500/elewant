@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\UserBundle\Form;
 
 use Elewant\UserBundle\Entity\User;
@@ -22,7 +24,7 @@ class RegistrationFormHandler implements RegistrationFormHandlerInterface
         $this->userProvider = $userProvider;
     }
 
-    public function process(Request $request, Form $form, UserResponseInterface $userInformation) : bool
+    public function process(Request $request, Form $form, UserResponseInterface $userInformation): bool
     {
         try {
             $user = $this->userProvider->loadUserByUsername($userInformation->getNickname());

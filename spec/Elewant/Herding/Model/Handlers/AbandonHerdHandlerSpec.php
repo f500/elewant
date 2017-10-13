@@ -10,14 +10,14 @@ use Elewant\Herding\Model\HerdCollection;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Model\SorryIDoNotHaveThat;
-use Elewant\Tooling\PhpSpec\popAggregateEventsTrait;
+use Elewant\Tooling\PhpSpec\PopAggregateEventsTrait;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Webmozart\Assert\Assert;
 
 class AbandonHerdHandlerSpec extends ObjectBehavior
 {
-    use popAggregateEventsTrait;
+    use PopAggregateEventsTrait;
 
     /**
      * @var HerdCollection
@@ -38,8 +38,8 @@ class AbandonHerdHandlerSpec extends ObjectBehavior
     function it_handles_abandon_herd()
     {
         $shepherdId = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
-        $herd   = Herd::form($shepherdId, 'Herd name');
-        $herdId = $herd->herdId();
+        $herd       = Herd::form($shepherdId, 'Herd name');
+        $herdId     = $herd->herdId();
 
         $command = AbandonHerd::forShepherd($herdId->toString(), $shepherdId->toString());
 

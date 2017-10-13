@@ -52,8 +52,12 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 
         $shouldBeEmpty = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
 
-        TestCase::assertEmpty($shouldBeEmpty,
-            sprintf('An ElePHPant (%s) is still projected after being abandonded.', $eventUnderTest->elePHPantId()->toString())
+        TestCase::assertEmpty(
+            $shouldBeEmpty,
+            sprintf(
+                'An ElePHPant (%s) is still projected after being abandonded.',
+                $eventUnderTest->elePHPantId()->toString()
+            )
         );
     }
 

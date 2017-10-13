@@ -43,7 +43,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      *
      * @return UserInterface
      */
-    public function loadUserByUsername($username) : UserInterface
+    public function loadUserByUsername($username): UserInterface
     {
         $user = $this->repository()->findUserByUsername($username);
 
@@ -59,7 +59,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      *
      * @return UserInterface
      */
-    public function refreshUser(UserInterface $user) : UserInterface
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$this->supportsClass(get_class($user))) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -73,12 +73,12 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      *
      * @return bool
      */
-    public function supportsClass($class) : bool
+    public function supportsClass($class): bool
     {
         return $class === User::class;
     }
 
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response) : UserInterface
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
         $resource   = $response->getResourceOwner()->getName();
         $resourceId = (string) $response->getResponse()['id'] ?? 'UNKNOWN';
@@ -94,7 +94,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         return $user;
     }
 
-    public function connect(UserInterface $user, UserResponseInterface $response) : void
+    public function connect(UserInterface $user, UserResponseInterface $response): void
     {
         if (!$this->supportsClass(get_class($user))) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -124,7 +124,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         $this->eventDispatcher->dispatch(UserHasRegistered::NAME, $event);
     }
 
-    private function connectTwitter(User $user, UserResponseInterface $response) : void
+    private function connectTwitter(User $user, UserResponseInterface $response): void
     {
         $data = $response->getResponse();
 
@@ -140,12 +140,12 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         );
     }
 
-    private function manager() : ObjectManager
+    private function manager(): ObjectManager
     {
         return $this->registry->getManager();
     }
 
-    private function repository() : UserRepository
+    private function repository(): UserRepository
     {
         /** @var UserRepository $repository */
         $repository = $this->registry->getRepository(User::class);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\AppBundle\Infrastructure;
 
 use Elewant\AppBundle\Service\Contributor;
@@ -28,22 +30,22 @@ final class GithubContributor implements Contributor
         $this->contributionCount = $contributionCount;
     }
 
-    public static function fromGithubApiCall(array $data) : Contributor
+    public static function fromGithubApiCall(array $data): Contributor
     {
         return new self($data['avatar_url'], $data['login'], $data['contributions']);
     }
 
-    public function avatarUrl() : string
+    public function avatarUrl(): string
     {
         return $this->avatarUrl;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function contributionCount() : int
+    public function contributionCount(): int
     {
         return $this->contributionCount;
     }

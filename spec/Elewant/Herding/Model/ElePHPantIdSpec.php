@@ -25,7 +25,7 @@ class ElePHPantIdSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('fromString', ['00000000-0000-0000-0000-000000000000']);
 
-        $isEqual = ElePHPantId::fromString('00000000-0000-0000-0000-000000000000');
+        $isEqual    = ElePHPantId::fromString('00000000-0000-0000-0000-000000000000');
         $isNotEqual = ElePHPantId::fromString('11111111-1111-1111-1111-111111111111');
 
         $this->equals($isEqual)->shouldReturn(true);

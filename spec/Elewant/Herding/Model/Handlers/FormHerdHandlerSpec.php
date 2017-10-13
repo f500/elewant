@@ -33,10 +33,14 @@ class FormHerdHandlerSpec extends ObjectBehavior
 
         $this->__invoke($command);
 
-        $this->herdCollection->save(Argument::that(function ($herd) {
-            return
-                $herd->shepherdId()->equals(ShepherdId::fromString('00000000-0000-0000-0000-000000000000')) &&
-                $herd->name() == 'Herd is the word';
-        }))->shouldHaveBeenCalled();
+        $this->herdCollection->save(
+            Argument::that(
+                function ($herd) {
+                    return
+                        $herd->shepherdId()->equals(ShepherdId::fromString('00000000-0000-0000-0000-000000000000')) &&
+                        $herd->name() == 'Herd is the word';
+                }
+            )
+        )->shouldHaveBeenCalled();
     }
 }

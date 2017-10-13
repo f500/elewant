@@ -1,19 +1,22 @@
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
-
 <header>
     <div class="container">
 
         <div class="intro-text">
-            <div class="intro-lead-in">Welcome shepherds around the world!</div>
-            <div class="intro-heading">It's nice to meet you</div>
+            <div class="intro-lead-in">{{ 'site.lead-in'|trans }}</div>
+            <div class="intro-heading">{{ 'site.heading'|trans }}</div>
 
             {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
-                    {{ utils.icon('twitter') }} Join the herd
+                    {{ icon('twitter') }} {{ 'site.join-the-herd'|trans }}
                 </a>
+                {% if app.environment == 'dev' %}
+                    <a href="{{ path('dev_list_users') }}" class="page-scroll btn btn-xl">
+                        {{ icon('list') }} {{ 'site.development_login'|trans  }}
+                    </a>
+                {% endif %}
             {% else %}
                 <a href="{{ path('herd_tending') }}" class="page-scroll btn btn-xl">
-                    {{ utils.icon('edit') }} Tend to your herd
+                    {{ icon('edit') }} {{ 'site.tend-to-your-herd'|trans }}
                 </a>
             {% endif %}
         </div>

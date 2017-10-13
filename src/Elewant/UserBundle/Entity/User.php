@@ -71,17 +71,17 @@ class User implements UserInterface, \Serializable
         $this->connections = new ArrayCollection();
     }
 
-    public function changeDisplayName(string $displayName) : void
+    public function changeDisplayName(string $displayName): void
     {
         $this->displayName = $displayName;
     }
 
-    public function changeCountry(string $country) : void
+    public function changeCountry(string $country): void
     {
         $this->country = $country;
     }
 
-    public function connect(string $resource, string $resourceId, string $accessToken, string $refreshToken) : void
+    public function connect(string $resource, string $resourceId, string $accessToken, string $refreshToken): void
     {
         if ($this->hasConnection($resource)) {
             throw new \LogicException(
@@ -92,27 +92,27 @@ class User implements UserInterface, \Serializable
         $this->connections->add(new Connection($this, $resource, $resourceId, $accessToken, $refreshToken));
     }
 
-    public function id() : ?int
+    public function id(): ?int
     {
         return $this->id;
     }
 
-    public function shepherdId() : ShepherdId
+    public function shepherdId(): ShepherdId
     {
         return $this->shepherdId;
     }
 
-    public function username() : string
+    public function username(): string
     {
         return $this->username;
     }
 
-    public function displayName() : string
+    public function displayName(): string
     {
         return $this->displayName;
     }
 
-    public function country() : string
+    public function country(): string
     {
         return $this->country;
     }
@@ -120,7 +120,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return Connection[]
      */
-    public function connections() : array
+    public function connections(): array
     {
         return $this->connections->toArray();
     }
@@ -128,31 +128,31 @@ class User implements UserInterface, \Serializable
     /**
      * @return string[]
      */
-    public function getRoles() : array
+    public function getRoles(): array
     {
         return ['ROLE_USER'];
     }
 
-    public function getUsername() : string
+    public function getUsername(): string
     {
         return $this->username();
     }
 
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return '';
     }
 
-    public function getSalt() : ?string
+    public function getSalt(): ?string
     {
         return null;
     }
 
-    public function eraseCredentials() : void
+    public function eraseCredentials(): void
     {
     }
 
-    private function hasConnection(string $resource) : bool
+    private function hasConnection(string $resource): bool
     {
         foreach ($this->connections as $connection) {
             if ($connection->resource() === $resource) {
@@ -167,7 +167,7 @@ class User implements UserInterface, \Serializable
      * We don't use associations, so we can safely store the user in sessions.
      * The user-provider will refresh the user, to make it complete and managed.
      */
-    public function serialize() : string
+    public function serialize(): string
     {
         return serialize(
             [
@@ -186,7 +186,7 @@ class User implements UserInterface, \Serializable
      *
      * @param string $serialized
      */
-    public function unserialize($serialized) : void
+    public function unserialize($serialized): void
     {
         $data = unserialize($serialized);
 

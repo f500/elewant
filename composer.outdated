@@ -1,0 +1,12 @@
+nette/php-generator                 v3.0.1  ! v3.1.0  🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.1 features.
+phpspec/phpspec                     3.4.2   ~ 4.0.3   Specification-oriented BDD framework for PHP 5.6+
+prooph/common                       v3.7.1  ~ v4.1.0  Common classes used across prooph packages
+prooph/event-sourcing               v4.0    ~ v5.2.0  PHP EventSourcing library
+prooph/event-store                  v6.6.0  ~ v7.2.2  PHP EventStore Implementation
+prooph/event-store-bus-bridge       v2.0    ~ v3.0.2  Marry CQRS with Event Sourcing
+prooph/service-bus                  v5.2.0  ~ v6.1.0  PHP Enterprise Service Bus Implementation supporting CQRS and DDD
+prooph/service-bus-symfony-bundle   v0.2    ~ v0.4.1 
+ramsey/uuid                         2.9.0   ~ 3.7.1   A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).
+sensio/framework-extra-bundle       v3.0.27 ~ v5.0.0  This bundle provides a way to configure your controllers with annotations
+swiftmailer/swiftmailer             v5.4.8  ~ v6.0.2  Swiftmailer, free feature-rich PHP mailer
+symfony/swiftmailer-bundle          v2.6.3  ~ v3.1.0  Symfony SwiftmailerBundle

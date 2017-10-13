@@ -1,16 +1,17 @@
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
-
-<section id="newest_herds" class="index-section ">
+<section id="newest_herds" class="index-section">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">New Herds</h2>
-                <h3 class="section-subheading text-muted">New ElePHPants join all the time. Have a look at these latest additions. </h3>
+                <h2 class="section-heading">{{ 'site.newest-herds.heading'|trans }}</h2>
+                <h3 class="section-subheading text-muted">{{ 'site.newest-herds.subtext'|trans }}</h3>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <ul class="timeline">
+
                     {% for entry in newest_herds %}
                         <li class="{% if loop.index is odd %}timeline-inverted{% endif %}">
                             <div class="timeline-image">
@@ -20,16 +21,16 @@
                                 <div class="timeline-heading">
                                     <h4>{{ entry.herd.formedOn|date('Y-m-d') }}</h4>
                                     <h4 class="subheading">
-                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ utils.icon('external-link fa-fw') }}</a>
+                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ icon('external-link fw') }}</a>
                                         {{ entry.herd.name }}
                                     </h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% for breed, count in entry.herd.elePHPantBreedCounts|slice(0,4, true) %}
-                                            - {{ ("herding.breed." ~ breed)|trans }}<br />
+                                            - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
                                         {% else %}
-                                            no ElePHPants yet...
+                                            {{ 'site.newest-herds.empty-herd'|trans }}
                                         {% endfor %}
                                     </p>
                                 </div>
@@ -40,9 +41,9 @@
                     <li class="timeline-inverted">
                         <div class="timeline-image">
                             {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                <h4>Join<br>The<br>Herd!</h4>
+                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>{{ 'site.join-the-herd'|trans }}!</h4></a>
                             {% else %}
-                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>Tend<br>To<br>Your<br>Herd!</h4></a>
+                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>{{ 'site.tend-to-your-herd'|trans }}!</h4></a>
                             {% endif %}
                         </div>
                     </li>
@@ -50,5 +51,6 @@
                 </ul>
             </div>
         </div>
+
     </div>
 </section>

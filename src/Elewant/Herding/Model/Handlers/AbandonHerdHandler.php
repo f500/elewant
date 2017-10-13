@@ -38,5 +38,4 @@ final class AbandonHerdHandler
         $herd->abandon();
         $this->herdCollection->save($herd);
     }
-
 }

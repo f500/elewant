@@ -13,10 +13,13 @@ class ElePHPantWasAdoptedByHerd extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): self
     {
-        return self::occur($herdId->toString(), [
-            'elePHPantId' => $elePHPantId->toString(),
-            'breed' => $breed->toString()
-        ]);
+        return self::occur(
+            $herdId->toString(),
+            [
+                'elePHPantId' => $elePHPantId->toString(),
+                'breed'       => $breed->toString(),
+            ]
+        );
     }
 
     public function herdId(): HerdId
@@ -33,5 +36,4 @@ class ElePHPantWasAdoptedByHerd extends AggregateChanged
     {
         return Breed::fromString($this->payload['breed']);
     }
-
 }

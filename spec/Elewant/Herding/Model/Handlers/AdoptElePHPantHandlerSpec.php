@@ -11,14 +11,14 @@ use Elewant\Herding\Model\HerdCollection;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Model\SorryIDoNotHaveThat;
-use Elewant\Tooling\PhpSpec\popAggregateEventsTrait;
+use Elewant\Tooling\PhpSpec\PopAggregateEventsTrait;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Webmozart\Assert\Assert;
 
 class AdoptElePHPantHandlerSpec extends ObjectBehavior
 {
-    use popAggregateEventsTrait;
+    use PopAggregateEventsTrait;
 
     /** @var HerdCollection */
     private $herdCollection;
@@ -36,8 +36,8 @@ class AdoptElePHPantHandlerSpec extends ObjectBehavior
 
     function it_handles_adopt_elephpant()
     {
-        $herd = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
-        $herdId = $herd->herdId();
+        $herd    = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
+        $herdId  = $herd->herdId();
         $command = AdoptElePHPant::byHerd($herdId->toString(), Breed::WHITE_DPC_REGULAR);
 
         $this->herdCollection->get($herdId)->willReturn($herd);

@@ -57,6 +57,17 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/abandon-elephpant', $payload);
     }
 
+    protected function renameHerd(HerdId $herdId, string $newHerdName)
+    {
+        $payload = [
+            'herdId'     => $herdId->toString(),
+            'newHerdName' => $newHerdName,
+        ];
+
+        return $this->request('POST', '/testapi/commands/rename-herd', $payload);
+    }
+
+
     protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId)
     {
         $payload = [

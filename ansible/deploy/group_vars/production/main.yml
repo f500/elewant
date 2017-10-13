@@ -16,3 +16,9 @@ elewant_twitter_client: ~ # secure.yml
 elewant_twitter_secret: ~ # secure.yml
 
 elewant_delivery_address: "~"
+
+elewant_tweets_are_active:            true
+elewant_tweets_app_consumerkey:       ~ # secure.yml
+elewant_tweets_app_consumersecret:    ~ # secure.yml
+elewant_tweets_app_accesstoken:       ~ # secure.yml
+elewant_tweets_app_accesstokensecret: ~ # secure.yml

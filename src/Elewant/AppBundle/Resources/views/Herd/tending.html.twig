@@ -1,19 +1,20 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
-{% import 'ElewantAppBundle:Macros:utils.html.twig' as utils %}
+{% trans_default_domain "herd" %}
 
 {% block content %}
+
     <section id="herd_tending">
+
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
         {% if not herd.elePHPantBreedCounts|length %}
-            {{ utils.alert('Hey ' ~ app.user.displayName ~ ', you do not have any ElePHPants yet. Add them if you own them!', 'warning') }}
+            {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
         {% endif %}
 
         <div class="row text-center">
             {% for breed, count in herd.elePHPantBreedCounts %}
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 mt-2">
-                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                    {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed, 'count': count} %}
+                    {{ elephpant(breed, count, true) }}
                 </div>
             {% endfor %}
         </div>
@@ -21,69 +22,61 @@
         <div class="row mx-auto text-center">
             <div class="col-12 mt-2">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adoptElePHPants">
-                    Adopt new ElePHPants
+                    {{ 'adopt-button'|trans }}
                 </button>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="adoptElePHPants" tabindex="-1" role="dialog" aria-labelledby="adoptElePHPantsLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="adoptElePHPantsLabel">Add new ElePHPants to your Herd</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row mt-2">
-                            <div class="col">
-                                Adopting ElePHPants is sometimes hard work. You see, you'll need to identify the breed
-                                correctly! You might get enough from the color and the description, but if you are in
-                                doubt, please check the definitive resource on the subject:
-                                <a href="http://afieldguidetoelephpants.net/#index" target="_blank" rel="noopener noreferrer">A Field Guide to Elephpants</a>
-                            </div>
-                        </div>
+    </section>
 
-                        <div class="row mt-2">
-                            <div class="col text-center">
-                                <h5>Regular sized:</h5>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            {% for breed in breeds if 'REGULAR' in breed %}
-                                <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
-                                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                                    {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col text-center">
-                                <h5>Large:</h5>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            {% for breed in breeds if 'LARGE' in breed %}
-                                <div class="col-lg-4 col-sm-4 col-6 text-center mt-2">
-                                    {% include 'ElewantAppBundle:Herd:elephpant.html.twig' with {'breed': breed} %}
-                                    {% include 'ElewantAppBundle:Herd:controls.html.twig' with {'breed': breed} %}
-                                </div>
-                            {% endfor %}
-
+    <!-- Modal -->
+    <div class="modal fade" id="adoptElePHPants" tabindex="-1" role="dialog" aria-labelledby="adoptElePHPantsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adoptElePHPantsLabel">{{ 'adopting-elephpants-title'|trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-2">
+                        <div class="col">
+                            {% trans with {'%link%': '<a href="http://afieldguidetoelephpants.net/#index" target="_blank" rel="noopener noreferrer">A Field Guide to Elephpants</a>'} %}
+                                adopting-help-text
+                            {% endtrans %}
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Finished</button>
+                    <div class="row mt-2">
+                        <div class="col text-center">
+                            <h5>{{ 'size-regular'|trans }}</h5>
+                        </div>
                     </div>
+                    <div class="row mt-2">
+                        {% for breed in breeds if 'REGULAR' in breed %}
+                            <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
+                                {{ elephpant(breed, 0, true) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col text-center">
+                            <h5>{{ 'size-large'|trans }}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for breed in breeds if 'LARGE' in breed %}
+                            <div class="col-lg-4 col-sm-4 col-6 text-center mt-2">
+                                {{ elephpant(breed, 0, true) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'finished-button'|trans }}</button>
                 </div>
             </div>
         </div>
-
-    </section>
+    </div>
 
 {% endblock %}

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\AppBundle\Infrastructure;
 
 use Elewant\AppBundle\Service\ContributorList;
@@ -33,8 +35,13 @@ class GithubContributorList implements ContributorList
      */
     protected $client;
 
-    public function __construct(string $username, string $repository, MessageFactory $requestFactory, HttpClient $client, array $blacklist = [])
-    {
+    public function __construct(
+        string $username,
+        string $repository,
+        MessageFactory $requestFactory,
+        HttpClient $client,
+        array $blacklist = []
+    ) {
         $this->username   = $username;
         $this->repository = $repository;
 
@@ -43,7 +50,7 @@ class GithubContributorList implements ContributorList
         $this->blacklist      = $blacklist;
     }
 
-    public function allContributors() : array
+    public function allContributors(): array
     {
         $request = $this->requestFactory->createRequest(
             'GET',
@@ -52,7 +59,7 @@ class GithubContributorList implements ContributorList
 
         $response = $this->client->sendRequest($request);
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
-            $responseData = json_decode($response->getBody(), true);
+            $responseData = json_decode((string) $response->getBody(), true);
             foreach ($responseData as $contributorData) {
                 if (in_array($contributorData['login'], $this->blacklist)) {
                     continue;

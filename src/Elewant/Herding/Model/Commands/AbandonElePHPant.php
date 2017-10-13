@@ -28,4 +28,3 @@ final class AbandonElePHPant extends Command
         return Breed::fromString($this->payload['breed']);
     }
 }
-

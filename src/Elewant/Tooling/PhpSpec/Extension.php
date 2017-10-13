@@ -1,22 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elewant\Tooling\PhpSpec;
 
 use Elewant\Tooling\PhpSpec\Matchers\Equal;
+use PhpSpec\Extension as PhpSpecExtension;
+use PhpSpec\Formatter\Presenter\Presenter;
 use PhpSpec\ServiceContainer;
 
-final class Extension implements \PhpSpec\Extension
+final class Extension implements PhpSpecExtension
 {
-    /**
-     * @param ServiceContainer $container
-     * @param array $params
-     */
-    public function load(ServiceContainer $container, array $params)
+    public function load(ServiceContainer $container, array $params): void
     {
         $container->define(
             'elewant.matchers.be_equal',
-            function ($c) {
-                return new Equal($c->get('formatter.presenter'));
+            function (ServiceContainer $c) {
+                /** @var Presenter $presenter */
+                $presenter = $c->get('formatter.presenter');
+
+                return new Equal($presenter);
             },
             ['matchers']
         );

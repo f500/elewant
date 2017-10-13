@@ -9,6 +9,7 @@ use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
 use Elewant\Herding\Model\Events\HerdWasFormed;
+use Elewant\Herding\Model\Events\HerdWasRenamed;
 
 final class HerdProjector
 {
@@ -34,6 +35,19 @@ final class HerdProjector
                 'shepherd_id' => $event->shepherdId()->toString(),
                 'name'        => $event->name(),
                 'formed_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
+
+    public function onHerdWasRenamed(HerdWasRenamed $event)
+    {
+        $this->connection->update(
+            self::TABLE_HERD,
+            [
+                'name' => $event->newHerdName(),
+            ],
+            [
+                'herd_id' => $event->herdId()->toString(),
             ]
         );
     }

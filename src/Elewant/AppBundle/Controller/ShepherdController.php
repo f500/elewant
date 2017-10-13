@@ -8,7 +8,6 @@ use Elewant\AppBundle\Entity\Herd;
 use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\UserBundle\Entity\User;
 use Elewant\UserBundle\Security\UserProvider;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Route("/shepherd")
+ * @Route("/shepherd", options={"expose"=true})
  */
 class ShepherdController extends Controller
 {
@@ -46,7 +45,7 @@ class ShepherdController extends Controller
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
 
-        $query = $request->get('q');
+        $query     = $request->get('q');
         $usernames = $herdRepository->search($query);
 
         return $this->json($usernames);
@@ -59,7 +58,7 @@ class ShepherdController extends Controller
      * @return User|UserInterface
      * @throws NotFoundHttpException
      */
-    private function getUserByUsername(string $username) : UserInterface
+    private function getUserByUsername(string $username): UserInterface
     {
         /** @var UserProvider $userProvider */
         $userProvider = $this->get('elewant.security.user_provider');
@@ -67,7 +66,7 @@ class ShepherdController extends Controller
         try {
             $user = $userProvider->loadUserByUsername($username);
         } catch (UsernameNotFoundException $e) {
-            throw $this->createNotFoundException('There is no Shepherd with that name...');
+            throw $this->createNotFoundException('error.shepherd.not-found');
         }
 
         return $user;
@@ -79,17 +78,16 @@ class ShepherdController extends Controller
      * @return Herd
      * @throws NotFoundHttpException
      */
-    private function getHerd(User $user) : Herd
+    private function getHerd(User $user): Herd
     {
         /** @var HerdRepository $herdRepository */
         $herdRepository = $this->get('elewant.herd.herd_repository');
         $herd           = $herdRepository->findOneByShepherdId($user->shepherdId());
 
         if ($herd === null) {
-            throw $this->createNotFoundException('This Shepherd does not seem to have a Herd...');
+            throw $this->createNotFoundException('error.shepherd.herd-not-found');
         }
 
         return $herd;
     }
-
 }

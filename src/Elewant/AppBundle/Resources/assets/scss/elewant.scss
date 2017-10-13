@@ -1,110 +1,14 @@
 // Custom variables
-@import "variables";
-
-// Bootstrap
+@import "variables/bootstrap";
+@import "variables/font_awesome";
+@import "variables/custom";
+// Libraries
 @import "../../../../../../node_modules/bootstrap/scss/bootstrap";
-// Theme (based on Start Bootstrap - Agency)
-@import "agency-theme";
-// Font Awesome
 @import "../../../../../../node_modules/font-awesome/scss/font-awesome";
-// easyAutocomplete
-@import "../../../../../../node_modules/easy-autocomplete/src/sass/easy-autocomplete";
-
-
-// Alert page
-.alert {
-  .list-unstyled {
-    margin: 1rem 0;
-  }
-}
-
-// Alert icons
-.alert .fa {
-  margin-right: 0.5rem;
-}
-
-.elephpant-icon {
-  fill: white;
-}
-
-// Forms
-ul.invalid-feedback {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-// ElePHPants
-.elephpant-controls {
-  font-size: smaller;
-}
-
-.elephpant {
-  box-shadow: 0 0 5px silver;
-}
-
-.elephpant.micro {
-  padding: 0.1rem 0.10rem 0 0.10rem;
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.elephpant.regular {
-  padding: 1.25rem .8rem 0 1.15rem;
-  height: 4rem;
-  width: 4rem;
-}
-
-.elephpant.large {
-  padding: 1.75rem 1rem 1rem 1.5rem;
-  height: 6rem;
-  width: 6rem;
-}
-
-.elephpant.black {
-  background-color: #0C111F;
-}
-.elephpant.blue {
-  background-color: #3E91C5;
-}
-.elephpant.brown {
-  background-color: #71330E;
-}
-.elephpant.gold {
-  background-color: #D4AF37;
-}
-.elephpant.gray {
-  background-color: #7C8475;
-}
-.elephpant.green {
-  background-color: #5A9C3C;
-}
-.elephpant.multicolored.phpdiversity {
-  background: linear-gradient(to right,#F669C7,#3E91C5,#1155A9,#5A9C3C,#EDDE61,#F8533A,#ED052C); /* Standard syntax */
-}
-.elephpant.multicolored.haphpy {
-  background: linear-gradient(to bottom,#ED052C,#D4AF37,#ED052C,#D4AF37,#ED052C,#D4AF37,#ED052C,#D4AF37,#ED052C); /* Standard syntax */
-}
-.elephpant.orange {
-  background-color: #F8533A;
-}
-.elephpant.pink {
-  background-color: #F669C7;
-}
-.elephpant.purple {
-  background-color: #8F77A7;
-}
-.elephpant.red {
-  background-color: #ED052C;
-}
-.elephpant.teal {
-  background-color: #189897;
-}
-.elephpant.white {
-  background-color: #F0F0F0;
-}
-.elephpant.yellow {
-  background-color: #EDDE61;
-}
-.elephpant.white .elephpant-icon {
-  fill: #0C111F;
-}
+// Override library styles
+@import "bootstrap";
+@import "font_awesome";
+@import "easy_autocomplete";
+// Custom styles
+@import "agency_theme";
+@import "elephpants";

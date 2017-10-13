@@ -24,11 +24,11 @@ final class NewUserSubscriber implements EventSubscriberInterface
 
     public function __construct(HerdRepository $herdRepository, CommandBus $commandBus)
     {
-        $this->commandBus = $commandBus;
+        $this->commandBus     = $commandBus;
         $this->herdRepository = $herdRepository;
     }
 
-    public static function getSubscribedEvents() : array
+    public static function getSubscribedEvents(): array
     {
         return [
             UserHasRegistered::NAME => 'formNewHerdWhen',
@@ -44,5 +44,4 @@ final class NewUserSubscriber implements EventSubscriberInterface
             $this->commandBus->dispatch($command);
         }
     }
-
 }

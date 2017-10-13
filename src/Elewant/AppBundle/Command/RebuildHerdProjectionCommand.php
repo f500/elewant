@@ -14,6 +14,28 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RebuildHerdProjectionCommand extends ContainerAwareCommand
 {
+    /**
+     * @var HerdProjector
+     */
+    private $herdProjector;
+    /**
+     * @var EventStore
+     */
+    private $eventStore;
+    /**
+     * @var EventBus
+     */
+    private $replayBus;
+
+    public function __construct(HerdProjector $herdProjector, EventStore $eventStore, EventBus $replayBus)
+    {
+        $this->herdProjector = $herdProjector;
+        $this->eventStore    = $eventStore;
+        $this->replayBus     = $replayBus;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this->setName('projection:herd:rebuild');
@@ -21,19 +43,13 @@ class RebuildHerdProjectionCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var HerdProjector $herdProjector */
-        $herdProjector = $this->getContainer()->get('elewant.herd_projection.herd_projector');
-        $herdProjector->clearAllTables();
+        $this->herdProjector->clearAllTables();
 
-        /** @var EventStore $eventStore */
-        $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
         $streamName = new StreamName('event');
-        $iterator   = $eventStore->replay([$streamName]);
+        $iterator   = $this->eventStore->replay([$streamName]);
 
-        /** @var EventBus $replayBus */
-        $replayBus = $this->getContainer()->get('prooph_service_bus.herd_replay_bus');
         foreach ($iterator as $key => $event) {
-            $replayBus->dispatch($event);
+            $this->replayBus->dispatch($event);
         };
     }
 }

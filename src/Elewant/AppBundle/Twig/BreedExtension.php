@@ -4,36 +4,48 @@ declare(strict_types=1);
 
 namespace Elewant\AppBundle\Twig;
 
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-final class BreedExtension extends Twig_Extension
+final class BreedExtension extends AbstractExtension
 {
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('breedColor', [$this, 'breedColorFilter']),
-            new Twig_SimpleFilter('breedSize', [$this, 'breedSizeFilter']),
-            new Twig_SimpleFilter('breedName', [$this, 'breedNameFilter']),
+            new TwigFilter('breed_color', [$this, 'breedColorFilter']),
+            new TwigFilter('breed_size', [$this, 'breedSizeFilter']),
+            new TwigFilter('breed_name', [$this, 'breedNameFilter']),
         ];
     }
 
     public function breedColorFilter(string $breed): string
     {
-        return strtolower(explode("_", $breed)[0]);
+        $color = explode('_', $breed);
+        $color = array_shift($color);
+        $color = strtolower($color);
+        $color = 'elephpant-' . $color;
+
+        return $color;
     }
 
     public function breedSizeFilter(string $breed): string
     {
-        $parts = explode("_", $breed);
-        return strtolower(end($parts));
+        $size = explode('_', $breed);
+        $size = array_pop($size);
+        $size = strtolower($size);
+        $size = 'elephpant-' . $size;
+
+        return $size;
     }
 
     public function breedNameFilter(string $breed): string
     {
-        $parts = explode("_", $breed);
-        $parts = array_slice($parts, 1, -1);
-        return strtolower(implode('_',$parts));
-    }
+        $name = explode('_', $breed);
+        $name = array_slice($name, 1, -1);
+        $name = implode('-', $name);
+        $name = strtolower($name);
+        $name = 'elephpant-' . $name;
 
+        return $name;
+    }
 }

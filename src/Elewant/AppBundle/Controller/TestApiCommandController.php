@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Leaving this intact, as this file was copied verbatim frmo the Prooph symfony example.
  * Big big thanks for their fantastic work!
@@ -9,8 +12,6 @@
  * @copyright Copyright (c) 2016 prooph software GmbH (http://prooph-software.com/)
  * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
-
-declare(strict_types=1);
 
 namespace Elewant\AppBundle\Controller;
 
@@ -89,7 +90,7 @@ final class TestApiCommandController
         return JsonResponse::create(null, Response::HTTP_ACCEPTED);
     }
 
-    private function getPayloadFromRequest(Request $request) : array
+    private function getPayloadFromRequest(Request $request): array
     {
         $payload = json_decode($request->getContent(), true);
 
