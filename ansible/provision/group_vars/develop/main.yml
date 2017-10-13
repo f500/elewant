@@ -37,7 +37,7 @@ php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
-  disable_functions: "exec, passthru, shell_exec, system, proc_open, popen, curl_multi_exec"
+  disable_functions: "exec, passthru, system, proc_open, popen, curl_multi_exec"
   opcache.revalidate_freq: off
   opcache.validate_timestamps: on
   opcache.max_accelerated_files: 20480
