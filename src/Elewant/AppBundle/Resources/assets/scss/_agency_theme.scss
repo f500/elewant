@@ -568,6 +568,23 @@ section {
     > ul {
       margin-bottom: 0;
     }
+    .elephpant {
+      margin: .25rem;
+      display: inline-block;
+      .elephpant-icon.elephpant-regular {
+        height: 2rem;
+        width: 2rem;
+        padding: .45rem .45rem .5rem .55rem;
+      }
+      .elephpant-icon.elephpant-large {
+        height: 3rem;
+        width: 3rem;
+        padding: 0.75rem 0.65rem 0.75rem 0.8rem;
+      }
+      .elephpant-title {
+        display: none;
+      }
+    }
   }
 }
 
