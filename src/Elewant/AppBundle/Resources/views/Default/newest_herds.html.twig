@@ -26,13 +26,22 @@
                                     </h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% for breed, count in entry.herd.elePHPantBreedCounts|slice(0,4, true) %}
-                                            - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
-                                        {% else %}
+                                    {% if entry.herd.elePHPantBreedCounts|length > 0 %}
+                                        <div>
+                                            {% for breed, count in entry.herd.elePHPantBreedCounts if breed|breed_size == 'elephpant-regular' %}
+                                                {{ elephpant(breed) }}
+                                            {% endfor %}
+                                        </div>
+                                        <div>
+                                            {% for breed, count in entry.herd.elePHPantBreedCounts if breed|breed_size == 'elephpant-large' %}
+                                                {{ elephpant(breed) }}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p class="text-muted">
                                             {{ 'site.newest-herds.empty-herd'|trans }}
-                                        {% endfor %}
-                                    </p>
+                                        </p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>
