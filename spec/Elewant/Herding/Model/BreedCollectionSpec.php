@@ -5,6 +5,7 @@ namespace spec\Elewant\Herding\Model;
 use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\BreedCollection;
 use PhpSpec\ObjectBehavior;
+use Traversable;
 
 class BreedCollectionSpec extends ObjectBehavior
 {
@@ -28,6 +29,27 @@ class BreedCollectionSpec extends ObjectBehavior
         $this->add(Breed::fromString(Breed::WHITE_CONFOO_LARGE));
         $this->isEmpty()->shouldReturn(false);
     }
+
+    function it_can_be_counted()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $this->add($confoo);
+        $this->add($amsterdamPHP);
+
+        $this->count()->shouldReturn(2);
+    }
+
+    function it_can_be_iterated_over()
+    {
+        $confoo       = Breed::fromString(Breed::WHITE_CONFOO_LARGE);
+        $amsterdamPHP = Breed::fromString(Breed::BLACK_AMSTERDAMPHP_REGULAR);
+        $this->add($confoo);
+        $this->add($amsterdamPHP);
+
+        $this->getIterator()->shouldImplement(Traversable::class);
+    }
+
 
     function it_adds_breeds()
     {
@@ -100,9 +122,11 @@ class BreedCollectionSpec extends ObjectBehavior
         $this->add($confoo);
         $this->add($confoo);
 
-        $expected = BreedCollection::fromArray([
-            $confoo,
-        ]);
+        $expected = BreedCollection::fromArray(
+            [
+                $confoo,
+            ]
+        );
 
         $this->equals($expected)->shouldReturn(true);
     }

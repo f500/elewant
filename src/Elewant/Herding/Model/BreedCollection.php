@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model;
 
-final class BreedCollection
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use Traversable;
+
+final class BreedCollection implements Countable, IteratorAggregate
 {
     /**
      * @var Breed[]
@@ -33,6 +38,23 @@ final class BreedCollection
         }
 
         return $collection;
+    }
+
+    public static function allRegular(): self
+    {
+        $collection = new self();
+        foreach (Breed::availableTypes() as $type) {
+            if (strstr($type, 'REGULAR') !== false) {
+                $collection->add(Breed::fromString($type));
+            }
+        }
+
+        return $collection;
+    }
+
+    public static function allLarge(): self
+    {
+        return self::allRegular()->isMissingBreedsWhenComparedTo(self::all());
     }
 
     public function isEmpty(): bool
@@ -98,5 +120,15 @@ final class BreedCollection
     public function contains(Breed $breed): bool
     {
         return in_array($breed, $this->breeds);
+    }
+
+    public function count(): int
+    {
+        return count($this->breeds);
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->breeds);
     }
 }
