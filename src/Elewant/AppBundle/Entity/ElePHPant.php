@@ -14,7 +14,7 @@ use Elewant\Herding\Model\Breed;
 class ElePHPant
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Elewant\AppBundle\Entity\Herd", inversedBy="elephpants")
+     * @ORM\ManyToOne(targetEntity="Elewant\AppBundle\Entity\Herd", inversedBy="elePHPants")
      * @ORM\JoinColumn(name="herd_id", referencedColumnName="herd_id", nullable=false)
      * @var Herd
      */

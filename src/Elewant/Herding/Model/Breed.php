@@ -74,7 +74,7 @@ class Breed
         $this->type = $type;
     }
 
-    public static function availableTypes()
+    public static function availableTypes(): array
     {
         $reflected  = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();

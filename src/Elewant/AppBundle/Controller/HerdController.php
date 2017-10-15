@@ -6,7 +6,7 @@ namespace Elewant\AppBundle\Controller;
 
 use Elewant\AppBundle\Entity\Herd;
 use Elewant\AppBundle\Repository\HerdRepository;
-use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\BreedCollection;
 use Elewant\Herding\Model\Commands\AbandonElePHPant;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
 use Elewant\UserBundle\Entity\User;
@@ -34,9 +34,10 @@ class HerdController extends Controller
         $herd = $this->getHerd($user);
 
         $data = [
-            'user'   => $user,
-            'herd'   => $herd,
-            'breeds' => Breed::availableTypes(),
+            'user'          => $user,
+            'herd'          => $herd,
+            'regularBreeds' => BreedCollection::allRegular(),
+            'largeBreeds'   => BreedCollection::allLarge(),
         ];
 
         return $this->render('ElewantAppBundle:Herd:tending.html.twig', $data);

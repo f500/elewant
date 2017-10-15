@@ -7,6 +7,8 @@ namespace Elewant\AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\BreedCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Elewant\AppBundle\Repository\HerdRepository")
@@ -44,11 +46,11 @@ class Herd
      * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\ElePHPant", mappedBy="herd", cascade={"persist"})
      * @var ArrayCollection
      */
-    private $elephpants;
+    private $elePHPants;
 
     private function __construct()
     {
-        $this->elephpants = new ArrayCollection();
+        $this->elePHPants = new ArrayCollection();
     }
 
     public function shepherdId(): string
@@ -73,21 +75,27 @@ class Herd
 
     public function elePHPants(): Collection
     {
-        return $this->elephpants;
+        return $this->elePHPants;
     }
 
-    public function elePHPantBreedCounts(): Collection
+    public function elePHPantBreeds(): BreedCollection
     {
-        $result = [];
-        foreach ($this->elephpants as $elephpant) {
-            $breed = $elephpant->breed()->toString();
-            if (!isset($result[$breed])) {
-                $result[$breed] = 0;
-            }
-            $result[$breed]++;
+        $collection = BreedCollection::fromArray([]);
+        foreach ($this->elePHPants as $elePHPant) {
+            $collection->add($elePHPant->breed());
         }
-        ksort($result);
 
-        return new ArrayCollection($result);
+        return $collection;
+    }
+
+    public function filteredByBreed(Breed $breed): Collection
+    {
+        $filtered = $this->elePHPants->filter(
+            function ($elephpant) use ($breed) {
+                return $elephpant->breed()->equals($breed);
+            }
+        );
+
+        return $filtered;
     }
 }
