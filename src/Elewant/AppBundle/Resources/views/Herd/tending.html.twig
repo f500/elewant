@@ -7,12 +7,12 @@
 
         <h3 class="mx-auto text-center">{{ herd.name }}</h3>
 
-        {% if herd.elePHPantBreeds.isEmpty %}
+        {% if herd.breeds.isEmpty %}
             {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
         {% endif %}
 
         <div class="row text-center">
-            {% for breed in herd.elePHPantBreeds %}
+            {% for breed in herd.breeds %}
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 mt-2">
                     {{ elephpant(breed, herd.filteredByBreed(breed).count, true) }}
                 </div>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        {% for breed in herd.elePHPantBreeds.isMissingBreedsWhenComparedTo(regularBreeds) %}
+                        {% for breed in herd.breeds.isMissingBreedsWhenComparedTo(regularBreeds) %}
                             <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
                                 {{ elephpant(breed, 0, true) }}
                             </div>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        {% for breed in herd.elePHPantBreeds.isMissingBreedsWhenComparedTo(largeBreeds) %}
+                        {% for breed in herd.breeds.isMissingBreedsWhenComparedTo(largeBreeds) %}
                             <div class="col-lg-4 col-sm-4 col-6 text-center mt-2">
                                 {{ elephpant(breed, 0, true) }}
                             </div>

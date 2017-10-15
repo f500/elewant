@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">
-                                        {% for breed in entry.herd.elePHPantBreeds %}
+                                        {% for breed in entry.herd.breeds %}
                                         - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
                                         {% else %}
                                             {{ 'site.newest-herds.empty-herd'|trans }}

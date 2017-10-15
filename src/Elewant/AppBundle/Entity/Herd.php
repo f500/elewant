@@ -78,7 +78,7 @@ class Herd
         return $this->elePHPants;
     }
 
-    public function elePHPantBreeds(): BreedCollection
+    public function breeds(): BreedCollection
     {
         $collection = BreedCollection::fromArray([]);
         foreach ($this->elePHPants as $elePHPant) {
