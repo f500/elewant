@@ -167,10 +167,10 @@ final class Herd extends AggregateRoot
 
     private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name): void
     {
-        $this->herdId     = $herdId;
-        $this->shepherdId = $shepherdId;
-        $this->name       = $name;
-        $this->breeds     = BreedCollection::fromArray([]);
+        $this->herdId       = $herdId;
+        $this->shepherdId   = $shepherdId;
+        $this->name         = $name;
+        $this->breeds       = BreedCollection::fromArray([]);
     }
 
     private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void

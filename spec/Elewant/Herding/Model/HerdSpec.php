@@ -119,11 +119,13 @@ class HerdSpec extends ObjectBehavior
     {
         $this->adoptElePHPant(Breed::blueOriginalRegular());
         $this->adoptElePHPant(Breed::greenZf2Regular());
-        $this->elePHPants()->shouldHaveCount(2);
+        $this->adoptElePHPant(Breed::greenZf2Regular());
+        $this->elePHPants()->shouldHaveCount(3);
         $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
 
         $this->breeds()->shouldBeAnInstanceOf(BreedCollection::class);
+        $this->breeds()->shouldHaveCount(2);
         $this->breeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
         $this->breeds()->contains(Breed::greenZf2Regular())->shouldReturn(true);
         $this->breeds()->contains(Breed::redLaravelRegular())->shouldReturn(false);
