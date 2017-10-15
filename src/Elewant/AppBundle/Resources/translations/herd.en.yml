@@ -7,6 +7,8 @@ adopting-help-text: >
   doubt, please check the definitive resource on the subject:
   %link%
 size-regular: "Regular sized:"
+all-regular-elephpants-owned: "You did the impossible! You own all the regular breeds!"
+all-large-elephpants-owned: "You did the impossible! You own all the large breeds!"
 size-large: "Large:"
 finished-button: "Finished"
 breed:
