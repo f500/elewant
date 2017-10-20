@@ -2,11 +2,7 @@
 
 <section id="contributors" class="index-section container bg-faded">
 
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h2 class="section-heading">{{ 'site.contributors.heading'|trans }}</h2>
-        </div>
-    </div>
+    <h2 class="section-heading">{{ 'site.contributors.heading'|trans }}</h2>
 
     <div class="row justify-content-md-center">
         {% for contributor in contributors|shuffle|slice(0,3) %}
@@ -26,14 +22,10 @@
         {% endfor %}
     </div>
 
-    <div class="row justify-content-md-center">
-        <div class="col col-lg-10 text-center">
-            <p class="large text-muted">
-                {% trans with {"%link%": "<a href='https://github.com/f500/elewant'>github</a>"} %}
-                site.contributors.invitation
-                {% endtrans %}
-            </p>
-        </div>
-    </div>
+    <p class="text-center text-muted">
+        {% trans with {"%link%": "<a href='https://github.com/f500/elewant'>github</a>"} %}
+        site.contributors.invitation
+        {% endtrans %}
+    </p>
 
 </section>

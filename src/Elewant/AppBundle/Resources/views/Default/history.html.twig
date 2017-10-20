@@ -3,76 +3,69 @@
 
 {% block body %}
 
-    <section id="history container">
+    <section id="history" class="container">
 
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-10">
-                <h2 class="section-heading">{{ 'title'|trans }}</h2>
-                <h3 class="section-subheading text-muted">{{ 'subtitle'|trans }}</h3>
+        <h2 class="section-heading">{{ 'title'|trans }}</h2>
+        <h3 class="section-subheading">{{ 'subtitle'|trans }}</h3>
 
-                <p class="text">
-                    {% trans with {'%link%': '<a href="http://future500.nl">Future500 B.V.</a>'} %}
-                    first-paragraph
-                    {% endtrans %}
-                </p>
-                <p class="text">
-                    {% trans %}second-paragraph{% endtrans %}
-                </p>
-            </div>
-        </div>
+        <p>
+            {% trans with {'%link%': '<a href="http://future500.nl">Future500 B.V.</a>'} %}
+            first-paragraph
+            {% endtrans %}
+        </p>
 
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-7">
-                <p class="text">
-                    {% trans with {'%link%': '<a href="https://github.com/f500/elewant/blob/develop/README.md">README.md</a>'} %}
-                    third-paragraph
-                    {% endtrans %}
-                </p>
-                <p class="text">
-                    {% trans %}fourth-paragraph{% endtrans %}
-                </p>
-            </div>
-            <div class="col col-lg-3">
-                <img class="img-fluid img-thumbnail rounded" src="{{ asset('bundles/elewantapp/img/history-1.png') }}">
-            </div>
-        </div>
+        <p>
+            {% trans %}second-paragraph{% endtrans %}
+        </p>
 
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-10">
-                <blockquote class="blockquote">
-                    <p class="text">
-                        {% trans %}fifth-paragraph{% endtrans %}
-                        <span class="blockquote-footer">Jeroen van der Gulik (@n0x13)</span>
-                    </p>
-                </blockquote>
-                <p class="text">
-                    {% trans %}sixth-paragraph{% endtrans %}
-                </p>
-                <p class="text">
-                    {% trans with {'%link%': '<a href="http://future500.nl/vacancy/">Future500</a>'} %}
-                    seventh-paragraph
-                    {% endtrans %}
-                </p>
-                <p class="text">
-                    {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        {% trans with {'%link%': '<a href="' ~ path('hwi_oauth_twitter_login') ~ '">' ~ ('site.join-the-herd'|trans) ~ '</a>' } %}
-                        eight-paragraph
-                        {% endtrans %}
-                    {% else %}
-                        {% trans with {'%link%': '<a href="' ~ path('herd_tending') ~ '">' ~ ('site.tend-to-your-herd'|trans) ~ '</a>' } %}
-                        eight-paragraph
-                        {% endtrans %}
-                    {% endif %}
-                </p>
-                <p class="text">
-                    {{ 'kind-regards'|trans }}
-                </p>
-                <p class="text">
-                    Elena, Jasper, Mitchel, Mark &amp;&amp; Ramon
-                    <img class="img-fluid img-thumbnail rounded" src="{{ asset('bundles/elewantapp/img/history-2.png') }}">
-                </p>
-            </div>
-        </div>
+        <p>
+            <img class="img-thumbnail img-half-ish rounded float-right" src="{{ asset('bundles/elewantapp/img/history-1.png') }}">
+            {% trans with {'%link%': '<a href="https://github.com/f500/elewant/blob/develop/README.md">README.md</a>'} %}
+            third-paragraph
+            {% endtrans %}
+        </p>
+
+        <p>
+            {% trans %}fourth-paragraph{% endtrans %}
+        </p>
+
+        <blockquote class="blockquote">
+            <p>
+                {% trans %}fifth-paragraph{% endtrans %}
+                <span class="blockquote-footer">Jeroen van der Gulik (@n0x13)</span>
+            </p>
+        </blockquote>
+
+        <p>
+            {% trans %}sixth-paragraph{% endtrans %}
+        </p>
+
+        <p>
+            {% trans with {'%link%': '<a href="http://future500.nl/vacancy/">Future500</a>'} %}
+            seventh-paragraph
+            {% endtrans %}
+        </p>
+
+        <p>
+            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% trans with {'%link%': '<a href="' ~ path('hwi_oauth_twitter_login') ~ '">' ~ ('site.join-the-herd'|trans) ~ '</a>' } %}
+                eight-paragraph
+                {% endtrans %}
+            {% else %}
+                {% trans with {'%link%': '<a href="' ~ path('herd_tending') ~ '">' ~ ('site.tend-to-your-herd'|trans) ~ '</a>' } %}
+                eight-paragraph
+                {% endtrans %}
+            {% endif %}
+        </p>
+
+        <p>
+            {{ 'kind-regards'|trans }}
+        </p>
+
+        <p>
+            Elena, Jasper, Mitchel, Mark &amp;&amp; Ramon
+            <img class="img-thumbnail rounded mt-3" src="{{ asset('bundles/elewantapp/img/history-2.png') }}">
+        </p>
 
     </section>
 

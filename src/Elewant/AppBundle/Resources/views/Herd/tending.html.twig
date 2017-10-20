@@ -5,7 +5,7 @@
 
     <section id="herd_tending">
 
-        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
+        <h2 class="section-heading">{{ herd.name }}</h2>
 
         {% if herd.breeds.isEmpty %}
             {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
