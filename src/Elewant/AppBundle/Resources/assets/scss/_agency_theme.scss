@@ -109,10 +109,10 @@ body {
   // Sticky navbar
   padding-top: 3.5rem;
 
-  // Semi-sticky footer (3rem extra breathing-room)
-  margin-bottom: 14.5rem;
+  // Semi-sticky footer ($section-spacing extra breathing-room)
+  margin-bottom: 11.5rem + $section-spacing;
   @include media-breakpoint-up(md) {
-    margin-bottom: 8.5rem;
+    margin-bottom: 5.5rem + $section-spacing;
   }
 }
 
@@ -394,8 +394,8 @@ header {
 // Global Section Styles
 
 section {
-  padding-top: 3rem;
-  margin-bottom: 3rem;
+  padding-top: $section-spacing;
+  margin-bottom: $section-spacing;
   &.index-section {
     box-sizing: content-box;
     min-height: 100vh;
@@ -403,7 +403,7 @@ section {
   .section-heading {
     font-size: $h1-font-size;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: $section-spacing;
   }
   .section-subheading {
     color: $gray-600;
@@ -413,7 +413,7 @@ section {
     text-transform: none;
     font-style: italic;
     font-weight: 400;
-    margin: -2.5rem 0 3rem;
+    margin: (.5rem - $section-spacing) 0 $section-spacing;
   }
 }
 
