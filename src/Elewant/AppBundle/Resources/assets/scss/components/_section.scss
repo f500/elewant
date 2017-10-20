@@ -1,0 +1,31 @@
+section {
+  padding-top: $section-spacing;
+  margin-bottom: $section-spacing;
+
+  &.index-section {
+    box-sizing: content-box;
+    min-height: 100vh;
+  }
+
+  .section-heading {
+    font-size: $h1-font-size;
+    text-align: center;
+    margin-bottom: $section-spacing;
+  }
+
+  .section-subheading {
+    color: $gray-600;
+    font-size: $h5-font-size;
+    @include serif-font;
+    text-align: center;
+    text-transform: none;
+    font-style: italic;
+    font-weight: 400;
+    margin: (.5rem - $section-spacing) 0 $section-spacing;
+  }
+}
+
+.service-heading {
+  margin: 0 0 1rem;
+  text-transform: none;
+}
