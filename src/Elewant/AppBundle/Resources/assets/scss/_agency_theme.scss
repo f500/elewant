@@ -372,20 +372,12 @@ header {
 @include media-breakpoint-up(md) {
   header {
     .intro-text {
-      padding-top: 250px;
+      padding-top: 15rem;
       .intro-lead-in {
-        @include serif-font;
-        font-style: italic;
-        font-size: 40px;
-        line-height: 40px;
-        margin-bottom: 25px;
+        font-size: 2.5rem;
       }
       .intro-heading {
-        @include heading-font;
-        font-weight: 700;
-        font-size: 70px;
-        line-height: 70px;
-        margin-bottom: 50px;
+        font-size: 4.5rem;
       }
     }
   }
@@ -420,7 +412,7 @@ section {
 // Services Section
 
 .service-heading {
-  margin: 15px 0;
+  margin: 0 0 1rem;
   text-transform: none;
 }
 
@@ -428,7 +420,7 @@ section {
 
 #portfolio {
   .portfolio-item {
-    margin: 0 0 15px;
+    margin: 0 0 1rem;
     right: 0;
     .portfolio-link {
       display: block;
@@ -489,7 +481,7 @@ section {
 @include media-breakpoint-up(md) {
   #portfolio {
     .portfolio-item {
-      margin: 0 0 30px;
+      margin: 0 0 2rem;
     }
   }
 }
@@ -511,7 +503,7 @@ section {
     margin-left: -1.5px;
   }
   > li {
-    margin-bottom: 50px;
+    margin-bottom: 3rem;
     position: relative;
     min-height: 50px;
     &:before,
@@ -685,27 +677,19 @@ section {
 
 .team-member {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: $section-spacing;
   img {
     height: 225px;
     width: 225px;
     border: 7px solid $white;
   }
   h4 {
-    margin-top: 25px;
+    margin-top: 1.5rem;
     margin-bottom: 0;
     text-transform: none;
   }
   p {
     margin-top: 0;
-  }
-}
-
-// Clients Aside
-
-aside.clients {
-  img {
-    margin: 50px auto;
   }
 }
 
