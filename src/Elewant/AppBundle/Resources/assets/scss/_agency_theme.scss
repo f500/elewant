@@ -182,9 +182,15 @@ h1, h2, h3, h4, h5, h6 {
   @include button-variant($white, $theme-primary, $theme-primary);
   @include heading-font;
   font-weight: 700;
-  border-radius: 3px;
-  font-size: 18px;
-  padding: 20px 40px;
+  border-radius: .25rem;
+  font-size: 1.125rem;
+  padding: 1.25rem 2.5rem;
+
+  .fa {
+    font-size: 2rem;
+    vertical-align: middle;
+    margin: -.4375rem .5rem -.4375rem 0;
+  }
 }
 
 .btn:focus,
