@@ -86,6 +86,16 @@ services:
         arguments:
             - "@herd_collection"
 
+    elewant.desire_breed_handler:
+        class: Elewant\Herding\Model\Handlers\DesireBreedHandler
+        arguments:
+            - "@herd_collection"
+
+    elewant.eliminate_desire_for_breed_handler:
+        class: Elewant\Herding\Model\Handlers\EliminateDesireForBreedHandler
+        arguments:
+            - "@herd_collection"
+
     elewant.abandon_herd_handler:
         class: Elewant\Herding\Model\Handlers\AbandonHerdHandler
         arguments:

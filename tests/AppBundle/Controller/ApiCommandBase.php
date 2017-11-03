@@ -60,13 +60,32 @@ abstract class ApiCommandBase extends WebTestCase
     protected function renameHerd(HerdId $herdId, string $newHerdName)
     {
         $payload = [
-            'herdId'     => $herdId->toString(),
+            'herdId'      => $herdId->toString(),
             'newHerdName' => $newHerdName,
         ];
 
         return $this->request('POST', '/testapi/commands/rename-herd', $payload);
     }
 
+    protected function desireBreed(HerdId $herdId, Breed $breed)
+    {
+        $payload = [
+            'herdId' => $herdId->toString(),
+            'breed'  => $breed->toString(),
+        ];
+
+        return $this->request('POST', '/testapi/commands/desire-breed', $payload);
+    }
+
+    protected function eliminateDesireForBreed(HerdId $herdId, Breed $breed)
+    {
+        $payload = [
+            'herdId' => $herdId->toString(),
+            'breed'  => $breed->toString(),
+        ];
+
+        return $this->request('POST', '/testapi/commands/eliminate-desire-for-breed', $payload);
+    }
 
     protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId)
     {
@@ -136,6 +155,14 @@ abstract class ApiCommandBase extends WebTestCase
         $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
 
         return $herdListing->findElePHPantsByHerdId($herdId);
+    }
+
+    protected function retrieveDesiredBreedsFromListing($herdId)
+    {
+        /** @var HerdListing $herdListing */
+        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+
+        return $herdListing->findDesiredBreedsByHerdId($herdId);
     }
 
 
