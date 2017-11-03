@@ -41,6 +41,12 @@ have any detectable PHP errors.
 
     # running phpstan
     vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src
+    
+### Humbug
+Additionally, we use the [Humbug](https://github.com/humbug/humbug) mutation testing tool to verify that the unit tests are covering code mutations. Thus preventing any accidental code change that is not caught by a PHPUnit Test.
+
+    # running *bah!* Humbug
+    TEST_SUITE=humbug bin/run_tests 
 
 ### Running the entire suite
 
