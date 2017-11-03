@@ -1,0 +1,22 @@
+.social-buttons {
+  margin-bottom: 0;
+
+  li {
+    a {
+      background-color: $gray-darker;
+      color: $white;
+      font-size: 1.25rem;
+      line-height: 2.5rem;
+      display: inline-block;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 100%;
+      outline: none;
+      transition: all .3s;
+
+      &:hover, &:focus, &:active {
+        background-color: $theme-primary;
+      }
+    }
+  }
+}

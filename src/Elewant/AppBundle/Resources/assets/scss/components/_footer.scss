@@ -1,0 +1,59 @@
+footer {
+  background-color: $gray-darker;
+  color: $white;
+  font-size: .875rem;
+  @include heading-font;
+  text-align: center;
+  text-transform: none;
+  line-height: 2.5rem;
+  padding: 1.5rem 0;
+
+  // Semi-sticky footer
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 11.5rem;
+  // End - Semi-sticky footer
+
+  .copyright {
+    line-height: 2.5rem;
+    margin: 0;
+  }
+
+  .social-buttons {
+    margin: .5rem 0;
+
+    li a {
+      background-color: $white;
+      color: $gray-darker;
+    }
+  }
+
+  .quicklinks {
+    margin: 0;
+
+    li {
+      margin: 0 .25rem;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  footer {
+    // Semi-sticky footer
+    height: 5.5rem;
+    // End - Semi-sticky footer
+
+    .copyright {
+      text-align: left;
+    }
+
+    .social-buttons {
+      margin: 0;
+    }
+
+    .quicklinks {
+      text-align: right;
+    }
+  }
+}
