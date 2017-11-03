@@ -9,6 +9,8 @@ use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\Herding\Model\BreedCollection;
 use Elewant\Herding\Model\Commands\AbandonElePHPant;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
+use Elewant\Herding\Model\Commands\DesireBreed;
+use Elewant\Herding\Model\Commands\EliminateDesireForBreed;
 use Elewant\UserBundle\Entity\User;
 use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,10 +36,11 @@ class HerdController extends Controller
         $herd = $this->getHerd($user);
 
         $data = [
-            'user'          => $user,
-            'herd'          => $herd,
-            'regularBreeds' => BreedCollection::allRegular(),
-            'largeBreeds'   => BreedCollection::allLarge(),
+            'user'              => $user,
+            'herd'              => $herd,
+            'allUnwantedBreeds' => $herd->desiredBreeds()->isMissingBreedsWhenComparedTo(BreedCollection::all()),
+            'regularBreeds'     => BreedCollection::allRegular(),
+            'largeBreeds'       => BreedCollection::allLarge(),
         ];
 
         return $this->render('ElewantAppBundle:Herd:tending.html.twig', $data);
@@ -56,7 +59,7 @@ class HerdController extends Controller
 
         $commandBus->dispatch($command);
 
-        return new JsonResponse('adoption underway');
+        return new JsonResponse('adopt_breed_underway');
     }
 
     /**
@@ -72,7 +75,39 @@ class HerdController extends Controller
 
         $commandBus->dispatch($command);
 
-        return new JsonResponse('abandonment underway');
+        return new JsonResponse('abandon_breed_underway');
+    }
+
+    /**
+     * @Route("/desire/{breed}", name="herd_desire_breed")
+     */
+    public function desireBreedAction(UserInterface $user, string $breed): Response
+    {
+        $herd = $this->getHerd($user);
+
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
+        $command    = DesireBreed::byHerd($herd->herdId(), $breed);
+
+        $commandBus->dispatch($command);
+
+        return new JsonResponse('desire_breed_underway');
+    }
+
+    /**
+     * @Route("/eliminate-desire-for/{breed}", name="herd_eliminate_desire_for_breed")
+     */
+    public function eliminateDesireForBreedAction(UserInterface $user, string $breed): Response
+    {
+        $herd = $this->getHerd($user);
+
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
+        $command    = EliminateDesireForBreed::byHerd($herd->herdId(), $breed);
+
+        $commandBus->dispatch($command);
+
+        return new JsonResponse('desire_breed_underway');
     }
 
     /**
