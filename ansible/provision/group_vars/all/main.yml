@@ -62,7 +62,6 @@ mysql_innodb_buffer_pool_size: 592M
 mysql_innodb_log_file_size: 64M
 
 mysql_slow_query_log_enabled: false
-mysql_long_query_time: 2
 
 # PHP
 
@@ -74,20 +73,26 @@ php7_versioned_extensions: [ curl, intl, mbstring, mysql, zip, xml ]
 
 php7_ini_directives_global:
   disable_functions: "exec, passthru, shell_exec, system, popen, curl_multi_exec"
-  opcache.revalidate_freq: off
-  opcache.validate_timestamps: off
+  opcache.enable_cli: on
+  opcache.fast_shutdown: off
+  opcache.interned_strings_buffer: 16
   opcache.max_accelerated_files: 20480
   opcache.memory_consumption: 128
-  opcache.interned_strings_buffer: 16
-  opcache.fast_shutdown: off
+  opcache.revalidate_freq: off
+  opcache.validate_timestamps: off
+
+php7_fpm_pool_user: www-data
+php7_fpm_pool_group: www-data
 
 # NGINX
 
+nginx_user: "{{ php7_fpm_pool_user }}"
+nginx_group: "{{ php7_fpm_pool_group }}"
 nginx_www_dir: "{{ php7_fpm_pool_chdir }}"
 nginx_use_realpath_root: yes
 
 nginx_http_headers:
-  Content-Security-Policy: "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'"
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://*.githubusercontent.com"
 
 nginx_server_templates:
   - { name: elewant, src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2" }

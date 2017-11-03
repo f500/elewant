@@ -14,8 +14,8 @@ ufw_rules_to_create:
 # MYSQL
 
 mysql_bind_address: 192.168.77.77
-mysql_root_password: elewant
 
+mysql_root_password: elewant
 mysql_passwords:
   elewant_develop: elewant
 
@@ -27,6 +27,7 @@ mysql_users:
   - { name: elewant, password: "{{ mysql_passwords.elewant_develop }}", priv: "elewant.*:ALL/elewant_test.*:ALL", host: "%" }
 
 mysql_slow_query_log_enabled: true
+mysql_long_query_time: 2
 
 # PHP
 
@@ -38,29 +39,31 @@ php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
   disable_functions: "exec, passthru, system, popen, curl_multi_exec"
-  opcache.revalidate_freq: off
-  opcache.validate_timestamps: on
+  session.cookie_secure: off
+  opcache.enable_cli: on
+  opcache.fast_shutdown: off
+  opcache.interned_strings_buffer: 16
   opcache.max_accelerated_files: 20480
   opcache.memory_consumption: 128
-  opcache.interned_strings_buffer: 16
-  opcache.fast_shutdown: off
+  opcache.revalidate_freq: off
+  opcache.validate_timestamps: on
+  xdebug.cli_color: yes
+  xdebug.collect_params: 3
   xdebug.idekey: PHPSTORM
-  xdebug.remote_enable: on
-  xdebug.remote_connect_back: on
+  xdebug.remote_enable: yes
   xdebug.remote_host: 192.168.77.1
+  xdebug.remote_port: 9000
+  xdebug.var_display_max_depth: 4
 
 php7_ini_directives_fpm:
-  session.cookie_secure: off
-  disable_functions: "passthru, system, popen, curl_multi_exec"
   xdebug.remote_autostart: on
 
 # NGINX
 
 nginx_user: "{{ php7_fpm_pool_user }}"
 nginx_group: "{{ php7_fpm_pool_group }}"
-nginx_use_realpath_root: yes
-
 nginx_dhparam_bits: 128
+nginx_use_realpath_root: yes
 
 nginx_http_headers:
   Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'"
@@ -86,8 +89,8 @@ elewant_delivery_address: "~"
 elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
 elewant_twitter_client: "needs_client_id"
 elewant_twitter_secret: "needs_client_secret"
-elewant_tweets_are_active:            false
-elewant_tweets_app_consumerkey:       "~"
-elewant_tweets_app_consumersecret:    "~"
-elewant_tweets_app_accesstoken:       "~"
+elewant_tweets_are_active: false
+elewant_tweets_app_consumerkey: "~"
+elewant_tweets_app_consumersecret: "~"
+elewant_tweets_app_accesstoken: "~"
 elewant_tweets_app_accesstokensecret: "~"
