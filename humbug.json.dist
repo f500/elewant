@@ -1,7 +1,7 @@
 {
     "source": {
         "directories": [
-            "tests"
+            "src"
         ]
     },
     "timeout": 10,
