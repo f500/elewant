@@ -23,7 +23,6 @@ install:
 
 before_script:
   - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - phpenv config-rm xdebug.ini
 
 script:
   - bin/run_tests
