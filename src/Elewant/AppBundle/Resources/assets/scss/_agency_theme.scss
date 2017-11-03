@@ -109,10 +109,10 @@ body {
   // Sticky navbar
   padding-top: 3.5rem;
 
-  // Semi-sticky footer
-  margin-bottom: 11.5rem;
+  // Semi-sticky footer ($section-spacing extra breathing-room)
+  margin-bottom: 11.5rem + $section-spacing;
   @include media-breakpoint-up(md) {
-    margin-bottom: 5.5rem;
+    margin-bottom: 5.5rem + $section-spacing;
   }
 }
 
@@ -138,6 +138,32 @@ h1, h2, h3, h4, h5, h6 {
   @include heading-font;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+// Thumbnail images
+
+.img-thumbnail {
+  &.float-left {
+    margin: 0 $paragraph-margin-bottom $paragraph-margin-bottom 0;
+  }
+  &.img-thumbnail.float-right {
+    margin: 0 0 $paragraph-margin-bottom $paragraph-margin-bottom;
+  }
+  &.img-half-ish {
+    width: 55%;
+    @include media-breakpoint-up(sm) {
+      width: 50%;
+    }
+    @include media-breakpoint-up(md) {
+      width: 45%;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 40%;
+    }
+    @include media-breakpoint-up(xl) {
+      width: 35%;
+    }
+  }
 }
 
 // Restyled Primary Buttons
@@ -368,23 +394,26 @@ header {
 // Global Section Styles
 
 section {
-  padding: 3rem 0;
+  padding-top: $section-spacing;
+  margin-bottom: $section-spacing;
   &.index-section {
     box-sizing: content-box;
     min-height: 100vh;
   }
-  h2.section-heading {
-    font-size: 40px;
-    margin-top: 0;
-    margin-bottom: 15px;
+  .section-heading {
+    font-size: $h1-font-size;
+    text-align: center;
+    margin-bottom: $section-spacing;
   }
-  h3.section-subheading {
-    font-size: 16px;
+  .section-subheading {
+    color: $gray-600;
+    font-size: $h5-font-size;
     @include serif-font;
+    text-align: center;
     text-transform: none;
     font-style: italic;
     font-weight: 400;
-    margin-bottom: 75px;
+    margin: (.5rem - $section-spacing) 0 $section-spacing;
   }
 }
 

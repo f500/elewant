@@ -1,56 +1,48 @@
-<section id="newest_herds" class="index-section">
-    <div class="container">
+<section id="newest_herds" class="index-section container">
 
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">{{ 'site.newest-herds.heading'|trans }}</h2>
-                <h3 class="section-subheading text-muted">{{ 'site.newest-herds.subtext'|trans }}</h3>
-            </div>
-        </div>
+    <h2 class="section-heading">{{ 'site.newest-herds.heading'|trans }}</h2>
+    <h3 class="section-subheading">{{ 'site.newest-herds.subtext'|trans }}</h3>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="timeline">
+    <ul class="timeline">
 
-                    {% for entry in newest_herds %}
-                        <li class="{% if loop.index is odd %}timeline-inverted{% endif %}">
-                            <div class="timeline-image">
-                                <img class="rounded-circle img-fluid" src="{{ asset('bundles/elewantapp/img/newest-herds/' ~ loop.index ~ '.jpg') }}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{{ entry.herd.formedOn|date('Y-m-d') }}</h4>
-                                    <h4 class="subheading">
-                                        <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ icon('external-link fw') }}</a>
-                                        {{ entry.herd.name }}
-                                    </h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% for breed in entry.herd.breeds %}
-                                        - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
-                                        {% else %}
-                                            {{ 'site.newest-herds.empty-herd'|trans }}
-                                        {% endfor %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-
-                    <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>{{ 'site.join-the-herd'|trans }}!</h4></a>
+        {% for entry in newest_herds %}
+            <li class="{% if loop.index is odd %}timeline-inverted{% endif %}">
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ asset('bundles/elewantapp/img/newest-herds/' ~ loop.index ~ '.jpg') }}" alt="">
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>{{ entry.herd.formedOn|date('Y-m-d') }}</h4>
+                        <h4 class="subheading">
+                            <a href="{{ path('shepherd_admire_herd', {'username': entry.username }) }}">{{ icon('external-link fw') }}</a>
+                            {{ entry.herd.name }}
+                        </h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">
+                            {% for breed in entry.herd.breeds %}
+                                - {{ ("breed." ~ breed)|trans({}, "herd") }}<br>
                             {% else %}
-                                <a class="text-white" href="{{ path('herd_tending') }}"><h4>{{ 'site.tend-to-your-herd'|trans }}!</h4></a>
-                            {% endif %}
-                        </div>
-                    </li>
+                                {{ 'site.newest-herds.empty-herd'|trans }}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
 
-                </ul>
+        <li class="timeline-inverted">
+            <div class="timeline-image">
+                {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a class="text-white" href="{{ path('herd_tending') }}">
+                        <h4>{{ 'site.join-the-herd'|trans }}!</h4></a>
+                {% else %}
+                    <a class="text-white" href="{{ path('herd_tending') }}">
+                        <h4>{{ 'site.tend-to-your-herd'|trans }}!</h4></a>
+                {% endif %}
             </div>
-        </div>
+        </li>
 
-    </div>
+    </ul>
+
 </section>
