@@ -2,6 +2,15 @@ language: php
 php:
   - '7.1'
 
+env:
+  - TEST_SUITE="main"
+  - TEST_SUITE="humbug"
+
+matrix:
+  allow_failures:
+    - env: TEST_SUITE="humbug"
+
+
 branches:
   - only:
     - master
