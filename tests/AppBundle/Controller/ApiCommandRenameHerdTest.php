@@ -32,7 +32,7 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
     {
         TestCase::assertCount(2, $this->recordedEvents);
 
-        $eventUnderTest = $this->recordedEvents[1];
+        $eventUnderTest = end($this->recordedEvents[1]);
         TestCase::assertInstanceOf(HerdWasRenamed::class, $eventUnderTest);
         TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
@@ -40,7 +40,7 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
     public function test_command_rename_herd_created_a_correct_herd_projection()
     {
         /** @var HerdWasRenamed $eventUnderTest */
-        $eventUnderTest = $this->recordedEvents[1];
+        $eventUnderTest = end($this->recordedEvents[1]);
 
         $projectedHerd = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
 
