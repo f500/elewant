@@ -28,7 +28,7 @@
   gather_facts: yes
 
   pre_tasks:
-    - name: Ensure the PHP-FPM chdir exists
+    - name: Ensure the PHP FPM chdir / Nginx www dir exists
       file:
         path: "{{ php7_fpm_pool_chdir }}"
         owner: "{{ php7_fpm_pool_user }}"
