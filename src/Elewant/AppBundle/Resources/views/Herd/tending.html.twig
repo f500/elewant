@@ -5,16 +5,16 @@
 
     <section id="herd_tending">
 
-        <h3 class="mx-auto text-center">{{ herd.name }}</h3>
+        <h2 class="section-heading">{{ herd.name }}</h2>
 
-        {% if not herd.elePHPantBreedCounts|length %}
+        {% if herd.breeds.isEmpty %}
             {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
         {% endif %}
 
         <div class="row text-center">
-            {% for breed, count in herd.elePHPantBreedCounts %}
+            {% for breed in herd.breeds %}
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 mt-2">
-                    {{ elephpant(breed, count, true) }}
+                    {{ elephpant(breed, herd.filteredByBreed(breed).count, true) }}
                 </div>
             {% endfor %}
         </div>
@@ -43,7 +43,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             {% trans with {'%link%': '<a href="http://afieldguidetoelephpants.net/#index" target="_blank" rel="noopener noreferrer">A Field Guide to Elephpants</a>'} %}
-                                adopting-help-text
+                            adopting-help-text
                             {% endtrans %}
                         </div>
                     </div>
@@ -53,9 +53,13 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        {% for breed in breeds if 'REGULAR' in breed %}
+                        {% for breed in herd.breeds.isMissingBreedsWhenComparedTo(regularBreeds) %}
                             <div class="col-lg-3 col-sm-4 col-6 text-center mt-2">
                                 {{ elephpant(breed, 0, true) }}
+                            </div>
+                        {% else %}
+                            <div class="col-12">
+                                {{ alert('all-regular-elephpants-owned'|trans, 'success') }}
                             </div>
                         {% endfor %}
                     </div>
@@ -65,9 +69,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        {% for breed in breeds if 'LARGE' in breed %}
+                        {% for breed in herd.breeds.isMissingBreedsWhenComparedTo(largeBreeds) %}
                             <div class="col-lg-4 col-sm-4 col-6 text-center mt-2">
                                 {{ elephpant(breed, 0, true) }}
+                            </div>
+                        {% else %}
+                            <div class="col-12">
+                                {{ alert('all-large-elephpants-owned'|trans, 'success') }}
                             </div>
                         {% endfor %}
                     </div>

@@ -3,6 +3,7 @@
 namespace spec\Elewant\Herding\Model;
 
 use Elewant\Herding\Model\Breed;
+use Elewant\Herding\Model\BreedCollection;
 use Elewant\Herding\Model\Herd;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Model\SorryICanNotChangeHerd;
@@ -112,6 +113,20 @@ class HerdSpec extends ObjectBehavior
 
         $this->isAbandoned()->shouldReturn(true);
         $this->shouldThrow(SorryICanNotChangeHerd::class)->during('adoptElePHPant', [Breed::blueOriginalRegular()]);
+    }
+
+    function it_contains_a_breedcollection()
+    {
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->adoptElePHPant(Breed::greenZf2Regular());
+        $this->elePHPants()->shouldHaveCount(2);
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
+
+        $this->breeds()->shouldBeAnInstanceOf(BreedCollection::class);
+        $this->breeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
+        $this->breeds()->contains(Breed::greenZf2Regular())->shouldReturn(true);
+        $this->breeds()->contains(Breed::redLaravelRegular())->shouldReturn(false);
     }
 
     public function getMatchers()

@@ -2,29 +2,21 @@
 
 # GENERAL
 
-elewant_deploy_user_username:       deploy
-elewant_deploy_user_password:       ~ # secure.yml
-elewant_deploy_user_public_key:     ~ # secure.yml
-elewant_deploy_user_private_key:    ~ # secure.yml
+elewant_deploy_user_username: deploy
+elewant_deploy_user_password: ~     # secure.yml
+elewant_deploy_user_public_key: ~   # secure.yml
+elewant_deploy_user_private_key: ~  # secure.yml
 
 ssh_provision_user: "provision"
+
 project_root: /home/deploy
-
-# UFW
-
-ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 443 }
 
 # MYSQL
 
-mysql_bind_address: 127.0.0.1
-mysql_root_password: ~ # secure.yml
-
+mysql_root_password: ~   # secure.yml
 mysql_passwords:
-  elewant_staging: ~ # secure.yml
-  elewant_production: ~ # secure.yml
+  elewant_staging: ~     # secure.yml
+  elewant_production: ~  # secure.yml
 
 mysql_databases:
   - elewant_staging
@@ -34,38 +26,7 @@ mysql_users:
   - { name: elewant_production, password: "{{ mysql_passwords.elewant_production }}", priv: "elewant_production.*:ALL", host: "%" }
   - { name: elewant_staging, password: "{{ mysql_passwords.elewant_staging }}", priv: "elewant_staging.*:ALL", host: "%" }
 
-mysql_slow_query_log_enabled: true
-
-# PHP
-
-php7_extensions: [ apcu ]
-php7_versioned_extensions: [ curl, intl, mbstring, mysql, sqlite3, zip, xml ]
-
-php7_fpm_pool_user: www-data
-php7_fpm_pool_group: www-data
-
-php7_ini_directives_global:
-  disable_functions: "exec, passthru, shell_exec, system, popen, curl_multi_exec"
-  opcache.revalidate_freq: off
-  opcache.validate_timestamps: on
-  opcache.max_accelerated_files: 20480
-  opcache.memory_consumption: 128
-  opcache.interned_strings_buffer: 16
-  opcache.fast_shutdown: off
-
-php7_ini_directives_fpm:
-  session.cookie_secure: off
-
 # NGINX
-
-nginx_user: "{{ php7_fpm_pool_user }}"
-nginx_group: "{{ php7_fpm_pool_group }}"
-nginx_use_realpath_root: yes
-
-nginx_dhparam_bits: 128
-
-nginx_http_headers:
-  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://*.githubusercontent.com"
 
 nginx_server_templates:
   - name: elewant

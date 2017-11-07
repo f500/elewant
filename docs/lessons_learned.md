@@ -46,3 +46,10 @@ access to routes from within javascript. I followed the manual
 
 ---
 
+**name:** Edwin Kortman
+
+**I learned about:** Humbug Mutation Testing! I was aware of the code variety that could exist, 
+I was not aware of any solid testing frameworks. Although not sufficient for usage in automated testing Humbug is a 
+neat little tool that allows you to give you a new insight into your code and how your tests are testing them. 
+
+---

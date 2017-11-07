@@ -22,6 +22,7 @@ class Breed
     const DENIM_ZEND_REGULAR                = "DENIM_ZEND_REGULAR";
     const GOLD_OPENGOODIES_REGULAR          = 'GOLD_OPENGOODIES_REGULAR';
     const GRAY_HACK_REGULAR                 = 'GRAY_HACK_REGULAR';
+    const GRAY_ROAVE_REGULAR                = 'GRAY_ROAVE_REGULAR';
     const GREEN_ZF2_REGULAR                 = 'GREEN_ZF2_REGULAR';
     const MULTICOLORED_HAPHPY_REGULAR       = 'MULTICOLORED_HAPHPY_REGULAR';
     const MULTICOLORED_PHPDIVERSITY_REGULAR = 'MULTICOLORED_PHPDIVERSITY_REGULAR';
@@ -74,7 +75,7 @@ class Breed
         $this->type = $type;
     }
 
-    public static function availableTypes()
+    public static function availableTypes(): array
     {
         $reflected  = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();

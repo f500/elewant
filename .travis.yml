@@ -2,6 +2,15 @@ language: php
 php:
   - '7.1'
 
+env:
+  - TEST_SUITE="main"
+  - TEST_SUITE="humbug"
+
+matrix:
+  allow_failures:
+    - env: TEST_SUITE="humbug"
+
+
 branches:
   - only:
     - master
@@ -23,7 +32,6 @@ install:
 
 before_script:
   - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - phpenv config-rm xdebug.ini
 
 script:
   - bin/run_tests
