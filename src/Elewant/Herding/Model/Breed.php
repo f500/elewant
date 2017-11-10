@@ -80,8 +80,6 @@ class Breed
         $reflected  = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();
 
-        sort($validTypes);
-
         return $validTypes;
     }
 

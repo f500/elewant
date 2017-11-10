@@ -119,14 +119,58 @@ class HerdSpec extends ObjectBehavior
     {
         $this->adoptElePHPant(Breed::blueOriginalRegular());
         $this->adoptElePHPant(Breed::greenZf2Regular());
-        $this->elePHPants()->shouldHaveCount(2);
+        $this->adoptElePHPant(Breed::greenZf2Regular());
+        $this->elePHPants()->shouldHaveCount(3);
         $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
 
         $this->breeds()->shouldBeAnInstanceOf(BreedCollection::class);
+        $this->breeds()->shouldHaveCount(2);
         $this->breeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
         $this->breeds()->contains(Breed::greenZf2Regular())->shouldReturn(true);
         $this->breeds()->contains(Breed::redLaravelRegular())->shouldReturn(false);
+    }
+
+    function it_contains_a_desired_breedcollection()
+    {
+        $this->desiredBreeds()->shouldHaveType(BreedCollection::class);
+    }
+
+    function it_can_desire_a_new_breed()
+    {
+        $this->desireBreed(Breed::blueOriginalRegular());
+        $this->desireBreed(Breed::greenZf2Regular());
+
+        $this->desiredBreeds()->shouldHaveCount(2);
+        $this->desiredBreeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
+        $this->desiredBreeds()->contains(Breed::greenZf2Regular())->shouldReturn(true);
+        $this->desiredBreeds()->contains(Breed::redLaravelRegular())->shouldReturn(false);
+    }
+
+    function it_can_desire_a_new_breed_multiple_times()
+    {
+        $this->desireBreed(Breed::blueOriginalRegular());
+        $this->desireBreed(Breed::blueOriginalRegular());
+        $this->desireBreed(Breed::blueOriginalRegular());
+
+        $this->desiredBreeds()->shouldHaveCount(1);
+        $this->desiredBreeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
+    }
+
+    function it_can_eliminate_the_desire_for_a_new_breed()
+    {
+        $this->desireBreed(Breed::greenZf2Regular());
+        $this->desiredBreeds()->shouldHaveCount(1);
+
+        $this->eliminateDesireForBreed(Breed::greenZf2Regular());
+        $this->desiredBreeds()->shouldHaveCount(0);
+    }
+
+    function it_can_eliminate_the_desire_for_a_breed_it_did_not_desire()
+    {
+        $this->eliminateDesireForBreed(Breed::greenZf2Regular());
+        $this->eliminateDesireForBreed(Breed::greenZf2Regular());
+        $this->desiredBreeds()->shouldHaveCount(0);
     }
 
     public function getMatchers()

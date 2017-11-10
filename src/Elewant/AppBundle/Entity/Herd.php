@@ -48,6 +48,12 @@ class Herd
      */
     private $elePHPants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\DesiredBreed", mappedBy="herd", cascade={"persist"})
+     * @var ArrayCollection
+     */
+    private $desiredBreeds;
+
     private function __construct()
     {
         $this->elePHPants = new ArrayCollection();
@@ -83,6 +89,16 @@ class Herd
         $collection = BreedCollection::fromArray([]);
         foreach ($this->elePHPants as $elePHPant) {
             $collection->add($elePHPant->breed());
+        }
+
+        return $collection;
+    }
+
+    public function desiredBreeds(): BreedCollection
+    {
+        $collection = BreedCollection::fromArray([]);
+        foreach ($this->desiredBreeds as $desiredBreed) {
+            $collection->add($desiredBreed->breed());
         }
 
         return $collection;

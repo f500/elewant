@@ -1,15 +1,26 @@
 no-elephpants-yet: "Hey %name%, you do not have any ElePHPants yet. Add them if you own them!"
-adopt-button: "Adopt new ElePHPants"
+no-desired-breeds-yet: "If you want a certain type of ElePHPant, add it here."
+adopt-button: "I have new ElePHPants"
+desire-breed-button: "I'm looking for ElePHPants"
 adopting-elephpants-title: "Add new ElePHPants to your Herd"
+desiring-breeds-title: "Tell us which ElePHPant you want"
+desire-text: >
+  These are the breeds that you are looking for. Click on a breed if you no longer want an
+  ElePHPant of that type.
 adopting-help-text: >
   Adopting ElePHPants is sometimes hard work. You see, you'll need to identify the breed
   correctly! You might get enough from the color and the description, but if you are in
   doubt, please check the definitive resource on the subject:
   %link%
+desiring-help-text: >
+  Clicking on an icon here will add it to the list of ElePHPants that you are looking for.
+  We will then try to match you with ElePHPants available for trade from other users.
 size-regular: "Regular sized:"
 all-regular-elephpants-owned: "You did the impossible! You own all the regular breeds!"
 all-large-elephpants-owned: "You did the impossible! You own all the large breeds!"
 size-large: "Large:"
+breeds-not-yet-owned: "Breeds that you don't own yet"
+breeds-already-owned: "Breeds already owned"
 finished-button: "Finished"
 breed:
   BLACK_AMSTERDAMPHP_REGULAR: "AmsterdamPHP"
