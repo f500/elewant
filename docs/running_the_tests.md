@@ -15,8 +15,8 @@ actually the case.
 ### PHPUNIT
 
 Then there are some tests that try to run the application through the framework, after bootstrapping. This helps to
-verify that all the configuration/wiring is in order. Those tests are written in [phpunit](https://phpunit.de/), but using the Symfony
-WebTestCase as a base. The tests are located in the `/test` folder.
+verify that all the configuration/wiring is in order. Those tests are written in [phpunit](https://phpunit.de/), but
+using the Symfony WebTestCase as a base. The tests are located in the `/test` folder.
 
     # running the phpunit test suite:
     vendor/bin/phpunit
@@ -43,10 +43,19 @@ have any detectable PHP errors.
     vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src
     
 ### Humbug
-Additionally, we use the [Humbug](https://github.com/humbug/humbug) mutation testing tool to verify that the unit tests are covering code mutations. Thus preventing any accidental code change that is not caught by a PHPUnit Test.
+
+Additionally, we use the [Humbug](https://github.com/humbug/humbug) mutation testing tool to verify that the unit
+tests are covering code mutations. Thus preventing any accidental code change that is not caught by a PHPUnit Test.
 
     # running *bah!* Humbug
     TEST_SUITE=humbug bin/run_tests 
+
+### Debugging
+
+For all the test suites (or any other command) you have the option to run the debugger form the commandline:
+
+    # phpd is an alias for "php+start_the_debugger"
+    phpd vendor/bin/phpspec run
 
 ### Running the entire suite
 

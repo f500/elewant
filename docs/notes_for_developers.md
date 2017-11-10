@@ -18,3 +18,13 @@ This removes all the events in the eventstore. Handy if you want to remove all t
  
 This truncates  the herd and elephpant tables, and rebuilds them by running all the events
 in the eventstore again. Handy if you are working on the projections and want to check your work
+
+### Step debugging
+
+The Vagrantbox is set up with XDebug, ready to connect to your favorite IDE (I'm guessing that's PHPstorm).
+All you need to do is install an XDEBUG browser plugin, and set PHPStorm to listen to incoming connections.
+
+If you want to debug a console command, or one of the tests maybe, then you can use a convenient alias:
+
+    phpd bin/console
+    phpd vendor/bin/phpspec run
