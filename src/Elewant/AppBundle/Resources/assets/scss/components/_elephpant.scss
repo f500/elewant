@@ -51,6 +51,10 @@
     background-color: $brown;
   }
 
+  &.elephpant-cream {
+    background-color: $cream;
+  }
+
   &.elephpant-denim {
     background-color: $denim;
   }
@@ -112,10 +116,6 @@
     > svg {
       fill: $gray-900;
     }
-  }
-
-  &.elephpant-cream {
-    background-color: $cream;
   }
 
 }
