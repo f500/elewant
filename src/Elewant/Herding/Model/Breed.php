@@ -34,6 +34,7 @@ class Breed
     const RED_CHILI_REGULAR                 = 'RED_CHILI_REGULAR';
     const RED_LARAVEL_REGULAR               = 'RED_LARAVEL_REGULAR';
     const TEAL_ZEND_REGULAR                 = 'TEAL_ZEND_REGULAR';
+    const TURQUOISE_CAKE_FEST_REGULAR       = 'TURQUOISE_CAKE_FEST_REGULAR';
     const WHITE_CONFOO_REGULAR              = 'WHITE_CONFOO_REGULAR';
     const WHITE_DPC_REGULAR                 = 'WHITE_DPC_REGULAR';
     const WHITE_GLOBALIS_REGULAR            = 'WHITE_GLOBALIS_REGULAR';
