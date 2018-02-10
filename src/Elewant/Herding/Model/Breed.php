@@ -30,6 +30,7 @@ class Breed
     const PINK_OPENGOODIES_REGULAR          = 'PINK_OPENGOODIES_REGULAR';
     const PINK_ORIGINAL_REGULAR             = 'PINK_ORIGINAL_REGULAR';
     const PURPLE_PHPWOMEN_REGULAR           = 'PURPLE_PHPWOMEN_REGULAR';
+    const RED_CAKE_PHP_REGULAR              = 'RED_CAKE_PHP_REGULAR';
     const RED_CHILI_REGULAR                 = 'RED_CHILI_REGULAR';
     const RED_LARAVEL_REGULAR               = 'RED_LARAVEL_REGULAR';
     const TEAL_ZEND_REGULAR                 = 'TEAL_ZEND_REGULAR';
