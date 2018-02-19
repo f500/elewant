@@ -25,6 +25,7 @@ class Breed
     const DENIM_ZEND_REGULAR                = "DENIM_ZEND_REGULAR";
     const GOLD_OPENGOODIES_REGULAR          = 'GOLD_OPENGOODIES_REGULAR';
     const GRAY_HACK_REGULAR                 = 'GRAY_HACK_REGULAR';
+    const GRAY_MAGENTO_REGULAR              = 'GRAY_MAGENTO_REGULAR';
     const GRAY_ROAVE_REGULAR                = 'GRAY_ROAVE_REGULAR';
     const GREEN_ZF2_REGULAR                 = 'GREEN_ZF2_REGULAR';
     const MULTICOLORED_HAPHPY_REGULAR       = 'MULTICOLORED_HAPHPY_REGULAR';
