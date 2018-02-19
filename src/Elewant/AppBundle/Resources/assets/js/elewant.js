@@ -49,7 +49,34 @@ $(function () {
         });
     });
 
-    $('#adoptElePHPants').on('hidden.bs.modal', function () {
+    $("#desire_breeds").find(".elephpant").click(function (event) {
+        var breedChoice = $(this).data("breed");
+
+        $.ajax({
+            url: Routing.generate('herd_desire_breed', { 'breed': breedChoice }),
+            data: [],
+            context: this,
+            success: function () {
+                $(this).remove();
+            }
+        });
+    });
+
+    $("#desired_breeds").find(".elephpant").click(function (event) {
+        var breedChoice = $(this).data("breed");
+
+        $.ajax({
+            url: Routing.generate('herd_eliminate_desire_for_breed', { 'breed': breedChoice }),
+            data: [],
+            context: this,
+            success: function () {
+                $(this).remove();
+            }
+        });
+    });
+
+
+    $('#adopt_elephpants, #desire_breeds').on('hidden.bs.modal', function () {
         location.reload();
     });
 });

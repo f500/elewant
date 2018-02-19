@@ -9,7 +9,10 @@ that is called `Adopting`. When a shepherd removes an ElePHPant from a herd, tha
 If a shepherd decides to end a herd, that entire herd is `Abandoned`. A Herd can also be `Renamed`.
 
 Every `ElePHPant` is a certain `Breed`. When looking at a Herd, we can look at all it's ElePHPants, but
-also at every _unique_ Breed in that Herd, and the total number of ElePHPants of each Breed. 
+also at every _unique_ Breed in that Herd, and the total number of ElePHPants of each Breed.
+
+A `Herd` can desire new `Breeds`. When a `Herd` no longer desires a certain `Breed`, it can `Eliminate` that desire.
+
 
 So when dealing with herds, we currently have the following command (event):
 
@@ -17,6 +20,9 @@ So when dealing with herds, we currently have the following command (event):
 - AdoptElePHPant (ElePHPantWasAdoptedByHerd)
 - AbandonElePHPant (ElePHPantWasAbandonedByHerd)
 - AbandonHerd (HerdWasAbandoned)
+- RenameHerd (HerdWasRenamed)
+- DesireBreed (BreedWasDesiredByHerd)
+- EliminateDesireForBreed (BreedDesireWasEliminatedByHerd)
 
 
 Decisions

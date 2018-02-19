@@ -1,21 +1,34 @@
 no-elephpants-yet: "Hey %name%, you do not have any ElePHPants yet. Add them if you own them!"
-adopt-button: "Adopt new ElePHPants"
+no-desired-breeds-yet: "If you want a certain type of ElePHPant, add it here."
+adopt-button: "I have new ElePHPants"
+desire-breed-button: "I'm looking for ElePHPants"
 adopting-elephpants-title: "Add new ElePHPants to your Herd"
+desiring-breeds-title: "Tell us which ElePHPant you want"
+desire-text: >
+  These are the breeds that you are looking for. Click on a breed if you no longer want an
+  ElePHPant of that type.
 adopting-help-text: >
   Adopting ElePHPants is sometimes hard work. You see, you'll need to identify the breed
   correctly! You might get enough from the color and the description, but if you are in
   doubt, please check the definitive resource on the subject:
   %link%
+desiring-help-text: >
+  Clicking on an icon here will add it to the list of ElePHPants that you are looking for.
+  We will then try to match you with ElePHPants available for trade from other users.
 size-regular: "Regular sized:"
 all-regular-elephpants-owned: "You did the impossible! You own all the regular breeds!"
 all-large-elephpants-owned: "You did the impossible! You own all the large breeds!"
 size-large: "Large:"
+breeds-not-yet-owned: "Breeds that you don't own yet"
+breeds-already-owned: "Breeds already owned"
 finished-button: "Finished"
 breed:
   BLACK_AMSTERDAMPHP_REGULAR: "AmsterdamPHP"
   BLACK_SYMFONY_REGULAR: "Symfony"
   BLACK_SYMFONY_10_YEARS_REGULAR: "Symfony 10yr"
+  BLUE_AFUP_REGULAR: "AFUP"
   BLUE_APIGILITY_REGULAR: "Apigility"
+  BLUE_CAKE_DC_REGULAR: "CakeDC"
   BLUE_OPENGOODIES_REGULAR: "OpenGoodies Blue"
   BLUE_ORACLE_REGULAR: "Oracle Blue"
   BLUE_ORIGINAL_REGULAR: "Original Blue"
@@ -23,9 +36,11 @@ breed:
   BLUE_ZEND_REGULAR: "Zend Blue"
   BLUE_ZRAY_REGULAR: "Zray"
   BROWN_TRUENORTHPHP_REGULAR: "TrueNorthPHP"
+  CREAM_CAKE_SF_REGULAR: "CakeSF"
   DENIM_ZEND_REGULAR: "Zend Denim"
   GOLD_OPENGOODIES_REGULAR: "Gold"
   GRAY_HACK_REGULAR: "pHackyderm"
+  GRAY_MAGENTO_REGULAR: "Magento"
   GRAY_ROAVE_REGULAR: "Roave"
   GREEN_ZF2_REGULAR: "ZF2"
   MULTICOLORED_HAPHPY_REGULAR: "HaPHPy"
@@ -33,10 +48,13 @@ breed:
   ORANGE_PHPARCH_REGULAR: "PHPArchitect"
   PINK_OPENGOODIES_REGULAR: "OpenGoodies Pink"
   PINK_ORIGINAL_REGULAR: "Original Pink"
+  PURPLE_HEROKU_REGULAR: "Heroku"
   PURPLE_PHPWOMEN_REGULAR: "PHPWomen"
+  RED_CAKE_PHP_REGULAR: "CakePHP"
   RED_CHILI_REGULAR: "Zend Red"
   RED_LARAVEL_REGULAR: "Laravel"
   TEAL_ZEND_REGULAR: "Zend PHP7"
+  TURQUOISE_CAKE_FEST_REGULAR: "CakeFest"
   WHITE_CONFOO_REGULAR: "Confoo"
   WHITE_DPC_REGULAR: "DPC"
   WHITE_GLOBALIS_REGULAR: "Globalis"

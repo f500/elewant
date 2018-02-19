@@ -17,3 +17,11 @@
 'command::rename-herd':
     path: '/testapi/commands/rename-herd'
     defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\RenameHerd' }
+
+'command::desire-breed':
+    path: '/testapi/commands/desire-breed'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\DesireBreed' }
+
+'command::eliminate-desire-for-breed':
+    path: '/testapi/commands/eliminate-desire-for-breed'
+    defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\EliminateDesireForBreed' }

@@ -61,4 +61,15 @@ final class HerdListing
 
         return $qb->execute()->fetch();
     }
+
+    public function findDesiredBreedsByHerdId($herdId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb->select('*')
+            ->from(HerdProjector::TABLE_DESIRED_BREEDS)
+            ->where('herd_id = :herdId')
+            ->setParameter('herdId', $herdId);
+
+        return $qb->execute()->fetchAll();
+    }
 }

@@ -92,6 +92,12 @@
         line: cd /vagrant
         insertafter: EOF
 
+    - name: Add the phpd alias for easy debugging from cli
+      lineinfile:
+        dest: /home/vagrant/.profile
+        line: "alias phpd=\"php -dxdebug.remote_autostart=On\""
+        insertafter: EOF
+
     - name: Copy parameters.yml
       template:
         src: "{{ playbook_dir }}/../deploy/templates/app/parameters.yml.j2"

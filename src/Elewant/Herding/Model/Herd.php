@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model;
 
+use Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd;
+use Elewant\Herding\Model\Events\BreedWasDesiredByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
@@ -31,6 +33,9 @@ final class Herd extends AggregateRoot
 
     /** @var  BreedCollection */
     private $breeds;
+
+    /** @var  BreedCollection */
+    private $desiredBreeds;
 
     public static function form(ShepherdId $shepherdId, string $name): self
     {
@@ -66,6 +71,11 @@ final class Herd extends AggregateRoot
     public function breeds(): BreedCollection
     {
         return $this->breeds;
+    }
+
+    public function desiredBreeds(): BreedCollection
+    {
+        return $this->desiredBreeds;
     }
 
     public function isAbandoned(): bool
@@ -110,7 +120,7 @@ final class Herd extends AggregateRoot
         );
     }
 
-    public function abandonElePHPant(Breed $breed)
+    public function abandonElePHPant(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
         $this->guardContainsThisBreed($breed);
@@ -132,6 +142,31 @@ final class Herd extends AggregateRoot
         throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
     }
 
+    public function desireBreed(Breed $breed): void
+    {
+        $this->guardIsNotAbandoned();
+
+        $this->recordThat(
+            BreedWasDesiredByHerd::tookPlace(
+                $this->herdId,
+                $breed
+            )
+        );
+    }
+
+    public function eliminateDesireForBreed(Breed $breed): void
+    {
+        $this->guardIsNotAbandoned();
+
+        $this->recordThat(
+            BreedDesireWasEliminatedByHerd::tookPlace(
+                $this->herdId,
+                $breed
+            )
+        );
+    }
+
+
     protected function aggregateId(): string
     {
         return $this->herdId->toString();
@@ -146,11 +181,11 @@ final class Herd extends AggregateRoot
                 break;
             case ElePHPantWasAdoptedByHerd::class:
                 /** @var ElePHPantWasAdoptedByHerd $event */
-                $this->applyAnElePHPantWasAdoptedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
+                $this->applyAnElePHPantWasAdoptedByHerd($event->elePHPantId(), $event->breed());
                 break;
             case ElePHPantWasAbandonedByHerd::class:
                 /** @var ElePHPantWasAbandonedByHerd $event */
-                $this->applyAnElePHPantWasAbandonedByHerd($event->herdId(), $event->elePHPantId(), $event->breed());
+                $this->applyAnElePHPantWasAbandonedByHerd($event->elePHPantId(), $event->breed());
                 break;
             case HerdWasRenamed::class:
                 /** @var HerdWasRenamed $event */
@@ -158,7 +193,15 @@ final class Herd extends AggregateRoot
                 break;
             case HerdWasAbandoned::class:
                 /** @var HerdWasAbandoned $event */
-                $this->applyHerdWasAbandoned($event->herdId(), $event->shepherdId());
+                $this->applyHerdWasAbandoned();
+                break;
+            case BreedWasDesiredByHerd::class:
+                /** @var BreedWasDesiredByHerd $event */
+                $this->applyBreedWasDesiredByHerd($event->breed());
+                break;
+            case BreedDesireWasEliminatedByHerd::class:
+                /** @var BreedDesireWasEliminatedByHerd $event */
+                $this->applyBreedDesireWasEliminatedByHerd($event->breed());
                 break;
             default:
                 throw SorryIDontKnowThat::event($this, $event);
@@ -167,19 +210,20 @@ final class Herd extends AggregateRoot
 
     private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name): void
     {
-        $this->herdId     = $herdId;
-        $this->shepherdId = $shepherdId;
-        $this->name       = $name;
-        $this->breeds     = BreedCollection::fromArray([]);
+        $this->herdId        = $herdId;
+        $this->shepherdId    = $shepherdId;
+        $this->name          = $name;
+        $this->breeds        = BreedCollection::fromArray([]);
+        $this->desiredBreeds = BreedCollection::fromArray([]);
     }
 
-    private function applyAnElePHPantWasAdoptedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
+    private function applyAnElePHPantWasAdoptedByHerd(ElePHPantId $elePHPantId, Breed $breed): void
     {
         $this->breeds->add($breed);
         $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }
 
-    private function applyAnElePHPantWasAbandonedByHerd(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): void
+    private function applyAnElePHPantWasAbandonedByHerd(ElePHPantId $elePHPantId, Breed $breed): void
     {
         $this->breeds->remove($breed);
         foreach ($this->elePHPants as $key => $elePHPant) {
@@ -189,14 +233,24 @@ final class Herd extends AggregateRoot
         }
     }
 
-    private function applyHerdWasAbandoned($herdId, $shepherdId)
+    private function applyHerdWasAbandoned(): void
     {
         $this->abandoned = true;
     }
 
-    private function applyHerdWasRenamed(string $newHerdName)
+    private function applyHerdWasRenamed(string $newHerdName): void
     {
         $this->name = $newHerdName;
+    }
+
+    private function applyBreedWasDesiredByHerd(Breed $breed): void
+    {
+        $this->desiredBreeds->add($breed);
+    }
+
+    private function applyBreedDesireWasEliminatedByHerd(Breed $breed): void
+    {
+        $this->desiredBreeds->remove($breed);
     }
 
     private function guardIsNotAbandoned()

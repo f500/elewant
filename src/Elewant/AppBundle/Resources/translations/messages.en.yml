@@ -43,3 +43,7 @@ site:
     contributions: '[1,9] Some nice additions|[10,29] Quite a few changes|[30,99] A lof of work done!|[100,+Inf[ No private life'
     invitation: "You can find the repository on %link%, and become one of the amazing contributors in no time at all!"
     failed-to-load: "Contributors could not be loaded"
+
+shepherd:
+  has.elephpants: "{0} Has no ElePHPants yet|{1} Has exactly one ElePHPant|]1,Inf[ Is the proud owner of %count% ElePHPants"
+  is.looking.for.breeds: "...and is looking for the following Breeds:"

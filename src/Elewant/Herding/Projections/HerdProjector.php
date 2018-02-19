@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Elewant\Herding\Projections;
 
 use Doctrine\DBAL\Connection;
+use Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd;
+use Elewant\Herding\Model\Events\BreedWasDesiredByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
 use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
@@ -13,8 +15,9 @@ use Elewant\Herding\Model\Events\HerdWasRenamed;
 
 final class HerdProjector
 {
-    const TABLE_HERD      = 'herd';
-    const TABLE_ELEPHPANT = 'elephpant';
+    const TABLE_HERD           = 'herd';
+    const TABLE_ELEPHPANT      = 'elephpant';
+    const TABLE_DESIRED_BREEDS = 'desired_breed';
 
     /**
      * @var Connection
@@ -71,6 +74,29 @@ final class HerdProjector
             self::TABLE_ELEPHPANT,
             [
                 'elephpant_id' => $event->elePHPantId()->toString(),
+            ]
+        );
+    }
+
+    public function onBreedWasDesiredByHerd(BreedWasDesiredByHerd $event)
+    {
+        $this->connection->insert(
+            self::TABLE_DESIRED_BREEDS,
+            [
+                'herd_id'      => $event->herdId()->toString(),
+                'breed'        => $event->breed()->toString(),
+                'desired_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
+
+    public function onBreedDesireWasEliminatedByHerd(BreedDesireWasEliminatedByHerd $event)
+    {
+        $this->connection->delete(
+            self::TABLE_DESIRED_BREEDS,
+            [
+                'herd_id'      => $event->herdId()->toString(),
+                'breed'        => $event->breed()->toString(),
             ]
         );
     }
