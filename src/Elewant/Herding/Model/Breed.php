@@ -13,6 +13,7 @@ class Breed
     const BLACK_SYMFONY_REGULAR             = 'BLACK_SYMFONY_REGULAR';
     const BLUE_AFUP_REGULAR                 = 'BLUE_AFUP_REGULAR';
     const BLUE_APIGILITY_REGULAR            = 'BLUE_APIGILITY_REGULAR';
+    const BLUE_CAKE_DC_REGULAR              = 'BLUE_CAKE_DC_REGULAR';
     const BLUE_OPENGOODIES_REGULAR          = 'BLUE_OPENGOODIES_REGULAR';
     const BLUE_ORACLE_REGULAR               = 'BLUE_ORACLE_REGULAR';
     const BLUE_ORIGINAL_REGULAR             = 'BLUE_ORIGINAL_REGULAR';
@@ -20,6 +21,7 @@ class Breed
     const BLUE_ZEND_REGULAR                 = 'BLUE_ZEND_REGULAR';
     const BLUE_ZRAY_REGULAR                 = 'BLUE_ZRAY_REGULAR';
     const BROWN_TRUENORTHPHP_REGULAR        = 'BROWN_TRUENORTHPHP_REGULAR';
+    const CREAM_CAKE_SF_REGULAR             = 'CREAM_CAKE_SF_REGULAR';
     const DENIM_ZEND_REGULAR                = "DENIM_ZEND_REGULAR";
     const GOLD_OPENGOODIES_REGULAR          = 'GOLD_OPENGOODIES_REGULAR';
     const GRAY_HACK_REGULAR                 = 'GRAY_HACK_REGULAR';
@@ -31,9 +33,11 @@ class Breed
     const PINK_OPENGOODIES_REGULAR          = 'PINK_OPENGOODIES_REGULAR';
     const PINK_ORIGINAL_REGULAR             = 'PINK_ORIGINAL_REGULAR';
     const PURPLE_PHPWOMEN_REGULAR           = 'PURPLE_PHPWOMEN_REGULAR';
+    const RED_CAKE_PHP_REGULAR              = 'RED_CAKE_PHP_REGULAR';
     const RED_CHILI_REGULAR                 = 'RED_CHILI_REGULAR';
     const RED_LARAVEL_REGULAR               = 'RED_LARAVEL_REGULAR';
     const TEAL_ZEND_REGULAR                 = 'TEAL_ZEND_REGULAR';
+    const TURQUOISE_CAKE_FEST_REGULAR       = 'TURQUOISE_CAKE_FEST_REGULAR';
     const WHITE_CONFOO_REGULAR              = 'WHITE_CONFOO_REGULAR';
     const WHITE_DPC_REGULAR                 = 'WHITE_DPC_REGULAR';
     const WHITE_GLOBALIS_REGULAR            = 'WHITE_GLOBALIS_REGULAR';
