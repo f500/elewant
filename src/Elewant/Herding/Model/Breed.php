@@ -18,6 +18,7 @@ class Breed
     const BLUE_ORACLE_REGULAR               = 'BLUE_ORACLE_REGULAR';
     const BLUE_ORIGINAL_REGULAR             = 'BLUE_ORIGINAL_REGULAR';
     const BLUE_SHOPWARE_REGULAR             = 'BLUE_SHOPWARE_REGULAR';
+    const BLUE_YORKSHIRE_REGULAR            = 'BLUE_YORKSHIRE_REGULAR';
     const BLUE_ZEND_REGULAR                 = 'BLUE_ZEND_REGULAR';
     const BLUE_ZRAY_REGULAR                 = 'BLUE_ZRAY_REGULAR';
     const BROWN_TRUENORTHPHP_REGULAR        = 'BROWN_TRUENORTHPHP_REGULAR';
