@@ -62,16 +62,16 @@
         },
         {
             "name": "beberlei/assert",
-            "version": "v2.7.8",
+            "version": "v2.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "be6aa40e3f2d2f0766f159409ab9a80c8db6ca23"
+                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/be6aa40e3f2d2f0766f159409ab9a80c8db6ca23",
-                "reference": "be6aa40e3f2d2f0766f159409ab9a80c8db6ca23",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/c07fe163d6a3b3e4b1275981ec004397954afa89",
+                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.1.1",
-                "phpunit/phpunit": "^4|^5"
+                "phpunit/phpunit": "^4.8.35|^5.7"
             },
             "type": "library",
             "autoload": {
@@ -113,7 +113,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2017-10-20T15:59:40+00:00"
+            "time": "2018-04-16T11:18:27+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -4740,6 +4740,7 @@
                 "testing",
                 "unit testing"
             ],
+            "abandoned": "infection/infection",
             "time": "2017-10-18T09:34:32+00:00"
         },
         {
