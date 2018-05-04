@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\Command;
 
 use DateTimeImmutable;
-use DateTimeInterface;
 use Elewant\AppBundle\Event\HerdingStatisticsGenerated;
 use Elewant\AppBundle\Service\HerdingStatisticsCalculator;
 use Symfony\Component\Console\Command\Command;
@@ -73,12 +72,13 @@ class HerdingStatisticsCommand extends Command
     }
 
     /**
-     * @param $inputFrom
-     * @param $inputTo
+     * @param string|null $inputFrom
+     * @param string|null $inputTo
      *
-     * @return DateTimeInterface[]
+     * @return DateTimeImmutable[]
+     * @throws \Exception
      */
-    private function prepareDateArguments($inputFrom, $inputTo): array
+    private function prepareDateArguments(?string $inputFrom, ?string $inputTo): array
     {
         $from = new DateTimeImmutable($inputFrom ?? 'monday last week');
         $to   = ($inputTo === null) ? $from->modify('+6 days') : new DateTimeImmutable($inputTo);

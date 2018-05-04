@@ -50,7 +50,7 @@ class ElePHPant
         return $this->breed;
     }
 
-    public function adoptedOn(): \Datetime
+    public function adoptedOn(): \DateTime
     {
         return $this->adoptedOn;
     }

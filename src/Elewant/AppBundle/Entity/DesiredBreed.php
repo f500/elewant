@@ -44,7 +44,7 @@ class DesiredBreed
         return $this->breed;
     }
 
-    public function desiredOn(): \Datetime
+    public function desiredOn(): \DateTime
     {
         return $this->desiredOn;
     }

@@ -69,7 +69,7 @@ class Herd
         return $this->name;
     }
 
-    public function formedOn(): \Datetime
+    public function formedOn(): \DateTime
     {
         return $this->formedOn;
     }
