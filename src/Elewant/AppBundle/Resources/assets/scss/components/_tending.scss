@@ -1,0 +1,19 @@
+.change-herd-name-icon {
+  font-size: 1rem;
+  color: #cccccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #fecc36;
+  }
+}
+
+.save-rename-herd {
+  cursor: pointer;
+  color: #fecc36;
+}
+
+.rename-herd-input {
+  border: 0;
+  text-align: center;
+}

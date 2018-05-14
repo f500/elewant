@@ -69,6 +69,11 @@ module.exports = function (grunt) {
                     'web/build/fonts/fontawesome-webfont.woff': 'node_modules/font-awesome/fonts/fontawesome-webfont.woff',
                     'web/build/fonts/fontawesome-webfont.woff2': 'node_modules/font-awesome/fonts/fontawesome-webfont.woff2'
                 }
+            },
+            'javascripts': {
+                files: {
+                    'web/build/js/rename-herd.js': 'src/Elewant/AppBundle/Resources/assets/js/rename-herd.js'
+                }
             }
         },
 

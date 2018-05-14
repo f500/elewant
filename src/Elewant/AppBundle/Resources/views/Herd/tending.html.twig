@@ -1,11 +1,22 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
 {% trans_default_domain "herd" %}
 
+{% block javascripts %}
+    <script type="application/javascript" src="{{ asset('build/js/rename-herd.js') }}"></script>
+    <script type="application/javascript">
+        var herdNameHolder     = $("#herd_tending");
+        var renameHerdFunction = new RenameHerd(herdNameHolder);
+
+        renameHerdFunction.initialize();
+    </script>
+{% endblock %}
+
 {% block content %}
-
     <section id="herd_tending">
-
-        <h2 class="section-heading">{{ herd.name }}</h2>
+        <h2 id="herd-name-holder" class="section-heading">
+            <span id="herd-name">{{ herd.name }}</span>
+            <i id="rename-herd" class="fa fa-pencil-square change-herd-name-icon"></i>
+        </h2>
 
         {% if herd.breeds.isEmpty %}
             {{ alert('no-elephpants-yet'|trans({'%name%': app.user.displayName}), 'warning') }}
