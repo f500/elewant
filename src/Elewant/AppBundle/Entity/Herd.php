@@ -107,8 +107,8 @@ class Herd
     public function filteredByBreed(Breed $breed): Collection
     {
         $filtered = $this->elePHPants->filter(
-            function ($elephpant) use ($breed) {
-                return $elephpant->breed()->equals($breed);
+            function (ElePHPant $elePHPant) use ($breed) {
+                return $elePHPant->breed()->equals($breed);
             }
         );
 
