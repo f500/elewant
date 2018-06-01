@@ -111,7 +111,7 @@ class HerdController extends Controller
     }
 
     /**
-     * @param User|UserInterface $user
+     * @param UserInterface|User $user
      *
      * @return Herd
      * @throws NotFoundHttpException
