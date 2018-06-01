@@ -94,8 +94,6 @@ hwi_oauth:
         account_connector:         elewant.security.account.connector
 
 httplug:
-    plugins:
-        logger: ~
     clients:
         guzzle:
             factory: 'httplug.factory.guzzle6'

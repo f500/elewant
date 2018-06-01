@@ -131,6 +131,7 @@ services:
 
     elewant.herd.herd_repository:
         class: Elewant\AppBundle\Repository\HerdRepository
+        public: true
         factory: [ "@doctrine.orm.entity_manager", getRepository ]
         arguments:
             - Elewant\AppBundle\Entity\Herd
