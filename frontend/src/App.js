@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React, { Component } from "react";
+import { Card, CardBody, CardText } from "reactstrap";
+import logo from "./logo.svg";
+import "./App.scss";
 
 class App extends Component {
   render() {
@@ -10,9 +11,21 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xs">
+              <Card>
+                <CardBody>
+                  <CardText>
+                    To get started, edit <code>src/App.js</code> and save to
+                    reload.
+                  </CardText>
+                </CardBody>
+              </Card>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
