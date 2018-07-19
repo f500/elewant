@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardText } from "reactstrap";
+import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import logo from "./logo.svg";
 import "./App.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCoffee,
+  faThumbsUp,
+  faFlag
+} from "@fortawesome/free-solid-svg-icons";
 
 class App extends Component {
   render() {
@@ -17,6 +23,11 @@ class App extends Component {
             <div class="col-xs">
               <Card>
                 <CardBody>
+                  <CardTitle className="App-title">
+                    <FontAwesomeIcon icon={faCoffee} />
+                    <FontAwesomeIcon icon={faFlag} />
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                  </CardTitle>
                   <CardText>
                     To get started, edit <code>src/App.js</code> and save to
                     reload.
