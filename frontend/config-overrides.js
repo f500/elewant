@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const path = require("path");
-const { loaderNameMatches } = require("react-app-rewired");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const { loaderNameMatches } = require('react-app-rewired');
 
 module.exports = (config, env) => {
-  const envIsProd = env === "production";
+  const envIsProd = env === 'production';
 
   config = rewireSass(config, envIsProd);
 
@@ -25,9 +25,8 @@ const rewireSass = (config, envIsProd) => {
   // Find the exact loader
   let styleLoader = !envIsProd
     ? styleIndexAndRules.rules[styleIndexAndRules.index].use[0]
-    : findRule(styleIndexAndRules.rules[styleIndexAndRules.index], rule =>
-        loaderNameMatches(rule, "style-loader")
-      ).loader;
+    : findRule(styleIndexAndRules.rules[styleIndexAndRules.index], rule => loaderNameMatches(rule, 'style-loader'))
+        .loader;
 
   // Build new rules
   let styleRules = {
@@ -42,9 +41,7 @@ const rewireSass = (config, envIsProd) => {
    */
 
   // Find current rules
-  let cssRules = findRule(config.module.rules, rule =>
-    loaderNameMatches(rule, "css-loader")
-  );
+  let cssRules = findRule(config.module.rules, rule => loaderNameMatches(rule, 'css-loader'));
 
   // Append options
   Object.assign(cssRules.options, {
@@ -58,9 +55,7 @@ const rewireSass = (config, envIsProd) => {
    */
 
   // Find current rules
-  let postcssRules = findRule(config.module.rules, rule =>
-    loaderNameMatches(rule, "postcss-loader")
-  );
+  let postcssRules = findRule(config.module.rules, rule => loaderNameMatches(rule, 'postcss-loader'));
 
   // Append options
   Object.assign(postcssRules.options, {
@@ -72,7 +67,7 @@ const rewireSass = (config, envIsProd) => {
    */
 
   let sassRules = {
-    loader: path.resolve(__dirname, "node_modules/sass-loader/lib/loader.js"),
+    loader: path.resolve(__dirname, 'node_modules/sass-loader/lib/loader.js'),
     options: {
       sourceMap: !envIsProd
     }
@@ -98,11 +93,7 @@ const rewireSass = (config, envIsProd) => {
   };
 
   // Replace style-loader rules with the correct chain
-  styleIndexAndRules.rules.splice(
-    styleIndexAndRules.index,
-    1,
-    envIsProd ? sassChainProd : sassChainDev
-  );
+  styleIndexAndRules.rules.splice(styleIndexAndRules.index, 1, envIsProd ? sassChainProd : sassChainDev);
 
   // Exclude SASS from the wildcard rules
   let fileRule = findRule(config.module.rules, rule => {
@@ -117,9 +108,7 @@ const rewireSass = (config, envIsProd) => {
 const findRule = (rules, matcher) => {
   let indexAndRules = findIndexAndRules(rules, matcher);
 
-  return indexAndRules.found
-    ? indexAndRules.rules[indexAndRules.index]
-    : undefined;
+  return indexAndRules.found ? indexAndRules.rules[indexAndRules.index] : undefined;
 };
 
 const findIndexAndRules = (rules, matcher) => {
@@ -128,9 +117,7 @@ const findIndexAndRules = (rules, matcher) => {
   rules = Array.isArray(rules) ? rules : findChildren(rules);
 
   rules.some((rule, index) => {
-    indexAndRules = matcher(rule)
-      ? { found: true, index, rules }
-      : findIndexAndRules(findChildren(rule), matcher);
+    indexAndRules = matcher(rule) ? { found: true, index, rules } : findIndexAndRules(findChildren(rule), matcher);
 
     return indexAndRules.found;
   });
@@ -139,7 +126,5 @@ const findIndexAndRules = (rules, matcher) => {
 };
 
 const findChildren = rule => {
-  return (
-    rule.use || rule.oneOf || (Array.isArray(rule.loader) && rule.loader) || []
-  );
+  return rule.use || rule.oneOf || (Array.isArray(rule.loader) && rule.loader) || [];
 };

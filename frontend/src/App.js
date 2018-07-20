@@ -1,13 +1,9 @@
-import React, { Component } from "react";
-import { Card, CardBody, CardTitle, CardText } from "reactstrap";
-import logo from "./logo.svg";
-import "./App.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCoffee,
-  faThumbsUp,
-  faFlag
-} from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from 'react';
+import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import logo from './logo.svg';
+import './App.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee, faThumbsUp, faFlag } from '@fortawesome/free-solid-svg-icons';
 
 class App extends Component {
   render() {
@@ -18,9 +14,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
 
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-xs">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-xs">
               <Card>
                 <CardBody>
                   <CardTitle className="App-title">
@@ -29,8 +25,7 @@ class App extends Component {
                     <FontAwesomeIcon icon={faThumbsUp} />
                   </CardTitle>
                   <CardText>
-                    To get started, edit <code>src/App.js</code> and save to
-                    reload.
+                    To get started, edit <code>src/App.js</code> and save to reload.
                   </CardText>
                 </CardBody>
               </Card>
