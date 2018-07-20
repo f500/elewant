@@ -1,16 +1,6 @@
 {% extends 'ElewantAppBundle::Layout/base.html.twig' %}
 {% trans_default_domain "herd" %}
 
-{% block javascripts %}
-    <script type="application/javascript" src="{{ asset('build/js/rename-herd.js') }}"></script>
-    <script type="application/javascript">
-        var herdNameHolder     = $("#herd_tending");
-        var renameHerdFunction = new RenameHerd(herdNameHolder);
-
-        renameHerdFunction.initialize();
-    </script>
-{% endblock %}
-
 {% block content %}
     <section id="herd_tending">
         <h2 id="herd-name-holder" class="section-heading">
