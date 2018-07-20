@@ -34,13 +34,13 @@ class RenameHerdSpec extends ObjectBehavior
         $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
     }
 
-    function it_cannot_have_a_herd_nane_that_starts_with_a_space()
+    function it_cannot_have_a_herd_name_that_starts_with_a_space()
     {
         $this->beConstructedThrough('forShepherd', ['id_does_not_matter', ' name']);
         $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
     }
 
-    function it_cannot_have_a_herd_nane_that_ends_with_a_space()
+    function it_cannot_have_a_herd_name_that_ends_with_a_space()
     {
         $this->beConstructedThrough('forShepherd', ['id_does_not_matter', 'name ']);
         $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
