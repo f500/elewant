@@ -1,0 +1,23 @@
+@import 'node_modules/bootstrap/scss/_functions.scss';
+@import 'node_modules/bootstrap/scss/_variables.scss';
+
+$footer-bg: mix($gray-100, $gray-200, 50%);
+$footer-height: $nav-link-height + $navbar-padding-y * 2;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: $footer-height;
+}
+
+.elewant-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  line-height: $footer-height;
+  background-color: $footer-bg;
+}
