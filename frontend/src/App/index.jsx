@@ -1,8 +1,8 @@
-import Footer from './Footer';
-import Game from '../TicTacToe';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Navigation from './Navigation';
+import Game from '../TicTacToe';
+import Footer from './Footer';
 
 import './index.scss';
 

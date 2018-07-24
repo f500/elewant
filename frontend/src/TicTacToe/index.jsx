@@ -104,7 +104,9 @@ class Game extends React.Component {
 
       return (
         <li key={move}>
-          <Button outline size="sm" onClick={() => this.jumpTo(move)}>{desc}</Button>
+          <Button outline size="sm" onClick={() => this.jumpTo(move)}>
+            {desc}
+          </Button>
         </li>
       );
     });
