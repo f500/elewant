@@ -43,7 +43,7 @@ nginx_server_templates:
     src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2"
     ssl_cert: "/etc/letsencrypt/live/staging.elewant.com/fullchain.pem"
     ssl_cert_key: "/etc/letsencrypt/live/staging.elewant.com/privkey.pem"
-    domain:
+    domains:
       - "staging.elewant.com"
     web_root: "{{ project_root }}/staging.elewant.com/current/web"
     index: "app.php"
