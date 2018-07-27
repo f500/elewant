@@ -1,58 +1,18 @@
-import { Button, Container } from 'reactstrap';
 import React from 'react';
+import Game from './components/Game';
 
-import './index.scss';
-
-function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-}
-
-function Board(props) {
-  const renderSquare = i => {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
-  };
-
-  return (
-    <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  );
-}
-
-class Game extends React.Component {
+class TicTacToeContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      history: [
-        {
-          squares: Array(9).fill(null)
-        }
-      ],
+      history: [{ squares: Array(9).fill(null) }],
       stepNumber: 0,
       xIsNext: true
     };
   }
 
-  handleClick(i) {
+  handleBoardClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
 
@@ -73,7 +33,7 @@ class Game extends React.Component {
     });
   }
 
-  jumpTo(step) {
+  handleHistoryClick(step) {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0
@@ -99,39 +59,17 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
-
-      return (
-        <li key={move}>
-          <Button outline size="sm" onClick={() => this.jumpTo(move)}>
-            {desc}
-          </Button>
-        </li>
-      );
-    });
-
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
-      <Container>
-        <div className="game">
-          <div className="game-board">
-            <Board squares={current.squares} onClick={i => this.handleClick(i)} />
-          </div>
-          <div className="game-info">
-            <div>{status}</div>
-            <ol>{moves}</ol>
-          </div>
-        </div>
-      </Container>
+      <Game
+        history={history}
+        current={current}
+        xIsNext={this.state.xIsNext}
+        winner={winner}
+        onHistoryClick={move => this.handleHistoryClick(move)}
+        onBoardClick={i => this.handleBoardClick(i)}
+      />
     );
   }
 }
 
-export default Game;
+export default TicTacToeContainer;

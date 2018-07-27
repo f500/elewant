@@ -1,0 +1,20 @@
+.tictactoe-game {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.tictactoe-game-info {
+  margin-left: 20px;
+
+  > ol,
+  > ul {
+    list-style-type: none;
+    margin-top: 20px;
+    padding-left: 0;
+
+    > li {
+      margin-bottom: 5px;
+    }
+  }
+}

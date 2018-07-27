@@ -1,0 +1,26 @@
+@import 'node_modules/bootstrap/scss/_functions.scss';
+@import 'node_modules/bootstrap/scss/_variables.scss';
+
+.tictactoe-square {
+  background: $body-bg;
+  border: 1px solid $body-color;
+  cursor: crosshair;
+  float: left;
+  font-size: $font-size-lg;
+  font-weight: bold;
+  height: 34px;
+  line-height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.tictactoe-square:focus {
+  outline: none;
+}
+
+.kbd-navigation .tictactoe-square:focus {
+  background: $body-color;
+}
