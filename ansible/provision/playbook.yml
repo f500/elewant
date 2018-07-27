@@ -7,6 +7,7 @@
   gather_facts: yes
 
   roles:
+    - geerlingguy.certbot
     - { role: deployment_user,
         deployment_user: '{{ elewant_deploy_user_username }}',
         deployment_user_password: "{{ elewant_deploy_user_password }}",
@@ -20,6 +21,17 @@
 
     - name: Setup cron for renew certificates
       cron: name="certbot renew certificates" minute=0 hour=2,6 job="service nginx stop && certbot renew && service nginx start"
+
+    - name: Check for absent certificates
+      stat:
+        path: /etc/letsencrypt/live/{{ item.domains | first }}/cert.pem
+      with_items: "{{ certbot_certs }}"
+      register: webserver_letsencrypt
+
+    - name: Create certificates
+      shell: "{{ certbot_create_command }}"
+      with_items: "{{ webserver_letsencrypt.results }}"
+      when: not item.stat.exists
 
 - name: Provision globally
   hosts: all

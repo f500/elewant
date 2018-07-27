@@ -9,7 +9,7 @@ server {
 
 server {
     listen      443 ssl;
-    server_name {{ item.server_name }};
+    server_name {{ item.domains | join(' ') }};
 
     root  {{ item.web_root }};
     index {{ item.index }};
@@ -33,5 +33,11 @@ server {
         fastcgi_pass  unix:/var/run/php/php{{ php7_version }}-fpm.sock;
         fastcgi_index {{ item.index }};
         include       fastcgi_params;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root {{ nginx_www_dir }};
+        log_not_found off;
+        try_files $uri =404;
     }
 }
