@@ -97,6 +97,21 @@ nginx_http_headers:
 nginx_server_templates:
   - { name: elewant, src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2" }
 
+# CERTBOT
+
+certbot_create_method: webroot
+certbot_create_command: "{{ certbot_script }} certonly --webroot --webroot-path {{ nginx_www_dir }} --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ cert_item.domains | join(',') }}"
+certbot_create_if_missing: yes
+certbot_auto_renew_hour: 1
+certbot_auto_renew_minute: 11
+certbot_admin_email: support@future500.nl
+certbot_certs:
+  - domains:
+    - "elewant.com"
+    - "www.elewant.com"
+  - domains:
+    - "staging.elewant.com"
+
 # APP
 
 elewant_application_root: ~

@@ -14,3 +14,4 @@
 - { src: f500.nodejs, version: v2.0.0 }
 - { src: f500.project_deploy, version: v3.2.2 }
 - { src: HanXHX.mysql }
+- { src: geerlingguy.certbot, version: 3.0.0 }
