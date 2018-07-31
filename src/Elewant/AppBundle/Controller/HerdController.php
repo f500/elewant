@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/herd", options={"expose"=true})
@@ -121,6 +122,7 @@ class HerdController extends Controller
     {
         $name = trim($request->request->get('name', ''));
 
+        /** @var ValidatorInterface $validator */
         $validator = $this->get('validator');
 
         $constraints = [
