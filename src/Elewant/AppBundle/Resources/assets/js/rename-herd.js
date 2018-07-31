@@ -10,18 +10,19 @@
  * @param location
  * @constructor
  */
-function RenameHerd(location) {
-    var herdNameHolder        = location.find('#herd-name-holder');
+function RenameHerd(location)
+{
+    var herdNameHolder = location.find('#herd-name-holder');
     var herdNameHolderContent = null;
-    var currentHerdName       = herdNameHolder.find('#herd-name').text();
+    var currentHerdName = herdNameHolder.find('#herd-name').text();
 
     this.initialize = function () {
-        $(herdNameHolder).on('click', '#rename-herd', function() {
+        $(herdNameHolder).on('click', '#rename-herd', function () {
             editName();
         });
     };
 
-    var editName = function() {
+    var editName = function () {
         herdNameHolderContent = herdNameHolder.html();
 
         herdNameHolder.html(
@@ -29,10 +30,10 @@ function RenameHerd(location) {
             '<i id="save-rename-herd" class="fa fa-check-square save-rename-herd"></i>'
         );
 
-        var input  = herdNameHolder.find('#rename-herd-input');
+        var input = herdNameHolder.find('#rename-herd-input');
         var button = herdNameHolder.find('#save-rename-herd');
 
-        input.on('keyup', function(e) {
+        input.on('keyup', function (e) {
             if (e.keyCode === 27) {
                 resetName();
             }
@@ -59,14 +60,14 @@ function RenameHerd(location) {
         clearErrors();
 
         $.post('/herd/rename-herd', {'name': herdName})
-        .always(function(jqXHR, status) {
+        .always(function (jqXHR, status) {
             if (status === 'success') {
                 currentHerdName = herdName;
             } else {
                 herdNameHolder.find('#herd-name').html(currentHerdName);
 
                 var errorMessages = jqXHR.responseJSON.errorMessages;
-                $.each(errorMessages, function(key, value) {
+                $.each(errorMessages, function (key, value) {
                     addError(value);
                 });
             }
@@ -77,18 +78,18 @@ function RenameHerd(location) {
         herdNameHolder.find('#herd-name').html(currentHerdName);
     };
 
-    var addError = function(error) {
+    var addError = function (error) {
         herdNameHolder.after(
             '<div class="alert alert-danger alert-dismissible fade show rename-validation-error" role="alert">' +
-                error +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
-                '</button>' +
+            error +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' +
             '</div>'
         );
     };
 
-    var clearErrors = function() {
+    var clearErrors = function () {
         location.find('.rename-validation-error').remove();
     };
 }

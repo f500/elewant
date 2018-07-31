@@ -31,10 +31,11 @@ class RenameHerd extends Command
         return $this->payload['newHerdName'];
     }
 
-    private function protect() {
+    private function protect()
+    {
         $newHerdName = $this->payload['newHerdName'];
 
-        Assert::lengthBetween($newHerdName,1, 50);
+        Assert::lengthBetween($newHerdName, 1, 50);
         Assert::regex($newHerdName, '/^[^\s]+.*[^\s]+$/');
     }
 }
