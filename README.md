@@ -40,9 +40,8 @@ Feel free to add anything you learn, no matter how small, to <docs/lessons_learn
 ### Getting started
 
 You will need some tools on your local system:
-
-    [Virtual box](https://www.virtualbox.org/)
-    [Ansible](https://www.ansible.com/)
+- [Virtual box](https://www.virtualbox.org/)
+- [Ansible](https://www.ansible.com/)
 
 Add the following line to your hostsfile:
 
