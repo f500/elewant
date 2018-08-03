@@ -31,6 +31,22 @@ project_templates:
 
 project_deploy_hook_on_finalize: "{{ playbook_dir }}/hooks/perform-build.yml"
 
+project_unwanted_items:
+  - .git
+  - ansible
+  - app/config/config_dev.yml
+  - app/config/config_test.yml
+  - app/config/routing_dev.yml
+  - composer.outdated
+  - phpcs.xml
+  - phpspec.yml.dist
+  - phpstan.neon
+  - phpunit.xml.dist
+  - Vagrantfile
+  - spec
+  - tests
+  - web/app_dev.php
+
 project_shared_children:
   - path: "/var/sessions"
     src: "sessions"
