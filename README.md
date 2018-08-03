@@ -59,9 +59,8 @@ then place your key & secret in `app/config/parameters.yml`.
 ### Getting started with Vagrant
 
 You will need some tools on your local system:
-
-    [Virtual box](https://www.virtualbox.org/)
-    [Ansible](https://www.ansible.com/)
+- [Virtual box](https://www.virtualbox.org/)
+- [Ansible](https://www.ansible.com/)
 
 Add the following line to your hostsfile:
 

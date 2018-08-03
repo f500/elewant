@@ -1,15 +1,15 @@
 [client]
 
-port                                = {{ mysql_port }}
-socket                              = {{ mysql_socket }}
-default-character-set               = {{ mysql_charset }}
+port                                = {{ mariadb_port }}
+socket                              = {{ mariadb_socket }}
+default-character-set               = {{ mariadb_charset }}
 
 
 [mysqldump]
 
 quick
 quote-names
-max-allowed-packet                  = {{ mysql_max_allowed_packet }}
+max-allowed-packet                  = {{ mariadb_max_allowed_packet }}
 
 
 [mysqld_safe]
@@ -24,23 +24,23 @@ syslog
 # GENERAL #
 user                                = mysql
 default-storage-engine              = InnoDB
-bind-address                        = {{ mysql_bind_address }}
-port                                = {{ mysql_port }}
-socket                              = {{ mysql_socket }}
+bind-address                        = {{ mariadb_bind_address }}
+port                                = {{ mariadb_port }}
+socket                              = {{ mariadb_socket }}
 pid-file                            = /var/run/mysqld/mysqld.pid
 
 # CHARSET #
-character-set-server                = {{ mysql_charset }}
-collation-server                    = {{ mysql_collation }}
+character-set-server                = {{ mariadb_charset }}
+collation-server                    = {{ mariadb_collation }}
 skip-character-set-client-handshake
 
 # MyISAM #
-key-buffer-size                     = {{ mysql_key_buffer_size }}
+key-buffer-size                     = {{ mariadb_key_buffer_size }}
 myisam-recover-options              = FORCE,BACKUP
 skip-external-locking
 
 # SAFETY #
-max-allowed-packet                  = {{ mysql_max_allowed_packet }}
+max-allowed-packet                  = {{ mariadb_max_allowed_packet }}
 max-connect-errors                  = 1000000
 skip-name-resolve
 sql-mode                            = STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE
@@ -59,7 +59,7 @@ tmp-table-size                      = 32M
 max-heap-table-size                 = 32M
 query-cache-limit                   = 1M
 query-cache-type                    = 0
-query-cache-size                    = {{ mysql_query_cache_size }}
+query-cache-size                    = {{ mariadb_query_cache_size }}
 max-connections                     = 500
 thread-stack                        = 192K
 thread-cache-size                   = 50
@@ -70,18 +70,18 @@ table-open-cache                    = 2048
 # INNODB #
 innodb-flush-method                 = O_DIRECT
 innodb-log-files-in-group           = 2
-innodb-log-file-size                = {{ mysql_innodb_log_file_size }}
+innodb-log-file-size                = {{ mariadb_innodb_log_file_size }}
 innodb-flush-log-at-trx-commit      = 1
 innodb-file-per-table               = 1
-innodb-buffer-pool-size             = {{ mysql_innodb_buffer_pool_size }}
+innodb-buffer-pool-size             = {{ mariadb_innodb_buffer_pool_size }}
 
 # LOGGING #
 log-error                           = /var/log/mysql/error.log
 log-queries-not-using-indexes       = 1
-{% if mysql_slow_query_log_enabled %}
+{% if mariadb_slow_query_log_enabled %}
 slow-query-log                      = 1
 slow-query-log-file                 = /var/log/mysql/slow.log
-long-query-time                     = {{ mysql_long_query_time }}
+long-query-time                     = {{ mariadb_long_query_time }}
 {% else %}
 slow-query-log                      = 0
 {% endif %}

@@ -43,25 +43,25 @@ ufw_rules_to_create:
 
 # MYSQL
 
-mysql_origin: default
-mysql_vendor: mariadb
+mariadb_origin: default
+mariadb_vendor: mariadb
 
-mysql_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
+mariadb_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
 
-mysql_bind_address: 127.0.0.1
-mysql_port: 3306
-mysql_socket: /var/run/mysqld/mysqld.sock
+mariadb_bind_address: 127.0.0.1
+mariadb_port: 3306
+mariadb_socket: /var/run/mysqld/mysqld.sock
 
-mysql_charset: utf8mb4
-mysql_collation: utf8mb4_unicode_ci
+mariadb_charset: utf8mb4
+mariadb_collation: utf8mb4_unicode_ci
 
-mysql_max_allowed_packet: 16M
-mysql_key_buffer_size: 32M
-mysql_query_cache_size: 0
-mysql_innodb_buffer_pool_size: 592M
-mysql_innodb_log_file_size: 64M
+mariadb_max_allowed_packet: 16M
+mariadb_key_buffer_size: 32M
+mariadb_query_cache_size: 0
+mariadb_innodb_buffer_pool_size: 592M
+mariadb_innodb_log_file_size: 64M
 
-mysql_slow_query_log_enabled: false
+mariadb_slow_query_log_enabled: false
 
 # PHP
 
@@ -118,4 +118,4 @@ elewant_application_root: ~
 elewant_application_env: prod
 elewant_server_name: ~
 elewant_php_socket: "{{ php7_fpm_pool_listen }}"
-elewant_db_socket: "{{ mysql_socket }}"
+elewant_db_socket: "{{ mariadb_socket }}"
