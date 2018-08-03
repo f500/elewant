@@ -19,7 +19,8 @@ module.exports = function (grunt) {
             src: {
                 src: [
                     'src/Elewant/AppBundle/Resources/assets/js/agency-theme.js',
-                    'src/Elewant/AppBundle/Resources/assets/js/elewant.js'
+                    'src/Elewant/AppBundle/Resources/assets/js/elewant.js',
+                    'src/Elewant/AppBundle/Resources/assets/js/rename-herd.js',
                 ],
                 dest: 'web/build/js/elewant.js'
             }

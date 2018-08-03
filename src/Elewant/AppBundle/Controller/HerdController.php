@@ -11,15 +11,20 @@ use Elewant\Herding\Model\Commands\AbandonElePHPant;
 use Elewant\Herding\Model\Commands\AdoptElePHPant;
 use Elewant\Herding\Model\Commands\DesireBreed;
 use Elewant\Herding\Model\Commands\EliminateDesireForBreed;
+use Elewant\Herding\Model\Commands\RenameHerd;
 use Elewant\UserBundle\Entity\User;
 use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/herd", options={"expose"=true})
@@ -111,7 +116,45 @@ class HerdController extends Controller
     }
 
     /**
-     * @param UserInterface|User $user
+     * @Route("/rename-herd", name="herd_rename")
+     */
+    public function renameHerdAction(Request $request, UserInterface $user): Response
+    {
+        $name = trim($request->request->get('name', ''));
+
+        /** @var ValidatorInterface $validator */
+        $validator = $this->get('validator');
+
+        $constraints = [
+            new Assert\Length(['min' => 1, 'max' => 50]),
+            new Assert\NotBlank(),
+        ];
+
+        $constraintViolationList = $validator->validate($name, $constraints);
+
+        if ($constraintViolationList->count() !== 0) {
+            $errorMessages = [];
+            /** @var ConstraintViolation $constraintViolation */
+            foreach ($constraintViolationList as $constraintViolation) {
+                $errorMessages[] = $constraintViolation->getMessage();
+            }
+
+            return new JsonResponse(['errorMessages' => $errorMessages], 400);
+        }
+
+        $herd = $this->getHerd($user);
+
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
+        $command    = RenameHerd::forShepherd($herd->herdId(), $name);
+
+        $commandBus->dispatch($command);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * @param User|UserInterface $user
      *
      * @return Herd
      * @throws NotFoundHttpException
