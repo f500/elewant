@@ -36,8 +36,27 @@ And eventually:
 
 Feel free to add anything you learn, no matter how small, to <docs/lessons_learned.md>
 
+Now choose how to get started, Docker or Vagrant:
 
-### Getting started
+### Getting started with Docker
+
+You will need docker on your local system:
+
+    [Docker](https://www.docker.com/)
+
+Run bin/setup.sh (only for the first time) and then Docker compose:
+
+    bin/setup.sh
+    docker-compose up -d
+
+You should be up-and-running!
+
+    http://localhost.elewant.com/
+
+> If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
+then place your key & secret in `app/config/parameters.yml`.
+
+### Getting started with Vagrant
 
 You will need some tools on your local system:
 
