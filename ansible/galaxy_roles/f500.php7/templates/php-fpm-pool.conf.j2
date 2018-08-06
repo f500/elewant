@@ -1,0 +1,91 @@
+[{{ php7_fpm_pool_name }}]
+
+user = {{ php7_fpm_pool_user }}
+group = {{ php7_fpm_pool_group }}
+
+listen = {{ php7_fpm_pool_listen }}
+
+listen.backlog = {{ php7_fpm_pool_listen_backlog }}
+listen.owner = {{ php7_fpm_pool_listen_owner }}
+listen.group = {{ php7_fpm_pool_listen_group }}
+listen.mode = {{ php7_fpm_pool_listen_mode }}
+
+{% if php7_fpm_pool_listen_acl_users is not none %}
+listen.acl_users = {{ php7_fpm_pool_listen_acl_users }}
+{% endif %}
+{% if php7_fpm_pool_listen_acl_groups is not none %}
+listen.acl_groups = {{ php7_fpm_pool_listen_acl_groups }}
+{% endif %}
+{% if php7_fpm_pool_listen_allowed_clients is not none %}
+listen.allowed_clients = {{ php7_fpm_pool_listen_allowed_clients }}
+{% endif %}
+
+pm = {{ php7_fpm_pool_pm }}
+pm.max_children = {{ php7_fpm_pool_pm_max_children }}
+pm.start_servers = {{ php7_fpm_pool_pm_start_servers }}
+pm.min_spare_servers = {{ php7_fpm_pool_pm_min_spare_servers }}
+pm.max_spare_servers = {{ php7_fpm_pool_pm_max_spare_servers }}
+pm.process_idle_timeout = {{ php7_fpm_pool_pm_process_idle_timeout }}
+pm.max_requests = {{ php7_fpm_pool_pm_max_requests }}
+
+{% if php7_fpm_pool_status_path is not none %}
+pm.status_path = {{ php7_fpm_pool_status_path }}
+{% endif %}
+{% if php7_fpm_pool_ping_path is not none %}
+ping.path = {{ php7_fpm_pool_ping_path }}
+{% endif %}
+{% if php7_fpm_pool_ping_response is not none %}
+ping.response = {{ php7_fpm_pool_ping_response }}
+{% endif %}
+
+{% if php7_fpm_pool_access_log is not none %}
+access.log = {{ php7_fpm_pool_access_log }}
+{% endif %}
+{% if php7_fpm_pool_access_format is not none %}
+access.format = {{ php7_fpm_pool_access_format }}
+{% endif %}
+{% if php7_fpm_pool_slowlog is not none %}
+slowlog = {{ php7_fpm_pool_slowlog }}
+{% endif %}
+
+request_slowlog_timeout = {{ php7_fpm_pool_request_slowlog_timeout }}
+request_terminate_timeout = {{ php7_fpm_pool_request_terminate_timeout }}
+
+{% if php7_fpm_pool_rlimit_files is not none %}
+rlimit_files = {{ php7_fpm_pool_rlimit_files }}
+{% endif %}
+{% if php7_fpm_pool_rlimit_core is not none %}
+rlimit_core = {{ php7_fpm_pool_rlimit_core }}
+{% endif %}
+{% if php7_fpm_pool_chroot is not none %}
+chroot = {{ php7_fpm_pool_chroot }}
+{% endif %}
+
+chdir = {{ php7_fpm_pool_chdir }}
+catch_workers_output = {{ php7_fpm_pool_catch_workers_output }}
+clear_env = {{ php7_fpm_pool_clear_env }}
+security.limit_extensions = {{ php7_fpm_pool_security_limit_extensions }}
+
+{% for key, value in php7_fpm_pool_env.iteritems() %}
+env[{{ key }}] = {{ value }}
+{% endfor %}
+
+{% for key, value in php7_fpm_pool_php_admin_value.iteritems() %}
+{% if value is sameas True %}
+php_admin_flag[{{ key }}] = On
+{% elif value is sameas False %}
+php_admin_flag[{{ key }}] = Off
+{% else %}
+php_admin_value[{{ key }}] = {{ value }}
+{% endif %}
+{% endfor %}
+
+{% for key, value in php7_fpm_pool_php_value.iteritems() %}
+{% if value is sameas True %}
+php_flag[{{ key }}] = On
+{% elif value is sameas False %}
+php_flag[{{ key }}] = Off
+{% else %}
+php_value[{{ key }}] = {{ value }}
+{% endif %}
+{% endfor %}

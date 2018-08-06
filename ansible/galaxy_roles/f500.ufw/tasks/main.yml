@@ -1,0 +1,10 @@
+---
+
+- name: install ufw
+  apt:
+    name: ufw
+    state: present
+
+- name: enable and start ufw
+  ufw:
+    state: enabled

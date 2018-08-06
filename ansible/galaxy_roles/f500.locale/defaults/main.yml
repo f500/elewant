@@ -1,0 +1,24 @@
+---
+
+locale_generate:
+  - "en_US.UTF-8 UTF-8"
+  - "en_US ISO-8859-1"
+  - "en_US.ISO-8859-15 ISO-8859-15"
+
+locale_env:
+  lang: "en_US.UTF-8"
+  language: "en_US:en"
+  lc_all: "en_US.UTF-8"
+  lc_address: ~
+  lc_collate: "C"
+  lc_ctype: ~
+  lc_identification: ~
+  lc_measurement: ~
+  lc_messages: ~
+  lc_monetary: ~
+  lc_name: ~
+  lc_numeric: ~
+  lc_paper: ~
+  lc_telephone: ~
+  lc_time: ~
+  locpath: ~

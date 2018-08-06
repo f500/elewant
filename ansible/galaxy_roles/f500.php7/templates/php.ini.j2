@@ -1,0 +1,11 @@
+{% for key, value in php7_ini_directives.iteritems() %}
+{% if value is sameas True %}
+{{ key }} = On
+{% elif value is sameas False %}
+{{ key }} = Off
+{% elif value is number %}
+{{ key }} = {{ value }}
+{% else %}
+{{ key }} = "{{ value }}"
+{% endif %}
+{% endfor %}

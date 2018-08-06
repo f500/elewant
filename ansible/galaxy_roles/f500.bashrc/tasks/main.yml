@@ -1,0 +1,20 @@
+---
+
+- name: write global bashrc
+  copy: src=bash.bashrc dest=/etc/bash.bashrc owner=root group=root mode=0644
+
+- name: write root and skeleton .bashrc
+  copy: "src=.bashrc dest={{ item }}/.bashrc owner=root group=root mode=0644"
+  with_items:
+    - /root
+    - /etc/skel
+
+- name: determine ssh user homedir
+  shell: "getent passwd {{ item }} | cut -d: -f6"
+  register: bashrc_homedirs
+  with_items: "{{ bashrc_users }}"
+  changed_when: False
+
+- name: write ssh user homedir .bashrc
+  copy: "src=.bashrc dest={{ item.stdout }}/.bashrc owner={{ item.item }} group={{ item.item }} mode=0644"
+  with_items: "{{ bashrc_homedirs.results }}"
