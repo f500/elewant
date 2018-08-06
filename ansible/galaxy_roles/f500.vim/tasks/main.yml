@@ -1,0 +1,11 @@
+---
+
+- name: install vim
+  apt: pkg=vim state=present
+
+- name: write vimrc
+  copy: src=vimrc dest=/etc/vim/vimrc owner=root group=root mode=0644
+
+- name: set vim alternatives
+  alternatives: "name={{ item }} path=/usr/bin/vim.basic"
+  with_items: [editor, ex, rview, rvim, vi, view, vim, vimdiff]

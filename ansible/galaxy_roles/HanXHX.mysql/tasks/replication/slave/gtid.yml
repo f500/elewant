@@ -1,0 +1,16 @@
+---
+
+# Need this hack before:
+# - https://github.com/ansible/ansible/issues/29214
+# - https://mariadb.com/kb/en/mariadb/global-transaction-id/#switching-an-existing-old-style-slave-to-use-gtid
+
+- name: MYSQL_REPLICATION | Stop slave
+  mysql_replication:
+    mode: stopslave
+
+- name: COMMAND | Migrate to MariaDB GTID
+  command: mariadb -e "CHANGE MASTER TO master_use_gtid=current_pos";
+
+- name: MYSQL_REPLICATION | Start slave
+  mysql_replication:
+    mode: startslave

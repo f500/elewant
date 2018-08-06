@@ -1,0 +1,37 @@
+user              {{ nginx_user }} {{ nginx_group }};
+worker_processes  {{ nginx_worker_processes }};
+pid               {{ nginx_pid }};
+
+events {
+    worker_connections  {{ nginx_worker_connections }};
+    use epoll;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+    error_log   /var/log/nginx/error.log   warn;
+
+{% for key, value in (nginx_http_params_default | combine(nginx_http_params)).iteritems() %}
+{% if value is sameas True %}
+    {{ key }}  on;
+{% elif value is sameas False %}
+    {{ key }}  off;
+{% else %}
+    {{ key }}  {{ value }};
+{% endif %}
+{% endfor %}
+
+{% for key, value in (nginx_http_headers_default | combine(nginx_http_headers)).iteritems() %}
+    add_header  {{ key }} "{{ value }}"  always;
+{% endfor %}
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*.conf;
+}

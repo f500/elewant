@@ -1,0 +1,24 @@
+# NOTES:
+# DHCP clients can append or replace NTP configuration files.
+# You should consult your DHCP client documentation about its
+# default behaviour and how to change it.
+
+# Name of the servers ntpd should sync with
+# Please respect the access policy as stated by the responsible person.
+#server   ntp.example.tld   iburst
+
+{% for server in ntp_servers %}
+server {{ server }}
+{% endfor %}
+
+# you should not need to modify the following paths
+
+driftfile /var/lib/ntp/ntp.drift
+
+# Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for
+# details. The web page <http://support.ntp.org/bin/view/Support/AccessRestrictions>
+# might also be helpful.
+
+{% for restrict in ntp_restrict_policies %}
+restrict {{ restrict }}
+{% endfor %}

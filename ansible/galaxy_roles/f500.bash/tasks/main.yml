@@ -1,0 +1,7 @@
+---
+
+- name: install bash
+  apt: pkg=bash state=present
+
+- name: install bash-completion
+  apt: pkg=bash-completion state=present

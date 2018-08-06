@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Jasper N. Brouwer, Ramon de la Fuente
+  description: Install Node.js and NPM
+  company: Future500
+  license: LGPL-3.0
+  min_ansible_version: 1.4
+  platforms:
+  - name: Debian
+    versions:
+      - wheezy
+      - jessie
+      - stretch
+  - name: Ubuntu
+    versions:
+      - precise
+      - trusty
+      - xenial
+  categories:
+    - web
+    - system
+    - packaging
+dependencies: []

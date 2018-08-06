@@ -1,0 +1,14 @@
+# -------------------------------------------
+# {{ ansible_managed }}
+# -------------------------------------------
+
+[mysqld]
+{% for key, value in mariadb_extra_configuration.items() %}
+{% if value is defined or value is not none %}
+{{ key }} = {{ value }}
+{% else %}
+{{ key }}
+{% endif %}
+{% endfor %}
+
+; vim: set ft=dosini :

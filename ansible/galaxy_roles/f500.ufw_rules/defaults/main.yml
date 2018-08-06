@@ -1,0 +1,6 @@
+---
+
+ufw_rules_default_policy: deny
+
+ufw_rules_to_create: []
+ufw_rules_to_delete: []

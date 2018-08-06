@@ -1,0 +1,84 @@
+---
+
+php7_version: 7.1
+
+php7_enable_apache: no
+php7_enable_cgi: no
+php7_enable_fpm: no
+
+php7_enable_dev: no
+
+php7_ini_directives_default:
+  allow_url_fopen: no
+  disable_functions: "exec, passthru, shell_exec, system, proc_open, popen, curl_exec, curl_multi_exec"
+  expose_php: no
+  session.cookie_httponly: yes
+  session.cookie_secure: yes
+  session.hash_bits_per_character: 4
+  session.hash_function: sha256
+  session.sid_bits_per_character: 4
+  session.sid_length: 64
+  session.use_strict_mode: yes
+
+php7_ini_directives_global: {}
+php7_ini_directives_cli: {}
+php7_ini_directives_apache: {}
+php7_ini_directives_cgi: {}
+php7_ini_directives_fpm: {}
+
+php7_extensions: []
+php7_versioned_extensions: []
+
+php7_fpm_pid: "/run/php/php{{ php7_version }}-fpm.pid"
+php7_fpm_error_log: "/var/log/php{{ php7_version }}-fpm.log"
+php7_fpm_log_level: warning
+php7_fpm_syslog_facility: ~
+php7_fpm_syslog_ident: ~
+php7_fpm_emergency_restart_threshold: 0
+php7_fpm_emergency_restart_interval: 0
+php7_fpm_process_control_timeout: 0
+php7_fpm_process_max: 0
+php7_fpm_process_priority: ~
+php7_fpm_daemonize: yes
+php7_fpm_rlimit_files: ~
+php7_fpm_rlimit_core: ~
+php7_fpm_events_mechanism: epoll
+php7_fpm_systemd_interval: 10
+
+php7_fpm_pool_enabled: yes
+php7_fpm_pool_name: www
+php7_fpm_pool_user: www-data
+php7_fpm_pool_group: www-data
+php7_fpm_pool_listen: "/run/php/php{{ php7_version }}-fpm.sock"
+php7_fpm_pool_listen_backlog: 512
+php7_fpm_pool_listen_owner: "{{ php7_fpm_pool_user }}"
+php7_fpm_pool_listen_group: "{{ php7_fpm_pool_group }}"
+php7_fpm_pool_listen_mode: "0660"
+php7_fpm_pool_listen_acl_users: ~
+php7_fpm_pool_listen_acl_groups: ~
+php7_fpm_pool_listen_allowed_clients: ~
+php7_fpm_pool_pm: dynamic
+php7_fpm_pool_pm_max_children: 5
+php7_fpm_pool_pm_start_servers: 2
+php7_fpm_pool_pm_min_spare_servers: 1
+php7_fpm_pool_pm_max_spare_servers: 3
+php7_fpm_pool_pm_process_idle_timeout: 10s
+php7_fpm_pool_pm_max_requests: 512
+php7_fpm_pool_status_path: /status
+php7_fpm_pool_ping_path: /ping
+php7_fpm_pool_ping_response: pong
+php7_fpm_pool_access_log: ~
+php7_fpm_pool_access_format: ~
+php7_fpm_pool_slowlog: ~
+php7_fpm_pool_request_slowlog_timeout: 0
+php7_fpm_pool_request_terminate_timeout: 0
+php7_fpm_pool_rlimit_files: ~
+php7_fpm_pool_rlimit_core: ~
+php7_fpm_pool_chroot: ~
+php7_fpm_pool_chdir: /var/www
+php7_fpm_pool_catch_workers_output: yes
+php7_fpm_pool_clear_env: yes
+php7_fpm_pool_security_limit_extensions: .php
+php7_fpm_pool_env: {}
+php7_fpm_pool_php_admin_value: {}
+php7_fpm_pool_php_value: {}
