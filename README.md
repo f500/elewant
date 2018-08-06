@@ -48,10 +48,6 @@ Add the following line to your hostsfile:
 
     192.168.77.77   develop.elewant.loc
 
-Fetch roles from Ansible Galaxy:
-
-    ansible-galaxy install -r ansible/galaxy_roles.yml -f
-
 > If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com, 
 then place your key & secret in a file called `ansible/provision/group_vars/develop/override_locally.yml`.
 
