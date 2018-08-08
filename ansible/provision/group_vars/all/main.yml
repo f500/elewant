@@ -100,7 +100,7 @@ nginx_server_templates:
 # CERTBOT
 
 certbot_create_method: webroot
-certbot_create_command: "{{ certbot_script }} certonly --webroot --webroot-path {{ nginx_www_dir }} --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ cert_item.domains | join(',') }}"
+certbot_create_command: "{{ certbot_script }} certonly --webroot --webroot-path {{ nginx_www_dir }} --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ item.item.domains | join(',') }}"
 certbot_create_if_missing: yes
 certbot_auto_renew_hour: 1
 certbot_auto_renew_minute: 11
