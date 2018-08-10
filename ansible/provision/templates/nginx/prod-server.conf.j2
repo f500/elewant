@@ -2,9 +2,17 @@ server {
     listen      80;
     server_name {{ item.domains | join(' ') }};
 
-    access_log off;
+    location / {
+        return 301 https://$host$request_uri;
+    }
 
-    return 301 https://{{ item.domains | first }}$request_uri;
+    location /.well-known/acme-challenge {
+        root {{ nginx_www_dir }};
+        log_not_found off;
+        try_files $uri =404;
+    }
+
+    access_log off;
 }
 
 server {
@@ -34,11 +42,5 @@ server {
         fastcgi_pass  unix:/var/run/php/php{{ php7_version }}-fpm.sock;
         fastcgi_index {{ item.index }};
         include       fastcgi_params;
-    }
-
-    location /.well-known/acme-challenge/ {
-        root {{ nginx_www_dir }};
-        log_not_found off;
-        try_files $uri =404;
     }
 }

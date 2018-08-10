@@ -116,6 +116,5 @@ certbot_certs:
 
 elewant_application_root: ~
 elewant_application_env: prod
-elewant_server_name: ~
 elewant_php_socket: "{{ php7_fpm_pool_listen }}"
 elewant_db_socket: "{{ mariadb_socket }}"

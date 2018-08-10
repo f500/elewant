@@ -71,7 +71,8 @@ nginx_http_headers:
 nginx_server_templates:
   - name: elewant
     src: "{{ playbook_dir }}/templates/nginx/dev-server.conf.j2"
-    server_name: develop.elewant.loc
+    domains:
+      - "develop.elewant.loc"
     web_root: "/vagrant/web"
     index: app_dev.php
     headers: "{{ nginx_http_headers }}"
@@ -80,7 +81,6 @@ nginx_server_templates:
 
 elewant_application_root: /vagrant
 elewant_application_env: dev
-elewant_server_name: develop.elewant.loc
 
 elewant_db_name: elewant
 elewant_db_user: elewant

@@ -19,8 +19,13 @@
     - name: Add github.com to known_hosts file
       lineinfile: dest=/etc/ssh/ssh_known_hosts line="{{ lookup('pipe', 'ssh-keyscan github.com') }}" state=present  create=yes mode=0644
 
-    - name: Setup cron for renew certificates
+    - name: Remove cron for renew certificates (cron is created in certbot role)
       cron: name="certbot renew certificates" minute=0 hour=2,6 job="service nginx stop && certbot renew && service nginx start" state=absent
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
 
     - name: Check for absent certificates
       stat:

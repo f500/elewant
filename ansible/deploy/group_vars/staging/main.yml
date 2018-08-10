@@ -4,7 +4,6 @@
 
 elewant_application_root: /home/deploy/staging.elewant.com
 elewant_application_env: prod
-elewant_server_name: staging.elewant.com
 
 elewant_db_name: elewant_staging
 elewant_db_user: elewant_staging

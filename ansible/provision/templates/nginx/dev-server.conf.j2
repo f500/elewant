@@ -1,12 +1,12 @@
 server {
     listen      80;
-    server_name {{ item.server_name }};
+    server_name {{ item.domains | join(' ') }};
 
     root  {{ item.web_root }};
     index {{ item.index }};
 
-    access_log /home/logs/{{ item.server_name }}-access.log;
-    error_log  /home/logs/{{ item.server_name }}-error.log;
+    access_log /home/logs/{{ item.domains | first }}-access.log;
+    error_log  /home/logs/{{ item.domains | first }}-error.log;
 
     location / {
         try_files $uri /{{ item.index }}$is_args$args;
