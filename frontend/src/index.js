@@ -21,4 +21,21 @@ ReactDOM.render(
   document.getElementById('elewant-root')
 );
 
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./reducers', () => {
+    store.replaceReducer(elewantApp);
+  });
+
+  module.hot.accept('./App', () => {
+    ReactDOM.render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>,
+      document.getElementById('elewant-root')
+    );
+  });
+}
+
 registerServiceWorker();
