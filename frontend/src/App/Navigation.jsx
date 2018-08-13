@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from 'reactstrap';
 
+import './Navigation.scss';
+
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
