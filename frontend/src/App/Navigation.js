@@ -28,18 +28,18 @@ class Navigation extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink to="/about" className="nav-link">
-                  About
+                <NavLink to="/experiment" className="nav-link">
+                  The Experiment
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/new-herds" className="nav-link">
-                  New Herds
+                <NavLink to="/tictactoe" className="nav-link">
+                  Tic Tac Toe
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/contributors" className="nav-link">
-                  Contributors
+                <NavLink to="/todos" className="nav-link">
+                  Todo's
                 </NavLink>
               </NavItem>
             </Nav>

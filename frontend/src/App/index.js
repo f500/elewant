@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Navigation from './Navigation';
+import Experiment from '../Experiment';
 import Game from '../TicTacToe';
 import Todos from '../Todos';
 import Footer from './Footer';
@@ -11,9 +12,9 @@ class App extends React.Component {
     return (
       <div className="elewant-app">
         <Navigation />
-        <Route path="/about" component={Game} />
-        <Route path="/new-herds" component={Game} />
-        <Route path="/contributors" component={Todos} />
+        <Route path="/experiment" component={Experiment} />
+        <Route path="/tictactoe" component={Game} />
+        <Route path="/todos" component={Todos} />
         <Footer />
       </div>
     );
