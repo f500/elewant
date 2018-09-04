@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\Controller;
 
 use Elewant\AppBundle\Repository\HerdRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller

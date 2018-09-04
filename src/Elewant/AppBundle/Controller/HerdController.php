@@ -13,7 +13,7 @@ use Elewant\Herding\Model\Commands\DesireBreed;
 use Elewant\Herding\Model\Commands\EliminateDesireForBreed;
 use Elewant\UserBundle\Entity\User;
 use Prooph\ServiceBus\CommandBus;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
