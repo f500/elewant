@@ -50,9 +50,10 @@ ufw_rules_to_create:
 
 # MariaDB
 
-mariadb_origin: default
+mariadb_origin: upstream
 mariadb_vendor: mariadb
 mariadb_version: 10.2
+mariadb_key_server: "hkp://keyserver.ubuntu.com:80"
 
 mariadb_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
 
