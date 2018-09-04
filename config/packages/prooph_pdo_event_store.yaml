@@ -1,0 +1,28 @@
+services:
+    _defaults:
+        public: false
+
+    Prooph\EventStore\EventStore: '@app.event_store.default'
+
+    Prooph\EventStore\ActionEventEmitterEventStore:
+        decorates: 'app.event_store.default'
+        arguments:
+            - '@Prooph\EventStore\ActionEventEmitterEventStore.inner'
+            - '@Prooph\Common\Event\ProophActionEventEmitter'
+
+    Prooph\Common\Event\ProophActionEventEmitter: ~
+
+    app.event_store.default:
+        class: Prooph\EventStore\Pdo\MariaDbEventStore
+        public: true
+        arguments:
+            - '@prooph_event_store.message_factory'
+            - '@app.event_store.pdo_connection.mariadb'
+            - '@app.event_store.mariadb.persistence_strategy'
+
+    app.event_store.pdo_connection.mariadb:
+        class: \PDO
+        factory: ['@database_connection', getWrappedConnection]
+
+    app.event_store.mariadb.persistence_strategy:
+        class: Prooph\EventStore\Pdo\PersistenceStrategy\MariaDbSingleStreamStrategy

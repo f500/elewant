@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace Elewant\AppBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Elewant\AppBundle\Entity\Herd;
 use Elewant\Herding\Model\ShepherdId;
 
-final class HerdRepository extends EntityRepository
+final class HerdRepository extends ServiceEntityRepository
 {
+
+    /**
+     * HerdRepository constructor.
+     * @param ManagerRegistry $registry
+     */
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Herd::class);
+    }
 
     /**
      * @param int $limit

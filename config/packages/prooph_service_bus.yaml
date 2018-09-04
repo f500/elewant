@@ -1,0 +1,56 @@
+prooph_service_bus:
+    command_buses:
+        herding_command_bus: ~
+    event_buses:
+        herding_event_bus:
+            plugins:
+                - 'prooph_service_bus.on_event_invoke_strategy'
+            router:
+                type: 'prooph_service_bus.event_bus_router'
+                routes:
+                    'Elewant\Herding\Model\Events\HerdWasFormed':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\HerdWasRenamed':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\BreedWasDesiredByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\HerdWasAbandoned':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+
+        herd_replay_bus:
+            plugins:
+                - 'prooph_service_bus.on_event_invoke_strategy'
+            router:
+                type: 'prooph_service_bus.event_bus_router'
+                routes:
+                    'Elewant\Herding\Model\Events\HerdWasFormed':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\HerdWasRenamed':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\BreedWasDesiredByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+                    'Elewant\Herding\Model\Events\HerdWasAbandoned':
+                        - '@Elewant\Herding\Projections\HerdProjector'
+
+
+    query_buses:
+        default_query_bus: ~
+
+services:
+    _defaults:
+        public: false
+
+    Prooph\ServiceBus\CommandBus: '@prooph_service_bus.herding_command_bus'
+    Prooph\ServiceBus\EventBus: '@prooph_service_bus.herding_event_bus'

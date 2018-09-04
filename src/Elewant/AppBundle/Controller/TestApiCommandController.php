@@ -1,9 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 /**
- * Leaving this intact, as this file was copied verbatim frmo the Prooph symfony example.
+ * Leaving this intact, as this file was copied verbatim from the Prooph symfony example.
  * Big big thanks for their fantastic work!
  *
  * prooph (http://getprooph.org/)
@@ -13,11 +11,14 @@ declare(strict_types=1);
  * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Elewant\AppBundle\Controller;
 
 use Prooph\Common\Messaging\MessageFactory;
 use Prooph\ServiceBus\CommandBus;
 use Prooph\ServiceBus\Exception\CommandDispatchException;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,12 +38,18 @@ final class TestApiCommandController
      */
     private $messageFactory;
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     const NAME_ATTRIBUTE = 'prooph_command_name';
 
-    public function __construct(CommandBus $commandBus, MessageFactory $messageFactory)
+    public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {
-        $this->commandBus     = $commandBus;
+        $this->commandBus = $commandBus;
         $this->messageFactory = $messageFactory;
+        $this->logger = $logger;
     }
 
     public function postAction(Request $request)
@@ -55,7 +62,7 @@ final class TestApiCommandController
                     'message' => sprintf(
                         'Command name attribute ("%s") was not found in request.',
                         self::NAME_ATTRIBUTE
-                    ),
+                    )
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -66,7 +73,7 @@ final class TestApiCommandController
         } catch (\Throwable $error) {
             return JsonResponse::create(
                 [
-                    'message' => $error->getMessage(),
+                    'message' => $error->getMessage()
                 ],
                 $error->getCode()
             );
@@ -77,13 +84,15 @@ final class TestApiCommandController
         try {
             $this->commandBus->dispatch($command);
         } catch (CommandDispatchException $ex) {
-            $params = $ex->getFailedDispatchEvent()->getParams();
+            $this->logger->error($ex->getPrevious());
 
             return JsonResponse::create(
-                ['message' => $ex->getPrevious()->getMessage(), 'dispatch_details' => $params],
+                ['message' => $ex->getPrevious()->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (\Throwable $error) {
+            $this->logger->error($error);
+
             return JsonResponse::create(['message' => $error->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 

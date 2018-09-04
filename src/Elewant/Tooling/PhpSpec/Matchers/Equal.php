@@ -28,7 +28,7 @@ final class Equal extends BasicMatcher
      * Make sure to return a higher number than the default "identity" matcher of PhpSpec (100)
      * @return int
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return 101;
     }
@@ -37,7 +37,7 @@ final class Equal extends BasicMatcher
     /**
      * {@inheritdoc}
      */
-    public function supports($name, $subject, array $arguments)
+    public function supports(string $name, $subject, array $arguments): bool
     {
         return 'equal' === $name
             && is_object($subject)
@@ -48,7 +48,7 @@ final class Equal extends BasicMatcher
     /**
      * {@inheritdoc}
      */
-    protected function matches($subject, array $arguments)
+    protected function matches($subject, array $arguments): bool
     {
         return $subject->equals($arguments[0]);
     }
@@ -56,7 +56,7 @@ final class Equal extends BasicMatcher
     /**
      * {@inheritdoc}
      */
-    protected function getFailureException($name, $subject, array $arguments)
+    protected function getFailureException(string $name, $subject, array $arguments): FailureException
     {
         return new FailureException(
             sprintf(
@@ -70,7 +70,7 @@ final class Equal extends BasicMatcher
     /**
      * {@inheritdoc}
      */
-    protected function getNegativeFailureException($name, $subject, array $arguments)
+    protected function getNegativeFailureException(string $name, $subject, array $arguments): FailureException
     {
         return new FailureException(
             sprintf(

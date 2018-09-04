@@ -1,0 +1,26 @@
+security:
+    providers:
+        entity_provider:
+            id: Elewant\UserBundle\Security\UserProvider
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        herd_management:
+            anonymous: ~
+            oauth:
+                oauth_user_provider:
+                    service:  Elewant\UserBundle\Security\UserProvider
+                resource_owners:
+                    twitter:  hwi_oauth_twitter_login_check
+                login_path:   hwi_oauth_twitter_login
+                default_target_path: herd_tending
+                failure_path: hwi_oauth_connect
+                use_forward:  false
+            logout:
+                path:   hwi_oauth_logout
+                target: root
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

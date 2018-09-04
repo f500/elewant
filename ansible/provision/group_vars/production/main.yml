@@ -35,8 +35,8 @@ nginx_server_templates:
     domains:
       - "elewant.com"
       - "www.elewant.com"
-    web_root: "{{ project_root }}/elewant.com/current/web"
-    index: "app.php"
+    web_root: "{{ project_root }}/elewant.com/current/public"
+    index: "index.php"
     headers: "{{ nginx_http_headers }}"
   - name: "staging.elewant"
     src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2"
@@ -44,6 +44,6 @@ nginx_server_templates:
     ssl_cert_key: "/etc/letsencrypt/live/staging.elewant.com/privkey.pem"
     domains:
       - "staging.elewant.com"
-    web_root: "{{ project_root }}/staging.elewant.com/current/web"
-    index: "app.php"
+    web_root: "{{ project_root }}/staging.elewant.com/current/public"
+    index: "index.php"
     headers: "{{ nginx_http_headers }}"

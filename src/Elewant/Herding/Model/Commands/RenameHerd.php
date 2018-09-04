@@ -7,7 +7,6 @@ namespace Elewant\Herding\Model\Commands;
 use Elewant\Herding\Model\HerdId;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
-use Webmozart\Assert\Assert;
 
 class RenameHerd extends Command
 {
@@ -15,10 +14,7 @@ class RenameHerd extends Command
 
     public static function forShepherd(string $herdId, string $newHerdName): self
     {
-        $renameHerd = new self(['herdId' => $herdId, 'newHerdName' => $newHerdName]);
-        $renameHerd->protect();
-
-        return $renameHerd;
+        return new self(['herdId' => $herdId, 'newHerdName' => $newHerdName]);
     }
 
     public function herdId(): HerdId
@@ -29,13 +25,5 @@ class RenameHerd extends Command
     public function newHerdName(): string
     {
         return $this->payload['newHerdName'];
-    }
-
-    private function protect()
-    {
-        $newHerdName = $this->payload['newHerdName'];
-
-        Assert::lengthBetween($newHerdName, 1, 50);
-        Assert::regex($newHerdName, '/^[^\s]+.*[^\s]+$/');
     }
 }

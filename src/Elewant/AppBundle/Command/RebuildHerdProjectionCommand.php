@@ -6,7 +6,7 @@ namespace Elewant\AppBundle\Command;
 
 use Elewant\Herding\Projections\HerdProjector;
 use Prooph\EventStore\EventStore;
-use Prooph\EventStore\Stream\StreamName;
+use Prooph\EventStore\StreamName;
 use Prooph\ServiceBus\EventBus;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

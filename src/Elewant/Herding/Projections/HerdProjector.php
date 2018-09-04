@@ -12,11 +12,13 @@ use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
 use Elewant\Herding\Model\Events\HerdWasAbandoned;
 use Elewant\Herding\Model\Events\HerdWasFormed;
 use Elewant\Herding\Model\Events\HerdWasRenamed;
+use Prooph\Common\Messaging\DomainEvent;
+use Prooph\Common\Messaging\HasMessageName;
 
 final class HerdProjector
 {
-    const TABLE_HERD           = 'herd';
-    const TABLE_ELEPHPANT      = 'elephpant';
+    const TABLE_HERD = 'herd';
+    const TABLE_ELEPHPANT = 'elephpant';
     const TABLE_DESIRED_BREEDS = 'desired_breed';
 
     /**
@@ -29,15 +31,21 @@ final class HerdProjector
         $this->connection = $connection;
     }
 
+    public function __invoke(DomainEvent $event)
+    {
+        $handleMethod = 'on' . $this->determineEventName($event);
+        $this->{$handleMethod}($event);
+    }
+
     public function onHerdWasFormed(HerdWasFormed $event)
     {
         $this->connection->insert(
             self::TABLE_HERD,
             [
-                'herd_id'     => $event->herdId()->toString(),
+                'herd_id' => $event->herdId()->toString(),
                 'shepherd_id' => $event->shepherdId()->toString(),
-                'name'        => $event->name(),
-                'formed_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
+                'name' => $event->name(),
+                'formed_on' => $event->createdAt()->format('Y-m-d H:i:s'),
             ]
         );
     }
@@ -61,9 +69,9 @@ final class HerdProjector
             self::TABLE_ELEPHPANT,
             [
                 'elephpant_id' => $event->elePHPantId()->toString(),
-                'herd_id'      => $event->herdId()->toString(),
-                'breed'        => $event->breed()->toString(),
-                'adopted_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
+                'herd_id' => $event->herdId()->toString(),
+                'breed' => $event->breed()->toString(),
+                'adopted_on' => $event->createdAt()->format('Y-m-d H:i:s'),
             ]
         );
     }
@@ -83,9 +91,9 @@ final class HerdProjector
         $this->connection->insert(
             self::TABLE_DESIRED_BREEDS,
             [
-                'herd_id'      => $event->herdId()->toString(),
-                'breed'        => $event->breed()->toString(),
-                'desired_on'   => $event->createdAt()->format('Y-m-d H:i:s'),
+                'herd_id' => $event->herdId()->toString(),
+                'breed' => $event->breed()->toString(),
+                'desired_on' => $event->createdAt()->format('Y-m-d H:i:s'),
             ]
         );
     }
@@ -95,8 +103,8 @@ final class HerdProjector
         $this->connection->delete(
             self::TABLE_DESIRED_BREEDS,
             [
-                'herd_id'      => $event->herdId()->toString(),
-                'breed'        => $event->breed()->toString(),
+                'herd_id' => $event->herdId()->toString(),
+                'breed' => $event->breed()->toString(),
             ]
         );
     }
@@ -118,7 +126,6 @@ final class HerdProjector
         );
     }
 
-
     public function clearAllTables()
     {
         $platform = $this->connection->getDatabasePlatform();
@@ -128,4 +135,16 @@ final class HerdProjector
         $this->connection->executeUpdate($platform->getTruncateTableSQL(self::TABLE_ELEPHPANT));
         $this->connection->query('SET FOREIGN_KEY_CHECKS=1');
     }
+
+    /**
+     * @param mixed $event
+     * @return string
+     */
+    private function determineEventName($event)
+    {
+        $eventName = ($event instanceof HasMessageName) ? $event->messageName() : (is_object($event) ? get_class($event) : gettype($event));
+
+        return implode('', array_slice(explode('\\', $eventName), -1));
+    }
+
 }

@@ -73,8 +73,8 @@ nginx_server_templates:
     src: "{{ playbook_dir }}/templates/nginx/dev-server.conf.j2"
     domains:
       - "develop.elewant.loc"
-    web_root: "/vagrant/web"
-    index: app_dev.php
+    web_root: "/vagrant/public"
+    index: index.php
     headers: "{{ nginx_http_headers }}"
 
 # APP

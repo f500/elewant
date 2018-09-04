@@ -1,0 +1,4 @@
+elewant_app_development:
+    resource: "@ElewantDevelopmentBundle/Controller/"
+    type:     annotation
+    prefix:   /
