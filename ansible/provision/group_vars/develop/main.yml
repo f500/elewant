@@ -7,11 +7,17 @@ ssh_provision_user: "vagrant"
 # UFW
 
 ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 3306 }
+  - direction: in
+    to_port: 22
+    rule: allow
+  - direction: in
+    to_port: 80
+    rule: allow
+  - direction: in
+    to_port: 3306
+    rule: allow
 
-# MYSQL
+# MariaDB
 
 mariadb_bind_address: 192.168.77.77
 

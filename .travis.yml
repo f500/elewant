@@ -25,7 +25,7 @@ cache:
     - vendor
 
 install:
-  - cp tests/config/parameters_for_travis.yml app/config/parameters.yml
+  - cp tests/config/.env_for_travis .env
   - mysql -e "create database elewant;"
   - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'elewant'@'localhost' IDENTIFIED BY 'elewant'"
   - composer install

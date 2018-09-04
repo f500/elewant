@@ -59,7 +59,6 @@
     - f500.locale
     - f500.ntp
     - f500.ufw
-    - f500.ufw_rules
     - f500.bash
     - f500.bashrc
     - f500.vim
@@ -117,8 +116,8 @@
 
     - name: Copy parameters.yml
       template:
-        src: "{{ playbook_dir }}/../deploy/templates/app/parameters.yml.j2"
-        dest: "{{ elewant_application_root }}/app/config/parameters.yml"
+        src: "{{ playbook_dir }}/../deploy/templates/.env.j2"
+        dest: "{{ elewant_application_root }}/.env"
 
     - name: Install composer packages
       command: composer install --quiet --no-ansi --no-interaction
@@ -127,6 +126,11 @@
 
     - name: Run migrations
       command: bin/console doctrine:migrations:migrate --no-interaction
+      args:
+        chdir: "{{ elewant_application_root }}"
+
+    - name: Run Stream creation console command
+      command: bin/console event-store:event-stream:create --no-interaction
       args:
         chdir: "{{ elewant_application_root }}"
 
