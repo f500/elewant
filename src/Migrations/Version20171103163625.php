@@ -22,6 +22,9 @@ class Version20171103163625 extends AbstractMigration
         $desiredBreeds->addIndex(['desired_on']);
     }
 
+    /**
+     * @param Schema $schema
+     */
     public function down(Schema $schema)
     {
         $schema->dropTable(HerdProjector::TABLE_DESIRED_BREEDS);
