@@ -19,6 +19,7 @@ addons:
   hosts:
     - elewant.loc
     - database_test
+  mariadb: "10.2"
 
 cache:
   directories:
