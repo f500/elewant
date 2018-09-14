@@ -47,9 +47,9 @@ final class TestApiCommandController
 
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {
-        $this->commandBus = $commandBus;
+        $this->commandBus     = $commandBus;
         $this->messageFactory = $messageFactory;
-        $this->logger = $logger;
+        $this->logger         = $logger;
     }
 
     public function postAction(Request $request)
@@ -62,7 +62,7 @@ final class TestApiCommandController
                     'message' => sprintf(
                         'Command name attribute ("%s") was not found in request.',
                         self::NAME_ATTRIBUTE
-                    )
+                    ),
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -73,7 +73,7 @@ final class TestApiCommandController
         } catch (\Throwable $error) {
             return JsonResponse::create(
                 [
-                    'message' => $error->getMessage()
+                    'message' => $error->getMessage(),
                 ],
                 $error->getCode()
             );
@@ -84,14 +84,14 @@ final class TestApiCommandController
         try {
             $this->commandBus->dispatch($command);
         } catch (CommandDispatchException $ex) {
-            $this->logger->error($ex->getPrevious());
+            $this->logger->error($ex->getPrevious()->getMessage());
 
             return JsonResponse::create(
                 ['message' => $ex->getPrevious()->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (\Throwable $error) {
-            $this->logger->error($error);
+            $this->logger->error($error->getMessage());
 
             return JsonResponse::create(['message' => $error->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

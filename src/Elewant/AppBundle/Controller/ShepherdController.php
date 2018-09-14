@@ -8,9 +8,9 @@ use Elewant\AppBundle\Entity\Herd;
 use Elewant\AppBundle\Repository\HerdRepository;
 use Elewant\UserBundle\Entity\User;
 use Elewant\UserBundle\Security\UserProvider;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,7 +41,7 @@ class ShepherdController extends Controller
      */
     public function searchAction(Request $request, HerdRepository $herdRepository)
     {
-        $query = $request->get('q');
+        $query     = $request->get('q');
         $usernames = $herdRepository->search($query);
 
         return $this->json($usernames);
@@ -50,7 +50,7 @@ class ShepherdController extends Controller
 
     /**
      * @param UserProvider $userProvider
-     * @param string $username
+     * @param string       $username
      *
      * @return User|UserInterface
      */
@@ -66,9 +66,10 @@ class ShepherdController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User           $user
      *
      * @param HerdRepository $herdRepository
+     *
      * @return Herd
      */
     private function getHerd(User $user, HerdRepository $herdRepository): Herd

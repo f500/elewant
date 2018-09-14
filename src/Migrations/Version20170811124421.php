@@ -1,6 +1,8 @@
 <?php
 
-namespace DoctrineMigrations;
+declare(strict_types=1);
+
+namespace App\Migrations;
 
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\Migrations\AbstractMigration;

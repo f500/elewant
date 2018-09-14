@@ -146,5 +146,4 @@ final class HerdProjector
 
         return implode('', array_slice(explode('\\', $eventName), -1));
     }
-
 }

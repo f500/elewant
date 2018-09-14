@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\Controller;
 
 use Elewant\AppBundle\Repository\HerdRepository;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="root")
      * @param HerdRepository $herdRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(HerdRepository $herdRepository)
     {
-        $newestHerds    = $herdRepository->newestHerds(4);
+        $newestHerds = $herdRepository->newestHerds(4);
 
         return $this->render(
             'Default/index.html.twig',

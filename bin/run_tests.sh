@@ -12,7 +12,7 @@ else
     bin/phpunit
     phpunit_exit_code=$?
 
-    vendor/bin/phpcs
+    vendor/bin/phpcs --ignore=src/Elewant/AppBundle/Command/RebuildHerdProjectionCommand.php
     phpcs_exit_code=$?
 
     vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 --no-progress src

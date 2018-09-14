@@ -26,7 +26,7 @@ final class HerdId
 
     public static function fromString(string $herdId): self
     {
-        return new self(UUid::fromString($herdId));
+        return new self(Uuid::fromString($herdId));
     }
 
     public function toString(): string

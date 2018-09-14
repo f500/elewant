@@ -43,13 +43,13 @@ class RebuildHerdProjectionCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->herdProjector->clearAllTables();
-
-        $streamName = new StreamName('event');
-        $iterator   = $this->eventStore->replay([$streamName]);
-
-        foreach ($iterator as $key => $event) {
-            $this->replayBus->dispatch($event);
-        };
+//        $this->herdProjector->clearAllTables();
+//
+//        $streamName = new StreamName('event');
+//        $iterator   = $this->eventStore->replay([$streamName]);
+//
+//        foreach ($iterator as $key => $event) {
+//            $this->replayBus->dispatch($event);
+//        };
     }
 }

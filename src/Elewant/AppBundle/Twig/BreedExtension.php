@@ -20,9 +20,8 @@ final class BreedExtension extends AbstractExtension
 
     public function breedColorFilter(string $breed): string
     {
-        $color = explode('_', $breed);
+        $color = explode('_', strtolower($breed));
         $color = array_shift($color);
-        $color = strtolower($color);
         $color = 'elephpant-' . $color;
 
         return $color;
@@ -30,9 +29,8 @@ final class BreedExtension extends AbstractExtension
 
     public function breedSizeFilter(string $breed): string
     {
-        $size = explode('_', $breed);
+        $size = explode('_', strtolower($breed));
         $size = array_pop($size);
-        $size = strtolower($size);
         $size = 'elephpant-' . $size;
 
         return $size;
