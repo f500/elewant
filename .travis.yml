@@ -35,7 +35,7 @@ before_script:
   - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-  - bin/run_tests.sh
+  - SYMFONY_DEPRECATIONS_HELPER=disabled bin/run_tests.sh
 
 notifications:
   email:
