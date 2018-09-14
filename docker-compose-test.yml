@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    database_test:
+        build: docker/mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: elewant
+            MYSQL_DATABASE: elewant_test
+            MYSQL_USER: elewant
+            MYSQL_PASSWORD: elewant
+    php-fpm:
+        build: docker/php-fpm
+        volumes:
+        - ./:/opt/project:cached
+        depends_on:
+            - database_test

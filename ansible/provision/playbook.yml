@@ -108,6 +108,13 @@
         line: cd /vagrant
         insertafter: EOF
 
+    - name: Add database hostname to hosts
+      lineinfile:
+        dest: /etc/hosts
+        line: "{{ mariadb_bind_address }}  database_test"
+        insertafter: EOF
+      become: yes
+
     - name: Add the phpd alias for easy debugging from cli
       lineinfile:
         dest: /home/vagrant/.profile

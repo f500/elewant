@@ -44,7 +44,7 @@ php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
-  disable_functions: "exec, passthru, system, popen, curl_multi_exec"
+  disable_functions: "exec, system, popen, curl_multi_exec"
   session.cookie_secure: off
   opcache.enable_cli: on
   opcache.fast_shutdown: off
