@@ -10,6 +10,7 @@ elewant_application_root: ~
 elewant_application_env: prod
 elewant_php_socket: "{{ php7_fpm_pool_listen }}"
 elewant_db_socket: "{{ mariadb_socket }}"
+elewant_db_host: "{{ mariadb_bind_address }}"
 
 web_writable_folders:
   - { name: "{{ deploy_helper.new_release_path }}/var/cache", recursive: false }
@@ -25,17 +26,16 @@ project_environment:
 
 project_templates:
   - name: parameters.yml
-    src: "{{ playbook_dir }}/templates/app/parameters.yml.j2"
-    dest: "app/config/parameters.yml"
+    src: "{{ playbook_dir }}/templates/.env.j2"
+    dest: ".env"
 
 project_deploy_hook_on_finalize: "{{ playbook_dir }}/hooks/perform-build.yml"
 
 project_unwanted_items:
   - .git
   - ansible
-  - app/config/config_dev.yml
-  - app/config/config_test.yml
-  - app/config/routing_dev.yml
+  - config/packages/dev
+  - config/routes/dev
   - composer.outdated
   - phpcs.xml
   - phpspec.yml.dist
@@ -44,7 +44,6 @@ project_unwanted_items:
   - Vagrantfile
   - spec
   - tests
-  - web/app_dev.php
 
 project_shared_children:
   - path: "/var/sessions"

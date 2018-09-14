@@ -81,7 +81,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
     public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
         $resource   = $response->getResourceOwner()->getName();
-        $resourceId = (string) $response->getResponse()['id'] ?? 'UNKNOWN';
+        $resourceId = (string) $response->getData()['id'] ?? 'UNKNOWN';
 
         $user = $this->repository()->findUserByResource($resource, $resourceId);
 
@@ -112,7 +112,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
                         'Cannot connect user "%s" to resource "%s" with id "%s".',
                         $user->getUsername(),
                         $response->getResourceOwner()->getName(),
-                        $response->getResponse()['id'] ?? 'UNKNOWN'
+                        $response->getData()['id'] ?? 'UNKNOWN'
                     )
                 );
         }
@@ -126,7 +126,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
 
     private function connectTwitter(User $user, UserResponseInterface $response): void
     {
-        $data = $response->getResponse();
+        $data = $response->getData();
 
         if (!isset($data['id'])) {
             throw new AuthenticationException(sprintf('Missing "id" in resource "twitter".'));

@@ -1,6 +1,6 @@
 language: php
 php:
-  - '7.1'
+  - '7.2'
 
 env:
   - TEST_SUITE="main"
@@ -10,7 +10,6 @@ matrix:
   allow_failures:
     - env: TEST_SUITE="humbug"
 
-
 branches:
   - only:
     - master
@@ -19,22 +18,24 @@ branches:
 addons:
   hosts:
     - elewant.loc
+    - database_test
+  mariadb: "10.2"
 
 cache:
   directories:
     - vendor
 
 install:
-  - cp tests/config/parameters_for_travis.yml app/config/parameters.yml
-  - mysql -e "create database elewant;"
-  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'elewant'@'localhost' IDENTIFIED BY 'elewant'"
+  - cp tests/config/.env_for_travis .env
+  - mysql -e "create database elewant_test;"
+  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'elewant'@'%' IDENTIFIED BY 'elewant'"
   - composer install
 
 before_script:
   - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-  - bin/run_tests
+  - SYMFONY_DEPRECATIONS_HELPER=disabled bin/run_tests.sh
 
 notifications:
   email:

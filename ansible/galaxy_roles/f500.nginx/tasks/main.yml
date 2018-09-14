@@ -63,10 +63,20 @@
   notify: Restart nginx
 
 - name: Remove dist servers
-  file: "dest=/etc/nginx/{{ item[0] }}/{{ item[1] }} state=absent"
-  with_nested:
-    - [ conf.d, sites-available, sites-enabled ]
-    - [ default.conf, default ]
+  file: "dest=/etc/nginx/{{ item }} state=absent"
+  with_items:
+    - conf.d/default.conf
+    - conf.d/default
+    - sites-available/default
+    - sites-enabled/default
+  notify: Restart nginx
+
+- name: Remove default server
+  file: "dest=/etc/nginx/{{ item }} state=absent"
+  with_items:
+    - sites-available/default.conf
+    - sites-enabled/default.conf
+  when: not nginx_set_default_server
   notify: Restart nginx
 
 - name: Write default server

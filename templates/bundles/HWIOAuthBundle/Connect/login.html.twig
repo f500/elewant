@@ -1,0 +1,16 @@
+{% extends '@HWIOAuth/layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+
+    {% if error is defined and error %}
+        {{ alert(error, 'danger') }}
+    {% endif %}
+
+    {% for owner in hwi_oauth_resource_owners() %}
+        <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-lg btn-primary" role="button">
+            {{ icon(owner) }}
+            Login with {{ owner | trans({}, 'ElewantUserBundle') }}
+        </a>
+    {% endfor %}
+
+{% endblock hwi_oauth_content %}

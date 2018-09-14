@@ -1,0 +1,15 @@
+prooph_event_store:
+    stores:
+        herd_store:
+            event_store: '@Prooph\EventStore\EventStore'
+            repositories:
+                herd_collection:
+                    repository_class: Elewant\Herding\Infrastructure\EventStoreHerdCollection
+                    aggregate_type: Elewant\Herding\Model\Herd
+                    aggregate_translator: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+
+services:
+    _defaults:
+        public: false
+
+    Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator: ~

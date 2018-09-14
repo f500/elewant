@@ -79,6 +79,4 @@ $(function () {
     $('#adopt_elephpants, #desire_breeds').on('hidden.bs.modal', function () {
         location.reload();
     });
-
-    new RenameHerd($("#herd_tending"));
 });

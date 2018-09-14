@@ -43,4 +43,4 @@ events.mechanism = {{ php7_fpm_events_mechanism }}
 
 systemd_interval = {{ php7_fpm_systemd_interval }}
 
-include=/etc/php/7.1/fpm/pool.d/*.conf
+include=/etc/php/{{ php7_version }}/fpm/pool.d/*.conf

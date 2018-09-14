@@ -2,8 +2,8 @@
 
 - name: Validate version value
   fail:
-    msg: "The value of php7_version must be 7.0 or 7.1"
-  when: php7_version not in [7.0, 7.1]
+    msg: "The value of php7_version must be 7.0, 7.1 or 7.2"
+  when: php7_version not in [7.0, 7.1, 7.2]
 
 - name: Install packages needed to use the deb.sury.org repository
   apt:
@@ -85,6 +85,12 @@
     dest: "/etc/php/{{ php7_version }}/fpm/php-fpm.conf"
   notify: Restart PHP FPM
   when: php7_enable_fpm
+
+- name: Ensure "chdir" in the standard pool exists
+  file:
+    path: "{{ php7_fpm_pool_chdir }}"
+    state: directory
+  when: php7_enable_fpm and php7_fpm_pool_enabled
 
 - name: Configure the standard pool for FPM
   template:

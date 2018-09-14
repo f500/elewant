@@ -32,7 +32,7 @@ final class ExceptionController extends OriginalExceptionController
         $message = $exception->getMessage();
 
         return new Response(
-            $this->twig->render('ElewantAppBundle:Exception:error.html.twig', ['code' => $code, 'message' => $message]),
+            $this->twig->render('Exception/error.html.twig', ['code' => $code, 'message' => $message]),
             $code
         );
     }

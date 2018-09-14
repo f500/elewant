@@ -7,11 +7,17 @@ ssh_provision_user: "vagrant"
 # UFW
 
 ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 3306 }
+  - direction: in
+    to_port: 22
+    rule: allow
+  - direction: in
+    to_port: 80
+    rule: allow
+  - direction: in
+    to_port: 3306
+    rule: allow
 
-# MYSQL
+# MariaDB
 
 mariadb_bind_address: 192.168.77.77
 
@@ -38,7 +44,7 @@ php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
-  disable_functions: "exec, passthru, system, popen, curl_multi_exec"
+  disable_functions: "exec, system, popen, curl_multi_exec"
   session.cookie_secure: off
   opcache.enable_cli: on
   opcache.fast_shutdown: off
@@ -73,8 +79,8 @@ nginx_server_templates:
     src: "{{ playbook_dir }}/templates/nginx/dev-server.conf.j2"
     domains:
       - "develop.elewant.loc"
-    web_root: "/vagrant/web"
-    index: app_dev.php
+    web_root: "/vagrant/public"
+    index: index.php
     headers: "{{ nginx_http_headers }}"
 
 # APP

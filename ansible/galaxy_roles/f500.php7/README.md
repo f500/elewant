@@ -15,7 +15,7 @@ Role Variables
 
 All role variables are displayed with their default value.
 
-Specify the version of PHP you want to use (`7.0` or `7.1`):
+Specify the version of PHP you want to use (`7.0`, `7.1` or `7.2`):
 
     php7_version: 7.1
 
@@ -155,7 +155,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-        - { role: f500.php7, php7_version: 7.1, php7_enable_fpm: yes }
+        - { role: f500.php7, php7_version: 7.2, php7_enable_fpm: yes }
 
 License
 -------

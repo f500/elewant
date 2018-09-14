@@ -54,7 +54,12 @@ You should be up-and-running!
     http://localhost.elewant.com/
 
 > If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
-then place your key & secret in `app/config/parameters.yml`.
+then place your key & secret in `.env`.
+
+#### Running tests
+
+    docker-compose -f docker-compose-test.yml run php-fpm bin/run_tests.sh
+
 
 ### Getting started with Vagrant
 

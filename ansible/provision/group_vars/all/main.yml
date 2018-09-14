@@ -37,14 +37,23 @@ ntp_restrict_policies:
 # UFW
 
 ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 443 }
+  - direction: in
+    to_port: 22
+    rule: allow
+  - direction: in
+    to_port: 80
+    rule: allow
+  - direction: in
+    to_port: 443
+    rule: allow
 
-# MYSQL
 
-mariadb_origin: default
+# MariaDB
+
+mariadb_origin: upstream
 mariadb_vendor: mariadb
+mariadb_version: 10.2
+mariadb_key_server: "hkp://keyserver.ubuntu.com:80"
 
 mariadb_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
 
@@ -65,7 +74,7 @@ mariadb_slow_query_log_enabled: false
 
 # PHP
 
-php7_version: 7.1
+php7_version: 7.2
 php7_enable_fpm: yes
 
 php7_extensions: [ apcu ]
@@ -118,3 +127,4 @@ elewant_application_root: ~
 elewant_application_env: prod
 elewant_php_socket: "{{ php7_fpm_pool_listen }}"
 elewant_db_socket: "{{ mariadb_socket }}"
+elewant_db_host: "{{ mariadb_bind_address }}"

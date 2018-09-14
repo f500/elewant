@@ -28,9 +28,9 @@
     "url": "git+ssh://git@github.com:f500/elewant.git"
   },
   "scripts": {
-    "clean-css": "cleancss --skip-advanced --source-map --output web/build/css/elewant.min.css web/build/css/elewant.css",
-    "postcss": "postcss --config node_modules/bootstrap/build/postcss.config.js --replace web/build/css/*.css",
-    "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/AppBundle/Resources/assets/scss/elewant.scss web/build/css/elewant.css",
-    "uglify": "uglifyjs --compress warnings=false --mangle --comments '/^!/' --output web/build/js/elewant.min.js web/build/js/elewant.js"
+    "clean-css": "cleancss --skip-advanced --source-map --output public/build/css/elewant.min.css public/build/css/elewant.css",
+    "postcss": "postcss --config node_modules/bootstrap/build/postcss.config.js --replace public/build/css/*.css",
+    "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/AppBundle/Resources/assets/scss/elewant.scss public/build/css/elewant.css",
+    "uglify": "uglifyjs --compress warnings=false --mangle --comments '/^!/' --output public/build/js/elewant.min.js public/build/js/elewant.js"
   }
 }

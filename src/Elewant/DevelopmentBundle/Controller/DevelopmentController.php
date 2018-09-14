@@ -28,7 +28,7 @@ final class DevelopmentController extends Controller
         $users = $this->userRepository()->findAll();
 
         return $this->render(
-            'ElewantDevelopmentBundle:Development:list_users.html.twig',
+            'Development/list_users.html.twig',
             ['users' => $users]
         );
     }
@@ -36,7 +36,7 @@ final class DevelopmentController extends Controller
     /**
      * @Route("generate-new-user", name="dev_generate_new_user")
      */
-    public function generateNewUserAction()
+    public function generateNewUserAction(UserProvider $userProvider)
     {
         $user = $this->generateRandomNewNuser();
 
@@ -50,7 +50,7 @@ final class DevelopmentController extends Controller
             new DevelopmentOauthResourceOwner()
         );
 
-        $this->userProvider()->connect($user, $userResponse);
+        $userProvider->connect($user, $userResponse);
 
         return $this->redirectToRoute('dev_list_users');
     }
@@ -58,10 +58,10 @@ final class DevelopmentController extends Controller
     /**
      * @Route("/login-as/{username}", name="dev_login_as")
      */
-    public function loginAsAction(Request $request, $username)
+    public function loginAsAction(Request $request, UserProvider $userProvider, $username)
     {
         try {
-            $user = $this->userProvider()->loadUserByUsername($username);
+            $user = $userProvider->loadUserByUsername($username);
         } catch (UsernameNotFoundException $e) {
             return $this->redirectToRoute('root');
         }
@@ -85,14 +85,6 @@ final class DevelopmentController extends Controller
         $userRepository = $em->getRepository(User::class);
 
         return $userRepository;
-    }
-
-    private function userProvider(): UserProvider
-    {
-        /** @var UserProvider $userProvider */
-        $userProvider = $this->get('elewant.security.user_provider');
-
-        return $userProvider;
     }
 
     private function generateRandomNewNuser(): User

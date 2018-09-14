@@ -5,22 +5,23 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\Controller;
 
 use Elewant\AppBundle\Repository\HerdRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="root")
+     * @param HerdRepository $herdRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(HerdRepository $herdRepository)
     {
-        /** @var HerdRepository $herdRepository */
-        $herdRepository = $this->get('elewant.herd.herd_repository');
-        $newestHerds    = $herdRepository->newestHerds(4);
+        $newestHerds = $herdRepository->newestHerds(4);
 
         return $this->render(
-            'ElewantAppBundle:Default:index.html.twig',
+            'Default/index.html.twig',
             [
                 'shrinking_navbar'       => true,
                 'only_anchors_in_navbar' => true,
@@ -35,7 +36,7 @@ class DefaultController extends Controller
     public function historyAction()
     {
         return $this->render(
-            'ElewantAppBundle:Default:history.html.twig',
+            'Default/history.html.twig',
             []
         );
     }
@@ -46,7 +47,7 @@ class DefaultController extends Controller
     public function styleGuideAction()
     {
         return $this->render(
-            'ElewantAppBundle:Default:style_guide.html.twig'
+            'Default/style_guide.html.twig'
         );
     }
 }
