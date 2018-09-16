@@ -13,15 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateEventStreamCommand extends ContainerAwareCommand
 {
-    private $eventStore;
-
-    public function __construct(EventStore $eventStore)
-    {
-        $this->eventStore = $eventStore;
-
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this->setName('event-store:event-stream:create')
@@ -31,7 +22,10 @@ final class CreateEventStreamCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
+        /** @var EventStore $eventStore */
+        $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
+
+        $eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
 
         $output->writeln('<info>Event stream was created successfully.</info>');
     }

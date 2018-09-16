@@ -48,7 +48,7 @@ $input->setInteractive(false);
 $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
 
 // add event-store:event-stream:create
-$command = new CreateEventStreamCommand($kernel->getContainer()->get('app.event_store.default'));
+$command = new CreateEventStreamCommand();
 $application->add($command);
 $input = new ArrayInput(
     [

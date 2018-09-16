@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Elewant\AppBundle\Command;
 
-use Elewant\Herding\Projections\HerdProjector;
+use Elewant\Herding\Projections\HerdReadModel;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\StreamName;
 use Prooph\ServiceBus\EventBus;
@@ -15,26 +15,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RebuildHerdProjectionCommand extends ContainerAwareCommand
 {
     /**
-     * @var HerdProjector
+     * @var HerdReadModel
      */
-    private $herdProjector;
+    private $herdProjection;
+
     /**
      * @var EventStore
      */
     private $eventStore;
+
     /**
      * @var EventBus
      */
     private $replayBus;
 
-    public function __construct(HerdProjector $herdProjector, EventStore $eventStore, EventBus $replayBus)
-    {
-        $this->herdProjector = $herdProjector;
-        $this->eventStore    = $eventStore;
-        $this->replayBus     = $replayBus;
-
-        parent::__construct();
-    }
 
     protected function configure()
     {
@@ -43,10 +37,10 @@ class RebuildHerdProjectionCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        $this->herdProjector->clearAllTables();
-//
-//        $streamName = new StreamName('event');
-//        $iterator   = $this->eventStore->replay([$streamName]);
+        $this->herdProjection->clearAllTables();
+
+        $streamName = new StreamName('event_stream');
+        $iterator   = $this->eventStore->replay([$streamName]);
 //
 //        foreach ($iterator as $key => $event) {
 //            $this->replayBus->dispatch($event);
