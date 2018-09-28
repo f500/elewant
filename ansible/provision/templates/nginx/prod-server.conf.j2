@@ -35,7 +35,16 @@ server {
     {% endfor %}
 
     location / {
+        if (-f $document_root/maintenance.html) {
+            return 503;
+        }
+
         try_files $uri /{{ item.index }}$is_args$args;
+    }
+
+    error_page 503 @maintenance;
+    location @maintenance {
+        rewrite ^(.*)$ /maintenance.html break;
     }
 
     location ~ \.php$ {
