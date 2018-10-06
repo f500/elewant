@@ -54,6 +54,8 @@ class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
 
         $expectedDesiredBreedsProjection = [];
 
+        $this->runProjection('herd_projection');
+
         $desiredBreeds                   = $this->retrieveDesiredBreedsFromListing(
             $eventUnderTest->herdId()->toString()
         );

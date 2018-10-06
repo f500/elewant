@@ -35,7 +35,6 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
             /** @var EventStore $eventStore */
             $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
             $eventStore->delete(new StreamName('event_stream'));
-
         } catch (StreamNotFound $exception) {
             // Fine by us.
         }
