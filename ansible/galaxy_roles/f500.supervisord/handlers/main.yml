@@ -1,0 +1,8 @@
+---
+
+- name: Reload supervisord configuration
+  command: supervisorctl reread
+  notify: Apply supervisord changes
+
+- name: Apply supervisord changes
+  command: supervisorctl update
