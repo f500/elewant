@@ -1,4 +1,0 @@
-services:
-#    app.event_store.default:
-#        class: Prooph\EventStore\InMemoryEventStore
-#        public: true

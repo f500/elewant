@@ -57,6 +57,9 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
                 'desired_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
             ],
         ];
+
+        $this->runProjection('herd_projection');
+
         $desiredBreeds          = $this->retrieveDesiredBreedsFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedDesiredBreedsProjection, $desiredBreeds);
     }

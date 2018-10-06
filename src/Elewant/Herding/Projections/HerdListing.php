@@ -26,14 +26,14 @@ final class HerdListing
 
     public function findAll(): array
     {
-        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdProjector::TABLE_HERD));
+        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdReadModel::TABLE_HERD));
     }
 
     public function findById($herdId)
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(HerdProjector::TABLE_HERD)
+            ->from(HerdReadModel::TABLE_HERD)
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 
@@ -44,7 +44,7 @@ final class HerdListing
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(HerdProjector::TABLE_ELEPHPANT)
+            ->from(HerdReadModel::TABLE_ELEPHPANT)
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 
@@ -55,7 +55,7 @@ final class HerdListing
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(HerdProjector::TABLE_ELEPHPANT)
+            ->from(HerdReadModel::TABLE_ELEPHPANT)
             ->where('elephpant_id = :elephpantId')
             ->setParameter('elephpantId', $elePHPantId);
 
@@ -66,7 +66,7 @@ final class HerdListing
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(HerdProjector::TABLE_DESIRED_BREEDS)
+            ->from(HerdReadModel::TABLE_DESIRED_BREEDS)
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 

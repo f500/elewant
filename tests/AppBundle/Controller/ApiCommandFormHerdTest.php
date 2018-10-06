@@ -46,6 +46,9 @@ class ApiCommandFormHerdTest extends ApiCommandBase
             'name'        => $eventUnderTest->name(),
             'formed_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
+
+        $this->runProjection('herd_projection');
+
         $projectedHerd          = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedHerdProjection, $projectedHerd);
     }

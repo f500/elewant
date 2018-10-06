@@ -7,6 +7,8 @@ use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Projections\HerdListing;
+use Prooph\Bundle\EventStore\Projection\Projection;
+use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\Common\Event\ActionEvent;
 use Prooph\EventStore\ActionEventEmitterEventStore;
 use Prooph\EventStore\EventStore;
@@ -179,5 +181,44 @@ abstract class ApiCommandBase extends WebTestCase
     private function getHerdListing(ContainerInterface $container)
     {
         return $container->get('Elewant\Herding\Projections\HerdListing');
+    }
+
+    /**
+     * This method can run a projection once
+     *
+     * @param string $projectionName
+     */
+    protected function runProjection($projectionName)
+    {
+        self::bootKernel();
+        $container = self::$container;
+
+        $projectionManager = $container->get(
+            'prooph_event_store.projection_manager.elewant_projection_manager'
+        );
+        $projectionsLocator = $container->get(
+            'prooph_event_store.projections_locator'
+        );
+        $projectionReadModelLocator = $container->get(
+            'prooph_event_store.projection_read_models_locator'
+        );
+
+        $projection = $projectionsLocator->get($projectionName);
+
+        if ($projection instanceof ReadModelProjection) {
+            if (! $projectionReadModelLocator->has($projectionName)) {
+                throw new \RuntimeException(sprintf('ReadModel for "%s" not found', $projectionName));
+            }
+            $readModel = $projectionReadModelLocator->get($projectionName);
+
+            $projector = $projectionManager->createReadModelProjection($projectionName, $readModel);
+        }
+
+        if ($projection instanceof Projection) {
+            $projector = $projectionManager->createProjection($projectionName);
+        }
+
+        $projector = $projection->project($projector);
+        $projector->run(false);
     }
 }

@@ -42,6 +42,8 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
         /** @var HerdWasRenamed $eventUnderTest */
         $eventUnderTest = end($this->recordedEvents);
 
+        $this->runProjection('herd_projection');
+
         $projectedHerd = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
 
         TestCase::assertSame(

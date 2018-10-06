@@ -8,8 +8,8 @@ services:
             MYSQL_DATABASE: elewant_test
             MYSQL_USER: elewant
             MYSQL_PASSWORD: elewant
-    php-fpm:
-        build: docker/php-fpm
+    php-cli:
+        build: docker/php-cli
         volumes:
         - ./:/opt/project:cached
         depends_on:
