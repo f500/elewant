@@ -1,0 +1,6 @@
+[program:elewant.com-herd_projection]
+directory       = /vagrant
+command         = /vagrant/bin/console event-store:projection:run herd_projection --env=dev
+autorestart     = true
+startsecs       = 5
+user            = vagrant
