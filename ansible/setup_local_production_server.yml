@@ -1,7 +1,7 @@
 ---
 
 - name: Setup Local Production Server
-  hosts: prodsim
+  hosts: production
   become: yes
 
   vars:

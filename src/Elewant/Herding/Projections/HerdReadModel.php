@@ -124,14 +124,18 @@ final class HerdReadModel extends AbstractReadModel
      */
     public function onBreedWasDesiredByHerd(HerdId $herdId, Breed $breed, \DateTimeImmutable $desiredOn)
     {
-        $this->connection->insert(
-            self::TABLE_DESIRED_BREEDS,
-            [
-                'herd_id'    => $herdId->toString(),
-                'breed'      => $breed->toString(),
-                'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
-            ]
-        );
+        try {
+            $this->connection->insert(
+                self::TABLE_DESIRED_BREEDS,
+                [
+                    'herd_id'    => $herdId->toString(),
+                    'breed'      => $breed->toString(),
+                    'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
+                ]
+            );
+        } catch (\PDOException $e) {
+            // There are duplicates in the historic data
+        }
     }
 
     /**
