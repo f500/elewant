@@ -34,4 +34,4 @@ services:
         factory: ['@database_connection', getWrappedConnection]
 
     app.event_store.mariadb.persistence_strategy:
-        class: Prooph\EventStore\Pdo\PersistenceStrategy\MariaDbSingleStreamStrategy
+        class: Elewant\Tooling\Prooph\MariaDbSingleStreamStrategyWithUnescapedUnicode
