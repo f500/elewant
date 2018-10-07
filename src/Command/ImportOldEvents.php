@@ -37,7 +37,7 @@ final class ImportOldEvents extends ContainerAwareCommand
     protected function configure()
     {
         $this->setName('event-store:event-stream:import-old-events')
-            ->setDescription('Import old events')
+            ->setDescription('Import old events (to be used once after upgrade and then removed)')
             ->setHelp('This command imports old events');
     }
 
@@ -58,10 +58,6 @@ final class ImportOldEvents extends ContainerAwareCommand
             ];
             $event['created_at']   = new DateTimeImmutable($event['created_at']);
             $event['payload']      = json_decode($event['payload'], true);
-
-            var_dump($event['payload']);
-            var_dump(json_encode($event['payload'], JSON_UNESCAPED_UNICODE));
-            var_dump(json_encode($event['payload'], JSON_UNESCAPED_UNICODE & JSON_UNESCAPED_SLASHES));
 
             $iterator = new \ArrayIterator(
                 [$this->messageFactory->createMessageFromArray($event['event_name'], $event)]
