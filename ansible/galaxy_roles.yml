@@ -7,6 +7,7 @@
 - f500.ntp
 - f500.ufw
 - f500.vim
+- f500.supervisord
 - f500.php7
 - f500.php_composer
 - f500.nginx

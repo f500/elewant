@@ -25,8 +25,10 @@ final class CreateEventStreamCommand extends ContainerAwareCommand
         /** @var EventStore $eventStore */
         $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
 
-        $eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
-
-        $output->writeln('<info>Event stream was created successfully.</info>');
+        $streamName = new StreamName('event_stream');
+        if (!$eventStore->hasStream($streamName)) {
+            $eventStore->create(new Stream($streamName, new \ArrayIterator([])));
+            $output->writeln('<info>Event stream was created successfully.</info>');
+        }
     }
 }

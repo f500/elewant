@@ -1,5 +1,64 @@
 ---
 
+- name: Provision globally
+  hosts: all
+  become: yes
+  remote_user: "{{ ssh_provision_user }}"
+  gather_facts: yes
+
+  pre_tasks:
+    - name: Ensure the PHP FPM chdir / Nginx www dir exists
+      file:
+        path: "{{ php7_fpm_pool_chdir }}"
+        owner: "{{ php7_fpm_pool_user }}"
+        group: "{{ php7_fpm_pool_group }}"
+        mode: 0755
+        state: directory
+
+  roles:
+    - f500.debian
+    - install_apt_packages
+    - f500.locale
+    - f500.ntp
+    - f500.ufw
+    - f500.supervisord
+    - f500.bash
+    - f500.bashrc
+    - f500.vim
+
+    - HanXHX.mysql
+    - f500.php7
+    - f500.php_composer
+    - f500.nginx
+    - f500.nodejs
+
+  tasks:
+    - name: Create the logs folder
+      file: path=/home/logs state=directory
+
+    - name: Add write privileges for the web user
+      acl: name=/home/logs entity={{ nginx_user }} etype=user permissions=rw default=yes state=present
+
+  post_tasks:
+    - name: Install apt packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - acl
+        - git
+
+    - name: Install npm packages
+      npm:
+        name: "{{ item }}"
+        global: yes
+        state: present
+      with_items:
+        - grunt-cli
+
+    - name: Install grunt
+      npm: name=grunt-cli state=present global=yes
+
 - name: Provision production
   hosts: production
   become: yes
@@ -38,63 +97,11 @@
       with_items: "{{ webserver_letsencrypt.results }}"
       when: not item.stat.exists
 
-- name: Provision globally
-  hosts: all
-  become: yes
-  remote_user: "{{ ssh_provision_user }}"
-  gather_facts: yes
-
-  pre_tasks:
-    - name: Ensure the PHP FPM chdir / Nginx www dir exists
-      file:
-        path: "{{ php7_fpm_pool_chdir }}"
-        owner: "{{ php7_fpm_pool_user }}"
-        group: "{{ php7_fpm_pool_group }}"
-        mode: 0755
-        state: directory
-
-  roles:
-    - f500.debian
-    - install_apt_packages
-    - f500.locale
-    - f500.ntp
-    - f500.ufw
-    - f500.bash
-    - f500.bashrc
-    - f500.vim
-
-    - HanXHX.mysql
-    - f500.php7
-    - f500.php_composer
-    - f500.nginx
-    - f500.nodejs
-
-  tasks:
-    - name: Create the logs folder
-      file: path=/home/logs state=directory
-
-    - name: Add write privileges for the web user
-      acl: name=/home/logs entity={{ nginx_user }} etype=user permissions=rw default=yes state=present
-
-  post_tasks:
-    - name: Install apt packages
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - acl
-        - git
-
-    - name: Install npm packages
-      npm:
-        name: "{{ item }}"
-        global: yes
-        state: present
-      with_items:
-        - grunt-cli
-
-    - name: Install grunt
-      npm: name=grunt-cli state=present global=yes
+    - name: Copy supervisord configuration
+      template:
+        src: supervisord/elewant.herd_projection.conf.j2
+        dest: /etc/supervisor/conf.d/elewant.conf
+      notify: Reload supervisord configuration
 
 - name: Provision develop environment
   hosts: develop
@@ -149,3 +156,13 @@
       command: grunt
       args:
         chdir: "{{ elewant_application_root }}"
+
+    - name: Copy supervisord configuration
+      become: yes
+      template:
+        src: supervisord/vagrant.herd_projection.conf.j2
+        dest: /etc/supervisor/conf.d/elewant.conf
+
+    - name: Restart Supervisord
+      become: yes
+      command: supervisorctl reread && supervisorctl update && supervisorctl reload

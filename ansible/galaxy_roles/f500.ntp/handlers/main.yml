@@ -2,4 +2,4 @@
 
 - name: restart ntp
   service: name=ntp state=restarted
-  when: not started_ntp|changed
+  when: not started_ntp is changed
