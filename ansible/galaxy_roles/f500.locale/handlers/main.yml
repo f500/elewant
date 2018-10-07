@@ -1,0 +1,4 @@
+---
+
+- name: run locale-gen
+  command: locale-gen

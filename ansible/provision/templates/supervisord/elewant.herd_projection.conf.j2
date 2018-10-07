@@ -1,0 +1,13 @@
+[program:elewant.com-herd_projection]
+directory       = /home/deploy/elewant.com/current
+command         = /home/deploy/elewant.com/current/bin/console event-store:projection:run herd_projection --env=prod
+autorestart     = true
+startsecs       = 5
+user            = deploy
+
+[program:staging.elewant.com-herd_projection]
+directory       = /home/deploy/staging.elewant.com/current
+command         = /home/deploy/staging.elewant.com/current/bin/console event-store:projection:run herd_projection --env=prod
+autorestart     = true
+startsecs       = 5
+user            = deploy

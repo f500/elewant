@@ -50,6 +50,8 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         /** @var ElePHPantWasAbandonedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
 
+        $this->runProjection('herd_projection');
+
         $shouldBeEmpty = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
 
         TestCase::assertEmpty(

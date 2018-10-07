@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec php \
+{% for key, value in php_composer_wrapper_ini_directives.iteritems() %}
+{% if value is sameas True %}
+-d {{ key }}=On \
+{% elif value is sameas False %}
+-d {{ key }}=Off \
+{% elif value is number %}
+-d {{ key }}={{ value }} \
+{% else %}
+-d {{ key }}="{{ value }}" \
+{% endif %}
+{% endfor %}
+{{ php_composer_install_path }} "$@"

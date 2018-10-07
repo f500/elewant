@@ -52,8 +52,10 @@ class ApiCommandAdoptElePHPantTest extends ApiCommandBase
             'breed'        => $eventUnderTest->breed()->toString(),
             'adopted_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
-        $projectedElePHPant          = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
+
+        $this->runProjection('herd_projection');
+
+        $projectedElePHPant = $this->retrieveElePHPantFromListing($eventUnderTest->elePHPantId()->toString());
         TestCase::assertSame($expectedElePHPantProjection, $projectedElePHPant);
     }
-
 }

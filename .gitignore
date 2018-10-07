@@ -4,20 +4,28 @@
 !.idea/fileTemplates/
 !.idea/inspectionProfiles/
 /.vagrant/
-/ansible/galaxy_roles/
 /ansible/provision/group_vars/develop/override_locally.yml
-/app/config/parameters.yml
-/build/
 /node_modules/
-/phpunit.xml
+/public/build/
+tests/_output/**
+!tests/_output/.gitkeep
 /var/**
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+
+###> symfony/framework-bundle ###
+/.env
+/public/bundles/
 /vendor/
-/web/build/
-/web/bundles/
-tests/_output/**
-!tests/_output/.gitkeep
-humbug.json
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

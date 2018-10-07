@@ -1,0 +1,23 @@
+---
+
+- name: update apt cache
+  apt: "update_cache=yes cache_valid_time={{ debian_cache_valid_time }}"
+  when: debian_cache_update
+
+- name: install curl
+  apt: pkg=curl state=present
+
+- name: install python-pycurl
+  apt: pkg=python-pycurl state=present
+
+- name: add backports repository
+  apt_repository: repo='deb http://{{ debian_repo_url }}/debian {{ debian_codename }}-backports main' state=present update_cache=no
+
+- name: add backports source repository
+  apt_repository: repo='deb-src http://{{ debian_repo_url }}/debian {{ debian_codename }}-backports main' state=present update_cache=yes
+
+- name: install python-configparser
+  apt: pkg=python-configparser state=present
+
+- name: write inputrc
+  copy: src=inputrc dest=/etc/inputrc owner=root group=root mode=0644

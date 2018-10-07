@@ -1,0 +1,10 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+
+    {% include 'Default/header.html.twig' %}
+    {% include 'Default/about.html.twig' %}
+    {% include 'Default/newest_herds.html.twig' with {'herds': newest_herds} %}
+    {% include 'Default/contributors.html.twig' %}
+
+{% endblock %}

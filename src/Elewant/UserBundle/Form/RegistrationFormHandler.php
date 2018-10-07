@@ -32,7 +32,7 @@ class RegistrationFormHandler implements RegistrationFormHandlerInterface
             $user = new User(
                 $userInformation->getNickname(),
                 (string) $userInformation->getRealName(),
-                $userInformation->getResponse()['location'] ?? ''
+                $userInformation->getData()['location'] ?? ''
             );
         }
 

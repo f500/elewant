@@ -17,7 +17,7 @@ class ApiCommandFormHerdTest extends ApiCommandBase
     {
         parent::setUp();
         $this->shepherdId = ShepherdId::generate();
-        $this->client     = $this->formHerd($this->shepherdId, 'My herd name');
+        $this->client     = $this->formHerd($this->shepherdId, 'My herd name 😱');
     }
 
     public function test_command_form_herd_returns_http_status_202()
@@ -32,7 +32,7 @@ class ApiCommandFormHerdTest extends ApiCommandBase
         /** @var HerdWasFormed $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[0];
         TestCase::assertInstanceOf(HerdWasFormed::class, $eventUnderTest);
-        TestCase::assertSame('My herd name', $eventUnderTest->name());
+        TestCase::assertSame('My herd name 😱', $eventUnderTest->name());
     }
 
     public function test_command_form_herd_created_a_correct_herd_projection()
@@ -46,6 +46,9 @@ class ApiCommandFormHerdTest extends ApiCommandBase
             'name'        => $eventUnderTest->name(),
             'formed_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
+
+        $this->runProjection('herd_projection');
+
         $projectedHerd          = $this->retrieveHerdFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedHerdProjection, $projectedHerd);
     }

@@ -27,7 +27,7 @@ Provisioning Prodsim
 
 Edit your local `hosts` file and add:
 
-    192.168.10.201 prodsim.elewant.loc
+    192.168.77.78 prodsim.elewant.loc
 
 Startup the prodsim machine
 
@@ -35,11 +35,11 @@ Startup the prodsim machine
 
 After the vagrant up, the playbook `setup_local_production_server.yml` has been executed and now you are ready to provision the prodsim server.
 
-    ansible-playbook -i ansible/hosts ansible/provision/provision.yml --ask-vault-pass --limit=prodsim
+    ansible-playbook -i ansible/prodsim-hosts-provision ansible/provision/playbook.yml --ask-vault-pass
 
-After you did a successful provision you can deploy your application to your prodsim
-
-    ansible-playbook -i ansible/hosts ansible/deploy/deploy.yml --extra-vars "project_version=develop" --limit=prodsim --ask-vault-pass
+After you did a successful provision you can deploy the application to your prodsim box
+ 
+    ansible-playbook -i ansible/prodsim-hosts-deploy ansible/deploy/playbook.yml --extra-vars "project_version=develop" --limit=staging --ask-vault-pass
 
 
 Provisioning Production

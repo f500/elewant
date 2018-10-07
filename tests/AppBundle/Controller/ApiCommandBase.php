@@ -7,8 +7,12 @@ use Elewant\Herding\Model\Breed;
 use Elewant\Herding\Model\HerdId;
 use Elewant\Herding\Model\ShepherdId;
 use Elewant\Herding\Projections\HerdListing;
+use Prooph\Bundle\EventStore\Projection\Projection;
+use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\Common\Event\ActionEvent;
+use Prooph\EventStore\ActionEventEmitterEventStore;
 use Prooph\EventStore\EventStore;
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -120,11 +124,10 @@ abstract class ApiCommandBase extends WebTestCase
             throw new \RuntimeException('Kernel has been shutdown or not started yet.');
         }
 
-        $this->store = $client->getContainer()->get('prooph_event_store.herd_store');
-        $this->store->getActionEventEmitter()->attachListener(
-            'commit.post',
+        $this->getStore($client->getContainer())->attach(
+            'appendTo',
             function (ActionEvent $event) {
-                foreach ($event->getParam('recordedEvents', new \ArrayIterator()) as $recordedEvent) {
+                foreach ($event->getParam('streamEvents', new \ArrayIterator()) as $recordedEvent) {
                     $this->recordedEvents[] = $recordedEvent;
                 }
             }
@@ -135,35 +138,87 @@ abstract class ApiCommandBase extends WebTestCase
 
     protected function retrieveHerdFromListing($herdId)
     {
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+        $herdListing = $this->getHerdListing($this->client()->getContainer());
 
         return $herdListing->findById($herdId);
     }
 
     protected function retrieveElePHPantFromListing($elePHPantId)
     {
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+        $herdListing = $this->getHerdListing($this->client()->getContainer());
 
         return $herdListing->findElePHPantByElePHPantId($elePHPantId);
     }
 
     protected function retrieveHerdElePHPantsFromListing($herdId)
     {
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+        $herdListing = $this->getHerdListing($this->client()->getContainer());
 
         return $herdListing->findElePHPantsByHerdId($herdId);
     }
 
     protected function retrieveDesiredBreedsFromListing($herdId)
     {
-        /** @var HerdListing $herdListing */
-        $herdListing = $this->client()->getContainer()->get('elewant.herd_projection.herd_listing');
+
+        $herdListing = $this->getHerdListing($this->client()->getContainer());
 
         return $herdListing->findDesiredBreedsByHerdId($herdId);
     }
 
+    /**
+     * @param ContainerInterface $container
+     * @return ActionEventEmitterEventStore
+     */
+    private function getStore(ContainerInterface $container)
+    {
+        return $container->get('prooph_event_store.herd_store');
+    }
 
+    /**
+     * @param ContainerInterface $container
+     * @return HerdListing
+     */
+    private function getHerdListing(ContainerInterface $container)
+    {
+        return $container->get('Elewant\Herding\Projections\HerdListing');
+    }
+
+    /**
+     * This method can run a projection once
+     *
+     * @param string $projectionName
+     */
+    protected function runProjection($projectionName)
+    {
+        self::bootKernel();
+        $container = self::$container;
+
+        $projectionManager = $container->get(
+            'prooph_event_store.projection_manager.elewant_projection_manager'
+        );
+        $projectionsLocator = $container->get(
+            'prooph_event_store.projections_locator'
+        );
+        $projectionReadModelLocator = $container->get(
+            'prooph_event_store.projection_read_models_locator'
+        );
+
+        $projection = $projectionsLocator->get($projectionName);
+
+        if ($projection instanceof ReadModelProjection) {
+            if (! $projectionReadModelLocator->has($projectionName)) {
+                throw new \RuntimeException(sprintf('ReadModel for "%s" not found', $projectionName));
+            }
+            $readModel = $projectionReadModelLocator->get($projectionName);
+
+            $projector = $projectionManager->createReadModelProjection($projectionName, $readModel);
+        }
+
+        if ($projection instanceof Projection) {
+            $projector = $projectionManager->createProjection($projectionName);
+        }
+
+        $projector = $projection->project($projector);
+        $projector->run(false);
+    }
 }

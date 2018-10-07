@@ -2,30 +2,35 @@
 
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="app/phpunit_bootstrap.php"
+         bootstrap="tests/phpunit_bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="KERNEL_DIR" value="app/" />
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+        <env name="APP_ENV" value="test" />
+        <env name="APP_DEBUG" value="1" />
+        <env name="APP_SECRET" value="s$cretf0rt3st" />
+        <env name="SHELL_VERBOSITY" value="-1" />
+        <env name="DATABASE_URL" value="mysql://elewant:elewant@database_test/elewant_test" />
+        <!-- define your env variables for the test env here -->
     </php>
 
     <testsuites>
-        <testsuite name="Does Elewant do what we expect?">
-            <directory>tests</directory>
+        <testsuite name="Project Test Suite">
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>src</directory>
-            <exclude>
-                <directory>src/*Bundle/Resources</directory>
-                <directory>src/*/*Bundle/Resources</directory>
-                <directory>src/*/Bundle/*Bundle/Resources</directory>
-            </exclude>
+            <directory>./src/</directory>
         </whitelist>
     </filter>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
 </phpunit>

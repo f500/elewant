@@ -1,0 +1,37 @@
+prooph_event_store:
+    stores:
+        herd_store:
+            event_store: Prooph\EventStore\Pdo\MariaDbEventStore
+            repositories:
+                herd_collection:
+                    repository_class: Elewant\Herding\Infrastructure\EventStoreHerdCollection
+                    aggregate_type: Elewant\Herding\Model\Herd
+                    aggregate_translator: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+    projection_managers:
+        elewant_projection_manager:
+            event_store: Prooph\EventStore\Pdo\MariaDbEventStore
+            connection: 'app.event_store.pdo_connection.mariadb'
+            projections:
+                herd_projection:
+                    read_model: Elewant\Herding\Projections\HerdReadModel
+                    projection: Elewant\Herding\Projections\HerdProjection
+
+services:
+    _defaults:
+        public: false
+
+    Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator: ~
+    Prooph\EventStore\Pdo\MariaDbEventStore:
+        class: Prooph\EventStore\Pdo\MariaDbEventStore
+        public: true
+        arguments:
+            - '@prooph_event_store.message_factory'
+            - '@app.event_store.pdo_connection.mariadb'
+            - '@app.event_store.mariadb.persistence_strategy'
+
+    app.event_store.pdo_connection.mariadb:
+        class: \PDO
+        factory: ['@database_connection', getWrappedConnection]
+
+    app.event_store.mariadb.persistence_strategy:
+        class: Elewant\Tooling\Prooph\MariaDbSingleStreamStrategyWithUnescapedUnicode

@@ -7,6 +7,7 @@ namespace Elewant\DevelopmentBundle\Security;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwnerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Authentication\Token\OAuthToken;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class DevelopmentUserResponse implements UserResponseInterface
 {
@@ -98,5 +99,27 @@ final class DevelopmentUserResponse implements UserResponseInterface
 
     public function setOAuthToken(OAuthToken $token)
     {
+    }
+
+    /**
+     * Get the api response data.
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Set the raw api response.
+     *
+     * @param string|array $data
+     *
+     * @throws AuthenticationException
+     */
+    public function setData($data)
+    {
+        // TODO: Implement setData() method.
     }
 }

@@ -173,7 +173,7 @@ class HerdSpec extends ObjectBehavior
         $this->desiredBreeds()->shouldHaveCount(0);
     }
 
-    public function getMatchers()
+    public function getMatchers(): array
     {
         return [
             'containAnElePHPant' => function ($elePHPants, $type) {

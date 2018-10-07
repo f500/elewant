@@ -1,0 +1,9 @@
+---
+
+- name: write default/locale
+  template: src=locale.j2 dest=/etc/default/locale owner=root group=root mode=0644
+
+- name: write locale.gen
+  template: src=locale.gen.j2 dest=/etc/locale.gen owner=root group=root mode=0644
+  notify:
+    - run locale-gen

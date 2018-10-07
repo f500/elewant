@@ -1,0 +1,39 @@
+---
+
+- name: install ufw
+  apt:
+    name: ufw
+    state: present
+
+- name: create rules
+  ufw:
+    direction: "{{ item.direction|default(omit) }}"
+    from_ip: "{{ item.from_ip|default(omit) }}"
+    from_port: "{{ item.from_port|default(omit) }}"
+    interface: "{{ item.interface|default(omit) }}"
+    proto: "{{ item.proto|default(omit) }}"
+    rule: "{{ item.rule|default('allow') }}"
+    to_ip: "{{ item.to_ip|default(omit) }}"
+    to_port: "{{ item.to_port|default(omit) }}"
+  with_items: "{{ ufw_rules_to_create }}"
+
+- name: delete rules
+  ufw:
+    direction: "{{ item.direction|default(omit) }}"
+    from_ip: "{{ item.from_ip|default(omit) }}"
+    from_port: "{{ item.from_port|default(omit) }}"
+    interface: "{{ item.interface|default(omit) }}"
+    proto: "{{ item.proto|default(omit) }}"
+    rule: "{{ item.rule|default('allow') }}"
+    to_ip: "{{ item.to_ip|default(omit) }}"
+    to_port: "{{ item.to_port|default(omit) }}"
+    delete: yes
+  with_items: "{{ ufw_rules_to_delete }}"
+
+- name: set default policy
+  ufw:
+    policy: "{{ ufw_default_policy }}"
+
+- name: enable and start ufw
+  ufw:
+    state: enabled

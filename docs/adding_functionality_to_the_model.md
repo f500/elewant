@@ -225,7 +225,7 @@ all the events that can happen, and updating a representation of those events op
 This _read model_ can be really simple, in our case the current state of all Herds is updated by the _projector_ 
 into two mysql tables. So anytime we want to only look at Herds, we are looking at the data in those tables.
 
-The projector in question is [HerdProjector.php](/src/Elewant/Herding/Projections/HerdProjector.php), and it needs a way of
+The projector in question is [HerdProjector.php](/Herding/Projections/HerdProjecton.php), and it needs a way of
 handling the rename command:
 
     # /src/Elewant/Herding/Projections/HerdProjector.php

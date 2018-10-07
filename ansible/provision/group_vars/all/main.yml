@@ -37,35 +37,44 @@ ntp_restrict_policies:
 # UFW
 
 ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 443 }
+  - direction: in
+    to_port: 22
+    rule: allow
+  - direction: in
+    to_port: 80
+    rule: allow
+  - direction: in
+    to_port: 443
+    rule: allow
 
-# MYSQL
 
-mysql_origin: default
-mysql_vendor: mariadb
+# MariaDB
 
-mysql_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
+mariadb_origin: upstream
+mariadb_vendor: mariadb
+mariadb_version: 10.2
+mariadb_key_server: "hkp://keyserver.ubuntu.com:80"
 
-mysql_bind_address: 127.0.0.1
-mysql_port: 3306
-mysql_socket: /var/run/mysqld/mysqld.sock
+mariadb_config_template: "{{ playbook_dir }}/templates/mysql/my.cnf.j2"
 
-mysql_charset: utf8mb4
-mysql_collation: utf8mb4_unicode_ci
+mariadb_bind_address: 127.0.0.1
+mariadb_port: 3306
+mariadb_socket: /var/run/mysqld/mysqld.sock
 
-mysql_max_allowed_packet: 16M
-mysql_key_buffer_size: 32M
-mysql_query_cache_size: 0
-mysql_innodb_buffer_pool_size: 592M
-mysql_innodb_log_file_size: 64M
+mariadb_charset: utf8mb4
+mariadb_collation: utf8mb4_unicode_ci
 
-mysql_slow_query_log_enabled: false
+mariadb_max_allowed_packet: 16M
+mariadb_key_buffer_size: 32M
+mariadb_query_cache_size: 0
+mariadb_innodb_buffer_pool_size: 592M
+mariadb_innodb_log_file_size: 64M
+
+mariadb_slow_query_log_enabled: false
 
 # PHP
 
-php7_version: 7.1
+php7_version: 7.2
 php7_enable_fpm: yes
 
 php7_extensions: [ apcu ]
@@ -80,6 +89,9 @@ php7_ini_directives_global:
   opcache.memory_consumption: 128
   opcache.revalidate_freq: off
   opcache.validate_timestamps: off
+php7_ini_directives_cli:
+  allow_url_fopen: yes
+  memory_limit: 256M
 
 php7_fpm_pool_user: www-data
 php7_fpm_pool_group: www-data
@@ -94,13 +106,25 @@ nginx_use_realpath_root: yes
 nginx_http_headers:
   Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://*.githubusercontent.com"
 
-nginx_server_templates:
-  - { name: elewant, src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2" }
+# CERTBOT
+
+certbot_create_method: webroot
+certbot_create_command: "{{ certbot_script }} certonly --webroot --webroot-path /var/www --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ item.item.domains | join(',') }}"
+certbot_create_if_missing: yes
+certbot_auto_renew_hour: 1
+certbot_auto_renew_minute: 11
+certbot_admin_email: support@future500.nl
+certbot_certs:
+  - domains:
+    - "elewant.com"
+    - "www.elewant.com"
+  - domains:
+    - "staging.elewant.com"
 
 # APP
 
 elewant_application_root: ~
 elewant_application_env: prod
-elewant_server_name: ~
 elewant_php_socket: "{{ php7_fpm_pool_listen }}"
-elewant_db_socket: "{{ mysql_socket }}"
+elewant_db_socket: "{{ mariadb_socket }}"
+elewant_db_host: "{{ mariadb_bind_address }}"

@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\Model;
 
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class HerdId
 {
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $uuid;
 
-    private function __construct(Uuid $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
@@ -25,7 +26,7 @@ final class HerdId
 
     public static function fromString(string $herdId): self
     {
-        return new self(UUid::fromString($herdId));
+        return new self(Uuid::fromString($herdId));
     }
 
     public function toString(): string

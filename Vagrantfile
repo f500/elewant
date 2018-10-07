@@ -58,9 +58,9 @@ Vagrant.configure("2") do |config|
         # commandline with ansible-playbook commands.
         config_prodsim.vm.provision :ansible do |ansible|
             ansible.compatibility_mode = "2.0"
-            ansible.inventory_path = "ansible/hosts-provision"
+            ansible.inventory_path = "ansible/prodsim-hosts-provision"
             ansible.playbook = "ansible/setup_local_production_server.yml"
-            ansible.limit = "prodsim"
+            ansible.limit = "production"
             ansible.raw_arguments = "--user=vagrant"
             ansible.host_key_checking = "False"
         end

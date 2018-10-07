@@ -7,27 +7,33 @@ ssh_provision_user: "vagrant"
 # UFW
 
 ufw_rules_to_create:
-  - { to_port: 22 }
-  - { to_port: 80 }
-  - { to_port: 3306 }
+  - direction: in
+    to_port: 22
+    rule: allow
+  - direction: in
+    to_port: 80
+    rule: allow
+  - direction: in
+    to_port: 3306
+    rule: allow
 
-# MYSQL
+# MariaDB
 
-mysql_bind_address: 192.168.77.77
+mariadb_bind_address: 192.168.77.77
 
-mysql_root_password: elewant
-mysql_passwords:
+mariadb_root_password: elewant
+mariadb_passwords:
   elewant_develop: elewant
 
-mysql_databases:
+mariadb_databases:
   - elewant
   - elewant_test
 
-mysql_users:
-  - { name: elewant, password: "{{ mysql_passwords.elewant_develop }}", priv: "elewant.*:ALL/elewant_test.*:ALL", host: "%" }
+mariadb_users:
+  - { name: elewant, password: "{{ mariadb_passwords.elewant_develop }}", priv: "elewant.*:ALL/elewant_test.*:ALL", host: "%" }
 
-mysql_slow_query_log_enabled: true
-mysql_long_query_time: 2
+mariadb_slow_query_log_enabled: true
+mariadb_long_query_time: 2
 
 # PHP
 
@@ -38,7 +44,7 @@ php7_fpm_pool_user: vagrant
 php7_fpm_pool_group: vagrant
 
 php7_ini_directives_global:
-  disable_functions: "exec, passthru, system, popen, curl_multi_exec"
+  disable_functions: "exec, system, popen, curl_multi_exec"
   session.cookie_secure: off
   opcache.enable_cli: on
   opcache.fast_shutdown: off
@@ -71,20 +77,20 @@ nginx_http_headers:
 nginx_server_templates:
   - name: elewant
     src: "{{ playbook_dir }}/templates/nginx/dev-server.conf.j2"
-    server_name: develop.elewant.loc
-    web_root: "/vagrant/web"
-    index: app_dev.php
+    domains:
+      - "develop.elewant.loc"
+    web_root: "/vagrant/public"
+    index: index.php
     headers: "{{ nginx_http_headers }}"
 
 # APP
 
 elewant_application_root: /vagrant
 elewant_application_env: dev
-elewant_server_name: develop.elewant.loc
 
 elewant_db_name: elewant
 elewant_db_user: elewant
-elewant_db_password: "{{ mysql_passwords.elewant_develop }}"
+elewant_db_password: "{{ mariadb_passwords.elewant_develop }}"
 elewant_delivery_address: "~"
 elewant_secret: SaG125fH0Alz8NIMIQdYGQEizoeZJVlQlbpFIDgEhQeyOalfPBkvowShgFkaruVu
 elewant_twitter_client: "needs_client_id"

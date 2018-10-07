@@ -44,4 +44,23 @@ final class DevelopmentOauthResourceOwner implements ResourceOwnerInterface
     public function setName($name)
     {
     }
+
+    /**
+     * Add extra paths to the configuration.
+     *
+     * @param array $paths
+     */
+    public function addPaths(array $paths)
+    {
+        // TODO: Implement addPaths() method.
+    }
+
+    /**
+     * @param string $refreshToken    Refresh token
+     * @param array  $extraParameters An array of parameters to add to the url
+     */
+    public function refreshAccessToken($refreshToken, array $extraParameters = [])
+    {
+        // TODO: Implement refreshAccessToken() method.
+    }
 }

@@ -1,32 +1,50 @@
 server {
     listen      80;
-    server_name {{ item.server_name }};
+    server_name {{ item.domains | join(' ') }};
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge {
+        root {{ nginx_www_dir }};
+        log_not_found off;
+        try_files $uri =404;
+    }
 
     access_log off;
-
-    return 301 https://{{ item.server_name }}$request_uri;
 }
 
 server {
     listen      443 ssl;
-    server_name {{ item.server_name }};
+    server_name {{ item.domains | join(' ') }};
 
     root  {{ item.web_root }};
     index {{ item.index }};
 
-    access_log /home/logs/{{ item.server_name }}-access.log;
-    error_log  /home/logs/{{ item.server_name }}-error.log;
+    access_log /home/logs/{{ item.domains | first }}-access.log;
+    error_log  /home/logs/{{ item.domains | first }}-error.log;
 
-    ssl                 on;
-    ssl_certificate     {{ item.ssl_cert }};
-    ssl_certificate_key {{ item.ssl_cert_key }};
+    ssl                     on;
+    ssl_certificate_key     /etc/letsencrypt/live/{{ item.domains | first }}/privkey.pem;
+    ssl_certificate         /etc/letsencrypt/live/{{ item.domains | first }}/fullchain.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ item.domains | first }}/chain.pem;
 
     {% for key, value in (nginx_http_headers_default | combine(nginx_http_headers) | combine(item.headers)).iteritems() %}
     add_header {{ key }} "{{ value }}" always;
     {% endfor %}
 
     location / {
+        if (-f $document_root/maintenance.html) {
+            return 503;
+        }
+
         try_files $uri /{{ item.index }}$is_args$args;
+    }
+
+    error_page 503 @maintenance;
+    location @maintenance {
+        rewrite ^(.*)$ /maintenance.html break;
     }
 
     location ~ \.php$ {

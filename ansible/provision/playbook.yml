@@ -1,26 +1,5 @@
 ---
 
-- name: Provision production
-  hosts: production
-  become: yes
-  remote_user: "{{ ssh_provision_user }}"
-  gather_facts: yes
-
-  roles:
-    - { role: deployment_user,
-        deployment_user: '{{ elewant_deploy_user_username }}',
-        deployment_user_password: "{{ elewant_deploy_user_password }}",
-        deployment_user_public_key: "{{ elewant_deploy_user_public_key }}",
-        deployment_user_private_key: "{{ elewant_deploy_user_private_key }}"
-      }
-
-  tasks:
-    - name: Add github.com to known_hosts file
-      lineinfile: dest=/etc/ssh/ssh_known_hosts line="{{ lookup('pipe', 'ssh-keyscan github.com') }}" state=present  create=yes mode=0644
-
-    - name: Setup cron for renew certificates
-      cron: name="certbot renew certificates" minute=0 hour=2,6 job="service nginx stop && certbot renew && service nginx start"
-
 - name: Provision globally
   hosts: all
   become: yes
@@ -42,7 +21,7 @@
     - f500.locale
     - f500.ntp
     - f500.ufw
-    - f500.ufw_rules
+    - f500.supervisord
     - f500.bash
     - f500.bashrc
     - f500.vim
@@ -80,6 +59,49 @@
     - name: Install grunt
       npm: name=grunt-cli state=present global=yes
 
+- name: Provision production
+  hosts: production
+  become: yes
+  remote_user: "{{ ssh_provision_user }}"
+  gather_facts: yes
+
+  roles:
+    - geerlingguy.certbot
+    - { role: deployment_user,
+        deployment_user: '{{ elewant_deploy_user_username }}',
+        deployment_user_password: "{{ elewant_deploy_user_password }}",
+        deployment_user_public_key: "{{ elewant_deploy_user_public_key }}",
+        deployment_user_private_key: "{{ elewant_deploy_user_private_key }}"
+      }
+
+  tasks:
+    - name: Add github.com to known_hosts file
+      lineinfile: dest=/etc/ssh/ssh_known_hosts line="{{ lookup('pipe', 'ssh-keyscan github.com') }}" state=present  create=yes mode=0644
+
+    - name: Remove cron for renew certificates (cron is created in certbot role)
+      cron: name="certbot renew certificates" minute=0 hour=2,6 job="service nginx stop && certbot renew && service nginx start" state=absent
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Check for absent certificates
+      stat:
+        path: /etc/letsencrypt/live/{{ item.domains | first }}/cert.pem
+      with_items: "{{ certbot_certs }}"
+      register: webserver_letsencrypt
+
+    - name: Create certificates
+      shell: "{{ certbot_create_command }}"
+      with_items: "{{ webserver_letsencrypt.results }}"
+      when: not item.stat.exists
+
+    - name: Copy supervisord configuration
+      template:
+        src: supervisord/elewant.herd_projection.conf.j2
+        dest: /etc/supervisor/conf.d/elewant.conf
+
 - name: Provision develop environment
   hosts: develop
   become: no
@@ -92,6 +114,13 @@
         line: cd /vagrant
         insertafter: EOF
 
+    - name: Add database hostname to hosts
+      lineinfile:
+        dest: /etc/hosts
+        line: "{{ mariadb_bind_address }}  database_test"
+        insertafter: EOF
+      become: yes
+
     - name: Add the phpd alias for easy debugging from cli
       lineinfile:
         dest: /home/vagrant/.profile
@@ -100,8 +129,8 @@
 
     - name: Copy parameters.yml
       template:
-        src: "{{ playbook_dir }}/../deploy/templates/app/parameters.yml.j2"
-        dest: "{{ elewant_application_root }}/app/config/parameters.yml"
+        src: "{{ playbook_dir }}/../deploy/templates/.env.j2"
+        dest: "{{ elewant_application_root }}/.env"
 
     - name: Install composer packages
       command: composer install --quiet --no-ansi --no-interaction
@@ -113,6 +142,11 @@
       args:
         chdir: "{{ elewant_application_root }}"
 
+    - name: Run Stream creation console command
+      command: bin/console event-store:event-stream:create --no-interaction
+      args:
+        chdir: "{{ elewant_application_root }}"
+
     - name: Install npm packages
       npm:
         path: "{{ elewant_application_root }}"
@@ -121,3 +155,13 @@
       command: grunt
       args:
         chdir: "{{ elewant_application_root }}"
+
+    - name: Copy supervisord configuration
+      become: yes
+      template:
+        src: supervisord/vagrant.herd_projection.conf.j2
+        dest: /etc/supervisor/conf.d/elewant.conf
+
+    - name: Restart Supervisord
+      become: yes
+      command: supervisorctl reread && supervisorctl update && supervisorctl reload
