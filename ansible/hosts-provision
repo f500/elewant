@@ -1,8 +1,5 @@
 [develop]
 develop.elewant.loc
 
-[prodsim]
-prodsim.elewant.loc
-
 [production]
 elewant.com

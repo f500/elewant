@@ -1,0 +1,13 @@
+---
+
+nginx_dhparam_bits: 128
+nginx_server_templates: []
+#  - name: "staging.elewant"
+#    src: "{{ playbook_dir }}/templates/nginx/prod-server.conf.j2"
+#    ssl_cert: "/etc/letsencrypt/live/staging.elewant.com/fullchain.pem"
+#    ssl_cert_key: "/etc/letsencrypt/live/staging.elewant.com/privkey.pem"
+#    domains:
+#      - "staging.elewant.com"
+#    web_root: "{{ project_root }}/staging.elewant.com/current/public"
+#    index: "index.php"
+#    headers: "{{ nginx_http_headers }}"

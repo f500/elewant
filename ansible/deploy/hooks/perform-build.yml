@@ -27,7 +27,7 @@
   environment: "{{ project_environment }}"
 
 - name: Install assets
-  command: bin/console assets:install web --symlink --relative
+  command: bin/console assets:install public --symlink --relative
   args:
     chdir: "{{ deploy_helper.new_release_path }}"
   environment: "{{ project_environment }}"

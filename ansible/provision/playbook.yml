@@ -101,7 +101,6 @@
       template:
         src: supervisord/elewant.herd_projection.conf.j2
         dest: /etc/supervisor/conf.d/elewant.conf
-      notify: Reload supervisord configuration
 
 - name: Provision develop environment
   hosts: develop
