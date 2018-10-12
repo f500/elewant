@@ -58,7 +58,7 @@ class HerdingStatisticsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        [$from, $to] = $this->prepareDateArguments($input->getArgument('from'), $input->getArgument('to'));
+        [$from, $to] = $this->prepareDateArguments($input->getArguments()['from'], $input->getArguments()['to']);
 
         $statistics = $this->herdingStatistics->generate($from, $to);
 
