@@ -33,19 +33,19 @@ new functionality later on! Go ahead and run the current specs to see if they pa
 If you want, take a look at the specifications. They live in the [/spec/Elewant/Herding](/spec/Elewant/Herding) folder. If 
 everything is cool, we start describing our first new part:
  
-    > vendor/bin/phpspec describe Elewant/Herding/Model/Commands/RenameHerd
+    > vendor/bin/phpspec describe Elewant/Herding/Application/Commands/RenameHerd
 
-This creates a new specification file: `/spec/Elewant/Herding/Model/Commands/RenameHerdSpec.php`
+This creates a new specification file: `/spec/Elewant/Herding/Application/Commands/RenameHerdSpec.php`
 Then you run the test suite again:
 
     > vendor/bin/phpspec run
 
-Then PHPspec will ask to create the new class: `/src/Elewant/Herding/Model/Commands/RenameHerd.php`
+Then PHPspec will ask to create the new class: `/src/Elewant/Herding/Application/Commands/RenameHerd.php`
 
 This Getting started guide is not aimed at explaining PHPspec, but it's good to know that we describe the
 behaviour of the model. So we think about what is needed in our shiny new command, and start writing the
-specifications for it. Take a sneak peek at the end result [RenameHerdSpec.php](/spec/Elewant/Herding/Model/Commands/RenameHerdSpec.php)
-and the corresponding class [RenameHerd.php](/src/Elewant/Herding/Model/Commands/RenameHerd.php).
+specifications for it. Take a sneak peek at the end result [RenameHerdSpec.php](/spec/Elewant/Herding/Application/Commands/RenameHerdSpec.php)
+and the corresponding class [RenameHerd.php](/Herding/Application/Commands/RenameHerd.php).
 
 ### Wait, how many files are we adding here??
 
@@ -145,18 +145,18 @@ As with commands, the events need methods that can return the data, in the prope
     }
 
 If you remember correctly, we always start with the specification. Take a look at the final result for the spec
-[HerdWasRenamedSpec.php](/spec/Elewant/Herding/Model/Events/HerdWasRenamedSpec.php) as well as the event class 
-[HerdWasRenamed.php](/src/Elewant/Herding/Model/Events/HerdWasRenamed.php).
+[HerdWasRenamedSpec.php](/spec/Elewant/Herding/Application/Events/HerdWasRenamedSpec.php) as well as the event class 
+[HerdWasRenamed.php](/src/Elewant/Herding/Application/Events/HerdWasRenamed.php).
 
 The commit for these changes: <https://github.com/f500/elewant/commit/74a45da08a663c983efc25f302d38dbfbd77a5cb>
 
 ### The Herd aggregate
 
 Finally! We get to actually _change_ the name of the herd. Oh, no, wait. We need to write the _specification_
-for that behavior first. We update the [HerdSpec.php](/spec/Elewant/Herding/Model/HerdSpec.php) to let it know what we want
+for that behavior first. We update the [HerdSpec.php](/spec/Elewant/Herding/Application/HerdSpec.php) to let it know what we want
 it to do:
 
-    # /spec/Elewant/Herding/Model/HerdSpec.php
+    # /spec/Elewant/Herding/Application/HerdSpec.php
     function it_can_be_renamed()
     {
         $this->name()->shouldEqual($this->herdName);
@@ -166,7 +166,7 @@ it to do:
 
 Now let's open the Herd aggregate, and add that `->rename()` method:
 
-    # /src/Elewant/Herding/Model/Herd.php
+    # /src/Elewant/Herding/Application/Herd.php
     public function rename(string $newName): void
     {
         $this->guardIsNotAbandoned();
@@ -194,7 +194,7 @@ So besides writing the _recording_ part, we also need to write the _applying_ pa
 `apply()` function. Because we want to be real clear on what is needed to apply a certain event, we use the 
 generic method to find out which `AggregateChanged` event we received and then call a specific method.
 
-    # /src/Elewant/Herding/Model/Herd.php
+    # /src/Elewant/Herding/Application/Herd.php
     switch (get_class($event)) {
         ...
         case HerdWasRenamed::class:
@@ -206,7 +206,7 @@ generic method to find out which `AggregateChanged` event we received and then c
 
 And write a specific method to perform the change:
 
-    # /src/Elewant/Herding/Model/Herd.php
+    # /src/Elewant/Herding/Application/Herd.php
     private function applyHerdWasRenamed(string $newHerdName)
     {
         $this->name = $newHerdName;
@@ -258,21 +258,21 @@ of an application that uses it. And so we need to define all the bits and pieces
     # /src/Elewant/AppBundle/Resources/config/service_bus.yml
     prooph_service_bus.command_buses.herding_command_bus.router.routes:
         ...
-        'Elewant\Herding\Model\Commands\RenameHerd': 'elewant.rename_herd_handler'
+        'Elewant\Herding\Application\Commands\RenameHerd': 'elewant.rename_herd_handler'
 
     prooph_service_bus.event_buses.herd_event_bus.router.routes:
         ...
-        'Elewant\Herding\Model\Events\HerdWasRenamed':
+        'Elewant\Herding\Application\Events\HerdWasRenamed':
             - 'elewant.herd_projection.herd_projector'
             
     prooph_service_bus.event_buses.herd_replay_bus.router.routes:
         ...
-        'Elewant\Herding\Model\Events\HerdWasRenamed':
+        'Elewant\Herding\Application\Events\HerdWasRenamed':
             - 'elewant.herd_projection.herd_projector'
 
     # /src/Elewant/AppBundle/Resources/config/services.yml
     elewant.rename_herd_handler:
-        class: Elewant\Herding\Model\Handlers\RenameHerdHandler
+        class: Elewant\Herding\Application\Handlers\RenameHerdHandler
         arguments:
             - "@herd_collection"
 
@@ -304,7 +304,7 @@ And in order for this test to run, we need to configure a route for the testApi 
     # /src/Elewant/AppBundle/Resources/config/routing.yml
     'command::rename-herd':
         path: '/testapi/commands/rename-herd'
-        defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\RenameHerd' }
+        defaults: { _controller: elewant.api_command_controller:postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\RenameHerd' }
 
 The commit for these changes: <https://github.com/f500/elewant/commit/3ea007674af3f875b7c895f46b74ef19d9457a0e>
     

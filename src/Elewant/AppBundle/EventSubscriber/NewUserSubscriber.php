@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Elewant\AppBundle\EventSubscriber;
 
 use Elewant\AppBundle\Repository\HerdRepository;
-use Elewant\Herding\Model\Commands\FormHerd;
+use Elewant\Herding\Application\Commands\FormHerd;
 use Elewant\UserBundle\Event\UserHasRegistered;
 use Prooph\ServiceBus\CommandBus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

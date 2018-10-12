@@ -56,37 +56,37 @@ services:
     Elewant\Herding\Projections\HerdListing:
         public: true
 
-    Elewant\Herding\Model\Handlers\AbandonElePHPantHandler:
+    Elewant\Herding\Application\Handlers\AbandonElePHPantHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\AbandonHerdHandler:
+    Elewant\Herding\Application\Handlers\AbandonHerdHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\AdoptElePHPantHandler:
+    Elewant\Herding\Application\Handlers\AdoptElePHPantHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\DesireBreedHandler:
+    Elewant\Herding\Application\Handlers\DesireBreedHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\EliminateDesireForBreedHandler:
+    Elewant\Herding\Application\Handlers\EliminateDesireForBreedHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\FormHerdHandler:
+    Elewant\Herding\Application\Handlers\FormHerdHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
 
-    Elewant\Herding\Model\Handlers\RenameHerdHandler:
+    Elewant\Herding\Application\Handlers\RenameHerdHandler:
         arguments: ['@herd_collection']
         tags:
           - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
