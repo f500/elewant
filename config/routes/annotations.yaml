@@ -2,3 +2,8 @@ elewant_app:
     resource: "@ElewantAppBundle/Controller/"
     type:     annotation
     prefix:   /
+
+elewant_api:
+    resource: ../../src/Infrastructure/Controller/Rest/
+    type: annotation
+    prefix: /api

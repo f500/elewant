@@ -22,4 +22,5 @@ return [
     Elewant\UserBundle\ElewantUserBundle::class => ['all' => true],
     Elewant\DevelopmentBundle\ElewantDevelopmentBundle::class => ['dev' => true, 'test' => true],
     Http\HttplugBundle\HttplugBundle::class => ['all' => true],
+    FOS\RestBundle\FOSRestBundle::class => ['all' => true],
 ];
