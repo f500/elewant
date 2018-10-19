@@ -3,17 +3,22 @@
 if [ "$TRAVIS" = true ]; then
     phpenv config-rm xdebug.ini
 fi
+
+echo ">>>>>>>>>> PHPSPEC <<<<<<<<<<"
 vendor/bin/phpspec run --no-interaction
 phpspec_exit_code=$?
 
-bin/phpunit
-phpunit_exit_code=$?
-
+echo ">>>>>>>>>> PHPCS <<<<<<<<<<"
 vendor/bin/phpcs --ignore=src/Elewant/AppBundle/Command/RebuildHerdProjectionCommand.php
 phpcs_exit_code=$?
 
+echo ">>>>>>>>>> PHPSSTAN <<<<<<<<<<"
 vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 --no-progress src
 phpstan_exit_code=$?
+
+echo ">>>>>>>>>> PHPUNIT <<<<<<<<<<"
+bin/phpunit
+phpunit_exit_code=$?
 
 # Always run all the test tools, but exit with
 # a non-zero exit code on failures for Travis.
