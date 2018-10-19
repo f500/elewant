@@ -1,6 +1,8 @@
 Welcome to the Herding domain
 -----------------------------
 
+### Herds
+
 Here, we start with a `Herd`. A `Herd` is tended to by a shepherd, who is represented here by nothing
 more than a `ShepherdId`.
 
@@ -24,6 +26,20 @@ So when dealing with herds, we currently have the following command (event):
 - DesireBreed (BreedWasDesiredByHerd)
 - EliminateDesireForBreed (BreedDesireWasEliminatedByHerd)
 
+### Trades
+
+Because trading can affect a herd, there is an events from the `Trading` context that we wish to respond to.
+
+- Trading/TradeFinalized
+
+After a trade is completed, if the `Seller` has the sold `Breed` in their `Herd`, we wil ask them to identify
+the sold ElePHPant - and move a specific `ElePHPantId` to the `Buyer`'s herd.
+After a trade is completed, if the `Seller` does not have the sold `Breed` in their `Herd`, we wil generate
+a new `ElePHPantId` for the sold `Breed` to the `Buyer`'s herd.
+After a trade is completed, if the `Buyer` traded a `Breed` in their `Herd`, we wil ask them to identify
+the traded ElePHPant - and move a specific `ElePHPantId` to the `Seller`'s herd.
+After a trade is completed, if the `Buyer` does not have traded `Breed` in their `Herd`, we wil generate
+a new `ElePHPantId` for the traded `Breed` to the `Seller`'s herd.
 
 Decisions
 ---------
