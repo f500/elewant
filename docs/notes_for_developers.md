@@ -3,7 +3,7 @@ Notes for developers
 
 ### Cache, logs and sessions
 
-Normally these are kept in `var/cache`, `var/logs` and `var/sessions`.
+Normally these are kept in `var/cache`, `var/log` and `var/sessions`.
 
 On the `develop` vagrant machine these are moved to `/dev/shm/elewant/var/cache`, `/dev/shm/elewant/var/logs` and `/dev/shm/elewant/var/sessions`.
 Moving them out of the synced folder (and into a shared memory disk) greatly improves performance.
