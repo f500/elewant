@@ -20,6 +20,7 @@ class Breed
     const BLUE_PHPYORKSHIRE_REGULAR         = 'BLUE_PHPYORKSHIRE_REGULAR';
     const BLUE_SHOPWARE_REGULAR             = 'BLUE_SHOPWARE_REGULAR';
     const BLUE_ZEND_REGULAR                 = 'BLUE_ZEND_REGULAR';
+    const BLUE_ZEND_ZOE_REGULAR             = 'BLUE_ZEND_ZOE_REGULAR';
     const BLUE_ZRAY_REGULAR                 = 'BLUE_ZRAY_REGULAR';
     const BROWN_TRUENORTHPHP_REGULAR        = 'BROWN_TRUENORTHPHP_REGULAR';
     const CREAM_CAKE_SF_REGULAR             = 'CREAM_CAKE_SF_REGULAR';
@@ -56,6 +57,7 @@ class Breed
     const BLUE_ORIGINAL_LARGE             = 'BLUE_ORIGINAL_LARGE';
     const BLUE_SHOPWARE_LARGE             = 'BLUE_SHOPWARE_LARGE';
     const BLUE_ZEND_LARGE                 = 'BLUE_ZEND_LARGE';
+    const BLUE_ZEND_ZOE_LARGE             = 'BLUE_ZEND_ZOE_LARGE';
     const BLUE_ZRAY_LARGE                 = 'BLUE_ZRAY_LARGE';
     const BROWN_TRUENORTHPHP_LARGE        = 'BROWN_TRUENORTHPHP_LARGE';
     const DENIM_ZEND_LARGE                = "DENIM_ZEND_LARGE";
