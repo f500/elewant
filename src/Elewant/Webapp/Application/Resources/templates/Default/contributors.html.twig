@@ -1,0 +1,31 @@
+{% set contributors = contributors() %}
+
+<section id="contributors" class="index-section container bg-faded">
+
+    <h2 class="section-heading">{{ 'site.contributors.heading'|trans }}</h2>
+
+    <div class="row justify-content-md-center">
+        {% for contributor in contributors|shuffle|slice(0,3) %}
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="{{ contributor.avatarUrl }}" class="mx-auto rounded-circle" alt="">
+                    <h4>{{ contributor.name }}</h4>
+                    <p class="text-muted">({{ 'site.contributors.contributions'|transchoice(contributor.contributionCount) }})</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-sm-4 text-center">
+                <div class="team-member">
+                    {{ 'site.contributors.failed-to-load'|trans }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <p class="text-center text-muted">
+        {% trans with {"%link%": "<a href='https://github.com/f500/elewant'>github</a>"} %}
+            site.contributors.invitation
+        {% endtrans %}
+    </p>
+
+</section>
