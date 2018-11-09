@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Service;
+namespace Elewant\Webapp\DomainModel\Contributor;
 
 interface Contributor
 {

@@ -2,21 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Entity;
+namespace Elewant\Webapp\DomainModel\Herding;
 
+/**
+ * @todo Is it ok to use Herding\DomainModel here?
+ */
+
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\BreedCollection;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Breed\BreedCollection;
 
 /**
- * @ORM\Entity(repositoryClass="Elewant\AppBundle\Repository\HerdRepository")
- * @ORM\Table(indexes={@ORM\Index(columns={"formed_on"}),@ORM\Index(columns={"shepherd_id"})})
+ * @ORM\Entity
+ * @ORM\Table(indexes={@ORM\Index(columns={"formed_on"}), @ORM\Index(columns={"shepherd_id"})})
+ *
+ * This entity has a companion proxy, therefor is not final.
  */
 class Herd
 {
     /**
+     * @todo UserBundle:User uses mapping-type "shepherd_id", and here it's "guid". Why?
+     *
      * @ORM\Column(type="guid")
      * @var string
      */
@@ -30,7 +39,7 @@ class Herd
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var DateTime
      */
     private $formedOn;
 
@@ -43,13 +52,13 @@ class Herd
     private $herdId;
 
     /**
-     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\ElePHPant", mappedBy="herd", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ElePHPant", mappedBy="herd", cascade={"persist"})
      * @var ArrayCollection
      */
     private $elePHPants;
 
     /**
-     * @ORM\OneToMany(targetEntity="Elewant\AppBundle\Entity\DesiredBreed", mappedBy="herd", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="DesiredBreed", mappedBy="herd", cascade={"persist"})
      * @var ArrayCollection
      */
     private $desiredBreeds;
@@ -69,7 +78,7 @@ class Herd
         return $this->name;
     }
 
-    public function formedOn(): \DateTime
+    public function formedOn(): DateTime
     {
         return $this->formedOn;
     }
@@ -107,8 +116,8 @@ class Herd
     public function filteredByBreed(Breed $breed): Collection
     {
         $filtered = $this->elePHPants->filter(
-            function ($elephpant) use ($breed) {
-                return $elephpant->breed()->equals($breed);
+            function (ElePHPant $elePHPant) use ($breed): bool {
+                return $elePHPant->breed()->equals($breed);
             }
         );
 

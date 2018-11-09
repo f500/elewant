@@ -2,19 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Entity;
+namespace Elewant\Webapp\DomainModel\Herding;
 
+/**
+ * @todo Is it ok to use Herding\DomainModel here?
+ */
+
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Elewant\Herding\Model\Breed;
+use Elewant\Herding\DomainModel\Breed\Breed;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="elephpant", indexes={@ORM\Index(columns={"adopted_on"})})
+ *
+ * This entity has a companion proxy, therefor is not final.
  */
 class ElePHPant
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Elewant\AppBundle\Entity\Herd", inversedBy="elePHPants")
+     * @ORM\ManyToOne(targetEntity="Herd", inversedBy="elePHPants")
      * @ORM\JoinColumn(name="herd_id", referencedColumnName="herd_id", nullable=false)
      * @var Herd
      */
@@ -28,7 +35,7 @@ class ElePHPant
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var DateTime
      */
     private $adoptedOn;
 
@@ -50,7 +57,7 @@ class ElePHPant
         return $this->breed;
     }
 
-    public function adoptedOn(): \DateTime
+    public function adoptedOn(): DateTime
     {
         return $this->adoptedOn;
     }
