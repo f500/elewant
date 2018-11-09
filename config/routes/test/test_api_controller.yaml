@@ -1,27 +1,27 @@
 'command::form-herd':
     path: '/testapi/commands/form-herd'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\FormHerd' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\FormHerd' }
 
 'command::adopt-elephpant':
     path: '/testapi/commands/adopt-elephpant'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AdoptElePHPant' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\AdoptElePHPant' }
 
 'command::abandon-elephpant':
     path: '/testapi/commands/abandon-elephpant'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonElePHPant' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\AbandonElePHPant' }
 
 'command::abandon-herd':
     path: '/testapi/commands/abandon-herd'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\AbandonHerd' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\AbandonHerd' }
 
 'command::rename-herd':
     path: '/testapi/commands/rename-herd'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\RenameHerd' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\RenameHerd' }
 
 'command::desire-breed':
     path: '/testapi/commands/desire-breed'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\DesireBreed' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\DesireBreed' }
 
 'command::eliminate-desire-for-breed':
     path: '/testapi/commands/eliminate-desire-for-breed'
-    defaults: { _controller: Elewant\AppBundle\Controller\TestApiCommandController::postAction, prooph_command_name: 'Elewant\Herding\Model\Commands\EliminateDesireForBreed' }
+    defaults: { _controller: Elewant\Webapp\Application\Controllers\TestApiCommandController.php::postAction, prooph_command_name: 'Elewant\Herding\Application\Commands\EliminateDesireForBreed' }

@@ -2,7 +2,7 @@ prooph_service_bus:
     command_buses:
         herding_command_bus:
             router:
-              type: 'prooph_service_bus.command_bus_router'
+                type: 'prooph_service_bus.command_bus_router'
     event_buses:
         herding_event_bus:
             plugins:

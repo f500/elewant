@@ -7,21 +7,27 @@ hwi_oauth:
             client_secret: "%twitter_client_secret%"
     connect:
         confirmation:              true
-        registration_form:         elewant.security.registration.form
-        registration_form_handler: elewant.security.registration.form_handler
-        account_connector:         elewant.security.account.connector
+        registration_form:         security.registration.form
+        registration_form_handler: security.registration.form_handler
+        account_connector:         security.account.connector
 
 services:
-    elewant.security.registration.form:
-        class: Elewant\UserBundle\Form\UserType
+    security.registration.form:
+        class: Bundles\UserBundle\Form\UserType
         factory: "form.factory:create"
-        arguments: [ 'Elewant\UserBundle\Form\UserType' ]
+        arguments:
+            - 'Bundles\UserBundle\Form\UserType'
 
-    elewant.security.registration.form_handler:
-        class: Elewant\UserBundle\Form\RegistrationFormHandler
-        arguments: [ '@Elewant\UserBundle\Security\UserProvider' ]
+    security.registration.form_handler:
+        class: Bundles\UserBundle\Form\RegistrationFormHandler
+        arguments:
+            - '@security.user_provider'
 
-    elewant.security.account.connector: '@Elewant\UserBundle\Security\UserProvider'
+    security.account.connector: '@security.user_provider'
 
-    Elewant\UserBundle\Security\UserProvider:
+    security.user_provider:
+        class: Bundles\UserBundle\Security\UserProvider
         public: true
+        arguments:
+            - '@doctrine'
+            - '@event_dispatcher'

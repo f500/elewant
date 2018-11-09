@@ -2,6 +2,8 @@ framework:
     default_locale: '%locale%'
     translator:
         paths:
-            - '%kernel.project_dir%/translations'
+            - '%kernel.project_dir%/src/Elewant/Webapp/Application/Resources/translations'
+            - '%kernel.project_dir%/src/Bundles/UserBundle/Resources/translations'
+            - '%kernel.project_dir%/src/Bundles/DevelopmentBundle/Resources/translations'
         fallbacks:
             - '%locale%'

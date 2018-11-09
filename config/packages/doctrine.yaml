@@ -17,17 +17,17 @@ doctrine:
 
         url: '%env(resolve:DATABASE_URL)%'
         types:
-            breed: Elewant\Tooling\Doctrine\MappingType\Breed
-            shepherd_id: Elewant\Tooling\Doctrine\MappingType\ShepherdId
+            breed: Elewant\Webapp\Infrastructure\Doctrine\BreedMappingType
+            shepherd_id: Elewant\Webapp\Infrastructure\Doctrine\ShepherdIdMappingType
         schema_filter: "/^(?!event_stream).*$/"
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            App:
+            Elewant\Webapp\DomainModel\Herding:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                dir: '%kernel.project_dir%/src/Elewant/Webapp/DomainModel/Herding/'
+                prefix: 'Elewant\Webapp\DomainModel\Herding'
+                alias: Herding
