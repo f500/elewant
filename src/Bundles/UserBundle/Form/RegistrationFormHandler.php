@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\UserBundle\Form;
+namespace Bundles\UserBundle\Form;
 
-use Elewant\UserBundle\Entity\User;
+use Bundles\UserBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\Form\RegistrationFormHandlerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use Symfony\Component\Form\Form;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class RegistrationFormHandler implements RegistrationFormHandlerInterface
+final class RegistrationFormHandler implements RegistrationFormHandlerInterface
 {
     /**
      * @var UserProviderInterface

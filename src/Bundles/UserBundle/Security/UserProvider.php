@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\UserBundle\Security;
+namespace Bundles\UserBundle\Security;
 
+use Bundles\UserBundle\Entity\User;
+use Bundles\UserBundle\Event\UserHasRegistered;
+use Bundles\UserBundle\Repository\UserRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
-use Elewant\UserBundle\Entity\User;
-use Elewant\UserBundle\Event\UserHasRegistered;
-use Elewant\UserBundle\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
@@ -20,7 +21,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
+final class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
 {
     /**
      * @var ManagerRegistry
@@ -42,6 +43,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      * @param string $username
      *
      * @return UserInterface
+     * @throws NonUniqueResultException
      */
     public function loadUserByUsername($username): UserInterface
     {
@@ -58,6 +60,7 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
      * @param UserInterface $user
      *
      * @return UserInterface
+     * @throws NonUniqueResultException
      */
     public function refreshUser(UserInterface $user): UserInterface
     {
@@ -78,6 +81,12 @@ class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInter
         return $class === User::class;
     }
 
+    /**
+     * @param UserResponseInterface $response
+     *
+     * @return UserInterface
+     * @throws NonUniqueResultException
+     */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
         $resource   = $response->getResourceOwner()->getName();

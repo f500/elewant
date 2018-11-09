@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Elewant\UserBundle\Entity;
+namespace Bundles\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\DomainModel\ShepherdId;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
+use InvalidArgumentException;
+use LogicException;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Elewant\UserBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Bundles\UserBundle\Repository\UserRepository")
  * @ORM\Table
  * @UniqueEntity("username")
  *
  * We cannot use `final` here, because of Doctrine proxies.
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id
@@ -56,7 +60,7 @@ class User implements UserInterface, \Serializable
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="Elewant\UserBundle\Entity\Connection", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Connection", mappedBy="user", cascade={"persist"})
      * @var ArrayCollection
      */
     private $connections;
@@ -84,7 +88,7 @@ class User implements UserInterface, \Serializable
     public function connect(string $resource, string $resourceId, string $accessToken, string $refreshToken): void
     {
         if ($this->hasConnection($resource)) {
-            throw new \LogicException(
+            throw new LogicException(
                 sprintf('Resource "%s" already connected to user "%d"', $resource, $this->id)
             );
         }
@@ -184,7 +188,9 @@ class User implements UserInterface, \Serializable
      * We don't use associations, so we can safely store the user in sessions.
      * The user-provider will refresh the user, to make it complete and managed.
      *
-     * @param string $serialized
+     * @param $serialized
+     *
+     * @throws SorryThatIsAnInvalid
      */
     public function unserialize($serialized): void
     {
@@ -196,7 +202,7 @@ class User implements UserInterface, \Serializable
             || !isset($data['displayName'])
             || !isset($data['country'])
         ) {
-            throw new \InvalidArgumentException('Corrupt serialized user: ' . $serialized);
+            throw new InvalidArgumentException('Corrupt serialized user: ' . $serialized);
         }
 
         $this->id          = $data['id'];

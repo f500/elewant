@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\UserBundle\Entity;
+namespace Bundles\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(indexes={@ORM\Index(name="resource_idx", columns={"resource", "resource_id"})})
  *
- * We cannot use `final` here, because of Doctrine proxies.
+ * We cannot use `` here, because of Doctrine proxies.
  */
 class Connection
 {
@@ -47,7 +47,7 @@ class Connection
     private $refreshToken;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Elewant\UserBundle\Entity\User", inversedBy="connections")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="connections")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @var User
      */

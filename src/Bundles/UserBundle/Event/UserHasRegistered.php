@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\UserBundle\Event;
+namespace Bundles\UserBundle\Event;
 
-use Elewant\UserBundle\Entity\User;
+use Bundles\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
 
 final class UserHasRegistered extends Event
