@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Statistics;
+namespace Elewant\Reporting\DomainModel;
 
 use DateTimeInterface;
 

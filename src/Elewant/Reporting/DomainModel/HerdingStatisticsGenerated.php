@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Event;
+namespace Elewant\Reporting\DomainModel;
 
-use Elewant\AppBundle\Statistics\CalculatedHerdingStatistics;
 use Symfony\Component\EventDispatcher\Event;
 
 final class HerdingStatisticsGenerated extends Event

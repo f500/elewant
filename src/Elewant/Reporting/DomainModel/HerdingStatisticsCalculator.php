@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Service;
+namespace Elewant\Reporting\DomainModel;
 
 use DateTimeInterface;
-use Elewant\AppBundle\Statistics\CalculatedHerdingStatistics;
 
 interface HerdingStatisticsCalculator
 {
