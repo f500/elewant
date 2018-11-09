@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Elewant\DevelopmentBundle\Controller;
+namespace Bundles\DevelopmentBundle\Controller;
 
+use Bundles\DevelopmentBundle\Security\DevelopmentOauthResourceOwner;
+use Bundles\DevelopmentBundle\Security\DevelopmentUserResponse;
+use Bundles\UserBundle\Entity\User;
+use Bundles\UserBundle\Repository\UserRepository;
+use Bundles\UserBundle\Security\UserProvider;
 use Doctrine\ORM\EntityManager;
-use Elewant\DevelopmentBundle\Security\DevelopmentOauthResourceOwner;
-use Elewant\DevelopmentBundle\Security\DevelopmentUserResponse;
-use Elewant\UserBundle\Entity\User;
-use Elewant\UserBundle\Repository\UserRepository;
-use Elewant\UserBundle\Security\UserProvider;
+use Doctrine\ORM\NonUniqueResultException;
 use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -23,22 +26,26 @@ final class DevelopmentController extends Controller
     /**
      * @Route("/list-users", name="dev_list_users")
      */
-    public function listUsersAction()
+    public function listUsersAction(): Response
     {
         $users = $this->userRepository()->findAll();
 
         return $this->render(
-            'Development/list_users.html.twig',
+            '@DevelopmentBundle/list_users.html.twig',
             ['users' => $users]
         );
     }
 
     /**
      * @Route("generate-new-user", name="dev_generate_new_user")
+     *
+     * @param UserProvider $userProvider
+     *
+     * @return RedirectResponse
      */
-    public function generateNewUserAction(UserProvider $userProvider)
+    public function generateNewUserAction(UserProvider $userProvider): Response
     {
-        $user = $this->generateRandomNewNuser();
+        $user = $this->generateRandomNewUser();
 
         $userResponse = new DevelopmentUserResponse(
             [
@@ -57,8 +64,15 @@ final class DevelopmentController extends Controller
 
     /**
      * @Route("/login-as/{username}", name="dev_login_as")
+     *
+     * @param Request      $request
+     * @param UserProvider $userProvider
+     * @param string       $username
+     *
+     * @return RedirectResponse
+     * @throws NonUniqueResultException
      */
-    public function loginAsAction(Request $request, UserProvider $userProvider, $username)
+    public function loginAsAction(Request $request, UserProvider $userProvider, string $username): Response
     {
         try {
             $user = $userProvider->loadUserByUsername($username);
@@ -87,7 +101,7 @@ final class DevelopmentController extends Controller
         return $userRepository;
     }
 
-    private function generateRandomNewNuser(): User
+    private function generateRandomNewUser(): User
     {
         $faker = Factory::create();
 

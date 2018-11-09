@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle;
+namespace Bundles\DevelopmentBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ElewantAppBundle extends Bundle
+final class DevelopmentBundle extends Bundle
 {
 }
