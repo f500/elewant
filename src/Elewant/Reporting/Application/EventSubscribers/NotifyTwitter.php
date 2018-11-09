@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\EventSubscriber;
+namespace Elewant\Reporting\Application\EventSubscribers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Elewant\AppBundle\Event\HerdingStatisticsGenerated;
+use Elewant\Reporting\DomainModel\HerdingStatisticsGenerated;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class NotifyTwitter implements EventSubscriberInterface
@@ -33,7 +33,7 @@ final class NotifyTwitter implements EventSubscriberInterface
         ];
     }
 
-    public function sendHerdingStatisticsWhen(HerdingStatisticsGenerated $event)
+    public function sendHerdingStatisticsWhen(HerdingStatisticsGenerated $event): void
     {
         if (!$this->tweetsAreActive) {
             return;
