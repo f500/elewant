@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Twig;
+namespace Elewant\Webapp\Infrastructure\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 final class BreedExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('breed_color', [$this, 'breedColorFilter']),

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Twig;
+namespace Elewant\Webapp\Infrastructure\Twig;
 
-use Elewant\AppBundle\Service\ContributorList;
+use Elewant\Webapp\DomainModel\Contributor\ContributorList;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ContributorsExtension extends AbstractExtension
+final class ContributorsExtension extends AbstractExtension
 {
     protected $githubService;
 
@@ -17,7 +17,7 @@ class ContributorsExtension extends AbstractExtension
         $this->githubService = $githubService;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('contributors', [$this, 'contributors']),
@@ -32,7 +32,7 @@ class ContributorsExtension extends AbstractExtension
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'elewant_contributors_extension';
     }

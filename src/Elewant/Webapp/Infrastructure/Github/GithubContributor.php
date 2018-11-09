@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Infrastructure;
+namespace Elewant\Webapp\Infrastructure\Github;
 
-use Elewant\AppBundle\Service\Contributor;
+use Elewant\Webapp\DomainModel\Contributor\Contributor;
 
 final class GithubContributor implements Contributor
 {

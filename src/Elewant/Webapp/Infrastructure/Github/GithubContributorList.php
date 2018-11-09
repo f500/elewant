@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Infrastructure;
+namespace Elewant\Webapp\Infrastructure\Github;
 
-use Elewant\AppBundle\Service\ContributorList;
+use Elewant\Webapp\DomainModel\Contributor\ContributorList;
+use Http\Client\Exception as HttpClientException;
 use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
 
-class GithubContributorList implements ContributorList
+final class GithubContributorList implements ContributorList
 {
     /**
      * @var string
@@ -50,6 +51,9 @@ class GithubContributorList implements ContributorList
         $this->blacklist      = $blacklist;
     }
 
+    /**
+     * @throws HttpClientException
+     */
     public function allContributors(): array
     {
         $request = $this->requestFactory->createRequest(
@@ -58,6 +62,7 @@ class GithubContributorList implements ContributorList
         );
 
         $response = $this->client->sendRequest($request);
+
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             $responseData = json_decode((string) $response->getBody(), true);
             foreach ($responseData as $contributorData) {

@@ -2,14 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Projections;
+namespace Elewant\Webapp\Infrastructure\ProophProjections;
 
+/**
+ * @todo Is it ok to use Herding\DomainModel here?
+ */
+
+use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\ElePHPantId;
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantId;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\ShepherdId;
+use PDOException;
 use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class HerdReadModel extends AbstractReadModel
@@ -59,10 +66,19 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param HerdId            $herdId
+     * @param ShepherdId        $shepherdId
+     * @param string            $name
+     * @param DateTimeImmutable $formedOn
+     *
      * @throws DBALException
      */
-    public function onHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name, \DateTimeImmutable $formedOn)
-    {
+    public function onHerdWasFormed(
+        HerdId $herdId,
+        ShepherdId $shepherdId,
+        string $name,
+        DateTimeImmutable $formedOn
+    ): void {
         $this->connection->insert(
             self::TABLE_HERD,
             [
@@ -75,9 +91,12 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param HerdId $herdId
+     * @param string $newHerdName
+     *
      * @throws DBALException
      */
-    public function onHerdWasRenamed(HerdId $herdId, string $newHerdName)
+    public function onHerdWasRenamed(HerdId $herdId, string $newHerdName): void
     {
         $this->connection->update(
             self::TABLE_HERD,
@@ -91,10 +110,19 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param ElePHPantId       $elePHPantId
+     * @param HerdId            $herdId
+     * @param Breed             $breed
+     * @param DateTimeImmutable $adoptedOn
+     *
      * @throws DBALException
      */
-    public function onElePHPantWasAdoptedByHerd(ElePHPantId $elePHPantId, HerdId $herdId, Breed $breed, \DateTimeImmutable $adoptedOn)
-    {
+    public function onElePHPantWasAdoptedByHerd(
+        ElePHPantId $elePHPantId,
+        HerdId $herdId,
+        Breed $breed,
+        DateTimeImmutable $adoptedOn
+    ): void {
         $this->connection->insert(
             self::TABLE_ELEPHPANT,
             [
@@ -107,9 +135,12 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param ElePHPantId $elePHPantId
+     *
      * @throws DBALException
+     * @throws InvalidArgumentException
      */
-    public function onElePHPantWasAbandonedByHerd(ElePHPantId $elePHPantId)
+    public function onElePHPantWasAbandonedByHerd(ElePHPantId $elePHPantId): void
     {
         $this->connection->delete(
             self::TABLE_ELEPHPANT,
@@ -120,9 +151,13 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param HerdId            $herdId
+     * @param Breed             $breed
+     * @param DateTimeImmutable $desiredOn
+     *
      * @throws DBALException
      */
-    public function onBreedWasDesiredByHerd(HerdId $herdId, Breed $breed, \DateTimeImmutable $desiredOn)
+    public function onBreedWasDesiredByHerd(HerdId $herdId, Breed $breed, DateTimeImmutable $desiredOn): void
     {
         try {
             $this->connection->insert(
@@ -133,15 +168,19 @@ final class HerdReadModel extends AbstractReadModel
                     'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
                 ]
             );
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             // There are duplicates in the historic data
         }
     }
 
     /**
+     * @param HerdId $herdId
+     * @param Breed  $breed
+     *
      * @throws DBALException
+     * @throws InvalidArgumentException
      */
-    public function onBreedDesireWasEliminatedByHerd(HerdId $herdId, Breed $breed)
+    public function onBreedDesireWasEliminatedByHerd(HerdId $herdId, Breed $breed): void
     {
         $this->connection->delete(
             self::TABLE_DESIRED_BREEDS,
@@ -153,9 +192,12 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
+     * @param HerdId $herdId
+     *
      * @throws DBALException
+     * @throws InvalidArgumentException
      */
-    public function onHerdWasAbandoned(HerdId $herdId)
+    public function onHerdWasAbandoned(HerdId $herdId): void
     {
         $this->connection->delete(
             self::TABLE_ELEPHPANT,

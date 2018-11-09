@@ -1,16 +1,20 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Projections;
+namespace Elewant\Webapp\Infrastructure\ProophProjections;
 
-use Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd;
-use Elewant\Herding\Model\Events\BreedWasDesiredByHerd;
-use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
-use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
-use Elewant\Herding\Model\Events\HerdWasAbandoned;
-use Elewant\Herding\Model\Events\HerdWasFormed;
-use Elewant\Herding\Model\Events\HerdWasRenamed;
+/**
+ * Herding events are okay to use!
+ */
+
+use Elewant\Herding\DomainModel\Breed\BreedDesireWasEliminatedByHerd;
+use Elewant\Herding\DomainModel\Breed\BreedWasDesiredByHerd;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAbandonedByHerd;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAdoptedByHerd;
+use Elewant\Herding\DomainModel\Herd\HerdWasAbandoned;
+use Elewant\Herding\DomainModel\Herd\HerdWasFormed;
+use Elewant\Herding\DomainModel\Herd\HerdWasRenamed;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
@@ -23,7 +27,7 @@ final class HerdProjection implements ReadModelProjection
             ->when(
                 [
                     HerdWasFormed::class                  =>
-                        function ($state, HerdWasFormed $event) {
+                        function (array $state, HerdWasFormed $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -38,7 +42,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     HerdWasRenamed::class                 =>
-                        function ($state, HerdWasRenamed $event) {
+                        function (array $state, HerdWasRenamed $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -51,7 +55,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     ElePHPantWasAdoptedByHerd::class      =>
-                        function ($state, ElePHPantWasAdoptedByHerd $event) {
+                        function (array $state, ElePHPantWasAdoptedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -66,7 +70,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     ElePHPantWasAbandonedByHerd::class    =>
-                        function ($state, ElePHPantWasAbandonedByHerd $event) {
+                        function (array $state, ElePHPantWasAbandonedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -78,7 +82,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     BreedWasDesiredByHerd::class          =>
-                        function ($state, BreedWasDesiredByHerd $event) {
+                        function (array $state, BreedWasDesiredByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -92,7 +96,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     BreedDesireWasEliminatedByHerd::class =>
-                        function ($state, BreedDesireWasEliminatedByHerd $event) {
+                        function (array $state, BreedDesireWasEliminatedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */
@@ -106,7 +110,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     HerdWasAbandoned::class               =>
-                        function ($state, HerdWasAbandoned $event) {
+                        function (array $state, HerdWasAbandoned $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
                             /** @var HerdReadModel $readModel */

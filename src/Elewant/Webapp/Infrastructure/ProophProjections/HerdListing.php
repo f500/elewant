@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Projections;
+namespace Elewant\Webapp\Infrastructure\ProophProjections;
 
 use Doctrine\DBAL\Connection;
 
@@ -10,7 +10,7 @@ use Doctrine\DBAL\Connection;
  * Class HerdListing
  *
  * This class is used for simple queries against the herd projection, in order to test the outcome
- * of a command in end-to-end tests. It should _not_ be used in the AppBundle anywhere else.
+ * of a command in end-to-end tests. It should _not_ be used _anywhere_ else.
  */
 final class HerdListing
 {
@@ -29,7 +29,7 @@ final class HerdListing
         return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdReadModel::TABLE_HERD));
     }
 
-    public function findById($herdId)
+    public function findById($herdId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -51,7 +51,7 @@ final class HerdListing
         return $qb->execute()->fetchAll();
     }
 
-    public function findElePHPantByElePHPantId($elePHPantId)
+    public function findElePHPantByElePHPantId($elePHPantId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
