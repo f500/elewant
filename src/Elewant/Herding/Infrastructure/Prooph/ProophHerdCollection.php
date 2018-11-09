@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Infrastructure;
+namespace Elewant\Herding\Infrastructure\Prooph;
 
-use Elewant\Herding\Model\Herd;
-use Elewant\Herding\Model\HerdCollection;
-use Elewant\Herding\Model\HerdId;
+use Elewant\Herding\DomainModel\Herd\Herd;
+use Elewant\Herding\DomainModel\Herd\HerdCollection;
+use Elewant\Herding\DomainModel\Herd\HerdId;
 use Prooph\EventSourcing\Aggregate\AggregateRepository;
 
-final class EventStoreHerdCollection extends AggregateRepository implements HerdCollection
+final class ProophHerdCollection extends AggregateRepository implements HerdCollection
 {
     public function save(Herd $herd): void
     {
