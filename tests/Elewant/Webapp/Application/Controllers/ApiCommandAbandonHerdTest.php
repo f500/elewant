@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\Elewant\AppBundle\Controller;
+namespace Elewant\Webapp\Application\Controllers;
 
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\Events\HerdWasAbandoned;
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
-use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonHerdTest extends ApiCommandBase
 {

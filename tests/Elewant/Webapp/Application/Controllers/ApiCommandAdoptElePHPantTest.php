@@ -2,12 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Elewant\AppBundle\Controller;
-
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
-use Elewant\Herding\Model\ShepherdId;
-use PHPUnit\Framework\TestCase;
+namespace Elewant\Webapp\Application\Controllers;
 
 class ApiCommandAdoptElePHPantTest extends ApiCommandBase
 {

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Elewant\AppBundle\Controller;
+namespace Elewant\Webapp\Application\Controllers;
 
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
-use Elewant\Herding\Projections\HerdListing;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\ShepherdId;
+use Elewant\Webapp\Infrastructure\ProophProjections\HerdListing;
 use Prooph\Bundle\EventStore\Projection\Projection;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\Common\Event\ActionEvent;
@@ -167,6 +167,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param ContainerInterface $container
+     *
      * @return ActionEventEmitterEventStore
      */
     private function getStore(ContainerInterface $container)
@@ -176,6 +177,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param ContainerInterface $container
+     *
      * @return HerdListing
      */
     private function getHerdListing(ContainerInterface $container)
@@ -193,10 +195,10 @@ abstract class ApiCommandBase extends WebTestCase
         self::bootKernel();
         $container = self::$container;
 
-        $projectionManager = $container->get(
+        $projectionManager          = $container->get(
             'prooph_event_store.projection_manager.elewant_projection_manager'
         );
-        $projectionsLocator = $container->get(
+        $projectionsLocator         = $container->get(
             'prooph_event_store.projections_locator'
         );
         $projectionReadModelLocator = $container->get(
@@ -206,7 +208,7 @@ abstract class ApiCommandBase extends WebTestCase
         $projection = $projectionsLocator->get($projectionName);
 
         if ($projection instanceof ReadModelProjection) {
-            if (! $projectionReadModelLocator->has($projectionName)) {
+            if (!$projectionReadModelLocator->has($projectionName)) {
                 throw new \RuntimeException(sprintf('ReadModel for "%s" not found', $projectionName));
             }
             $readModel = $projectionReadModelLocator->get($projectionName);

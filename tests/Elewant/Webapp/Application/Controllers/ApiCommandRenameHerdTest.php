@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Elewant\AppBundle\Controller;
+namespace Elewant\Webapp\Application\Controllers;
 
-use Elewant\Herding\Model\Events\HerdWasRenamed;
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\Herd\HerdWasRenamed;
+use Elewant\Herding\DomainModel\ShepherdId;
 use PHPUnit\Framework\TestCase;
 
 class ApiCommandRenameHerdTest extends ApiCommandBase
@@ -57,5 +57,4 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
             )
         );
     }
-
 }

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Elewant\AppBundle\Controller;
+namespace Elewant\Webapp\Application\Controllers;
 
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\Events\BreedWasDesiredByHerd;
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Breed\BreedWasDesiredByHerd;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\ShepherdId;
 use PHPUnit\Framework\TestCase;
 
 class ApiCommandDesireBreedTest extends ApiCommandBase
@@ -20,6 +20,7 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
     public function setUp()
     {
         parent::setUp();
+
         $shepherdId = ShepherdId::generate();
 
         $this->formHerd($shepherdId, 'MyHerdName');
@@ -52,15 +53,15 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
 
         $expectedDesiredBreedsProjection = [
             [
-                'breed'        => $eventUnderTest->breed()->toString(),
-                'herd_id'      => $eventUnderTest->herdId()->toString(),
-                'desired_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
+                'breed'      => $eventUnderTest->breed()->toString(),
+                'herd_id'    => $eventUnderTest->herdId()->toString(),
+                'desired_on' => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
             ],
         ];
 
         $this->runProjection('herd_projection');
 
-        $desiredBreeds          = $this->retrieveDesiredBreedsFromListing($eventUnderTest->herdId()->toString());
+        $desiredBreeds = $this->retrieveDesiredBreedsFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedDesiredBreedsProjection, $desiredBreeds);
     }
 
