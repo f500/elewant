@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Commands;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\DomainModel\ShepherdId;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
 
@@ -17,6 +18,9 @@ final class FormHerd extends Command
         return new self(['shepherdId' => $shepherdId, 'herdName' => $herdName]);
     }
 
+    /**
+     * @throws SorryThatIsAnInvalid
+     */
     public function shepherdId(): ShepherdId
     {
         return ShepherdId::fromString($this->payload['shepherdId']);

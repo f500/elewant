@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Commands;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\HerdId;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
 
-class RenameHerd extends Command
+final class RenameHerd extends Command
 {
     use PayloadTrait;
 
@@ -17,6 +18,9 @@ class RenameHerd extends Command
         return new self(['herdId' => $herdId, 'newHerdName' => $newHerdName]);
     }
 
+    /**
+     * @throws SorryThatIsAnInvalid
+     */
     public function herdId(): HerdId
     {
         return HerdId::fromString($this->payload['herdId']);

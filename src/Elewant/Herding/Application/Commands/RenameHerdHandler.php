@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Handlers;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\Commands\RenameHerd;
-use Elewant\Herding\Model\HerdCollection;
-use Elewant\Herding\Model\SorryIDoNotHaveThat;
+use Elewant\Herding\DomainModel\Herd\HerdCollection;
+use Elewant\Herding\DomainModel\SorryICanNotChangeHerd;
+use Elewant\Herding\DomainModel\SorryIDoNotHaveThat;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
-class RenameHerdHandler
+final class RenameHerdHandler
 {
     /**
      * @var HerdCollection
@@ -23,9 +24,11 @@ class RenameHerdHandler
     /**
      * @param RenameHerd $command
      *
-     * @throws SorryIDoNotHaveThat (herd)
+     * @throws SorryIDoNotHaveThat
+     * @throws SorryICanNotChangeHerd
+     * @throws SorryThatIsAnInvalid
      */
-    public function __invoke(RenameHerd $command)
+    public function __invoke(RenameHerd $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
         if (!$herd) {

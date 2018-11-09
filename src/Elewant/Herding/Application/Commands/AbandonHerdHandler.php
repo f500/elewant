@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Handlers;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\Commands\AbandonHerd;
-use Elewant\Herding\Model\HerdCollection;
-use Elewant\Herding\Model\SorryIDoNotHaveThat;
+use Elewant\Herding\DomainModel\Herd\HerdCollection;
+use Elewant\Herding\DomainModel\SorryICanNotChangeHerd;
+use Elewant\Herding\DomainModel\SorryIDoNotHaveThat;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class AbandonHerdHandler
 {
@@ -23,9 +24,11 @@ final class AbandonHerdHandler
     /**
      * @param AbandonHerd $command
      *
-     * @throws SorryIDoNotHaveThat (herd)
+     * @throws SorryIDoNotHaveThat
+     * @throws SorryICanNotChangeHerd
+     * @throws SorryThatIsAnInvalid
      */
-    public function __invoke(AbandonHerd $command)
+    public function __invoke(AbandonHerd $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
         if (!$herd) {

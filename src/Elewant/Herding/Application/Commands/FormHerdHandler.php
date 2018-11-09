@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Handlers;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\Commands\FormHerd;
-use Elewant\Herding\Model\Herd;
-use Elewant\Herding\Model\HerdCollection;
+use Elewant\Herding\DomainModel\Herd\Herd;
+use Elewant\Herding\DomainModel\Herd\HerdCollection;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class FormHerdHandler
 {
@@ -22,8 +22,10 @@ final class FormHerdHandler
 
     /**
      * @param FormHerd $command
+     *
+     * @throws SorryThatIsAnInvalid
      */
-    public function __invoke(FormHerd $command)
+    public function __invoke(FormHerd $command): void
     {
         $herd = Herd::form($command->shepherdId(), $command->herdName());
         $this->herdCollection->save($herd);

@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Commands;
+namespace Elewant\Herding\Application\Commands;
 
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\HerdId;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
 
-final class DesireBreed extends Command
+final class EliminateDesireForBreed extends Command
 {
     use PayloadTrait;
 
@@ -18,11 +19,17 @@ final class DesireBreed extends Command
         return new self(['herdId' => $herdId, 'breed' => $breed]);
     }
 
+    /**
+     * @throws SorryThatIsAnInvalid
+     */
     public function herdId(): HerdId
     {
         return HerdId::fromString($this->payload['herdId']);
     }
 
+    /**
+     * @throws SorryThatIsAnInvalid
+     */
     public function breed(): Breed
     {
         return Breed::fromString($this->payload['breed']);
