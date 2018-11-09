@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel\Breed;
 
 use ArrayIterator;
 use Countable;
@@ -34,6 +34,7 @@ final class BreedCollection implements Countable, IteratorAggregate
     {
         $collection = new self();
         foreach (Breed::availableTypes() as $type) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             $collection->add(Breed::fromString($type));
         }
 
@@ -45,6 +46,7 @@ final class BreedCollection implements Countable, IteratorAggregate
         $collection = new self();
         foreach (Breed::availableTypes() as $type) {
             if (strstr($type, 'REGULAR') !== false) {
+                /** @noinspection PhpUnhandledExceptionInspection */
                 $collection->add(Breed::fromString($type));
             }
         }
@@ -95,7 +97,7 @@ final class BreedCollection implements Countable, IteratorAggregate
     public function merge(BreedCollection $otherCollection): void
     {
         array_map(
-            function (Breed $breed) {
+            function (Breed $breed): void {
                 $this->add($breed);
             },
             $otherCollection->breeds

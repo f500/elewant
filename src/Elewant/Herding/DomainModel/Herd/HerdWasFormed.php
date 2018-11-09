@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Events;
+namespace Elewant\Herding\DomainModel\Herd;
 
-use Elewant\Herding\Model\HerdId;
-use Elewant\Herding\Model\ShepherdId;
+use Elewant\Herding\DomainModel\ShepherdId;
 use Prooph\EventSourcing\AggregateChanged;
 
 final class HerdWasFormed extends AggregateChanged
@@ -23,15 +22,17 @@ final class HerdWasFormed extends AggregateChanged
 
     public function herdId(): HerdId
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return HerdId::fromString($this->aggregateId());
     }
 
     public function shepherdId(): ShepherdId
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return ShepherdId::fromString($this->payload['shepherdId']);
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->payload['name'];
     }

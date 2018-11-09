@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel\ElePHPant;
+
+use Elewant\Herding\DomainModel\Breed\Breed;
 
 final class ElePHPant
 {

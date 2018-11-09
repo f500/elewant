@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel;
 
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Herd\Herd;
+use Elewant\Herding\DomainModel\Herd\HerdId;
 use Exception;
 
 final class SorryIDoNotHaveThat extends Exception
 {
-    public static function typeOfElePHPant(Herd $herd, Breed $breed)
+    public static function typeOfElePHPant(Herd $herd, Breed $breed): self
     {
         return new self(
             sprintf(
@@ -19,7 +22,7 @@ final class SorryIDoNotHaveThat extends Exception
         );
     }
 
-    public static function herd(HerdId $herdId)
+    public static function herd(HerdId $herdId): self
     {
         return new self(
             sprintf(

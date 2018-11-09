@@ -1,12 +1,13 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel\Breed;
 
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use ReflectionClass;
 
-class Breed
+final class Breed
 {
     const BLACK_AMSTERDAMPHP_REGULAR        = 'BLACK_AMSTERDAMPHP_REGULAR';
     const BLACK_SYMFONY_10_YEARS_REGULAR    = 'BLACK_SYMFONY_10_YEARS_REGULAR';
@@ -89,13 +90,19 @@ class Breed
 
     public static function availableTypes(): array
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $reflected  = new ReflectionClass(self::class);
         $validTypes = $reflected->getConstants();
 
         return $validTypes;
     }
 
-
+    /**
+     * @param string $type
+     *
+     * @return Breed
+     * @throws SorryThatIsAnInvalid
+     */
     public static function fromString(string $type): self
     {
         if (!in_array($type, self::availableTypes())) {
@@ -103,6 +110,20 @@ class Breed
         }
 
         return new self($type);
+    }
+
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return Breed
+     * @throws SorryThatIsAnInvalid
+     */
+    public static function __callStatic(string $name, array $arguments): self
+    {
+        $name = strtoupper(preg_replace('/\B([A-Z])/', '_$1', $name));
+
+        return self::fromString($name);
     }
 
     public function getType(): string
@@ -123,12 +144,5 @@ class Breed
     public function __toString(): string
     {
         return $this->toString();
-    }
-
-    public static function __callStatic($name, $arguments)
-    {
-        $name = strtoupper(preg_replace('/\B([A-Z])/', '_$1', $name));
-
-        return self::fromString($name);
     }
 }

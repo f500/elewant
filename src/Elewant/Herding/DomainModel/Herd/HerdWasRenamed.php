@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Events;
+namespace Elewant\Herding\DomainModel\Herd;
 
-use Elewant\Herding\Model\HerdId;
 use Prooph\EventSourcing\AggregateChanged;
 
-class HerdWasRenamed extends AggregateChanged
+final class HerdWasRenamed extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, string $newHerdName): self
     {
@@ -21,6 +20,7 @@ class HerdWasRenamed extends AggregateChanged
 
     public function herdId(): HerdId
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return HerdId::fromString($this->aggregateId());
     }
 

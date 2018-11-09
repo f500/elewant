@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model\Events;
+namespace Elewant\Herding\DomainModel\ElePHPant;
 
-use Elewant\Herding\Model\Breed;
-use Elewant\Herding\Model\ElePHPantId;
-use Elewant\Herding\Model\HerdId;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Herd\HerdId;
 use Prooph\EventSourcing\AggregateChanged;
 
-class ElePHPantWasAbandonedByHerd extends AggregateChanged
+final class ElePHPantWasAdoptedByHerd extends AggregateChanged
 {
     public static function tookPlace(HerdId $herdId, ElePHPantId $elePHPantId, Breed $breed): self
     {
@@ -24,16 +23,19 @@ class ElePHPantWasAbandonedByHerd extends AggregateChanged
 
     public function herdId(): HerdId
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return HerdId::fromString($this->aggregateId());
     }
 
     public function elePHPantId(): ElePHPantId
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return ElePHPantId::fromString($this->payload['elePHPantId']);
     }
 
     public function breed(): Breed
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return Breed::fromString($this->payload['breed']);
     }
 }

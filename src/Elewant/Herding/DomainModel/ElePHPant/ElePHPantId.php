@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel\ElePHPant;
 
+use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -21,12 +23,23 @@ final class ElePHPantId
 
     public static function generate(): self
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return new self(Uuid::uuid4());
     }
 
+    /**
+     * @param string $elePHPantId
+     *
+     * @return ElePHPantId
+     * @throws SorryThatIsAnInvalid
+     */
     public static function fromString(string $elePHPantId): self
     {
-        return new self(Uuid::fromString($elePHPantId));
+        try {
+            return new self(Uuid::fromString($elePHPantId));
+        } catch (InvalidUuidStringException $exception) {
+            throw SorryThatIsAnInvalid::elePHPantId($elePHPantId);
+        }
     }
 
     public function toString(): string

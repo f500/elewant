@@ -2,39 +2,58 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Herding\Model;
+namespace Elewant\Herding\DomainModel\Herd;
 
-use Elewant\Herding\Model\Events\BreedDesireWasEliminatedByHerd;
-use Elewant\Herding\Model\Events\BreedWasDesiredByHerd;
-use Elewant\Herding\Model\Events\ElePHPantWasAbandonedByHerd;
-use Elewant\Herding\Model\Events\ElePHPantWasAdoptedByHerd;
-use Elewant\Herding\Model\Events\HerdWasAbandoned;
-use Elewant\Herding\Model\Events\HerdWasFormed;
-use Elewant\Herding\Model\Events\HerdWasRenamed;
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Breed\BreedCollection;
+use Elewant\Herding\DomainModel\Breed\BreedDesireWasEliminatedByHerd;
+use Elewant\Herding\DomainModel\Breed\BreedWasDesiredByHerd;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPant;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantId;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAbandonedByHerd;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAdoptedByHerd;
+use Elewant\Herding\DomainModel\ShepherdId;
+use Elewant\Herding\DomainModel\SorryICanNotChangeHerd;
+use Elewant\Herding\DomainModel\SorryIDoNotHaveThat;
+use Elewant\Herding\DomainModel\SorryIDoNotKnowThat;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 
 final class Herd extends AggregateRoot
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    /** @var ShepherdId */
+    /**
+     * @var ShepherdId
+     */
     private $shepherdId;
 
-    /** @var ElePHPant[] */
+    /**
+     * @var ElePHPant[]
+     */
     private $elePHPants = [];
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $abandoned = false;
 
-    /** @var  string */
+    /**
+     * @var string
+     */
     private $name;
 
-    /** @var  BreedCollection */
+    /**
+     * @var BreedCollection
+     */
     private $breeds;
 
-    /** @var  BreedCollection */
+    /**
+     * @var BreedCollection
+     */
     private $desiredBreeds;
 
     public static function form(ShepherdId $shepherdId, string $name): self
@@ -42,7 +61,6 @@ final class Herd extends AggregateRoot
         $herdId = HerdId::generate();
 
         $instance = new self();
-
         $instance->recordThat(HerdWasFormed::tookPlace($herdId, $shepherdId, $name));
 
         return $instance;
@@ -83,7 +101,10 @@ final class Herd extends AggregateRoot
         return $this->abandoned;
     }
 
-    public function abandon()
+    /**
+     * @throws SorryICanNotChangeHerd
+     */
+    public function abandon(): void
     {
         $this->guardIsNotAbandoned();
 
@@ -95,6 +116,11 @@ final class Herd extends AggregateRoot
         );
     }
 
+    /**
+     * @param string $newName
+     *
+     * @throws SorryICanNotChangeHerd
+     */
     public function rename(string $newName): void
     {
         $this->guardIsNotAbandoned();
@@ -107,6 +133,11 @@ final class Herd extends AggregateRoot
         );
     }
 
+    /**
+     * @param Breed $breed
+     *
+     * @throws SorryICanNotChangeHerd
+     */
     public function adoptElePHPant(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
@@ -120,28 +151,39 @@ final class Herd extends AggregateRoot
         );
     }
 
+    /**
+     * @param Breed $breed
+     *
+     * @throws SorryICanNotChangeHerd
+     * @throws SorryIDoNotHaveThat
+     */
     public function abandonElePHPant(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
         $this->guardContainsThisBreed($breed);
 
         foreach ($this->elePHPants as $elePHPant) {
-            if ($elePHPant->breed()->equals($breed)) {
-                $this->recordThat(
-                    ElePHPantWasAbandonedByHerd::tookPlace(
-                        $this->herdId,
-                        $elePHPant->elePHPantId(),
-                        $breed
-                    )
-                );
-
-                return;
+            if (!$elePHPant->breed()->equals($breed)) {
+                continue;
             }
-        }
 
-        throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
+            $this->recordThat(
+                ElePHPantWasAbandonedByHerd::tookPlace(
+                    $this->herdId,
+                    $elePHPant->elePHPantId(),
+                    $breed
+                )
+            );
+
+            return;
+        }
     }
 
+    /**
+     * @param Breed $breed
+     *
+     * @throws SorryICanNotChangeHerd
+     */
     public function desireBreed(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
@@ -154,6 +196,11 @@ final class Herd extends AggregateRoot
         );
     }
 
+    /**
+     * @param Breed $breed
+     *
+     * @throws SorryICanNotChangeHerd
+     */
     public function eliminateDesireForBreed(Breed $breed): void
     {
         $this->guardIsNotAbandoned();
@@ -172,6 +219,11 @@ final class Herd extends AggregateRoot
         return $this->herdId->toString();
     }
 
+    /**
+     * @param AggregateChanged $event
+     *
+     * @throws SorryIDoNotKnowThat
+     */
     protected function apply(AggregateChanged $event): void
     {
         switch (get_class($event)) {
@@ -204,7 +256,7 @@ final class Herd extends AggregateRoot
                 $this->applyBreedDesireWasEliminatedByHerd($event->breed());
                 break;
             default:
-                throw SorryIDontKnowThat::event($this, $event);
+                throw SorryIDoNotKnowThat::event($this, $event);
         }
     }
 
@@ -253,15 +305,25 @@ final class Herd extends AggregateRoot
         $this->desiredBreeds->remove($breed);
     }
 
-    private function guardIsNotAbandoned()
+    /**
+     * @throws SorryICanNotChangeHerd
+     */
+    private function guardIsNotAbandoned(): void
     {
         if ($this->abandoned) {
             throw SorryICanNotChangeHerd::becauseItWasAbandoned($this);
         }
     }
 
-    private function guardContainsThisBreed($breed)
+    /**
+     * @param Breed $breed
+     *
+     * @throws SorryIDoNotHaveThat
+     */
+    private function guardContainsThisBreed(Breed $breed): void
     {
-        return $this->breeds->contains($breed);
+        if (!$this->breeds->contains($breed)) {
+            throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
+        }
     }
 }
