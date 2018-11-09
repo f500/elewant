@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Command;
+namespace Elewant\Reporting\Infrastructure\SymfonyConsole;
 
 use DateTimeImmutable;
-use Elewant\AppBundle\Event\HerdingStatisticsGenerated;
-use Elewant\AppBundle\Service\HerdingStatisticsCalculator;
+use Elewant\Reporting\DomainModel\HerdingStatisticsCalculator;
+use Elewant\Reporting\DomainModel\HerdingStatisticsGenerated;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class HerdingStatisticsCommand extends Command
+final class HerdingStatisticsCommand extends Command
 {
     /**
      * @var HerdingStatisticsCalculator
@@ -34,7 +35,7 @@ class HerdingStatisticsCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('herding:statistics');
         $this->addArgument(
@@ -56,7 +57,13 @@ class HerdingStatisticsCommand extends Command
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         [$from, $to] = $this->prepareDateArguments($input->getArguments()['from'], $input->getArguments()['to']);
 
@@ -76,7 +83,7 @@ class HerdingStatisticsCommand extends Command
      * @param string|null $inputTo
      *
      * @return DateTimeImmutable[]
-     * @throws \Exception
+     * @throws Exception
      */
     private function prepareDateArguments(?string $inputFrom, ?string $inputTo): array
     {

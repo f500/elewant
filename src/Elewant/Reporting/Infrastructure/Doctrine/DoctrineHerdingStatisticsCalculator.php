@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Infrastructure;
+namespace Elewant\Reporting\Infrastructure\Doctrine;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
-use Elewant\AppBundle\Entity\Herd;
-use Elewant\AppBundle\Repository\HerdRepository;
-use Elewant\AppBundle\Service\HerdingStatisticsCalculator;
-use Elewant\AppBundle\Statistics\CalculatedHerdingStatistics;
+use Elewant\Reporting\DomainModel\CalculatedHerdingStatistics;
+use Elewant\Reporting\DomainModel\HerdingStatisticsCalculator;
+use Elewant\Webapp\DomainModel\Herding\Herd;
+use Elewant\Webapp\DomainModel\Herding\HerdRepository;
 
+/** @todo Is it ok to use the "Webapp" bounded-context here? */
 final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalculator
 {
     /**
@@ -45,7 +46,7 @@ final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalc
     {
         return array_reduce(
             $herds->toArray(),
-            function ($totalCount, Herd $herd) {
+            function (int $totalCount, Herd $herd): int {
                 return $totalCount + count($herd->elePHPants());
             },
             0
