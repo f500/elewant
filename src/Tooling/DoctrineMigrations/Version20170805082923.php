@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Migrations;
+namespace Tooling\DoctrineMigrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Elewant\Herding\Projections\HerdReadModel;
+use Doctrine\Migrations\AbstractMigration;
+use Elewant\Webapp\Infrastructure\ProophProjections\HerdReadModel;
 
-class Version20170805082923 extends AbstractMigration
+final class Version20170805082923 extends AbstractMigration
 {
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $herd = $schema->createTable(HerdReadModel::TABLE_HERD);
         $herd->addColumn('herd_id', 'guid');
@@ -37,7 +37,7 @@ class Version20170805082923 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $schema->dropTable(HerdReadModel::TABLE_HERD);
         $schema->dropTable(HerdReadModel::TABLE_ELEPHPANT);

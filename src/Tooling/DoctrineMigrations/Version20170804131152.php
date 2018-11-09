@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Migrations;
+namespace Tooling\DoctrineMigrations;
 
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
 
-class Version20170804131152 extends AbstractMigration
+final class Version20170804131152 extends AbstractMigration
 {
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $user = $schema->createTable('user');
         $user->addColumn('id', 'integer', ['unsigned' => true, 'autoincrement' => true, 'notNull' => true]);
@@ -41,7 +41,7 @@ class Version20170804131152 extends AbstractMigration
      *
      * @throws SchemaException
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $connection = $schema->getTable('connection');
         $connection->dropIndex('FK_29F77366A76ED395');

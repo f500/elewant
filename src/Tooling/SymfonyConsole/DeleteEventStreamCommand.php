@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace Tooling\SymfonyConsole;
 
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\Exception\StreamNotFound;
@@ -14,12 +14,12 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 final class DeleteEventStreamCommand extends ContainerAwareCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('event-store:event-stream:delete');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $helper   = $this->getHelper('question');
         $question = new ConfirmationQuestion(

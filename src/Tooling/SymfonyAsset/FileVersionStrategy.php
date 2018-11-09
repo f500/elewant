@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elewant\AppBundle\Asset;
+namespace Tooling\SymfonyAsset;
 
+use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
 final class FileVersionStrategy implements VersionStrategyInterface
@@ -16,19 +18,19 @@ final class FileVersionStrategy implements VersionStrategyInterface
     public function __construct(string $versionFile)
     {
         if (!is_file($versionFile)) {
-            throw new \InvalidArgumentException(sprintf('Version-file "%s" does not exist', $versionFile));
+            throw new InvalidArgumentException(sprintf('Version-file "%s" does not exist', $versionFile));
         }
 
         $content = file_get_contents($versionFile);
 
         if ($content === false) {
-            throw new \RuntimeException(sprintf('Version-file "%s" could not be read', $versionFile));
+            throw new RuntimeException(sprintf('Version-file "%s" could not be read', $versionFile));
         }
 
         $content = trim(strtolower($content), "v \t\n\r\0\x0B");
 
         if (!$content) {
-            throw new \RuntimeException(sprintf('Version-file "%s" is empty', $versionFile));
+            throw new RuntimeException(sprintf('Version-file "%s" is empty', $versionFile));
         }
 
         $this->version = $content;

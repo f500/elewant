@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Tooling\PhpSpec\Matchers;
+namespace Tooling\PhpSpec;
 
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Formatter\Presenter\Presenter;
 use PhpSpec\Matcher\BasicMatcher;
 
-final class Equal extends BasicMatcher
+final class EqualMatcher extends BasicMatcher
 {
 
     /**
@@ -50,6 +50,7 @@ final class Equal extends BasicMatcher
      */
     protected function matches($subject, array $arguments): bool
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return $subject->equals($arguments[0]);
     }
 

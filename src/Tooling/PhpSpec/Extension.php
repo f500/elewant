@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Tooling\PhpSpec;
+namespace Tooling\PhpSpec;
 
-use Elewant\Tooling\PhpSpec\Matchers\Equal;
 use PhpSpec\Extension as PhpSpecExtension;
 use PhpSpec\Formatter\Presenter\Presenter;
+use PhpSpec\Matcher\Matcher;
 use PhpSpec\ServiceContainer;
 
 final class Extension implements PhpSpecExtension
@@ -15,11 +15,11 @@ final class Extension implements PhpSpecExtension
     {
         $container->define(
             'elewant.matchers.be_equal',
-            function (ServiceContainer $c) {
+            function (ServiceContainer $c): Matcher {
                 /** @var Presenter $presenter */
                 $presenter = $c->get('formatter.presenter');
 
-                return new Equal($presenter);
+                return new EqualMatcher($presenter);
             },
             ['matchers']
         );

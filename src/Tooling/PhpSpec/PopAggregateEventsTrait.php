@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Tooling\PhpSpec;
+namespace Tooling\PhpSpec;
 
+use ArrayIterator;
+use Prooph\EventSourcing\Aggregate\AggregateType;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventStore\Aggregate\AggregateType;
 
 trait PopAggregateEventsTrait
 {
@@ -24,7 +25,7 @@ trait PopAggregateEventsTrait
     {
         return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
             AggregateType::fromAggregateRootClass($aggregateRootClass),
-            new \ArrayIterator($events)
+            new ArrayIterator($events)
         );
     }
 

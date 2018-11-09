@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elewant\Tooling\Prooph;
+namespace Tooling\ProophEventStore;
 
 use Iterator;
 use Prooph\Common\Messaging\MessageConverter;
@@ -26,6 +26,7 @@ final class MariaDbSingleStreamStrategyWithUnescapedUnicode implements Persisten
 
     /**
      * @param string $tableName
+     *
      * @return string[]
      */
     public function createSchema(string $tableName): array
@@ -67,8 +68,8 @@ EOT;
     public function indexedMetadataFields(): array
     {
         return [
-            '_aggregate_id' => 'aggregate_id',
-            '_aggregate_type' => 'aggregate_type',
+            '_aggregate_id'      => 'aggregate_id',
+            '_aggregate_type'    => 'aggregate_type',
             '_aggregate_version' => 'aggregate_version',
         ];
     }
@@ -84,6 +85,7 @@ EOT;
             $data[] = $eventData['message_name'];
             $data[] = json_encode($eventData['payload'], JSON_UNESCAPED_UNICODE);
             $data[] = json_encode($eventData['metadata']);
+            /** @noinspection PhpUndefinedMethodInspection */
             $data[] = $eventData['created_at']->format('Y-m-d\TH:i:s.u');
         }
 
