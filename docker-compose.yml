@@ -3,44 +3,44 @@ version: '3'
 services:
     database:
         build: docker/mariadb
-        volumes:
-            - db:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: elewant
             MYSQL_DATABASE: elewant
             MYSQL_USER: elewant
             MYSQL_PASSWORD: elewant
+        volumes:
+            - db:/var/lib/mysql
     php-cli:
         build: docker/php-cli
+        depends_on:
+            - database
         volumes:
             - ./:/opt/project:cached
-        depends_on:
-          - database
 
     php-fpm:
         build: docker/php-fpm
+        depends_on:
+            - database
         volumes:
             - ./:/opt/project:cached
-        depends_on:
-          - database
 
     herd-projection:
         build: docker/php-cli
-        volumes:
-            - ./:/opt/project:cached
-        entrypoint:
-            - /opt/project/docker/wait_for_sql.sh
+        command: php bin/console event-store:projection:run herd_projection
         depends_on:
             - database
-        command: php bin/console event-store:projection:run herd_projection
+        entrypoint:
+            - /opt/project/docker/wait_for_sql.sh
+        volumes:
+            - ./:/opt/project:cached
 
     webserver:
         build: docker/nginx
+        depends_on:
+            - php-fpm
         ports:
             - "80:80"
-        depends_on:
-          - php-fpm
         volumes:
             - ./:/opt/project:cached
 volumes:
-  db:
+    db:
