@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Elewant\Webapp\Infrastructure\ProophProjections;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Statement;
 
 /**
  * Class HerdListing
@@ -37,7 +38,10 @@ final class HerdListing
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 
-        return $qb->execute()->fetch();
+        /** @var Statement $stmt */
+        $stmt = $qb->execute();
+
+        return $stmt->fetch();
     }
 
     public function findElePHPantsByHerdId($herdId): array
@@ -48,7 +52,10 @@ final class HerdListing
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 
-        return $qb->execute()->fetchAll();
+        /** @var Statement $stmt */
+        $stmt = $qb->execute();
+
+        return $stmt->fetchAll();
     }
 
     public function findElePHPantByElePHPantId($elePHPantId): array
@@ -59,7 +66,10 @@ final class HerdListing
             ->where('elephpant_id = :elephpantId')
             ->setParameter('elephpantId', $elePHPantId);
 
-        return $qb->execute()->fetch();
+        /** @var Statement $stmt */
+        $stmt = $qb->execute();
+
+        return $stmt->fetch();
     }
 
     public function findDesiredBreedsByHerdId($herdId): array
@@ -70,6 +80,9 @@ final class HerdListing
             ->where('herd_id = :herdId')
             ->setParameter('herdId', $herdId);
 
-        return $qb->execute()->fetchAll();
+        /** @var Statement $stmt */
+        $stmt = $qb->execute();
+
+        return $stmt->fetchAll();
     }
 }

@@ -117,7 +117,7 @@ EOT
      */
     public function icon(Environment $env, string $icons, array $attributes = []): string
     {
-        $icons = preg_split('/\s+/', $icons);
+        $icons = array_filter((array) preg_split('/\s+/', $icons));
         $icons = array_map(
             function (string $part): string {
                 return 'fa-' . $part . ' ';

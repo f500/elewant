@@ -13,10 +13,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -74,6 +76,12 @@ final class DevelopmentController extends Controller
      */
     public function loginAsAction(Request $request, UserProvider $userProvider, string $username): Response
     {
+        /** @var TokenStorageInterface $tokenStorage */
+        $tokenStorage = $this->get("security.token_storage");
+
+        /** @var EventDispatcherInterface $eventDispatcher */
+        $eventDispatcher = $this->get("event_dispatcher");
+
         try {
             $user = $userProvider->loadUserByUsername($username);
         } catch (UsernameNotFoundException $e) {
@@ -81,11 +89,11 @@ final class DevelopmentController extends Controller
         }
 
         $token = new UsernamePasswordToken($user, null, "secured_area", $user->getRoles());
-        $this->get("security.token_storage")->setToken($token);
+        $tokenStorage->setToken($token);
 
         //now dispatch the login event
         $event = new InteractiveLoginEvent($request, $token);
-        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+        $eventDispatcher->dispatch("security.interactive_login", $event);
 
         return $this->redirectToRoute('root');
     }

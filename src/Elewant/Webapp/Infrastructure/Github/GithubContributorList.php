@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Elewant\Webapp\Infrastructure\Github;
 
 use Elewant\Webapp\DomainModel\Contributor\ContributorList;
-use Http\Client\Exception as HttpClientException;
 use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
 
@@ -51,9 +50,6 @@ final class GithubContributorList implements ContributorList
         $this->blacklist      = $blacklist;
     }
 
-    /**
-     * @throws HttpClientException
-     */
     public function allContributors(): array
     {
         $request = $this->requestFactory->createRequest(
@@ -61,6 +57,7 @@ final class GithubContributorList implements ContributorList
             'https://api.github.com/repos/' . $this->username . '/' . $this->repository . '/contributors'
         );
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         $response = $this->client->sendRequest($request);
 
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {

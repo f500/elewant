@@ -6,7 +6,6 @@ namespace Elewant\Herding\Application\ProcessManagers;
 
 use Bundles\UserBundle\Event\UserHasRegistered;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Elewant\Herding\Application\Commands\FormHerd;
 use Elewant\Webapp\DomainModel\Herding\HerdRepository;
 use Prooph\ServiceBus\CommandBus;
@@ -51,7 +50,6 @@ final class NewUserSubscriber implements EventSubscriberInterface
     /**
      * @param UserHasRegistered $event
      *
-     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function formNewHerdWhen(UserHasRegistered $event): void

@@ -18,7 +18,9 @@ final class ProophHerdCollection extends AggregateRepository implements HerdColl
 
     public function get(HerdId $herdId): ?Herd
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->getAggregateRoot($herdId->toString());
+        /** @var Herd $herd */
+        $herd = $this->getAggregateRoot($herdId->toString());
+
+        return $herd;
     }
 }

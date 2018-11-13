@@ -11,7 +11,6 @@ namespace Elewant\Webapp\Application\Controllers;
 use Bundles\UserBundle\Entity\User;
 use Bundles\UserBundle\Security\UserProvider;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Elewant\Webapp\DomainModel\Herding\Herd;
 use Elewant\Webapp\DomainModel\Herding\HerdRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -102,10 +101,12 @@ final class ShepherdController extends Controller
 
         try {
             $herd = $herdRepository->findOneByShepherdId($user->shepherdId());
-        } catch (NoResultException $exception) {
-            throw $this->createNotFoundException('error.herd.herd-not-found');
         } catch (NonUniqueResultException $e) {
             throw $this->createNotFoundException('error.herd.multiple-herds-found');
+        }
+
+        if ($herd === null) {
+            throw $this->createNotFoundException('error.herd.herd-not-found');
         }
 
         return $herd;

@@ -13,7 +13,6 @@ namespace Elewant\Webapp\Application\Controllers;
 
 use Bundles\UserBundle\Entity\User;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Elewant\Herding\Application\Commands;
 use Elewant\Herding\DomainModel\Breed\BreedCollection;
 use Elewant\Webapp\DomainModel\Herding\Herd;
@@ -159,11 +158,13 @@ final class HerdController extends Controller
 
         try {
             $herd = $herdRepository->findOneByShepherdId($user->shepherdId());
-        } catch (NoResultException $exception) {
-            throw $this->createNotFoundException('error.herd.herd-not-found');
         } catch (NonUniqueResultException $exception) {
             // @todo: Should this be a 404?
             throw $this->createNotFoundException('error.herd.multiple-herds-found');
+        }
+
+        if ($herd === null) {
+            throw $this->createNotFoundException('error.herd.herd-not-found');
         }
 
         return $herd;
@@ -171,6 +172,9 @@ final class HerdController extends Controller
 
     private function getCommandBus(): CommandBus
     {
-        return $this->get('prooph_service_bus.herding_command_bus');
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
+
+        return $commandBus;
     }
 }

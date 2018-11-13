@@ -188,7 +188,7 @@ class User implements UserInterface, Serializable
      * We don't use associations, so we can safely store the user in sessions.
      * The user-provider will refresh the user, to make it complete and managed.
      *
-     * @param $serialized
+     * @param string $serialized
      *
      * @throws SorryThatIsAnInvalid
      */

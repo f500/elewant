@@ -121,7 +121,7 @@ final class Breed
      */
     public static function __callStatic(string $name, array $arguments): self
     {
-        $name = strtoupper(preg_replace('/\B([A-Z])/', '_$1', $name));
+        $name = strtoupper((string) preg_replace('/\B([A-Z])/', '_$1', $name));
 
         return self::fromString($name);
     }

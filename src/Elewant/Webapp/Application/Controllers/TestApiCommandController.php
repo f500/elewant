@@ -73,12 +73,7 @@ final class TestApiCommandController
         try {
             $payload = $this->getPayloadFromRequest($request);
         } catch (Throwable $error) {
-            return JsonResponse::create(
-                [
-                    'message' => $error->getMessage(),
-                ],
-                $error->getCode()
-            );
+            return JsonResponse::create(['message' => $error->getMessage(),], $error->getCode());
         }
 
         $command = $this->messageFactory->createMessageFromArray($commandName, ['payload' => $payload]);
@@ -86,12 +81,14 @@ final class TestApiCommandController
         try {
             $this->commandBus->dispatch($command);
         } catch (CommandDispatchException $ex) {
-            $this->logger->error($ex->getPrevious()->getMessage());
+            $message = $ex->getMessage();
+            if ($ex->getPrevious() !== null) {
+                $message = $ex->getPrevious()->getMessage();
+            }
 
-            return JsonResponse::create(
-                ['message' => $ex->getPrevious()->getMessage()],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
+            $this->logger->error($message);
+
+            return JsonResponse::create(['message' => $message], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (Throwable $error) {
             $this->logger->error($error->getMessage());
 
@@ -109,7 +106,7 @@ final class TestApiCommandController
      */
     private function getPayloadFromRequest(Request $request): array
     {
-        $payload = json_decode($request->getContent(), true);
+        $payload = json_decode((string) $request->getContent(), true);
 
         switch (json_last_error()) {
             case JSON_ERROR_DEPTH:

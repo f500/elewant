@@ -11,7 +11,6 @@ namespace Elewant\Webapp\DomainModel\Herding;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Elewant\Herding\DomainModel\ShepherdId;
 
 interface HerdRepository
@@ -34,7 +33,6 @@ interface HerdRepository
      * @param ShepherdId $shepherdId
      *
      * @return Herd|null
-     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function findOneByShepherdId(ShepherdId $shepherdId): ?Herd;

@@ -13,7 +13,7 @@ vendor/bin/phpcs
 phpcs_exit_code=$?
 
 echo ">>>>>>>>>> PHPSSTAN <<<<<<<<<<"
-vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 --no-progress src
+vendor/bin/phpstan analyse --configuration phpstan.neon --level max --no-progress src
 phpstan_exit_code=$?
 
 echo ">>>>>>>>>> PHPUNIT <<<<<<<<<<"

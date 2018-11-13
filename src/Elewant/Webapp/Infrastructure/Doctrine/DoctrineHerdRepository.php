@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Elewant\Herding\DomainModel\ShepherdId;
 use Elewant\Webapp\DomainModel\Herding\Herd;
@@ -86,8 +87,10 @@ EOQ;
 
     private function getManager(): EntityManager
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->registry->getManager();
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->registry->getManager();
+
+        return $entityManager;
     }
 
     /**
@@ -100,6 +103,9 @@ EOQ;
      */
     public function matching(Criteria $criteria): Collection
     {
-        return $this->getManager()->getRepository(Herd::class)->matching($criteria);
+        /** @var EntityRepository $repository */
+        $repository = $this->getManager()->getRepository(Herd::class);
+
+        return $repository->matching($criteria);
     }
 }
