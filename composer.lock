@@ -2453,16 +2453,16 @@
         },
         {
             "name": "php-http/httplug-bundle",
-            "version": "1.12.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/HttplugBundle.git",
-                "reference": "210b384ded3d0f32dfd8fa80075abdb2c00ee01f"
+                "reference": "e05501862a604811108e47af9b4931256988a037"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/210b384ded3d0f32dfd8fa80075abdb2c00ee01f",
-                "reference": "210b384ded3d0f32dfd8fa80075abdb2c00ee01f",
+                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/e05501862a604811108e47af9b4931256988a037",
+                "reference": "e05501862a604811108e47af9b4931256988a037",
                 "shasum": ""
             },
             "require": {
@@ -2549,7 +2549,7 @@
                 "message",
                 "php-http"
             ],
-            "time": "2018-10-26T07:15:01+00:00"
+            "time": "2018-11-13T09:47:58+00:00"
         },
         {
             "name": "php-http/logger-plugin",
@@ -3401,16 +3401,16 @@
         },
         {
             "name": "prooph/pdo-event-store",
-            "version": "v1.10.0",
+            "version": "v1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/pdo-event-store.git",
-                "reference": "b6f17162e24f5276aee2d6cb87d9ce2efef6c3c5"
+                "reference": "aeb239c269da9a53abdb4b0aff437f1446fce433"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/pdo-event-store/zipball/b6f17162e24f5276aee2d6cb87d9ce2efef6c3c5",
-                "reference": "b6f17162e24f5276aee2d6cb87d9ce2efef6c3c5",
+                "url": "https://api.github.com/repos/prooph/pdo-event-store/zipball/aeb239c269da9a53abdb4b0aff437f1446fce433",
+                "reference": "aeb239c269da9a53abdb4b0aff437f1446fce433",
                 "shasum": ""
             },
             "require": {
@@ -3464,7 +3464,7 @@
             ],
             "description": "Prooph PDO EventStore",
             "homepage": "http://getprooph.org/",
-            "time": "2018-11-03T06:45:00+00:00"
+            "time": "2018-11-10T14:33:01+00:00"
         },
         {
             "name": "prooph/service-bus",
@@ -4108,17 +4108,6 @@
         {
             "name": "roave/security-advisories",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "74a42b8d8d9f9cd672be58e7d1c65094da4ae971"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/74a42b8d8d9f9cd672be58e7d1c65094da4ae971",
-                "reference": "74a42b8d8d9f9cd672be58e7d1c65094da4ae971",
-                "shasum": ""
-            },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adodb/adodb-php": "<5.20.12",
@@ -5165,16 +5154,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.1.1",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25"
+                "reference": "803c49664ddc7cbc4be02f41491766be32c90a7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9fb60f232af0764d58002e7872acb43a74506d25",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/803c49664ddc7cbc4be02f41491766be32c90a7f",
+                "reference": "803c49664ddc7cbc4be02f41491766be32c90a7f",
                 "shasum": ""
             },
             "require": {
@@ -5208,7 +5197,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2018-09-03T08:17:12+00:00"
+            "time": "2018-11-12T12:25:13+00:00"
         },
         {
             "name": "symfony/form",

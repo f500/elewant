@@ -1,8 +1,8 @@
 {
     "name": "f500/elewant",
-    "description": "Elewant is a project based on the PHP mascotte: the ElePHPant.",
+    "description": "Elewant is a project based on the PHP mascot: the ElePHPant.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
 
     "require": {
         "php": "^7.2",
