@@ -9,7 +9,7 @@ vendor/bin/phpspec run --no-interaction
 phpspec_exit_code=$?
 
 echo ">>>>>>>>>> PHPCS <<<<<<<<<<"
-vendor/bin/phpcs --ignore=src/Elewant/AppBundle/Command/RebuildHerdProjectionCommand.php
+vendor/bin/phpcs
 phpcs_exit_code=$?
 
 echo ">>>>>>>>>> PHPSSTAN <<<<<<<<<<"

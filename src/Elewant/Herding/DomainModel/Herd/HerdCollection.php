@@ -9,6 +9,4 @@ interface HerdCollection
     public function save(Herd $herd): void;
 
     public function get(HerdId $herdId): ?Herd;
-
-
 }
