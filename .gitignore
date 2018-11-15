@@ -1,5 +1,3 @@
-
-/.phpunit
 /.env
 /.vagrant/
 /.web-server-pid
@@ -16,13 +14,7 @@
 !.idea/fileTemplates/
 !.idea/inspectionProfiles/
 
-/var/**
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
-
-/tests/_output/**
-!tests/_output/.gitkeep
+/var/*
+!var/.gitkeep
 
 /frontend
