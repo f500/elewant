@@ -1,2 +1,11 @@
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_js_routing_js:
+    path: "/js/routing.{_format}"
+    methods: GET
+    defaults:
+        _controller: "fos_js_routing.controller::indexAction"
+        _format: js
+    requirements:
+        _format: js|json
