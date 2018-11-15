@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace Elewant\Webapp\Application\Controllers;
 
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAdoptedByHerd;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\ShepherdId;
+use PHPUnit\Framework\TestCase;
+
 class ApiCommandAdoptElePHPantTest extends ApiCommandBase
 {
+    /** @var HerdId */
     private $herdId;
 
     public function setUp()

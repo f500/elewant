@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Elewant\Webapp\Application\Controllers;
 
 use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\ElePHPant\ElePHPantId;
 use Elewant\Herding\DomainModel\ElePHPant\ElePHPantWasAbandonedByHerd;
+use Elewant\Herding\DomainModel\Herd\HerdId;
 use Elewant\Herding\DomainModel\ShepherdId;
 use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 {
+    /** @var HerdId */
     private $herdId;
+
+    /** @var ElePHPantId */
     private $adoptedElePHPantId;
 
     public function setUp()

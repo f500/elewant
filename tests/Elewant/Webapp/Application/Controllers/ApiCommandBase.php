@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Elewant\Webapp\Application\Controllers;
@@ -10,6 +11,7 @@ use Elewant\Webapp\Infrastructure\ProophProjections\HerdListing;
 use Prooph\Bundle\EventStore\Projection\Projection;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\Common\Event\ActionEvent;
+use Prooph\Common\Messaging\DomainEvent;
 use Prooph\EventStore\ActionEventEmitterEventStore;
 use Prooph\EventStore\EventStore;
 use Psr\Container\ContainerInterface;
@@ -18,18 +20,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class ApiCommandBase extends WebTestCase
 {
-    /** @var  Client */
+    /** @var Client */
     protected $client;
 
     /** @var EventStore */
     protected $store;
 
-    /** @var array */
+    /** @var DomainEvent[] */
     protected $recordedEvents = [];
-
-    public function setUp()
-    {
-    }
 
     protected function formHerd(ShepherdId $shepherdId, string $name)
     {
@@ -126,7 +124,7 @@ abstract class ApiCommandBase extends WebTestCase
 
         $this->getStore($client->getContainer())->attach(
             'appendTo',
-            function (ActionEvent $event) {
+            function (ActionEvent $event): void {
                 foreach ($event->getParam('streamEvents', new \ArrayIterator()) as $recordedEvent) {
                     $this->recordedEvents[] = $recordedEvent;
                 }

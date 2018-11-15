@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Elewant\Webapp\Application\Controllers;
 
+use Elewant\Herding\DomainModel\Breed\Breed;
+use Elewant\Herding\DomainModel\Herd\HerdId;
+use Elewant\Herding\DomainModel\Herd\HerdWasAbandoned;
+use Elewant\Herding\DomainModel\ShepherdId;
+use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonHerdTest extends ApiCommandBase
 {
-    /** @var  HerdId */
+    /** @var HerdId */
     private $herdId;
 
     public function setUp()
