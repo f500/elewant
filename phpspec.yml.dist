@@ -1,3 +1,11 @@
+suites:
+    elewant_suite:
+        namespace: Elewant
+        spec_prefix: ~
+        src_path: src
+        spec_path: specs
+
 formatter.name: pretty
+
 extensions:
-    Elewant\Tooling\PhpSpec\Extension: ~
+    Tooling\PhpSpec\Extension: ~
