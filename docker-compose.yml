@@ -10,6 +10,7 @@ services:
             MYSQL_PASSWORD: elewant
         volumes:
             - db:/var/lib/mysql
+
     php-cli:
         build: docker/php-cli
         depends_on:
@@ -42,5 +43,6 @@ services:
             - "80:80"
         volumes:
             - ./:/opt/project:cached
+
 volumes:
     db:

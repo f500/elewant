@@ -13,7 +13,7 @@ branches:
 addons:
   hosts:
     - elewant.loc
-    - database_test
+    - database-test
   mariadb: "10.2"
 
 cache:
