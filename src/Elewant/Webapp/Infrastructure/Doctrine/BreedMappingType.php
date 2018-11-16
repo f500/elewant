@@ -16,7 +16,7 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class BreedMappingType extends Type
 {
-    const NAME = 'breed';
+    private const NAME = 'breed';
 
     /**
      * {@inheritdoc}

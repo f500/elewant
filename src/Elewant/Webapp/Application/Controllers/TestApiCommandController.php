@@ -30,6 +30,8 @@ use Throwable;
  */
 final class TestApiCommandController
 {
+    private const NAME_ATTRIBUTE = 'prooph_command_name';
+
     /**
      * @var CommandBus
      */
@@ -44,8 +46,6 @@ final class TestApiCommandController
      * @var LoggerInterface
      */
     private $logger;
-
-    const NAME_ATTRIBUTE = 'prooph_command_name';
 
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {

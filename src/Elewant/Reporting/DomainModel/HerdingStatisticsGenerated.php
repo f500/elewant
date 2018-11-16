@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\Event;
 
 final class HerdingStatisticsGenerated extends Event
 {
-    const NAME = 'app.herding.statistics.generated';
+    public const NAME = 'app.herding.statistics.generated';
 
     /**
      * @var CalculatedHerdingStatistics

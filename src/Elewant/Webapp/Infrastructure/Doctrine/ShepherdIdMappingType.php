@@ -16,7 +16,7 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class ShepherdIdMappingType extends Type
 {
-    const NAME = 'shepherd_id';
+    private const NAME = 'shepherd_id';
 
     /**
      * {@inheritdoc}

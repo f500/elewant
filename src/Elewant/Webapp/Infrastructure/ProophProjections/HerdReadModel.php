@@ -21,9 +21,9 @@ use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class HerdReadModel extends AbstractReadModel
 {
-    const TABLE_HERD           = 'herd';
-    const TABLE_ELEPHPANT      = 'elephpant';
-    const TABLE_DESIRED_BREEDS = 'desired_breed';
+    public const TABLE_HERD           = 'herd';
+    public const TABLE_ELEPHPANT      = 'elephpant';
+    public const TABLE_DESIRED_BREEDS = 'desired_breed';
 
     /**
      * @var Connection
