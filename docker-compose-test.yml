@@ -13,5 +13,7 @@ services:
         build: docker/php-cli
         depends_on:
             - database-test
+        entrypoint:
+            - /opt/project/docker/wait_for_test_database
         volumes:
             - ./:/opt/project:cached

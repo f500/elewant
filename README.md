@@ -19,7 +19,7 @@ Well, the basics are pretty simple: we build, deploy and maintain a project toge
 This means that all the aspects of building _and_ maintaining are areas of learning:
 
 So some usual suspects:
-- Behaviour driven development 
+- Behaviour driven development
 - Automated testing
 - Event sourcing
 - The Symfony framework
@@ -31,7 +31,7 @@ But also:
 - Logging and alerting
 - Dependency management
 
-And eventually: 
+And eventually:
 - How to deal with legacy code ;-)
 
 Feel free to add anything you learn, no matter how small, to <docs/lessons_learned.md>
@@ -44,10 +44,10 @@ You will need docker on your local system:
 
     [Docker](https://www.docker.com/)
 
-Run bin/setup.sh (only for the first time) and then Docker compose:
+Run bin/setup (only for the first time) and then Docker compose:
 
-    bin/setup.sh
     docker-compose up -d
+    bin/setup
 
 You should be up-and-running!
 
@@ -58,7 +58,7 @@ then place your key & secret in `.env`.
 
 #### Running tests
 
-    docker-compose -f docker-compose-test.yml run php-fpm bin/run_tests.sh
+    bin/docker_run_tests
 
 
 ### Getting started with Vagrant
@@ -71,7 +71,7 @@ Add the following line to your hostsfile:
 
     192.168.77.77   develop.elewant.loc
 
-> If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com, 
+> If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
 then place your key & secret in a file called `ansible/provision/group_vars/develop/override_locally.yml`.
 
 Bring your box up:

@@ -1,25 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-if [ "$TRAVIS" = true ]; then
+if [ "${TRAVIS}" = true ]; then
     phpenv config-rm xdebug.ini
 fi
 
 echo ">>>>>>>>>>>>> CLEAR CACHE  <<<<<<<<<<<<<"
 bin/console cache:clear --env=test
 
-echo ">>>>>>>>>> PHPSPEC <<<<<<<<<<"
+echo ">>>>>>>>>>>>>>> PHP SPEC <<<<<<<<<<<<<<<"
 vendor/bin/phpspec run --no-interaction
 phpspec_exit_code=$?
 
-echo ">>>>>>>>>> PHPCS <<<<<<<<<<"
+echo ">>>>>>>>>>> PHP CODE SNIFFER <<<<<<<<<<<"
 vendor/bin/phpcs
 phpcs_exit_code=$?
 
-echo ">>>>>>>>>> PHPSSTAN <<<<<<<<<<"
+echo ">>>>>>>>> PHP STATIC ANALYSIS  <<<<<<<<<"
 vendor/bin/phpstan analyse --configuration phpstan.neon --level max --no-progress src
 phpstan_exit_code=$?
 
-echo ">>>>>>>>>> PHPUNIT <<<<<<<<<<"
+echo ">>>>>>>>>>>>>>> PHP UNIT <<<<<<<<<<<<<<<"
 bin/phpunit
 phpunit_exit_code=$?
 

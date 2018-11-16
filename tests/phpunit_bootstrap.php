@@ -15,7 +15,9 @@ $kernel->boot();
 $app = new Application($kernel);
 
 $run = function (Application $application, string $command, array $parameters = []): void {
-    $parameters['command'] = $command;
+    $parameters['command']          = $command;
+    $parameters['--no-interaction'] = true;
+    $parameters['--quiet']          = true;
 
     $input = new ArrayInput($parameters);
     $input->setInteractive(false);
@@ -29,6 +31,6 @@ $run($app, 'doctrine:database:drop', ['--force' => true]);
 
 $run($app, 'doctrine:database:create');
 
-$run($app, 'doctrine:migrations:migrate', ['--quiet' => true, '--no-interaction' => true]);
+$run($app, 'doctrine:migrations:migrate');
 
-$run($app, 'event-store:event-stream:create', ['--quiet' => true]);
+$run($app, 'event-store:event-stream:create');
