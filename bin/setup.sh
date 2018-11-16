@@ -9,6 +9,3 @@ docker run --rm -ti -v $(pwd):/src:rw mkenney/npm:node-6.9-debian /usr/local/bin
 docker run --rm -ti -v $(pwd):/src:rw mkenney/npm:node-6.9-debian /usr/local/bin/grunt
 
 docker-compose -f docker-compose-test.yml build
-docker-compose -f docker-compose-test.yml run php-cli bin/console cache:clear --no-interaction --env=test
-docker-compose -f docker-compose-test.yml run php-cli bin/console doctrine:migrations:migrate --no-interaction --env=test
-docker-compose -f docker-compose-test.yml run php-cli bin/console event-store:event-stream:create --no-interaction --env=test

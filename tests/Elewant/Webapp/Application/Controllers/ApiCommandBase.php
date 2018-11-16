@@ -180,7 +180,7 @@ abstract class ApiCommandBase extends WebTestCase
      */
     private function getHerdListing(ContainerInterface $container)
     {
-        return $container->get('Elewant\Herding\Projections\HerdListing');
+        return $container->get('Elewant\Webapp\Infrastructure\ProophProjections\HerdListing');
     }
 
     /**

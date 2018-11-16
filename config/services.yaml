@@ -81,6 +81,9 @@ services:
             - "@httplug.client"
             - '%github_contributor_blacklist%'
 
+    Elewant\Webapp\Infrastructure\ProophProjections\HerdListing:
+        public: true
+
     Elewant\Webapp\Application\:
         resource: '../src/Elewant/Webapp/Application/'
         exclude: '../src/Elewant/Webapp/Application/{Resources}'

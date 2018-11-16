@@ -30,7 +30,7 @@ final class HerdListing
         return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdReadModel::TABLE_HERD));
     }
 
-    public function findById($herdId): array
+    public function findById($herdId): ?array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -41,7 +41,7 @@ final class HerdListing
         /** @var Statement $stmt */
         $stmt = $qb->execute();
 
-        return $stmt->fetch();
+        return $stmt->fetch() ?: null;
     }
 
     public function findElePHPantsByHerdId($herdId): array
@@ -58,7 +58,7 @@ final class HerdListing
         return $stmt->fetchAll();
     }
 
-    public function findElePHPantByElePHPantId($elePHPantId): array
+    public function findElePHPantByElePHPantId($elePHPantId): ?array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -69,7 +69,7 @@ final class HerdListing
         /** @var Statement $stmt */
         $stmt = $qb->execute();
 
-        return $stmt->fetch();
+        return $stmt->fetch() ?: null;
     }
 
     public function findDesiredBreedsByHerdId($herdId): array

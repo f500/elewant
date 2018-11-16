@@ -4,6 +4,9 @@ if [ "$TRAVIS" = true ]; then
     phpenv config-rm xdebug.ini
 fi
 
+echo ">>>>>>>>>>>>> CLEAR CACHE  <<<<<<<<<<<<<"
+bin/console cache:clear --env=test
+
 echo ">>>>>>>>>> PHPSPEC <<<<<<<<<<"
 vendor/bin/phpspec run --no-interaction
 phpspec_exit_code=$?
