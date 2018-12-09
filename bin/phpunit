@@ -13,7 +13,7 @@ if (false === getenv('SYMFONY_PHPUNIT_REMOVE')) {
 }
 
 if (false === getenv('SYMFONY_PHPUNIT_VERSION')) {
-    putenv('SYMFONY_PHPUNIT_VERSION=7.4');
+    putenv('SYMFONY_PHPUNIT_VERSION=7.5');
 }
 
 if (false === getenv('SYMFONY_PHPUNIT_DIR')) {
