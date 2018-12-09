@@ -18,8 +18,8 @@ module.exports = function (grunt) {
         concat: {
             src: {
                 src: [
-                    'src/Elewant/AppBundle/Resources/assets/js/agency-theme.js',
-                    'src/Elewant/AppBundle/Resources/assets/js/elewant.js'
+                    'src/Elewant/Webapp/Application/Resources/assets/js/agency-theme.js',
+                    'src/Elewant/Webapp/Application/Resources/assets/js/elewant.js'
                 ],
                 dest: 'public/build/js/elewant.js'
             }
@@ -74,11 +74,11 @@ module.exports = function (grunt) {
 
         watch: {
             src: {
-                files: 'src/Elewant/AppBundle/Resources/assets/js/elewant.js',
+                files: 'src/Elewant/Webapp/Application/Resources/assets/js/elewant.js',
                 tasks: ['copy:elewant', 'exec:uglify']
             },
             sass: {
-                files: 'src/Elewant/AppBundle/Resources/assets/scss/*.scss',
+                files: 'src/Elewant/Webapp/Application/Resources/assets/scss/*.scss',
                 tasks: ['build-css']
             }
         },

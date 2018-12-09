@@ -1,7 +1,10 @@
 twig:
-    paths: ['%kernel.project_dir%/templates']
+    paths:
+        '%kernel.project_dir%/src/Elewant/Webapp/Application/Resources/templates': ~
+        '%kernel.project_dir%/src/Bundles/UserBundle/Resources/views': UserBundle
+        '%kernel.project_dir%/src/Bundles/DevelopmentBundle/Resources/views': DevelopmentBundle
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:
         - "Form/bootstrap_4_layout.html.twig"
-    exception_controller: Elewant\AppBundle\Controller\ExceptionController:showAction
+    exception_controller: Elewant\Webapp\Application\Controllers\ExceptionController::showAction

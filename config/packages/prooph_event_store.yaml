@@ -1,37 +1,39 @@
 prooph_event_store:
     stores:
         herd_store:
-            event_store: Prooph\EventStore\Pdo\MariaDbEventStore
+            event_store: prooph_event_store.event_store
             repositories:
                 herd_collection:
-                    repository_class: Elewant\Herding\Infrastructure\EventStoreHerdCollection
-                    aggregate_type: Elewant\Herding\Model\Herd
-                    aggregate_translator: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+                    repository_class: Elewant\Herding\Infrastructure\Prooph\ProophHerdCollection
+                    aggregate_type: Elewant\Herding\DomainModel\Herd\Herd
+                    aggregate_translator: prooph_event_store.aggregate_translator
+
     projection_managers:
         elewant_projection_manager:
-            event_store: Prooph\EventStore\Pdo\MariaDbEventStore
-            connection: 'app.event_store.pdo_connection.mariadb'
+            event_store: prooph_event_store.event_store
+            connection: prooph_event_store.connection
             projections:
                 herd_projection:
-                    read_model: Elewant\Herding\Projections\HerdReadModel
-                    projection: Elewant\Herding\Projections\HerdProjection
+                    read_model: Elewant\Webapp\Infrastructure\ProophProjections\HerdReadModel
+                    projection: Elewant\Webapp\Infrastructure\ProophProjections\HerdProjection
 
 services:
     _defaults:
         public: false
 
-    Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator: ~
-    Prooph\EventStore\Pdo\MariaDbEventStore:
-        class: Prooph\EventStore\Pdo\MariaDbEventStore
-        public: true
-        arguments:
-            - '@prooph_event_store.message_factory'
-            - '@app.event_store.pdo_connection.mariadb'
-            - '@app.event_store.mariadb.persistence_strategy'
+    prooph_event_store.aggregate_translator:
+        class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
 
-    app.event_store.pdo_connection.mariadb:
-        class: \PDO
+    prooph_event_store.connection:
+        class: PDO
         factory: ['@database_connection', getWrappedConnection]
 
-    app.event_store.mariadb.persistence_strategy:
-        class: Elewant\Tooling\Prooph\MariaDbSingleStreamStrategyWithUnescapedUnicode
+    prooph_event_store.event_store:
+        class: Prooph\EventStore\Pdo\MariaDbEventStore
+        arguments:
+            - '@prooph_event_store.message_factory'
+            - '@prooph_event_store.connection'
+            - '@prooph_event_store.persistence_strategy'
+
+    prooph_event_store.persistence_strategy:
+        class: Tooling\ProophEventStore\MariaDbSingleStreamStrategyWithUnescapedUnicode

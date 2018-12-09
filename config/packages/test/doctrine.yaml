@@ -1,3 +1,3 @@
 doctrine:
     dbal:
-        url: 'mysql://elewant:elewant@database_test/elewant_test'
+        url: 'mysql://elewant:elewant@database-test/elewant_test'
