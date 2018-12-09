@@ -16,7 +16,6 @@ use Elewant\Herding\DomainModel\Breed\Breed;
 use Elewant\Herding\DomainModel\ElePHPant\ElePHPantId;
 use Elewant\Herding\DomainModel\Herd\HerdId;
 use Elewant\Herding\DomainModel\ShepherdId;
-use PDOException;
 use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class HerdReadModel extends AbstractReadModel
@@ -168,7 +167,7 @@ final class HerdReadModel extends AbstractReadModel
                     'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
                 ]
             );
-        } catch (PDOException $e) {
+        } catch (\Exception $e) {
             // There are duplicates in the historic data
         }
     }
