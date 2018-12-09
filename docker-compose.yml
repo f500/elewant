@@ -15,6 +15,10 @@ services:
         build: docker/php-cli
         depends_on:
             - database
+        environment:
+            COMPOSER_HOME: "/home/.composer"
+            XDEBUG_CONFIG: "remote_host=host.docker.internal"
+            PHP_IDE_CONFIG: "serverName=localhost.elewant.com"
         volumes:
             - ./:/opt/project:cached
 
@@ -22,6 +26,10 @@ services:
         build: docker/php-fpm
         depends_on:
             - database
+        environment:
+            COMPOSER_HOME: "/home/.composer"
+            XDEBUG_CONFIG: "remote_host=host.docker.internal"
+            PHP_IDE_CONFIG: "serverName=localhost.elewant.com"
         volumes:
             - ./:/opt/project:cached
 
