@@ -69,6 +69,20 @@ final class HerdSpec extends ObjectBehavior
         $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
     }
 
+    public function it_abandons_the_same_breed_twice(): void
+    {
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->adoptElePHPant(Breed::greenZf2Regular());
+        $this->elePHPants()->shouldHaveCount(3);
+
+        $this->abandonElePHPant(Breed::blueOriginalRegular());
+        $this->abandonElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldHaveCount(1);
+        $this->elePHPants()->shouldNotContainAnElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
+    }
+
     public function it_throws_an_exception_when_abandoning_without_any_elephpants(): void
     {
         $this->shouldThrow(SorryIDoNotHaveThat::class)
