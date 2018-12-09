@@ -1,0 +1,20 @@
+{% extends '@HWIOAuth/layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+    <h3>{{ 'header.connecting' | trans({}, 'UserBundle') }}</h3>
+
+    <div class="row">
+        <div class="col-md-9 col-lg-6">
+            <p>{{ 'connect.confirm.text' | trans({'%service%': ('service.' ~ service) | trans({}, 'UserBundle'), '%name%': userInformation.realName}, 'UserBundle') }}</p>
+
+            {{ form_start(form, {'action': path('hwi_oauth_connect_service', {'service': service, 'key': key}), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {{ form_widget(form) }}
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">{{ 'connect.confirm.submit' | trans({}, 'UserBundle') }}</button>
+                <a href="{{ path('hwi_oauth_connect') }}" class="btn">{{ 'connect.confirm.cancel' | trans({}, 'UserBundle') }}</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock hwi_oauth_content %}

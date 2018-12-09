@@ -1,0 +1,22 @@
+// Custom variables
+@import "variables/custom";
+@import "variables/font_awesome";
+// Libraries
+@import "../../../../../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../../../../../node_modules/font-awesome/scss/font-awesome";
+// Override library styles
+@import "bootstrap";
+@import "font_awesome";
+@import "easy_autocomplete";
+// Custom styles
+@import "agency_theme";
+@import "components/contact";
+@import "components/elephpant";
+@import "components/footer";
+@import "components/header";
+@import "components/navbar";
+@import "components/portfolio";
+@import "components/section";
+@import "components/social";
+@import "components/team";
+@import "components/timeline";

@@ -1,4 +1,4 @@
-elewant_app:
-    resource: "@ElewantAppBundle/Controller/"
+elewant_webapp:
+    resource: "Elewant/Webapp/Application/Controllers/"
     type:     annotation
     prefix:   /

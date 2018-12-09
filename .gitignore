@@ -1,31 +1,20 @@
+/.env.local
+/.vagrant/
+/.web-server-pid
+/ansible/provision/group_vars/develop/override_locally.yml
+/node_modules/
+/phpunit.xml
+/public/build/
+/public/bundles/
+/vendor/
+
 /.idea/*
 !.idea/codeStyleSettings.xml
 !.idea/file.template.settings.xml
 !.idea/fileTemplates/
 !.idea/inspectionProfiles/
-/.vagrant/
-/ansible/provision/group_vars/develop/override_locally.yml
-/node_modules/
-/public/build/
-tests/_output/**
-!tests/_output/.gitkeep
-/var/**
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
 
-###> symfony/framework-bundle ###
-/.env
-/public/bundles/
-/vendor/
-###< symfony/framework-bundle ###
+/var/*
+!var/.gitkeep
 
-###> symfony/phpunit-bridge ###
-.phpunit
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
+/frontend

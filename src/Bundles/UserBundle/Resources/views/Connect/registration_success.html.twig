@@ -1,0 +1,9 @@
+{% extends '@HWIOAuth/layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+
+    <h3>{{ 'header.registration_success' | trans({}, 'UserBundle') }}</h3>
+    <p>{{ 'paragraph.register' | trans({'%name%': app.user.displayName, '%username%': app.user.username}, 'UserBundle') | nl2br }}</p>
+    <p><a href="{{ path('herd_tending') }}">{{ 'paragraph.herd_tending' | trans({}, 'UserBundle') }}</a></p>
+
+{% endblock hwi_oauth_content %}

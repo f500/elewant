@@ -1,5 +1,5 @@
 
     public function %name%(%arguments%)
     {
-        // TODO: write logic here
+        /** @todo Implement %name%() method. */
     }

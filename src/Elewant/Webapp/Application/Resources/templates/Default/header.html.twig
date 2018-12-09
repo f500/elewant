@@ -1,0 +1,25 @@
+<header>
+    <div class="container">
+
+        <div class="intro-text">
+            <div class="intro-lead-in">{{ 'site.lead-in'|trans }}</div>
+            <div class="intro-heading">{{ 'site.heading'|trans }}</div>
+
+            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="{{ path('hwi_oauth_twitter_login') }}" class="page-scroll btn btn-xl">
+                    {{ icon('twitter') }} {{ 'site.join-the-herd'|trans }}
+                </a>
+                {% if app.environment == 'dev' %}
+                    <a href="{{ path('dev_list_users') }}" class="page-scroll btn btn-xl">
+                        {{ icon('list') }} {{ 'site.development_login'|trans }}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{{ path('herd_tending') }}" class="page-scroll btn btn-xl">
+                    {{ icon('edit') }} {{ 'site.tend-to-your-herd'|trans }}
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</header>

@@ -3,13 +3,18 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+
 parameters:
+
     locale: 'en'
+
     github_username: f500
     github_repository: elewant
     github_contributor_blacklist: ['waffle-iron']
+
     twitter_client_id: '%env(TWITTER_CLIENT_ID)%'
     twitter_client_secret: '%env(TWITTER_CLIENT_SECRET)%'
+
     elewant_tweets_are_active: '%env(ELEWANT_TWEETS_ARE_ACTIVE)%'
     elewant_tweets_app_consumerkey: '%env(ELEWANT_TWEETS_APP_CONSUMERKEY)%'
     elewant_tweets_app_consumersecret: '%env(ELEWANT_TWEETS_APP_CONSUMERSECRET)%'
@@ -17,82 +22,89 @@ parameters:
     elewant_tweets_app_accesstokensecret: '%env(ELEWANT_TWEETS_APP_ACCESSTOKENSECRET)%'
 
 services:
+
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Elewant,Entity,Migrations,Tests,Kernel.php}'
+        # Automatically injects dependencies in your services.
+        autowire: true
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+        # Automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
 
-    Elewant\:
-        resource: '../src/Elewant'
+        # Allows optimizing the container by removing unused services; this also means
+        # fetching services directly from the container via $container->get() won't work.
+        # The best practice is to be explicit about your dependencies anyway.
+        public: false
 
-    Elewant\AppBundle\Controller\:
-        resource: '../src/Elewant/AppBundle/Controller'
-        tags: ['controller.service_arguments']
+    # HERDING
 
-    Elewant\AppBundle\Controller\ExceptionController:
+    Elewant\Herding\Infrastructure\:
+        resource: '../src/Elewant/Herding/Infrastructure/'
+
+    Elewant\Herding\Application\:
+        resource: '../src/Elewant/Herding/Application/'
+
+    Elewant\Herding\Application\Commands\:
+        resource: '../src/Elewant/Herding/Application/Commands/'
+        arguments:
+            - '@herd_collection'
+        tags:
+            - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
+
+    # REPORTING
+
+    Elewant\Reporting\Infrastructure\:
+        resource: '../src/Elewant/Reporting/Infrastructure/'
+
+#    Elewant\Reporting\Infrastructure\SymfonyConsole\:
+#        resource: '../src/Elewant/Reporting/Infrastructure/SymfonyConsole/'
+#        tags:
+#            - 'console.command'
+
+    Elewant\Reporting\Application\:
+        resource: '../src/Elewant/Reporting/Application/'
+
+    Elewant\Reporting\DomainModel\HerdingStatisticsCalculator:
+        alias: 'Elewant\Reporting\Infrastructure\Doctrine\DoctrineHerdingStatisticsCalculator'
+
+    # WEBAPP
+
+    Elewant\Webapp\Infrastructure\:
+        resource: '../src/Elewant/Webapp/Infrastructure/'
+
+    Elewant\Webapp\Infrastructure\Github\GithubContributorList:
+        arguments:
+            - '%github_username%'
+            - '%github_repository%'
+            - "@httplug.message_factory"
+            - "@httplug.client"
+            - '%github_contributor_blacklist%'
+
+    Elewant\Webapp\Infrastructure\ProophProjections\HerdListing:
+        public: true
+
+    Elewant\Webapp\Application\:
+        resource: '../src/Elewant/Webapp/Application/'
+        exclude: '../src/Elewant/Webapp/Application/{Resources}'
+
+    Elewant\Webapp\Application\Controllers\:
+        resource: '../src/Elewant/Webapp/Application/Controllers/'
+        tags:
+            - 'controller.service_arguments'
+
+    Elewant\Webapp\Application\Controllers\ExceptionController:
         public: true
         arguments:
             $debug: '%kernel.debug%'
 
-    Elewant\DevelopmentBundle\Controller\:
-        resource: '../src/Elewant/DevelopmentBundle/Controller'
-        tags: ['controller.service_arguments']
+    Elewant\Webapp\DomainModel\Contributor\ContributorList:
+        alias: 'Elewant\Webapp\Infrastructure\Github\GithubContributorList'
 
-    Elewant\Herding\Projections\HerdListing:
-        public: true
+    Elewant\Webapp\DomainModel\Herding\HerdRepository:
+        alias: 'Elewant\Webapp\Infrastructure\Doctrine\DoctrineHerdRepository'
 
-    Elewant\Herding\Model\Handlers\AbandonElePHPantHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\AbandonHerdHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\AdoptElePHPantHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\DesireBreedHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\EliminateDesireForBreedHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\FormHerdHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    Elewant\Herding\Model\Handlers\RenameHerdHandler:
-        arguments: ['@herd_collection']
-        tags:
-          - { name: 'prooph_service_bus.herding_command_bus.route_target', message_detection: true }
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # BUNDLES
 
     Abraham\TwitterOAuth\TwitterOAuth:
         arguments:
@@ -101,12 +113,22 @@ services:
             - "%elewant_tweets_app_accesstoken%"
             - "%elewant_tweets_app_accesstokensecret%"
 
-    Elewant\AppBundle\Infrastructure\GithubContributorList:
-        arguments:
-            - '%github_username%'
-            - '%github_repository%'
-            - "@httplug.message_factory"
-            - "@httplug.client"
-            - '%github_contributor_blacklist%'
+    Bundles\DevelopmentBundle\:
+        resource: '../src/Bundles/DevelopmentBundle/'
+        exclude: '../src/Bundles/DevelopmentBundle/{Resources,DevelopmentBundle.php}'
 
-    Elewant\AppBundle\Service\ContributorList: '@Elewant\AppBundle\Infrastructure\GithubContributorList'
+    Bundles\DevelopmentBundle\Controller\:
+        resource: '../src/Bundles/DevelopmentBundle/Controller/'
+        tags:
+            - 'controller.service_arguments'
+
+    Bundles\UserBundle\:
+        resource: '../src/Bundles/UserBundle/'
+        exclude: '../src/Bundles/UserBundle/{Entity,Event,Resources,UserBundle.php}'
+
+    # TOOLING
+
+    Tooling\SymfonyConsole\:
+        resource: '../src/Tooling/SymfonyConsole/'
+        tags:
+            - 'console.command'

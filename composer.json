@@ -1,9 +1,14 @@
 {
+    "name": "f500/elewant",
+    "description": "Elewant is a project based on the PHP mascot: the ElePHPant.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
         "abraham/twitteroauth": "^0.9.2",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "hwi/oauth-bundle": "^0.6.3",
@@ -22,57 +27,78 @@
         "symfony/console": "^4.1",
         "symfony/dotenv": "^4.1",
         "symfony/expression-language": "^4.1",
-        "symfony/flex": "^1.0",
+        "symfony/flex": "^1.1",
         "symfony/form": "^4.1",
         "symfony/framework-bundle": "^4.1",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/orm-pack": "*",
+        "symfony/orm-pack": "^1.0",
         "symfony/process": "^4.1",
         "symfony/security-bundle": "^4.1",
-        "symfony/serializer-pack": "*",
+        "symfony/serializer-pack": "^1.0",
         "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/translation": "^4.1",
         "symfony/twig-bundle": "^4.1",
         "symfony/validator": "^4.1",
         "symfony/web-link": "^4.1",
         "symfony/yaml": "^4.1",
         "twig/extensions": "^1.5"
     },
+
     "require-dev": {
         "fzaninotto/faker": "^1.8",
         "phpspec/phpspec": "^5.0",
         "phpstan/phpstan": "^0.10.2",
         "slevomat/coding-standard": "^4.6",
         "squizlabs/php_codesniffer": "^3.3",
-        "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/profiler-pack": "*",
+        "symfony/debug-pack": "^1.0",
+        "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "^1.0",
         "symfony/web-server-bundle": "^4.1"
     },
+
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Elewant\\": "src/Elewant/",
+            "Bundles\\": "src/Bundles/",
+            "Tooling\\": "src/Tooling/"
+        },
+        "files": [
+            "src/Kernel.php"
+        ]
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Elewant\\": "tests/Elewant/"
+        }
+    },
+
     "config": {
         "preferred-install": {
             "*": "dist"
         },
         "sort-packages": true
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/",
-            "Elewant\\": "src/Elewant/"
+
+    "extra": {
+        "symfony": {
+            "allow-contrib": false
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\Tests\\": "tests/",
-            "Tests\\Elewant\\": "tests/"
-        }
-    },
-    "replace": {
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
-    },
+
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
@@ -84,13 +110,5 @@
         "post-update-cmd": [
             "@auto-scripts"
         ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false
-        }
     }
 }

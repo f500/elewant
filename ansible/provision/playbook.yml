@@ -117,7 +117,7 @@
     - name: Add database hostname to hosts
       lineinfile:
         dest: /etc/hosts
-        line: "{{ mariadb_bind_address }}  database_test"
+        line: "{{ mariadb_bind_address }}  database-test"
         insertafter: EOF
       become: yes
 
