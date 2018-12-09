@@ -322,8 +322,12 @@ final class Herd extends AggregateRoot
      */
     private function guardContainsThisBreed(Breed $breed): void
     {
-        if (!$this->breeds->contains($breed)) {
-            throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
+        foreach ($this->elePHPants() as $elePHPant) {
+            if ($breed->equals($elePHPant->breed())) {
+                return;
+            }
         }
+
+        throw SorryIDoNotHaveThat::typeOfElePHPant($this, $breed);
     }
 }
