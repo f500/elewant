@@ -12,6 +12,7 @@ use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Elewant\Herding\DomainModel\Breed\Breed;
 use Elewant\Herding\DomainModel\ElePHPant\ElePHPantId;
 use Elewant\Herding\DomainModel\Herd\HerdId;
@@ -167,7 +168,7 @@ final class HerdReadModel extends AbstractReadModel
                     'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (UniqueConstraintViolationException $e) {
             // There are duplicates in the historic data
         }
     }
