@@ -22,7 +22,29 @@ services:
         volumes:
             - ./:/opt/project:cached
 
+    php-cli-xdebug:
+        build: docker/php-cli
+        depends_on:
+            - database
+        environment:
+            COMPOSER_HOME: "/home/.composer"
+            XDEBUG_CONFIG: "remote_host=host.docker.internal"
+            PHP_IDE_CONFIG: "serverName=localhost.elewant.com"
+            PHP_INI_SCAN_DIR: "/usr/local/etc/php/conf.d:/usr/local/etc/php/debug"
+        volumes:
+            - ./:/opt/project:cached
+
     php-fpm:
+        build: docker/php-fpm
+        depends_on:
+            - database
+        environment:
+            COMPOSER_HOME: "/home/.composer"
+            PHP_IDE_CONFIG: "serverName=localhost.elewant.com"
+        volumes:
+            - ./:/opt/project:cached
+
+    php-fpm-xdebug:
         build: docker/php-fpm
         depends_on:
             - database
@@ -30,6 +52,7 @@ services:
             COMPOSER_HOME: "/home/.composer"
             XDEBUG_CONFIG: "remote_host=host.docker.internal"
             PHP_IDE_CONFIG: "serverName=localhost.elewant.com"
+            PHP_INI_SCAN_DIR: "/usr/local/etc/php/conf.d:/usr/local/etc/php/debug"
         volumes:
             - ./:/opt/project:cached
 
