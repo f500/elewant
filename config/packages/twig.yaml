@@ -1,8 +1,10 @@
 twig:
     paths:
         '%kernel.project_dir%/src/Elewant/Webapp/Application/Resources/templates': ~
-        '%kernel.project_dir%/src/Bundles/UserBundle/Resources/views': UserBundle
+        '%kernel.project_dir%/src/Bundles/UserBundle/Resources/views/': UserBundle
         '%kernel.project_dir%/src/Bundles/DevelopmentBundle/Resources/views': DevelopmentBundle
+        # Overridden HWIOAuth bundle templates
+        '%kernel.project_dir%/src/Bundles/UserBundle/Resources/views/hwi-oauth': HWIOAuth
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:
