@@ -1,4 +1,4 @@
-FROM php:cli-alpine
+FROM php:7.2-cli-alpine
 
 # Install PDO_mysql
 RUN docker-php-ext-install pdo_mysql
