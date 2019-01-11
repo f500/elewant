@@ -104,6 +104,10 @@ services:
     Elewant\Webapp\DomainModel\Herding\HerdRepository:
         alias: 'Elewant\Webapp\Infrastructure\Doctrine\DoctrineHerdRepository'
 
+    # REPORTING
+    Elewant\Reporting\DomainModel\Statistics\NumberOf:
+        alias: 'Elewant\Reporting\Infrastructure\Doctrine\Statistics\NumberOfRepository'
+
     # BUNDLES
 
     Abraham\TwitterOAuth\TwitterOAuth:
