@@ -25,7 +25,7 @@ Once there is an `Offer` on the table, others can propose a `Trade`. We allow tw
 for `Money` and one for another `ElePHPant`. When an offer is placed, the seller should indicate what type of trade
 is acceptable. This information is called `TradeLimits`, and can be updated at any time.
 
-Finally, an `Offer` can be `withdrawn` at any time.
+Finally, an `Offer` can be `withdrawn` at any time, until acceptance of a trade.
 
 So when dealing with offers, we currently have the following **command** (event):
 
@@ -42,30 +42,33 @@ So when dealing with offers, we currently have the following **command** (event)
 ### Trades
 
 A Trade can be proposed by a `Shepherd`. Essentially, A trade for Money is anything that happens _outside_ of the 
-system (at least for now). A trade for an ElePHPant can mean that the Shepherd chose an ElePHPant from their Herd, 
-or they just selected a Breed. The Herd is still irrelevant in the domain, and referenced as read-only data in the
-front-end to make a choice.  
+system (at least for now). A trade for an ElePHPant can mean that the Shepherd selected a Breed to trade. The Herd 
+is still irrelevant in the domain, and referenced as read-only data in the front-end to make a choice.  
 
 A trade is `proposed` against an `Offer`.
 A trade can be `retracted` by the Shepherd at any time.
 A trade can be `rejected` by the seller. This can contain a reason why.
-A trade can be `accepted` by the seller. Once this happens, the shepherd proposing trade becomes the `Buyer`
-A trade can be `completed` by the seller and the buyer - once they both complete, the trade is done.
+A trade can be `accepted` by the seller. Once this happens, the shepherd proposing trade becomes the `Buyer` and the trade is complete.
 
 - ProposeTradeForMoney (TradeForMoneyWasProposed)
 - ProposeTradeForElePHPant (TradeForElePHPantWasProposed)
 - RetractTradeProposition (TradePropositionRetracted) 
 - RejectTrade (TradeRejected)
 - AcceptTrade (TradeAccepted)
-- CompleteTradeForSeller (TradeCompletedForSeller)
-- CompleteTradeForBuyer (TradeCompletedForBuyer)
-- TradeFinalized
-
-When both the Buyer and the Seller have completed the trade, there is a TradeFinalized event.
 
 ### Effects on Herds
 
-Since trading (potentially) has an impact on a Shepherd's Herd, the herding domain will respond to trade events.  
+Since trading (potentially) has an impact on a Shepherd's Herd, the herding domain will respond to trade event `AcceptTrade`.
+When a trade is accepted, there is a `Seller` and a `Buyer` and a `Breed`.
+
+The seller needs to make the decision if that `Breed` comes from their own `Herd`:
+- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the seller's Herd to the buyer's Herd
+- if not, the result is a regular `AdoptElePHPant` command to add the `Breed` to the buyer's herd.
+
+In addition to the above:
+If the trade was a `ProposeTradeForElePHPant` then the buyer needs to make the decision if that `Breed` comes from their own `Herd`:
+- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the buyers's Herd to the sellers's Herd
+
 
 Decisions
 ---------
