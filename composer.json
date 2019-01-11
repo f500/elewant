@@ -82,7 +82,10 @@
 
     "autoload-dev": {
         "psr-4": {
-            "Elewant\\": "tests/Elewant/"
+            "Elewant\\": [
+                "specs/Elewant/",
+                "tests/Elewant/"
+            ]
         }
     },
 

@@ -17,7 +17,7 @@ if (false === getenv('SYMFONY_PHPUNIT_VERSION')) {
 }
 
 if (false === getenv('SYMFONY_PHPUNIT_DIR')) {
-    putenv('SYMFONY_PHPUNIT_DIR=' . __DIR__ . '/../vendor/bin/.phpunit');
+    putenv('SYMFONY_PHPUNIT_DIR=' . __DIR__ . '/../.phpunit');
 }
 
 require __DIR__ . '/../vendor/symfony/phpunit-bridge/bin/simple-phpunit';
