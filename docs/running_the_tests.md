@@ -25,7 +25,7 @@ using the Symfony WebTestCase as a base. The tests are located in the `/test` fo
 
 ### PHPCS
 
-Additionally, we use the [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer/wiki) code style analysis tool to verify 
+Additionally, we use the [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer/wiki) code style analysis tool to verify
 that we do not violate the coding standards. There is a configuration file in the root called phpcs.xml, but it's
 basically PSR2 + some newer PHP7+ rules.
 
@@ -36,19 +36,19 @@ basically PSR2 + some newer PHP7+ rules.
 
 ### PHPSTAN
 
-Additionally, we use the [PHPStan](https://github.com/phpstan/phpstan) static analysis tool to verify that we do not 
-have any detectable PHP errors. 
+Additionally, we use the [PHPStan](https://github.com/phpstan/phpstan) static analysis tool to verify that we do not
+have any detectable PHP errors.
 
     # running phpstan
-    vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src
-    
+    vendor/bin/phpstan analyse --configuration phpstan.neon --level max --no-progress src
+
 ### Humbug
 
 Additionally, we use the [Humbug](https://github.com/humbug/humbug) mutation testing tool to verify that the unit
 tests are covering code mutations. Thus preventing any accidental code change that is not caught by a PHPUnit Test.
 
     # running *bah!* Humbug
-    TEST_SUITE=humbug bin/run_tests 
+    TEST_SUITE=humbug bin/run_tests
 
 ### Debugging
 
