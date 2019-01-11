@@ -58,17 +58,7 @@ A trade can be `accepted` by the seller. Once this happens, the shepherd proposi
 
 ### Effects on Herds
 
-Since trading (potentially) has an impact on a Shepherd's Herd, the herding domain will respond to trade event `AcceptTrade`.
-When a trade is accepted, there is a `Seller` and a `Buyer` and a `Breed`.
-
-The seller needs to make the decision if that `Breed` comes from their own `Herd`:
-- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the seller's Herd to the buyer's Herd
-- if not, the result is a regular `AdoptElePHPant` command to add the `Breed` to the buyer's herd.
-
-In addition to the above:
-If the trade was a `ProposeTradeForElePHPant` then the buyer needs to make the decision if that `Breed` comes from their own `Herd`:
-- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the buyers's Herd to the sellers's Herd
-
+Check the Herding DomainModel.md file for more information.
 
 Decisions
 ---------
