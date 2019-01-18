@@ -14,7 +14,7 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
     /** @var HerdId */
     private $herdId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $shepherdId = ShepherdId::generate();
@@ -23,12 +23,12 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
         $this->client = $this->renameHerd($this->herdId, 'new herd name');
     }
 
-    public function test_command_rename_herd_returns_http_status_202()
+    public function test_command_rename_herd_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_rename_herd_emits_HerdWasRenamed_event()
+    public function test_command_rename_herd_emits_HerdWasRenamed_event(): void
     {
         TestCase::assertCount(2, $this->recordedEvents);
 
@@ -37,7 +37,7 @@ class ApiCommandRenameHerdTest extends ApiCommandBase
         TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
-    public function test_command_rename_herd_created_a_correct_herd_projection()
+    public function test_command_rename_herd_created_a_correct_herd_projection(): void
     {
         /** @var HerdWasRenamed $eventUnderTest */
         $eventUnderTest = end($this->recordedEvents);

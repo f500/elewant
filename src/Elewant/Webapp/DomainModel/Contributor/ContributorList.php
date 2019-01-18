@@ -6,8 +6,6 @@ namespace Elewant\Webapp\DomainModel\Contributor;
 
 interface ContributorList
 {
-    /**
-     * @return Contributor[]
-     */
+    /** @return Contributor[] */
     public function allContributors(): array;
 }

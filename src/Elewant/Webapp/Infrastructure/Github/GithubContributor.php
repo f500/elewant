@@ -8,31 +8,33 @@ use Elewant\Webapp\DomainModel\Contributor\Contributor;
 
 final class GithubContributor implements Contributor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $avatarUrl;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $contributionCount;
 
     private function __construct(string $avatarUrl, string $name, int $contributionCount)
     {
-        $this->avatarUrl         = $avatarUrl;
-        $this->name              = $name;
+        $this->avatarUrl = $avatarUrl;
+        $this->name = $name;
         $this->contributionCount = $contributionCount;
     }
 
+    /**
+     * @param mixed[] $data
+     * @return Contributor
+     */
     public static function fromGithubApiCall(array $data): Contributor
     {
-        return new self($data['avatar_url'], $data['login'], $data['contributions']);
+        return new self(
+            (string) $data['avatar_url'],
+            (string) $data['login'],
+            (int) $data['contributions']
+        );
     }
 
     public function avatarUrl(): string

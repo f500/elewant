@@ -9,6 +9,7 @@ use Twig\TwigFilter;
 
 final class BreedExtension extends AbstractExtension
 {
+    /** @return TwigFilter[] */
     public function getFilters(): array
     {
         return [

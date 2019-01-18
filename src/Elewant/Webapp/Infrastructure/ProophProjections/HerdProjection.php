@@ -20,13 +20,13 @@ use Prooph\EventStore\Projection\ReadModelProjector;
 
 final class HerdProjection implements ReadModelProjection
 {
-
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
         $projector->fromStream('event_stream')
             ->when(
                 [
-                    HerdWasFormed::class                  =>
+                    HerdWasFormed::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, HerdWasFormed $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -41,7 +41,8 @@ final class HerdProjection implements ReadModelProjection
                                 $event->createdAt()
                             );
                         },
-                    HerdWasRenamed::class                 =>
+                    HerdWasRenamed::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, HerdWasRenamed $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -54,7 +55,8 @@ final class HerdProjection implements ReadModelProjection
                                 $event->newHerdName()
                             );
                         },
-                    ElePHPantWasAdoptedByHerd::class      =>
+                    ElePHPantWasAdoptedByHerd::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, ElePHPantWasAdoptedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -69,7 +71,8 @@ final class HerdProjection implements ReadModelProjection
                                 $event->createdAt()
                             );
                         },
-                    ElePHPantWasAbandonedByHerd::class    =>
+                    ElePHPantWasAbandonedByHerd::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, ElePHPantWasAbandonedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -81,7 +84,8 @@ final class HerdProjection implements ReadModelProjection
                                 $event->elePHPantId()
                             );
                         },
-                    BreedWasDesiredByHerd::class          =>
+                    BreedWasDesiredByHerd::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, BreedWasDesiredByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -96,6 +100,7 @@ final class HerdProjection implements ReadModelProjection
                             );
                         },
                     BreedDesireWasEliminatedByHerd::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, BreedDesireWasEliminatedByHerd $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;
@@ -109,7 +114,8 @@ final class HerdProjection implements ReadModelProjection
                                 $event->createdAt()
                             );
                         },
-                    HerdWasAbandoned::class               =>
+                    HerdWasAbandoned::class =>
+                    /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
                         function (array $state, HerdWasAbandoned $event): void {
                             /** @var ReadModelProjector $projector */
                             $projector = $this;

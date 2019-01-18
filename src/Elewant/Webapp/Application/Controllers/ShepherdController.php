@@ -13,7 +13,7 @@ use Bundles\UserBundle\Security\UserProvider;
 use Doctrine\ORM\NonUniqueResultException;
 use Elewant\Webapp\DomainModel\Herding\Herd;
 use Elewant\Webapp\DomainModel\Herding\HerdRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +24,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @Route("/shepherd", options={"expose"=true})
  */
-final class ShepherdController extends Controller
+final class ShepherdController extends AbstractController
 {
-
     /**
      * @Route("/admire/{username}", name="shepherd_admire_herd")
-     *
-     * @param UserProvider   $userProvider
+     * @param UserProvider $userProvider
      * @param HerdRepository $herdRepository
-     * @param string         $username
-     *
+     * @param string $username
      * @return Response
      */
     public function admireHerdAction(
         UserProvider $userProvider,
         HerdRepository $herdRepository,
         string $username
-    ): Response {
+    ): Response
+    {
         $user = $this->getUserByUsername($username, $userProvider);
         $herd = $this->getHerd($user, $herdRepository);
 
@@ -54,26 +52,18 @@ final class ShepherdController extends Controller
 
     /**
      * @Route("/search", name="shepherd_search")
-     *
-     * @param Request        $request
+     * @param Request $request
      * @param HerdRepository $herdRepository
-     *
      * @return JsonResponse
      */
     public function searchAction(Request $request, HerdRepository $herdRepository): Response
     {
-        $query     = $request->get('q');
+        $query = $request->get('q');
         $userNames = $herdRepository->search($query);
 
         return $this->json($userNames);
     }
 
-    /**
-     * @param string       $username
-     * @param UserProvider $userProvider
-     *
-     * @return UserInterface
-     */
     private function getUserByUsername(string $username, UserProvider $userProvider): UserInterface
     {
         try {
@@ -87,12 +77,6 @@ final class ShepherdController extends Controller
         return $user;
     }
 
-    /**
-     * @param UserInterface  $user
-     * @param HerdRepository $herdRepository
-     *
-     * @return Herd
-     */
     private function getHerd(UserInterface $user, HerdRepository $herdRepository): Herd
     {
         if (!$user instanceof User) {

@@ -17,21 +17,18 @@ interface HerdRepository
 {
     /**
      * @param int $limit
-     *
      * @return Herd[]
      */
     public function newestHerds(int $limit): array;
 
     /**
      * @param string $searchString
-     *
      * @return Herd[]
      */
     public function search(string $searchString): array;
 
     /**
      * @param ShepherdId $shepherdId
-     *
      * @return Herd|null
      * @throws NonUniqueResultException
      */
@@ -40,9 +37,7 @@ interface HerdRepository
     /**
      * @todo: Remove this, it's only used in DoctrineHerdingStatisticsCalculator
      * @todo: in another BC. Also, we shouldn't use Criteria & Collection directly.
-     *
      * @param Criteria $criteria
-     *
      * @return Collection
      */
     public function matching(Criteria $criteria): Collection;

@@ -13,14 +13,17 @@ namespace Elewant\Webapp\Application\Controllers;
 
 use Bundles\UserBundle\Entity\User;
 use Doctrine\ORM\NonUniqueResultException;
-use Elewant\Herding\Application\Commands;
+use Elewant\Herding\Application\Commands\AbandonElePHPant;
+use Elewant\Herding\Application\Commands\AdoptElePHPant;
+use Elewant\Herding\Application\Commands\DesireBreed;
+use Elewant\Herding\Application\Commands\EliminateDesireForBreed;
 use Elewant\Herding\DomainModel\Breed\BreedCollection;
 use Elewant\Webapp\DomainModel\Herding\Herd;
 use Elewant\Webapp\DomainModel\Herding\HerdRepository;
 use InvalidArgumentException;
 use Prooph\ServiceBus\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,14 +33,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Route("/herd", options={"expose"=true})
  * @Security("has_role('ROLE_USER')")
  */
-final class HerdController extends Controller
+final class HerdController extends AbstractController
 {
     /**
      * @Route("/tending", name="herd_tending")
-     *
-     * @param UserInterface  $user
+     * @param UserInterface $user
      * @param HerdRepository $herdRepository
-     *
      * @return Response
      */
     public function herdTendingAction(UserInterface $user, HerdRepository $herdRepository): Response
@@ -45,11 +46,11 @@ final class HerdController extends Controller
         $herd = $this->getHerd($user, $herdRepository);
 
         $data = [
-            'user'              => $user,
-            'herd'              => $herd,
+            'user' => $user,
+            'herd' => $herd,
             'allUnwantedBreeds' => $herd->desiredBreeds()->isMissingBreedsWhenComparedTo(BreedCollection::all()),
-            'regularBreeds'     => BreedCollection::allRegular(),
-            'largeBreeds'       => BreedCollection::allLarge(),
+            'regularBreeds' => BreedCollection::allRegular(),
+            'largeBreeds' => BreedCollection::allLarge(),
         ];
 
         return $this->render('Herd/tending.html.twig', $data);
@@ -57,21 +58,20 @@ final class HerdController extends Controller
 
     /**
      * @Route("/adopt/{breed}", name="herd_adopt_breed")
-     *
-     * @param UserInterface  $user
+     * @param UserInterface $user
      * @param HerdRepository $herdRepository
-     * @param string         $breed
-     *
+     * @param string $breed
      * @return Response
      */
     public function adoptElePHPantAction(
         UserInterface $user,
         HerdRepository $herdRepository,
         string $breed
-    ): Response {
+    ): Response
+    {
         $herd = $this->getHerd($user, $herdRepository);
 
-        $command = Commands\AdoptElePHPant::byHerd($herd->herdId(), $breed);
+        $command = AdoptElePHPant::byHerd($herd->herdId(), $breed);
         $this->getCommandBus()->dispatch($command);
 
         return new JsonResponse('adopt_breed_underway');
@@ -79,21 +79,20 @@ final class HerdController extends Controller
 
     /**
      * @Route("/abandon/{breed}", name="herd_abandon_breed")
-     *
-     * @param UserInterface  $user
+     * @param UserInterface $user
      * @param HerdRepository $herdRepository
-     * @param string         $breed
-     *
+     * @param string $breed
      * @return Response
      */
     public function abandonElePHPantAction(
         UserInterface $user,
         HerdRepository $herdRepository,
         string $breed
-    ): Response {
+    ): Response
+    {
         $herd = $this->getHerd($user, $herdRepository);
 
-        $command = Commands\AbandonElePHPant::byHerd($herd->herdId(), $breed);
+        $command = AbandonElePHPant::byHerd($herd->herdId(), $breed);
         $this->getCommandBus()->dispatch($command);
 
         return new JsonResponse('abandon_breed_underway');
@@ -101,21 +100,20 @@ final class HerdController extends Controller
 
     /**
      * @Route("/desire/{breed}", name="herd_desire_breed")
-     *
-     * @param UserInterface  $user
+     * @param UserInterface $user
      * @param HerdRepository $herdRepository
-     * @param string         $breed
-     *
+     * @param string $breed
      * @return Response
      */
     public function desireBreedAction(
         UserInterface $user,
         HerdRepository $herdRepository,
         string $breed
-    ): Response {
+    ): Response
+    {
         $herd = $this->getHerd($user, $herdRepository);
 
-        $command = Commands\DesireBreed::byHerd($herd->herdId(), $breed);
+        $command = DesireBreed::byHerd($herd->herdId(), $breed);
         $this->getCommandBus()->dispatch($command);
 
         return new JsonResponse('desire_breed_underway');
@@ -123,33 +121,25 @@ final class HerdController extends Controller
 
     /**
      * @Route("/eliminate-desire-for/{breed}", name="herd_eliminate_desire_for_breed")
-     *
-     * @param UserInterface  $user
+     * @param UserInterface $user
      * @param HerdRepository $herdRepository
-     * @param string         $breed
-     *
+     * @param string $breed
      * @return Response
      */
     public function eliminateDesireForBreedAction(
         UserInterface $user,
         HerdRepository $herdRepository,
         string $breed
-    ): Response {
-
+    ): Response
+    {
         $herd = $this->getHerd($user, $herdRepository);
 
-        $command = Commands\EliminateDesireForBreed::byHerd($herd->herdId(), $breed);
+        $command = EliminateDesireForBreed::byHerd($herd->herdId(), $breed);
         $this->getCommandBus()->dispatch($command);
 
         return new JsonResponse('desire_breed_underway');
     }
 
-    /**
-     * @param UserInterface  $user
-     * @param HerdRepository $herdRepository
-     *
-     * @return Herd
-     */
     private function getHerd(UserInterface $user, HerdRepository $herdRepository): Herd
     {
         if (!$user instanceof User) {

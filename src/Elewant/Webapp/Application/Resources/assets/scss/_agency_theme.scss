@@ -130,6 +130,7 @@ p {
 
 a {
   color: $theme-primary;
+
   &:hover,
   &:focus,
   &:active,
@@ -150,9 +151,11 @@ h1, h2, h3, h4, h5, h6 {
   &.float-left {
     margin: 0 $paragraph-margin-bottom $paragraph-margin-bottom 0;
   }
+
   &.img-thumbnail.float-right {
     margin: 0 0 $paragraph-margin-bottom $paragraph-margin-bottom;
   }
+
   &.img-half-ish {
     width: 55%;
     @include media-breakpoint-up(sm) {

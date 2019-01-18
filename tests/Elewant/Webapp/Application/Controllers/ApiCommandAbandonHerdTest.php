@@ -15,9 +15,10 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
     /** @var HerdId */
     private $herdId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
+
         $shepherdId = ShepherdId::generate();
         $this->formHerd($shepherdId, 'MyHerdName');
         $this->herdId = $this->recordedEvents[0]->herdId();
@@ -27,12 +28,12 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
         $this->client = $this->abandonHerd($this->herdId, $shepherdId);
     }
 
-    public function test_command_abandon_herd_returns_http_status_202()
+    public function test_command_abandon_herd_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_abandon_herd_emits_HerdWasAbandoned_event()
+    public function test_command_abandon_herd_emits_HerdWasAbandoned_event(): void
     {
         TestCase::assertCount(3, $this->recordedEvents);
 
@@ -41,7 +42,7 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
         TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
-    public function test_command_abandon_herd_created_a_correct_herd_projection()
+    public function test_command_abandon_herd_created_a_correct_herd_projection(): void
     {
         /** @var HerdWasAbandoned $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
@@ -63,6 +64,4 @@ class ApiCommandAbandonHerdTest extends ApiCommandBase
             )
         );
     }
-
-
 }

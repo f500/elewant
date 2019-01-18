@@ -16,20 +16,15 @@ use Twig_Error_Syntax as SyntaxError;
 
 final class ExceptionController extends OriginalExceptionController
 {
-    /**
-     * @param Environment $twig
-     * @param bool        $debug
-     */
-    public function __construct(Environment $twig, $debug)
+    public function __construct(Environment $twig, bool $debug)
     {
         parent::__construct($twig, $debug);
     }
 
     /**
-     * @param Request                   $request
-     * @param FlattenException          $exception
+     * @param Request $request
+     * @param FlattenException $exception
      * @param DebugLoggerInterface|null $logger
-     *
      * @return Response
      * @throws LoaderError
      * @throws RuntimeError
@@ -39,12 +34,13 @@ final class ExceptionController extends OriginalExceptionController
         Request $request,
         FlattenException $exception,
         ?DebugLoggerInterface $logger = null
-    ): Response {
+    ): Response
+    {
         if ($this->debug) {
             return parent::showAction($request, $exception, $logger);
         }
 
-        $code    = $exception->getStatusCode();
+        $code = $exception->getStatusCode();
         $message = $exception->getMessage();
 
         return new Response(

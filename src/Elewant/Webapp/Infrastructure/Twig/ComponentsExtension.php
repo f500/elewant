@@ -13,6 +13,7 @@ use Twig_Error_Syntax as SyntaxError;
 
 final class ComponentsExtension extends AbstractExtension
 {
+    /** @return TwigFunction[] */
     public function getFunctions(): array
     {
         return [
@@ -24,14 +25,13 @@ final class ComponentsExtension extends AbstractExtension
 
     /**
      * @param Environment $env
-     * @param string      $message
-     * @param string      $type
-     * @param string      $icon
-     *
+     * @param string $message
+     * @param string $type
+     * @param string $icon
      * @return string
-     * @throws Throwable
      * @throws LoaderError
      * @throws SyntaxError
+     * @throws Throwable
      */
     public function alert(Environment $env, string $message, string $type = 'info', string $icon = ''): string
     {
@@ -65,10 +65,9 @@ EOT
 
     /**
      * @param Environment $env
-     * @param string      $breed
-     * @param int|null    $amount
-     * @param bool        $allowControl
-     *
+     * @param string $breed
+     * @param int|null $amount
+     * @param bool $allowControl
      * @return string
      * @throws LoaderError
      * @throws SyntaxError
@@ -107,9 +106,8 @@ EOT
 
     /**
      * @param Environment $env
-     * @param string      $icons
-     * @param array       $attributes
-     *
+     * @param string $icons
+     * @param mixed[] $attributes
      * @return string
      * @throws LoaderError
      * @throws SyntaxError
@@ -119,14 +117,14 @@ EOT
     {
         $icons = array_filter((array) preg_split('/\s+/', $icons));
         $icons = array_map(
-            function (string $part): string {
+            static function (string $part): string {
                 return 'fa-' . $part . ' ';
             },
             $icons
         );
         $icons = implode('', $icons);
 
-        $attributes['class']       = 'fa ' . trim($icons . ($attributes['class'] ?? ''));
+        $attributes['class'] = 'fa ' . trim($icons . ($attributes['class'] ?? ''));
         $attributes['aria-hidden'] = 'true';
 
         $template = $env->createTemplate(

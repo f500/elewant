@@ -3,12 +3,9 @@
 /**
  * Leaving this intact, as this file was copied verbatim from the Prooph symfony example.
  * Big big thanks for their fantastic work!
- *
  * prooph (http://getprooph.org/)
  *
  * @see       https://github.com/prooph/proophessor-do-symfony for the canonical source repository
- * @copyright Copyright (c) 2016 prooph software GmbH (http://prooph-software.com/)
- * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -32,33 +29,27 @@ final class TestApiCommandController
 {
     private const NAME_ATTRIBUTE = 'prooph_command_name';
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 
-    /**
-     * @var MessageFactory
-     */
+    /** @var MessageFactory */
     private $messageFactory;
 
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     private $logger;
 
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {
-        $this->commandBus     = $commandBus;
+        $this->commandBus = $commandBus;
         $this->messageFactory = $messageFactory;
-        $this->logger         = $logger;
+        $this->logger = $logger;
     }
 
     public function postAction(Request $request): Response
     {
         $commandName = $request->attributes->get(self::NAME_ATTRIBUTE);
 
-        if (null === $commandName) {
+        if ($commandName === null) {
             return JsonResponse::create(
                 [
                     'message' => sprintf(
@@ -73,7 +64,7 @@ final class TestApiCommandController
         try {
             $payload = $this->getPayloadFromRequest($request);
         } catch (Throwable $error) {
-            return JsonResponse::create(['message' => $error->getMessage(),], $error->getCode());
+            return JsonResponse::create(['message' => $error->getMessage()], $error->getCode());
         }
 
         $command = $this->messageFactory->createMessageFromArray($commandName, ['payload' => $payload]);
@@ -82,6 +73,7 @@ final class TestApiCommandController
             $this->commandBus->dispatch($command);
         } catch (CommandDispatchException $ex) {
             $message = $ex->getMessage();
+
             if ($ex->getPrevious() !== null) {
                 $message = $ex->getPrevious()->getMessage();
             }
@@ -100,8 +92,7 @@ final class TestApiCommandController
 
     /**
      * @param Request $request
-     *
-     * @return array
+     * @return mixed[]
      * @throws RuntimeException
      */
     private function getPayloadFromRequest(Request $request): array
@@ -119,6 +110,6 @@ final class TestApiCommandController
                 throw new RuntimeException('Invalid JSON.', 400);
         }
 
-        return $payload === null ? [] : $payload;
+        return $payload ?? [];
     }
 }

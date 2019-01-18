@@ -15,7 +15,6 @@ use Elewant\Herding\DomainModel\Breed\Breed;
 /**
  * @ORM\Entity
  * @ORM\Table(name="elephpant", indexes={@ORM\Index(columns={"adopted_on"})})
- *
  * This entity has a companion proxy, therefor is not final.
  */
 class ElePHPant
