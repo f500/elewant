@@ -14,9 +14,7 @@ use Prooph\EventStore\StreamName;
 
 final class MariaDbSingleStreamStrategyWithUnescapedUnicode implements PersistenceStrategy, HasQueryHint, MariaDBIndexedPersistenceStrategy
 {
-    /**
-     * @var MessageConverter
-     */
+    /** @var MessageConverter */
     private $messageConverter;
 
     public function __construct(?MessageConverter $messageConverter = null)
@@ -26,7 +24,6 @@ final class MariaDbSingleStreamStrategyWithUnescapedUnicode implements Persisten
 
     /**
      * @param string $tableName
-     *
      * @return string[]
      */
     public function createSchema(string $tableName): array
@@ -54,6 +51,7 @@ EOT;
         return [$statement];
     }
 
+    /** @return string[] */
     public function columnNames(): array
     {
         return [
@@ -65,15 +63,20 @@ EOT;
         ];
     }
 
+    /** @return string[] */
     public function indexedMetadataFields(): array
     {
         return [
-            '_aggregate_id'      => 'aggregate_id',
-            '_aggregate_type'    => 'aggregate_type',
+            '_aggregate_id' => 'aggregate_id',
+            '_aggregate_type' => 'aggregate_type',
             '_aggregate_version' => 'aggregate_version',
         ];
     }
 
+    /**
+     * @param Iterator $streamEvents
+     * @return mixed[]
+     */
     public function prepareData(Iterator $streamEvents): array
     {
         $data = [];

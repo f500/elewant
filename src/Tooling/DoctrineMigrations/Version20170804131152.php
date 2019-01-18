@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Tooling\DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\Migrations\AbstractMigration;
 
 final class Version20170804131152 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema): void
     {
         $user = $schema->createTable('user');
@@ -36,16 +32,8 @@ final class Version20170804131152 extends AbstractMigration
         $connection->addForeignKeyConstraint('user', ['user_id'], ['id']);
     }
 
-    /**
-     * @param Schema $schema
-     *
-     * @throws SchemaException
-     */
     public function down(Schema $schema): void
     {
-        $connection = $schema->getTable('connection');
-        $connection->dropIndex('FK_29F77366A76ED395');
-
         $schema->dropTable('connection');
         $schema->dropTable('user');
     }

@@ -11,6 +11,7 @@ final class Version20180907111518 extends AbstractMigration
 {
     /**
      * @param Schema $schema
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function up(Schema $schema): void
     {
@@ -22,9 +23,6 @@ final class Version20180907111518 extends AbstractMigration
         );
     }
 
-    /**
-     * @param Schema $schema
-     */
     public function down(Schema $schema): void
     {
         $schema->dropTable('event_streams');

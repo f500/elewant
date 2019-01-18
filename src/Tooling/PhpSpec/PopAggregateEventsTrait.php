@@ -6,21 +6,29 @@ namespace Tooling\PhpSpec;
 
 use ArrayIterator;
 use Prooph\EventSourcing\Aggregate\AggregateType;
+use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 
 trait PopAggregateEventsTrait
 {
-    /**
-     * @var AggregateTranslator
-     */
+    /** @var AggregateTranslator */
     private $aggregateTranslator;
 
+    /**
+     * @param AggregateRoot $aggregateRoot
+     * @return AggregateChanged[]
+     */
     protected function popRecordedEvent(AggregateRoot $aggregateRoot): array
     {
         return $this->getAggregateTranslator()->extractPendingStreamEvents($aggregateRoot);
     }
 
+    /**
+     * @param string $aggregateRootClass
+     * @param AggregateChanged[] $events
+     * @return AggregateRoot
+     */
     protected function reconstituteAggregateFromHistory(string $aggregateRootClass, array $events): object
     {
         return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
@@ -31,7 +39,7 @@ trait PopAggregateEventsTrait
 
     private function getAggregateTranslator(): AggregateTranslator
     {
-        if (null === $this->aggregateTranslator) {
+        if ($this->aggregateTranslator === null) {
             $this->aggregateTranslator = new AggregateTranslator();
         }
 
