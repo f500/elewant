@@ -11,9 +11,7 @@ use Elewant\Reporting\DomainModel\Statistics\NumberOf;
 
 final class DoctrineHerdingStatisticsCalculator implements HerdingStatisticsCalculator
 {
-    /**
-     * @var NumberOf
-     */
+    /** @var NumberOf */
     private $numberOf;
 
     public function __construct(NumberOf $numberOf)

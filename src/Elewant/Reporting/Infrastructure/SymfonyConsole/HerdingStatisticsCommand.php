@@ -17,20 +17,16 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class HerdingStatisticsCommand extends Command
 {
-    /**
-     * @var HerdingStatisticsCalculator
-     */
+    /** @var HerdingStatisticsCalculator */
     private $herdingStatistics;
 
-    /**
-     * @var EventDispatcherInterface
-     */
+    /** @var EventDispatcherInterface */
     private $dispatcher;
 
     public function __construct(HerdingStatisticsCalculator $herdingStatistics, EventDispatcherInterface $dispatcher)
     {
         $this->herdingStatistics = $herdingStatistics;
-        $this->dispatcher        = $dispatcher;
+        $this->dispatcher = $dispatcher;
 
         parent::__construct();
     }
@@ -58,9 +54,8 @@ final class HerdingStatisticsCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     *
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
@@ -81,14 +76,13 @@ final class HerdingStatisticsCommand extends Command
     /**
      * @param string|null $inputFrom
      * @param string|null $inputTo
-     *
      * @return DateTimeImmutable[]
      * @throws Exception
      */
     private function prepareDateArguments(?string $inputFrom, ?string $inputTo): array
     {
         $from = new DateTimeImmutable($inputFrom ?? 'monday last week');
-        $to   = ($inputTo === null) ? $from->modify('+6 days') : new DateTimeImmutable($inputTo);
+        $to = $inputTo === null ? $from->modify('+6 days') : new DateTimeImmutable($inputTo);
 
         if ($to < $from) {
             $to = $from->modify('+6 days');

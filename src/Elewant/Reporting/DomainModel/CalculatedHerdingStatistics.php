@@ -8,24 +8,16 @@ use DateTimeInterface;
 
 final class CalculatedHerdingStatistics
 {
-    /**
-     * @var DateTimeInterface
-     */
+    /** @var DateTimeInterface */
     private $from;
 
-    /**
-     * @var DateTimeInterface
-     */
+    /** @var DateTimeInterface */
     private $to;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $numberOfNewHerds;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $numberOfNewElePHPants;
 
     public function __construct(
@@ -33,10 +25,11 @@ final class CalculatedHerdingStatistics
         DateTimeInterface $to,
         int $numberOfNewHerds,
         int $numberOfNewElePHPants
-    ) {
-        $this->from                  = $from;
-        $this->to                    = $to;
-        $this->numberOfNewHerds      = $numberOfNewHerds;
+    )
+    {
+        $this->from = $from;
+        $this->to = $to;
+        $this->numberOfNewHerds = $numberOfNewHerds;
         $this->numberOfNewElePHPants = $numberOfNewElePHPants;
     }
 
