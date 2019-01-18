@@ -36,7 +36,7 @@ final class AbandonElePHPantHandlerSpec extends ObjectBehavior
 
     public function it_handles_abandon_elephpant(): void
     {
-        $herd   = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
+        $herd = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
         $herdId = $herd->herdId();
         $herd->adoptElePHPant(Breed::whiteDpcRegular());
 
@@ -57,11 +57,10 @@ final class AbandonElePHPantHandlerSpec extends ObjectBehavior
 
     public function it_throws_an_exception_for_an_unknown_herd(): void
     {
-        $herdId  = HerdId::generate();
+        $herdId = HerdId::generate();
         $command = AbandonElePHPant::byHerd($herdId->toString(), Breed::WHITE_DPC_REGULAR);
 
         $this->herdCollection->get($herdId)->willReturn(null);
         $this->shouldThrow(SorryIDoNotHaveThat::herd($herdId))->during('__invoke', [$command]);
     }
-
 }

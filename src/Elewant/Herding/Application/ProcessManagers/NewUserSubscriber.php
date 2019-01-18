@@ -24,22 +24,22 @@ final class NewUserSubscriber implements EventSubscriberInterface
      * @todo Because we don't have a Shepherd aggregate, just a ShepherdId, we cannot look it up right now.
      * @todo I suggest we create a Shepherd and ShepherdCollection, so we can use the latter here.
      * @todo We can then do: UserHasRegistered -> GiveBirthToShepherd -> ShepherdWasBorn -> FormHerd.
-     *
      * @var HerdRepository
      */
     private $herdRepository;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 
     public function __construct(HerdRepository $herdRepository, CommandBus $commandBus)
     {
         $this->herdRepository = $herdRepository;
-        $this->commandBus     = $commandBus;
+        $this->commandBus = $commandBus;
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -49,16 +49,17 @@ final class NewUserSubscriber implements EventSubscriberInterface
 
     /**
      * @param UserHasRegistered $event
-     *
      * @throws NonUniqueResultException
      */
     public function formNewHerdWhen(UserHasRegistered $event): void
     {
         $user = $event->user();
 
-        if (!$this->herdRepository->findOneByShepherdId($user->shepherdId())) {
-            $command = FormHerd::forShepherd($user->shepherdId()->toString(), $user->displayName());
-            $this->commandBus->dispatch($command);
+        if ($this->herdRepository->findOneByShepherdId($user->shepherdId())) {
+            return;
         }
+
+        $command = FormHerd::forShepherd($user->shepherdId()->toString(), $user->displayName());
+        $this->commandBus->dispatch($command);
     }
 }

@@ -11,9 +11,7 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class DesireBreedHandler
 {
-    /**
-     * @var HerdCollection
-     */
+    /** @var HerdCollection */
     private $herdCollection;
 
     public function __construct(HerdCollection $herdCollection)
@@ -23,7 +21,6 @@ final class DesireBreedHandler
 
     /**
      * @param DesireBreed $command
-     *
      * @throws SorryIDoNotHaveThat
      * @throws SorryICanNotChangeHerd
      * @throws SorryThatIsAnInvalid
@@ -31,6 +28,7 @@ final class DesireBreedHandler
     public function __invoke(DesireBreed $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
+
         if (!$herd) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }

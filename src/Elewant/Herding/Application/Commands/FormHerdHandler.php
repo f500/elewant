@@ -10,9 +10,7 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class FormHerdHandler
 {
-    /**
-     * @var HerdCollection
-     */
+    /** @var HerdCollection */
     private $herdCollection;
 
     public function __construct(HerdCollection $herdCollection)
@@ -22,7 +20,6 @@ final class FormHerdHandler
 
     /**
      * @param FormHerd $command
-     *
      * @throws SorryThatIsAnInvalid
      */
     public function __invoke(FormHerd $command): void

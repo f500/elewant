@@ -11,9 +11,7 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class AbandonHerdHandler
 {
-    /**
-     * @var HerdCollection
-     */
+    /** @var HerdCollection */
     private $herdCollection;
 
     public function __construct(HerdCollection $herdCollection)
@@ -23,7 +21,6 @@ final class AbandonHerdHandler
 
     /**
      * @param AbandonHerd $command
-     *
      * @throws SorryIDoNotHaveThat
      * @throws SorryICanNotChangeHerd
      * @throws SorryThatIsAnInvalid
@@ -31,9 +28,11 @@ final class AbandonHerdHandler
     public function __invoke(AbandonHerd $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
+
         if (!$herd) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }
+
         if (!$herd->shepherdId()->equals($command->shepherdId())) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }

@@ -12,9 +12,7 @@ use Prophecy\Argument;
 
 final class FormHerdHandlerSpec extends ObjectBehavior
 {
-    /**
-     * @var HerdCollection
-     */
+    /** @var HerdCollection */
     private $herdCollection;
 
     public function let(HerdCollection $herdCollection): void
@@ -36,10 +34,9 @@ final class FormHerdHandlerSpec extends ObjectBehavior
 
         $this->herdCollection->save(
             Argument::that(
-                function (Herd $herd): bool {
-                    return
-                        $herd->shepherdId()->equals(ShepherdId::fromString('00000000-0000-0000-0000-000000000000')) &&
-                        $herd->name() == 'Herd is the word';
+                static function (Herd $herd): bool {
+                    return $herd->shepherdId()->equals(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'))
+                        && $herd->name() === 'Herd is the word';
                 }
             )
         )->shouldHaveBeenCalled();

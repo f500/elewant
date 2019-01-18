@@ -19,9 +19,7 @@ final class AbandonHerdHandlerSpec extends ObjectBehavior
 {
     use PopAggregateEventsTrait;
 
-    /**
-     * @var HerdCollection
-     */
+    /** @var HerdCollection */
     private $herdCollection;
 
     public function let(HerdCollection $herdCollection): void
@@ -38,8 +36,8 @@ final class AbandonHerdHandlerSpec extends ObjectBehavior
     public function it_handles_abandon_herd(): void
     {
         $shepherdId = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
-        $herd       = Herd::form($shepherdId, 'Herd name');
-        $herdId     = $herd->herdId();
+        $herd = Herd::form($shepherdId, 'Herd name');
+        $herdId = $herd->herdId();
 
         $command = AbandonHerd::forShepherd($herdId->toString(), $shepherdId->toString());
 
@@ -58,11 +56,10 @@ final class AbandonHerdHandlerSpec extends ObjectBehavior
 
     public function it_throws_an_exception_for_an_unknown_herd(): void
     {
-        $herdId  = HerdId::generate();
+        $herdId = HerdId::generate();
         $command = AbandonHerd::forShepherd($herdId->toString(), ShepherdId::generate()->toString());
 
         $this->herdCollection->get($herdId)->willReturn(null);
         $this->shouldThrow(SorryIDoNotHaveThat::herd($herdId))->during('__invoke', [$command]);
     }
-
 }

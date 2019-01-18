@@ -17,13 +17,13 @@ final class HerdSpec extends ObjectBehavior
     /** @var ShepherdId */
     private $shepherdId;
 
-    /** @var  string */
+    /** @var string */
     private $herdName;
 
     public function let(): void
     {
         $this->shepherdId = ShepherdId::generate();
-        $this->herdName   = 'Herd name';
+        $this->herdName = 'Herd name';
         $this->beConstructedThrough(
             'form',
             [
@@ -189,10 +189,11 @@ final class HerdSpec extends ObjectBehavior
         $this->desiredBreeds()->shouldHaveCount(0);
     }
 
+    /** @return callable[] */
     public function getMatchers(): array
     {
         return [
-            'containAnElePHPant' => function (array $elePHPants, Breed $breed): bool {
+            'containAnElePHPant' => static function (array $elePHPants, Breed $breed): bool {
                 /** @var ElePHPant $elePHPant */
                 foreach ($elePHPants as $elePHPant) {
                     if ($elePHPant->breed()->equals($breed)) {

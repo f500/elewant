@@ -11,18 +11,21 @@ use Traversable;
 
 final class BreedCollection implements Countable, IteratorAggregate
 {
-    /**
-     * @var Breed[]
-     */
+    /** @var Breed[] */
     private $breeds = [];
 
     private function __construct()
     {
     }
 
+    /**
+     * @param Breed[] $breeds
+     * @return BreedCollection
+     */
     public static function fromArray(array $breeds): self
     {
         $collection = new self();
+
         foreach ($breeds as $breed) {
             $collection->add($breed);
         }
@@ -33,6 +36,7 @@ final class BreedCollection implements Countable, IteratorAggregate
     public static function all(): self
     {
         $collection = new self();
+
         foreach (Breed::availableTypes() as $type) {
             /** @noinspection PhpUnhandledExceptionInspection */
             $collection->add(Breed::fromString($type));
@@ -44,11 +48,14 @@ final class BreedCollection implements Countable, IteratorAggregate
     public static function allRegular(): self
     {
         $collection = new self();
+
         foreach (Breed::availableTypes() as $type) {
-            if (strstr($type, 'REGULAR') !== false) {
-                /** @noinspection PhpUnhandledExceptionInspection */
-                $collection->add(Breed::fromString($type));
+            if (strstr($type, 'REGULAR') === false) {
+                continue;
             }
+
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $collection->add(Breed::fromString($type));
         }
 
         return $collection;
@@ -82,6 +89,9 @@ final class BreedCollection implements Countable, IteratorAggregate
         $this->breeds = array_diff($this->breeds, [$breed]);
     }
 
+    /**
+     * @return Breed[]
+     */
     public function breeds(): array
     {
         return $this->breeds;
@@ -91,7 +101,7 @@ final class BreedCollection implements Countable, IteratorAggregate
     {
         $diff = array_diff($this->breeds, $otherCollection->breeds);
 
-        return empty($diff) && count($this->breeds) === count($otherCollection->breeds);
+        return !$diff && count($this->breeds) === count($otherCollection->breeds);
     }
 
     public function merge(BreedCollection $otherCollection): void
@@ -108,16 +118,15 @@ final class BreedCollection implements Countable, IteratorAggregate
     {
         $newBreeds = array_diff($otherCollection->breeds, $this->breeds);
 
-        return BreedCollection::fromArray($newBreeds);
+        return self::fromArray($newBreeds);
     }
 
     public function hasBreedsInCommonWith(BreedCollection $otherCollection): self
     {
         $newBreeds = array_intersect($otherCollection->breeds, $this->breeds);
 
-        return BreedCollection::fromArray($newBreeds);
+        return self::fromArray($newBreeds);
     }
-
 
     public function contains(Breed $breed): bool
     {
@@ -129,6 +138,9 @@ final class BreedCollection implements Countable, IteratorAggregate
         return count($this->breeds);
     }
 
+    /**
+     * @return Breed[]|Traversable
+     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->breeds);

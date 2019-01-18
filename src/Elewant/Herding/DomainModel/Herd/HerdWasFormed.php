@@ -15,7 +15,7 @@ final class HerdWasFormed extends AggregateChanged
             $herdId->toString(),
             [
                 'shepherdId' => $shepherdId->toString(),
-                'name'       => $name,
+                'name' => $name,
             ]
         );
     }

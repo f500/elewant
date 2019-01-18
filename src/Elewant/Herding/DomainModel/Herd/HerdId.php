@@ -11,9 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class HerdId
 {
-    /**
-     * @var UuidInterface
-     */
+    /** @var UuidInterface */
     private $uuid;
 
     private function __construct(UuidInterface $uuid)
@@ -29,7 +27,6 @@ final class HerdId
 
     /**
      * @param string $herdId
-     *
      * @return HerdId
      * @throws SorryThatIsAnInvalid
      */
@@ -47,8 +44,12 @@ final class HerdId
         return $this->uuid->toString();
     }
 
+    /**
+     * @param mixed $other
+     * @return bool
+     */
     public function equals($other): bool
     {
-        return ($other instanceof static && $other->uuid->equals($this->uuid));
+        return $other instanceof static && $other->uuid->equals($this->uuid);
     }
 }

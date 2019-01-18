@@ -21,39 +21,25 @@ use Prooph\EventSourcing\AggregateRoot;
 
 final class Herd extends AggregateRoot
 {
-    /**
-     * @var HerdId
-     */
+    /** @var HerdId */
     private $herdId;
 
-    /**
-     * @var ShepherdId
-     */
+    /** @var ShepherdId */
     private $shepherdId;
 
-    /**
-     * @var ElePHPant[]
-     */
+    /** @var ElePHPant[] */
     private $elePHPants = [];
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $abandoned = false;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
-    /**
-     * @var BreedCollection
-     */
+    /** @var BreedCollection */
     private $breeds;
 
-    /**
-     * @var BreedCollection
-     */
+    /** @var BreedCollection */
     private $desiredBreeds;
 
     public static function form(ShepherdId $shepherdId, string $name): self
@@ -76,6 +62,9 @@ final class Herd extends AggregateRoot
         return $this->shepherdId;
     }
 
+    /**
+     * @return ElePHPant[]
+     */
     public function elePHPants(): array
     {
         return $this->elePHPants;
@@ -118,7 +107,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param string $newName
-     *
      * @throws SorryICanNotChangeHerd
      */
     public function rename(string $newName): void
@@ -135,7 +123,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param Breed $breed
-     *
      * @throws SorryICanNotChangeHerd
      */
     public function adoptElePHPant(Breed $breed): void
@@ -153,7 +140,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param Breed $breed
-     *
      * @throws SorryICanNotChangeHerd
      * @throws SorryIDoNotHaveThat
      */
@@ -181,7 +167,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param Breed $breed
-     *
      * @throws SorryICanNotChangeHerd
      */
     public function desireBreed(Breed $breed): void
@@ -198,7 +183,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param Breed $breed
-     *
      * @throws SorryICanNotChangeHerd
      */
     public function eliminateDesireForBreed(Breed $breed): void
@@ -213,7 +197,6 @@ final class Herd extends AggregateRoot
         );
     }
 
-
     protected function aggregateId(): string
     {
         return $this->herdId->toString();
@@ -221,7 +204,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param AggregateChanged $event
-     *
      * @throws SorryIDoNotKnowThat
      */
     protected function apply(AggregateChanged $event): void
@@ -262,10 +244,10 @@ final class Herd extends AggregateRoot
 
     private function applyHerdWasFormed(HerdId $herdId, ShepherdId $shepherdId, string $name): void
     {
-        $this->herdId        = $herdId;
-        $this->shepherdId    = $shepherdId;
-        $this->name          = $name;
-        $this->breeds        = BreedCollection::fromArray([]);
+        $this->herdId = $herdId;
+        $this->shepherdId = $shepherdId;
+        $this->name = $name;
+        $this->breeds = BreedCollection::fromArray([]);
         $this->desiredBreeds = BreedCollection::fromArray([]);
     }
 
@@ -278,10 +260,13 @@ final class Herd extends AggregateRoot
     private function applyAnElePHPantWasAbandonedByHerd(ElePHPantId $elePHPantId, Breed $breed): void
     {
         $this->breeds->remove($breed);
+
         foreach ($this->elePHPants as $key => $elePHPant) {
-            if ($elePHPant->elePHPantId()->equals($elePHPantId)) {
-                unset($this->elePHPants[$key]);
+            if (!$elePHPant->elePHPantId()->equals($elePHPantId)) {
+                continue;
             }
+
+            unset($this->elePHPants[$key]);
         }
     }
 
@@ -317,7 +302,6 @@ final class Herd extends AggregateRoot
 
     /**
      * @param Breed $breed
-     *
      * @throws SorryIDoNotHaveThat
      */
     private function guardContainsThisBreed(Breed $breed): void
