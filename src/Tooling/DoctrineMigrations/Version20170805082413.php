@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tooling\DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\SkipMigrationException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -13,7 +12,6 @@ final class Version20170805082413 extends AbstractMigration
     /**
      * @param Schema $schema
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @throws SkipMigrationException
      */
     public function up(Schema $schema): void
     {
@@ -30,7 +28,6 @@ final class Version20170805082413 extends AbstractMigration
     /**
      * @param Schema $schema
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @throws SkipMigrationException
      */
     public function down(Schema $schema): void
     {
