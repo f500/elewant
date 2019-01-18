@@ -1,2 +1,9 @@
-nette/php-generator         v3.0.5 ! v3.2.0 🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.2 features.
-phpdocumentor/type-resolver 0.4.0  ~ 0.7.1 
+nette/php-generator         v3.0.5     v3.2.1             🐘 Nette PHP Generator: generates neat PHP code for you...
+php-http/guzzle6-adapter    v1.1.1     v2.0.1             Guzzle 6 HTTP Adapter
+php-http/httplug            v1.1.0     v2.0.0             HTTPlug, the HTTP client abstraction for PHP
+php-http/httplug-bundle     1.13.1     1.14.0             Symfony integration for HTTPlug
+phpdocumentor/type-resolver 0.4.0      0.7.1             
+phpstan/phpstan             0.10.8     0.11               PHPStan - PHP Static Analysis Tool
+ralouphie/getallheaders     2.0.5      3.0.2              A polyfill for getallheaders.
+roave/security-advisories   dev-master dev-master d155bac Prevents installation of composer packages with known sec...
+
