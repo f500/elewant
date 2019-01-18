@@ -29,7 +29,7 @@ vendor/bin/phpspec run --no-interaction
 phpspec_exit_code=$?
 
 echo ">>>>>>>>>>>>>>> PHP UNIT <<<<<<<<<<<<<<<"
-bin/phpunit
+vendor/bin/phpunit
 phpunit_exit_code=$?
 
 # Always run all the test tools, but exit with
