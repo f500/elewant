@@ -1,10 +1,8 @@
 /.env.local
-/.phpunit/
 /.vagrant/
 /.web-server-pid
 /ansible/provision/group_vars/develop/override_locally.yml
 /node_modules/
-/phpunit.xml
 /public/build/
 /public/bundles/
 /vendor/
