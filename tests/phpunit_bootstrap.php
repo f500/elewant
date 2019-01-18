@@ -14,10 +14,10 @@ $kernel->boot();
 
 $app = new Application($kernel);
 
-$run = function (Application $application, string $command, array $parameters = []): void {
-    $parameters['command']          = $command;
+$run = static function (Application $application, string $command, array $parameters = []): void {
+    $parameters['command'] = $command;
     $parameters['--no-interaction'] = true;
-    $parameters['--quiet']          = true;
+    $parameters['--quiet'] = true;
 
     $input = new ArrayInput($parameters);
     $input->setInteractive(false);

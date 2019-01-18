@@ -7,10 +7,11 @@ namespace App;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Exception\FileLoaderLoadException;
+use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
@@ -30,10 +31,14 @@ final class Kernel extends BaseKernel
         return $this->getProjectDir() . '/var/log';
     }
 
-    public function registerBundles()
+    /**
+     * @return BundleInterface[]|iterable
+     */
+    public function registerBundles(): iterable
     {
         /** @noinspection PhpIncludeInspection */
         $contents = require $this->getProjectDir() . '/config/bundles.php';
+
         foreach ($contents as $class => $environments) {
             if (isset($environments['all']) || isset($environments[$this->environment])) {
                 yield new $class();
@@ -43,8 +48,7 @@ final class Kernel extends BaseKernel
 
     /**
      * @param ContainerBuilder $container
-     * @param LoaderInterface  $loader
-     *
+     * @param LoaderInterface $loader
      * @throws Exception
      */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
@@ -65,8 +69,7 @@ final class Kernel extends BaseKernel
 
     /**
      * @param RouteCollectionBuilder $routes
-     *
-     * @throws FileLoaderLoadException
+     * @throws LoaderLoadException
      */
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
