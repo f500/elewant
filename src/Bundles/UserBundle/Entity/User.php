@@ -11,15 +11,14 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use InvalidArgumentException;
 use LogicException;
 use Serializable;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bundles\UserBundle\Repository\UserRepository")
  * @ORM\Table
- * @UniqueEntity("username")
- *
+ * @DoctrineAssert\UniqueEntity("username")
  * We cannot use `final` here, because of Doctrine proxies.
  */
 class User implements UserInterface, Serializable
@@ -67,11 +66,11 @@ class User implements UserInterface, Serializable
 
     public function __construct(string $username, string $displayName, string $country)
     {
-        $this->shepherdId  = ShepherdId::generate();
+        $this->shepherdId = ShepherdId::generate();
         $this->connections = new ArrayCollection();
-        $this->username    = $username;
+        $this->username = $username;
         $this->displayName = $displayName;
-        $this->country     = $country;
+        $this->country = $country;
         $this->connections = new ArrayCollection();
     }
 
@@ -170,16 +169,18 @@ class User implements UserInterface, Serializable
     /**
      * We don't use associations, so we can safely store the user in sessions.
      * The user-provider will refresh the user, to make it complete and managed.
+     *
+     * @return string
      */
     public function serialize(): string
     {
         return serialize(
             [
-                'id'          => $this->id,
-                'shepherdId'  => $this->shepherdId->toString(),
-                'username'    => $this->username,
+                'id' => $this->id,
+                'shepherdId' => $this->shepherdId->toString(),
+                'username' => $this->username,
                 'displayName' => $this->displayName,
-                'country'     => $this->country,
+                'country' => $this->country,
             ]
         );
     }
@@ -189,14 +190,15 @@ class User implements UserInterface, Serializable
      * The user-provider will refresh the user, to make it complete and managed.
      *
      * @param string $serialized
-     *
      * @throws SorryThatIsAnInvalid
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
     public function unserialize($serialized): void
     {
         $data = unserialize($serialized);
 
-        if (!isset($data['id'])
+        if (
+            !isset($data['id'])
             || !isset($data['shepherdId'])
             || !isset($data['username'])
             || !isset($data['displayName'])
@@ -205,10 +207,10 @@ class User implements UserInterface, Serializable
             throw new InvalidArgumentException('Corrupt serialized user: ' . $serialized);
         }
 
-        $this->id          = $data['id'];
-        $this->shepherdId  = ShepherdId::fromString($data['shepherdId']);
-        $this->username    = $data['username'];
+        $this->id = $data['id'];
+        $this->shepherdId = ShepherdId::fromString($data['shepherdId']);
+        $this->username = $data['username'];
         $this->displayName = $data['displayName'];
-        $this->country     = $data['country'];
+        $this->country = $data['country'];
     }
 }

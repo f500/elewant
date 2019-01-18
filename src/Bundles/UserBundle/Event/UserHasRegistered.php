@@ -11,9 +11,7 @@ final class UserHasRegistered extends Event
 {
     public const NAME = 'user.has.registered';
 
-    /**
-     * @var User
-     */
+    /** @var User */
     protected $user;
 
     public function __construct(User $user)

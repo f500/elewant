@@ -7,10 +7,10 @@ namespace Bundles\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * We cannot use `final` here, because of Doctrine proxies.
+ *
  * @ORM\Entity
  * @ORM\Table(indexes={@ORM\Index(name="resource_idx", columns={"resource", "resource_id"})})
- *
- * We cannot use `` here, because of Doctrine proxies.
  */
 class Connection
 {
@@ -59,17 +59,23 @@ class Connection
         string $resourceId,
         string $accessToken,
         string $refreshToken
-    ) {
-        $this->user         = $user;
-        $this->resource     = $resource;
-        $this->resourceId   = $resourceId;
-        $this->accessToken  = $accessToken;
+    )
+    {
+        $this->user = $user;
+        $this->resource = $resource;
+        $this->resourceId = $resourceId;
+        $this->accessToken = $accessToken;
         $this->refreshToken = $refreshToken;
     }
 
     public function id(): ?int
     {
         return $this->id;
+    }
+
+    public function user(): User
+    {
+        return $this->user;
     }
 
     public function resource(): string
