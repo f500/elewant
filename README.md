@@ -56,10 +56,34 @@ You should be up-and-running!
 > If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
 then place your key & secret in `.env.local`.
 
-#### Running tests
+#### Running commands inside docker containers
 
-    bin/docker_run_tests
+Run `ls` inside the default container (`php-cli`):
 
+    bin/docker ls
+
+Run `ls` inside the default container of the testing environment:
+
+    bin/docker-test ls
+
+Print usage:
+
+    bin/docker
+    bin/docker-test
+
+Running Symfony Console:
+
+    bin/docker bin/console c:c
+    bin/docker-test bin/console c:c
+
+Running vendor binaries:
+
+    bin/docker vendor/bin/phpunit
+    bin/docker-test vendor/bin/phpunit
+
+#### Running all tests
+
+    bin/docker-test bin/run_tests
 
 ### Getting started with Vagrant
 
