@@ -44,6 +44,7 @@ final class Breed
     public const RED_LARAVEL_REGULAR               = 'RED_LARAVEL_REGULAR';
     public const TEAL_ZEND_REGULAR                 = 'TEAL_ZEND_REGULAR';
     public const TURQUOISE_CAKE_FEST_REGULAR       = 'TURQUOISE_CAKE_FEST_REGULAR';
+    public const WHITE_BENELUX_REGULAR             = 'WHITE_BENELUX_REGULAR';
     public const WHITE_CONFOO_REGULAR              = 'WHITE_CONFOO_REGULAR';
     public const WHITE_DPC_REGULAR                 = 'WHITE_DPC_REGULAR';
     public const WHITE_GLOBALIS_REGULAR            = 'WHITE_GLOBALIS_REGULAR';
@@ -72,6 +73,7 @@ final class Breed
     public const RED_CHILI_LARGE                 = 'RED_CHILI_LARGE';
     public const RED_LARAVEL_LARGE               = 'RED_LARAVEL_LARGE';
     public const TEAL_ZEND_LARGE                 = 'TEAL_ZEND_LARGE';
+    public const WHITE_BENELUX_LARGE             = 'WHITE_BENELUX_LARGE';
     public const WHITE_CONFOO_LARGE              = 'WHITE_CONFOO_LARGE';
     public const WHITE_DPC_LARGE                 = 'WHITE_DPC_LARGE';
     public const WHITE_GLOBALIS_LARGE            = 'WHITE_GLOBALIS_LARGE';
