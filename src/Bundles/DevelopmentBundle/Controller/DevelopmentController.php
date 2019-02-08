@@ -81,7 +81,7 @@ final class DevelopmentController extends AbstractController
 
         try {
             $user = $userProvider->loadUserByUsername($username);
-        } catch (UsernameNotFoundException $e) {
+        } catch (UsernameNotFoundException $exception) {
             return $this->redirectToRoute('root');
         }
 

@@ -165,7 +165,7 @@ final class HerdReadModel extends AbstractReadModel
                     'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
                 ]
             );
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $e) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
             // There are duplicates in the historic data
         }
     }

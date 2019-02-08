@@ -68,9 +68,9 @@ final class ShepherdController extends AbstractController
     {
         try {
             $user = $userProvider->loadUserByUsername($username);
-        } catch (UsernameNotFoundException $e) {
+        } catch (UsernameNotFoundException $exception) {
             throw $this->createNotFoundException('error.shepherd.not-found');
-        } catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException $exception) {
             throw $this->createNotFoundException('error.herd.multiple-shepherds-found');
         }
 
@@ -85,7 +85,7 @@ final class ShepherdController extends AbstractController
 
         try {
             $herd = $herdRepository->findOneByShepherdId($user->shepherdId());
-        } catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException $exception) {
             throw $this->createNotFoundException('error.herd.multiple-herds-found');
         }
 

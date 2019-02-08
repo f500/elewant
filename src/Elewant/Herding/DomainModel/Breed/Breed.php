@@ -98,7 +98,7 @@ final class Breed
     {
         try {
             $reflected = new ReflectionClass(self::class);
-        } catch (ReflectionException $e) {
+        } catch (ReflectionException $exception) {
             return [];
         }
 
