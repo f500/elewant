@@ -86,7 +86,9 @@ final class HerdingStatisticsCommand extends Command
     private function prepareDateArguments(?string $inputFrom, ?string $inputTo): array
     {
         $from = new DateTimeImmutable($inputFrom ?? 'monday last week');
-        $to = $inputTo === null ? $from->modify('+6 days') : new DateTimeImmutable($inputTo);
+        $to = $inputTo === null
+            ? $from->modify('+6 days')
+            : new DateTimeImmutable($inputTo);
 
         if ($to < $from) {
             $to = $from->modify('+6 days');
