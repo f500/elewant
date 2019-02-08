@@ -18,6 +18,7 @@ final class BreedCollection implements Countable, IteratorAggregate
 
     private function __construct()
     {
+        // noop
     }
 
     /**

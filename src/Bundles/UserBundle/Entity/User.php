@@ -153,6 +153,7 @@ class User implements UserInterface, Serializable
 
     public function eraseCredentials(): void
     {
+        // noop
     }
 
     private function hasConnection(string $resource): bool

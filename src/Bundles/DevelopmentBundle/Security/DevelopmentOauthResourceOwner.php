@@ -58,9 +58,11 @@ final class DevelopmentOauthResourceOwner implements ResourceOwnerInterface
 
     public function addPaths(array $paths): void
     {
+        // noop
     }
 
     public function refreshAccessToken($refreshToken, array $extraParameters = []): void
     {
+        // noop
     }
 }
