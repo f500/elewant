@@ -12,10 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -28,12 +30,12 @@ class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
         $this->client = $this->eliminateDesireForBreed($this->herdId, Breed::blackAmsterdamphpRegular());
     }
 
-    public function test_command_desire_breed_returns_http_status_202()
+    public function test_command_desire_breed_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_eliminate_desire_for_breed_emits_BreedDesireWasEliminatedByHerd_event()
+    public function test_command_eliminate_desire_for_breed_emits_BreedDesireWasEliminatedByHerd_event(): void
     {
         TestCase::assertCount(3, $this->recordedEvents);
 
@@ -45,7 +47,7 @@ class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
         TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
-    public function test_command_eliminate_desire_for_breed_created_a_correct_herd_projection()
+    public function test_command_eliminate_desire_for_breed_created_a_correct_herd_projection(): void
     {
         /** @var BreedDesireWasEliminatedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
@@ -59,5 +61,4 @@ class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
         );
         TestCase::assertSame($expectedDesiredBreedsProjection, $desiredBreeds);
     }
-
 }

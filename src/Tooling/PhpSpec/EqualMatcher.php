@@ -10,22 +10,19 @@ use PhpSpec\Matcher\BasicMatcher;
 
 final class EqualMatcher extends BasicMatcher
 {
-
     /**
      * @var Presenter
      */
     private $presenter;
 
-    /**
-     * @param Presenter $presenter
-     */
     public function __construct(Presenter $presenter)
     {
         $this->presenter = $presenter;
     }
 
     /**
-     * Make sure to return a higher number than the default "identity" matcher of PhpSpec (100)
+     * Make sure to return a higher number than the default "identity" matcher of PhpSpec (100).
+     *
      * @return int
      */
     public function getPriority(): int
@@ -33,20 +30,24 @@ final class EqualMatcher extends BasicMatcher
         return 101;
     }
 
-
     /**
-     * {@inheritdoc}
+     * @param string $name
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     * @return bool
      */
     public function supports(string $name, $subject, array $arguments): bool
     {
-        return 'equal' === $name
+        return $name === 'equal'
             && is_object($subject)
             && method_exists($subject, 'equals')
-            && 1 === count($arguments);
+            && count($arguments) === 1;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     * @return bool
      */
     protected function matches($subject, array $arguments): bool
     {
@@ -55,7 +56,11 @@ final class EqualMatcher extends BasicMatcher
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $name
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     * @return FailureException
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     protected function getFailureException(string $name, $subject, array $arguments): FailureException
     {
@@ -69,7 +74,11 @@ final class EqualMatcher extends BasicMatcher
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $name
+     * @param mixed $subject
+     * @param mixed[] $arguments
+     * @return FailureException
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     protected function getNegativeFailureException(string $name, $subject, array $arguments): FailureException
     {

@@ -21,8 +21,8 @@ use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class HerdReadModel extends AbstractReadModel
 {
-    public const TABLE_HERD           = 'herd';
-    public const TABLE_ELEPHPANT      = 'elephpant';
+    public const TABLE_HERD = 'herd';
+    public const TABLE_ELEPHPANT = 'elephpant';
     public const TABLE_DESIRED_BREEDS = 'desired_breed';
 
     /**
@@ -66,11 +66,10 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
-     * @param HerdId            $herdId
-     * @param ShepherdId        $shepherdId
-     * @param string            $name
+     * @param HerdId $herdId
+     * @param ShepherdId $shepherdId
+     * @param string $name
      * @param DateTimeImmutable $formedOn
-     *
      * @throws DBALException
      */
     public function onHerdWasFormed(
@@ -78,14 +77,15 @@ final class HerdReadModel extends AbstractReadModel
         ShepherdId $shepherdId,
         string $name,
         DateTimeImmutable $formedOn
-    ): void {
+    ): void
+    {
         $this->connection->insert(
             self::TABLE_HERD,
             [
-                'herd_id'     => $herdId->toString(),
+                'herd_id' => $herdId->toString(),
                 'shepherd_id' => $shepherdId->toString(),
-                'name'        => $name,
-                'formed_on'   => $formedOn->format('Y-m-d H:i:s'),
+                'name' => $name,
+                'formed_on' => $formedOn->format('Y-m-d H:i:s'),
             ]
         );
     }
@@ -93,7 +93,6 @@ final class HerdReadModel extends AbstractReadModel
     /**
      * @param HerdId $herdId
      * @param string $newHerdName
-     *
      * @throws DBALException
      */
     public function onHerdWasRenamed(HerdId $herdId, string $newHerdName): void
@@ -110,11 +109,10 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
-     * @param ElePHPantId       $elePHPantId
-     * @param HerdId            $herdId
-     * @param Breed             $breed
+     * @param ElePHPantId $elePHPantId
+     * @param HerdId $herdId
+     * @param Breed $breed
      * @param DateTimeImmutable $adoptedOn
-     *
      * @throws DBALException
      */
     public function onElePHPantWasAdoptedByHerd(
@@ -122,21 +120,21 @@ final class HerdReadModel extends AbstractReadModel
         HerdId $herdId,
         Breed $breed,
         DateTimeImmutable $adoptedOn
-    ): void {
+    ): void
+    {
         $this->connection->insert(
             self::TABLE_ELEPHPANT,
             [
                 'elephpant_id' => $elePHPantId->toString(),
-                'herd_id'      => $herdId->toString(),
-                'breed'        => $breed->toString(),
-                'adopted_on'   => $adoptedOn->format('Y-m-d H:i:s'),
+                'herd_id' => $herdId->toString(),
+                'breed' => $breed->toString(),
+                'adopted_on' => $adoptedOn->format('Y-m-d H:i:s'),
             ]
         );
     }
 
     /**
      * @param ElePHPantId $elePHPantId
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -151,10 +149,9 @@ final class HerdReadModel extends AbstractReadModel
     }
 
     /**
-     * @param HerdId            $herdId
-     * @param Breed             $breed
+     * @param HerdId $herdId
+     * @param Breed $breed
      * @param DateTimeImmutable $desiredOn
-     *
      * @throws DBALException
      */
     public function onBreedWasDesiredByHerd(HerdId $herdId, Breed $breed, DateTimeImmutable $desiredOn): void
@@ -163,20 +160,19 @@ final class HerdReadModel extends AbstractReadModel
             $this->connection->insert(
                 self::TABLE_DESIRED_BREEDS,
                 [
-                    'herd_id'    => $herdId->toString(),
-                    'breed'      => $breed->toString(),
+                    'herd_id' => $herdId->toString(),
+                    'breed' => $breed->toString(),
                     'desired_on' => $desiredOn->format('Y-m-d H:i:s'),
                 ]
             );
-        } catch (UniqueConstraintViolationException $e) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
             // There are duplicates in the historic data
         }
     }
 
     /**
      * @param HerdId $herdId
-     * @param Breed  $breed
-     *
+     * @param Breed $breed
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -186,14 +182,13 @@ final class HerdReadModel extends AbstractReadModel
             self::TABLE_DESIRED_BREEDS,
             [
                 'herd_id' => $herdId->toString(),
-                'breed'   => $breed->toString(),
+                'breed' => $breed->toString(),
             ]
         );
     }
 
     /**
      * @param HerdId $herdId
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

@@ -26,7 +26,7 @@ final class ShepherdIdSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('fromString', ['00000000-0000-0000-0000-000000000000']);
 
-        $isEqual    = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
+        $isEqual = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
         $isNotEqual = ShepherdId::fromString('11111111-1111-1111-1111-111111111111');
 
         $this->equals($isEqual)->shouldReturn(true);

@@ -16,7 +16,7 @@ final class ElePHPantWasAbandonedByHerd extends AggregateChanged
             $herdId->toString(),
             [
                 'elePHPantId' => $elePHPantId->toString(),
-                'breed'       => $breed->toString(),
+                'breed' => $breed->toString(),
             ]
         );
     }

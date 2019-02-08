@@ -6,6 +6,9 @@ namespace Elewant\Webapp\DomainModel\Contributor;
 
 final class EmptyContributorList implements ContributorList
 {
+    /**
+     * @return Contributor[]
+     */
     public function allContributors(): array
     {
         return [];

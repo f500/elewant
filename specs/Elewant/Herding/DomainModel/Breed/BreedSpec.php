@@ -33,7 +33,7 @@ final class BreedSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('fromString', [Breed::BLUE_SHOPWARE_LARGE]);
 
-        $isEqual    = Breed::fromString(Breed::BLUE_SHOPWARE_LARGE);
+        $isEqual = Breed::fromString(Breed::BLUE_SHOPWARE_LARGE);
         $isNotEqual = Breed::fromString(Breed::GREEN_ZF2_LARGE);
 
         $this->equals($isEqual)->shouldReturn(true);

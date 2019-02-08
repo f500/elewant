@@ -10,9 +10,6 @@ use Elewant\Webapp\Infrastructure\ProophProjections\HerdReadModel;
 
 final class Version20170805082923 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema): void
     {
         $herd = $schema->createTable(HerdReadModel::TABLE_HERD);
@@ -34,9 +31,6 @@ final class Version20170805082923 extends AbstractMigration
         $elephpant->addIndex(['adopted_on']);
     }
 
-    /**
-     * @param Schema $schema
-     */
     public function down(Schema $schema): void
     {
         $schema->dropTable(HerdReadModel::TABLE_HERD);

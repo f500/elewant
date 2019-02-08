@@ -23,7 +23,6 @@ final class AbandonElePHPantHandler
 
     /**
      * @param AbandonElePHPant $command
-     *
      * @throws SorryIDoNotHaveThat
      * @throws SorryICanNotChangeHerd
      * @throws SorryThatIsAnInvalid
@@ -31,6 +30,7 @@ final class AbandonElePHPantHandler
     public function __invoke(AbandonElePHPant $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
+
         if (!$herd) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }

@@ -19,6 +19,7 @@ final class FormHerd extends Command
     }
 
     /**
+     * @return ShepherdId
      * @throws SorryThatIsAnInvalid
      */
     public function shepherdId(): ShepherdId

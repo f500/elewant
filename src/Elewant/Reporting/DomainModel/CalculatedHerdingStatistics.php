@@ -33,10 +33,11 @@ final class CalculatedHerdingStatistics
         DateTimeInterface $to,
         int $numberOfNewHerds,
         int $numberOfNewElePHPants
-    ) {
-        $this->from                  = $from;
-        $this->to                    = $to;
-        $this->numberOfNewHerds      = $numberOfNewHerds;
+    )
+    {
+        $this->from = $from;
+        $this->to = $to;
+        $this->numberOfNewHerds = $numberOfNewHerds;
         $this->numberOfNewElePHPants = $numberOfNewElePHPants;
     }
 

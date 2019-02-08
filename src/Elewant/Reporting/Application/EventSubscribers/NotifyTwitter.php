@@ -22,10 +22,13 @@ final class NotifyTwitter implements EventSubscriberInterface
 
     public function __construct(TwitterOAuth $twitterClient, bool $activateTweets = false)
     {
-        $this->twitterClient   = $twitterClient;
+        $this->twitterClient = $twitterClient;
         $this->tweetsAreActive = $activateTweets;
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -49,6 +52,6 @@ final class NotifyTwitter implements EventSubscriberInterface
             $statistics->numberOfNewElePHPants()
         );
 
-        $this->twitterClient->post("statuses/update", ["status" => $status]);
+        $this->twitterClient->post('statuses/update', ['status' => $status]);
     }
 }

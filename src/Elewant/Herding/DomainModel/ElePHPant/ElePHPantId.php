@@ -29,7 +29,6 @@ final class ElePHPantId
 
     /**
      * @param string $elePHPantId
-     *
      * @return ElePHPantId
      * @throws SorryThatIsAnInvalid
      */
@@ -47,8 +46,12 @@ final class ElePHPantId
         return $this->uuid->toString();
     }
 
+    /**
+     * @param mixed $other
+     * @return bool
+     */
     public function equals($other): bool
     {
-        return ($other instanceof static && $other->uuid->equals($this->uuid));
+        return $other instanceof static && $other->uuid->equals($this->uuid);
     }
 }

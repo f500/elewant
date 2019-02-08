@@ -21,15 +21,23 @@ final class CreateEventStreamCommand extends ContainerAwareCommand
             ->setHelp('This command creates the event_stream');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         /** @var EventStore $eventStore */
         $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
 
         $streamName = new StreamName('event_stream');
-        if (!$eventStore->hasStream($streamName)) {
-            $eventStore->create(new Stream($streamName, new ArrayIterator([])));
-            $output->writeln('<info>Event stream was created successfully.</info>');
+
+        if ($eventStore->hasStream($streamName)) {
+            return;
         }
+
+        $eventStore->create(new Stream($streamName, new ArrayIterator([])));
+        $output->writeln('<info>Event stream was created successfully.</info>');
     }
 }

@@ -20,7 +20,9 @@ final class AdoptElePHPantHandlerSpec extends ObjectBehavior
 {
     use PopAggregateEventsTrait;
 
-    /** @var HerdCollection */
+    /**
+     * @var HerdCollection
+     */
     private $herdCollection;
 
     public function let(HerdCollection $herdCollection): void
@@ -36,8 +38,8 @@ final class AdoptElePHPantHandlerSpec extends ObjectBehavior
 
     public function it_handles_adopt_elephpant(): void
     {
-        $herd    = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
-        $herdId  = $herd->herdId();
+        $herd = Herd::form(ShepherdId::fromString('00000000-0000-0000-0000-000000000000'), 'Herd name');
+        $herdId = $herd->herdId();
         $command = AdoptElePHPant::byHerd($herdId->toString(), Breed::WHITE_DPC_REGULAR);
 
         $this->herdCollection->get($herdId)->willReturn($herd);
@@ -54,11 +56,10 @@ final class AdoptElePHPantHandlerSpec extends ObjectBehavior
 
     public function it_throws_an_exception_for_an_unknown_herd(): void
     {
-        $herdId  = HerdId::generate();
+        $herdId = HerdId::generate();
         $command = AdoptElePHPant::byHerd($herdId->toString(), Breed::WHITE_DPC_REGULAR);
 
         $this->herdCollection->get($herdId)->willReturn(null);
         $this->shouldThrow(SorryIDoNotHaveThat::herd($herdId))->during('__invoke', [$command]);
     }
-
 }

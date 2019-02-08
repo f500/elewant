@@ -35,15 +35,15 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
 
     public function __construct(ManagerRegistry $registry, EventDispatcherInterface $eventDispatcher)
     {
-        $this->registry        = $registry;
+        $this->registry = $registry;
         $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
      * @param string $username
-     *
      * @return UserInterface
      * @throws NonUniqueResultException
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
     public function loadUserByUsername($username): UserInterface
     {
@@ -58,7 +58,6 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
 
     /**
      * @param UserInterface $user
-     *
      * @return UserInterface
      * @throws NonUniqueResultException
      */
@@ -73,8 +72,8 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
 
     /**
      * @param string $class
-     *
      * @return bool
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
     public function supportsClass($class): bool
     {
@@ -83,13 +82,12 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
 
     /**
      * @param UserResponseInterface $response
-     *
      * @return UserInterface
      * @throws NonUniqueResultException
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
-        $resource   = $response->getResourceOwner()->getName();
+        $resource = $response->getResourceOwner()->getName();
         $resourceId = (string) $response->getData()['id'] ?? 'UNKNOWN';
 
         $user = $this->repository()->findUserByResource($resource, $resourceId);
