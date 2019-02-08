@@ -10,10 +10,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class NotifyTwitter implements EventSubscriberInterface
 {
-    /** @var TwitterOAuth */
+    /**
+     * @var TwitterOAuth
+     */
     private $twitterClient;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $tweetsAreActive;
 
     public function __construct(TwitterOAuth $twitterClient, bool $activateTweets = false)
@@ -22,7 +26,9 @@ final class NotifyTwitter implements EventSubscriberInterface
         $this->tweetsAreActive = $activateTweets;
     }
 
-    /** @return mixed[] */
+    /**
+     * @return mixed[]
+     */
     public static function getSubscribedEvents(): array
     {
         return [

@@ -20,7 +20,9 @@ final class AbandonElePHPantHandlerSpec extends ObjectBehavior
 {
     use PopAggregateEventsTrait;
 
-    /** @var  HerdCollection */
+    /**
+     * @var HerdCollection
+     */
     private $herdCollection;
 
     public function let(HerdCollection $herdCollection): void

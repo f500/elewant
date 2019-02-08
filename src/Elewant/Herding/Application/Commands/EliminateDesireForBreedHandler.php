@@ -11,7 +11,9 @@ use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 
 final class EliminateDesireForBreedHandler
 {
-    /** @var HerdCollection */
+    /**
+     * @var HerdCollection
+     */
     private $herdCollection;
 
     public function __construct(HerdCollection $herdCollection)

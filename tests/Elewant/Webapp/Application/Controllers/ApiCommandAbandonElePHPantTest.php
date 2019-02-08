@@ -13,10 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    /** @var ElePHPantId */
+    /**
+     * @var ElePHPantId
+     */
     private $adoptedElePHPantId;
 
     public function setUp(): void
@@ -53,7 +57,7 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 
     public function test_command_abandon_elephpant_created_a_correct_herd_projection(): void
     {
-        /**@var ElePHPantWasAbandonedByHerd $eventUnderTest */
+        /** @var ElePHPantWasAbandonedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
 
         $this->runProjection('herd_projection');

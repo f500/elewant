@@ -28,7 +28,9 @@ final class NewUserSubscriber implements EventSubscriberInterface
      */
     private $herdRepository;
 
-    /** @var CommandBus */
+    /**
+     * @var CommandBus
+     */
     private $commandBus;
 
     public function __construct(HerdRepository $herdRepository, CommandBus $commandBus)

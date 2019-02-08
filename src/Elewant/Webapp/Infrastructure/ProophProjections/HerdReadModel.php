@@ -24,7 +24,9 @@ final class HerdReadModel extends AbstractReadModel
     public const TABLE_ELEPHPANT = 'elephpant';
     public const TABLE_DESIRED_BREEDS = 'desired_breed';
 
-    /** @var Connection */
+    /**
+     * @var Connection
+     */
     private $connection;
 
     public function __construct(Connection $connection)

@@ -23,10 +23,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
 {
-    /*** @var ManagerRegistry */
+    /**
+     * @var ManagerRegistry
+     */
     private $registry;
 
-    /*** @var EventDispatcherInterface */
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
 
     public function __construct(ManagerRegistry $registry, EventDispatcherInterface $eventDispatcher)

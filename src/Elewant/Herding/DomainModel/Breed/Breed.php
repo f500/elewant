@@ -81,7 +81,9 @@ final class Breed
     public const WHITE_ZEND_LARGE = 'WHITE_ZEND_LARGE';
     public const YELLOW_SUNSHINEPHP_LARGE = 'YELLOW_SUNSHINEPHP_LARGE';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $type;
 
     private function __construct(string $type)

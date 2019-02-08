@@ -14,7 +14,9 @@ use Prooph\EventStore\StreamName;
 
 final class MariaDbSingleStreamStrategyWithUnescapedUnicode implements PersistenceStrategy, HasQueryHint, MariaDBIndexedPersistenceStrategy
 {
-    /** @var MessageConverter */
+    /**
+     * @var MessageConverter
+     */
     private $messageConverter;
 
     public function __construct(?MessageConverter $messageConverter = null)
@@ -51,7 +53,9 @@ EOT;
         return [$statement];
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     */
     public function columnNames(): array
     {
         return [
@@ -63,7 +67,9 @@ EOT;
         ];
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     */
     public function indexedMetadataFields(): array
     {
         return [

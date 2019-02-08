@@ -21,13 +21,19 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class ApiCommandBase extends WebTestCase
 {
-    /** @var Client */
+    /**
+     * @var Client
+     */
     protected $client;
 
-    /** @var EventStore */
+    /**
+     * @var EventStore
+     */
     protected $store;
 
-    /** @var DomainEvent[] */
+    /**
+     * @var DomainEvent[]
+     */
     protected $recordedEvents = [];
 
     protected function formHerd(ShepherdId $shepherdId, string $name): Client

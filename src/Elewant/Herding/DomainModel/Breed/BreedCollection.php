@@ -11,7 +11,9 @@ use Traversable;
 
 final class BreedCollection implements Countable, IteratorAggregate
 {
-    /** @var Breed[] */
+    /**
+     * @var Breed[]
+     */
     private $breeds = [];
 
     private function __construct()

@@ -14,10 +14,14 @@ use PhpSpec\ObjectBehavior;
 
 final class HerdSpec extends ObjectBehavior
 {
-    /** @var ShepherdId */
+    /**
+     * @var ShepherdId
+     */
     private $shepherdId;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $herdName;
 
     public function let(): void
@@ -189,7 +193,9 @@ final class HerdSpec extends ObjectBehavior
         $this->desiredBreeds()->shouldHaveCount(0);
     }
 
-    /** @return callable[] */
+    /**
+     * @return callable[]
+     */
     public function getMatchers(): array
     {
         return [

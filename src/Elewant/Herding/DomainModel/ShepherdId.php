@@ -10,7 +10,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ShepherdId
 {
-    /** @var UuidInterface */
+    /**
+     * @var UuidInterface
+     */
     private $uuid;
 
     private function __construct(UuidInterface $uuid)

@@ -11,7 +11,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class HerdId
 {
-    /** @var UuidInterface */
+    /**
+     * @var UuidInterface
+     */
     private $uuid;
 
     private function __construct(UuidInterface $uuid)

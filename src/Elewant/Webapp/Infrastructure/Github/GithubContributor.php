@@ -8,13 +8,19 @@ use Elewant\Webapp\DomainModel\Contributor\Contributor;
 
 final class GithubContributor implements Contributor
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $avatarUrl;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $name;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $contributionCount;
 
     private function __construct(string $avatarUrl, string $name, int $contributionCount)

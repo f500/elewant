@@ -12,7 +12,9 @@ use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 
 trait PopAggregateEventsTrait
 {
-    /** @var AggregateTranslator */
+    /**
+     * @var AggregateTranslator
+     */
     private $aggregateTranslator;
 
     /**

@@ -10,7 +10,9 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
 final class FileVersionStrategy implements VersionStrategyInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $version;
 
     public function __construct(string $versionFile)

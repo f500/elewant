@@ -34,6 +34,7 @@
         <exclude name="Consistence.Exceptions.ExceptionDeclaration.IncorrectExceptionDirectory" />
         <exclude name="Consistence.Exceptions.ExceptionDeclaration.NotEndingWithException" />
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment" />
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword" />
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions" />
@@ -65,6 +66,8 @@
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding" />
+
+    <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
             <property name="linesCountBeforeFirstContent" value="0" />

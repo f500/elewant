@@ -17,10 +17,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class HerdingStatisticsCommand extends Command
 {
-    /** @var HerdingStatisticsCalculator */
+    /**
+     * @var HerdingStatisticsCalculator
+     */
     private $herdingStatistics;
 
-    /** @var EventDispatcherInterface */
+    /**
+     * @var EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct(HerdingStatisticsCalculator $herdingStatistics, EventDispatcherInterface $dispatcher)

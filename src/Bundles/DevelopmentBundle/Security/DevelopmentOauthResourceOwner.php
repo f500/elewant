@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class DevelopmentOauthResourceOwner implements ResourceOwnerInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $name = 'twitter';
 
     public function getUserInformation(array $accessToken, array $extraParameters = []): UserResponseInterface

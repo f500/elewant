@@ -11,7 +11,9 @@ use Twig\TwigFunction;
 
 final class ContributorsExtension extends AbstractExtension
 {
-    /** @var ContributorList */
+    /**
+     * @var ContributorList
+     */
     protected $githubService;
 
     public function __construct(ContributorList $githubService)
@@ -19,7 +21,9 @@ final class ContributorsExtension extends AbstractExtension
         $this->githubService = $githubService;
     }
 
-    /** @return TwigFunction[] */
+    /**
+     * @return TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [
@@ -27,7 +31,9 @@ final class ContributorsExtension extends AbstractExtension
         ];
     }
 
-    /** @return Contributor[] */
+    /**
+     * @return Contributor[]
+     */
     public function contributors(): array
     {
         return $this->githubService->allContributors();

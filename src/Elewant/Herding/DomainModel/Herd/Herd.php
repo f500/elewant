@@ -21,25 +21,39 @@ use Prooph\EventSourcing\AggregateRoot;
 
 final class Herd extends AggregateRoot
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    /** @var ShepherdId */
+    /**
+     * @var ShepherdId
+     */
     private $shepherdId;
 
-    /** @var ElePHPant[] */
+    /**
+     * @var ElePHPant[]
+     */
     private $elePHPants = [];
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $abandoned = false;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $name;
 
-    /** @var BreedCollection */
+    /**
+     * @var BreedCollection
+     */
     private $breeds;
 
-    /** @var BreedCollection */
+    /**
+     * @var BreedCollection
+     */
     private $desiredBreeds;
 
     public static function form(ShepherdId $shepherdId, string $name): self

@@ -11,7 +11,9 @@ use Elewant\Reporting\DomainModel\Statistics\NumberOf;
 
 final class NumberOfRepository implements NumberOf
 {
-    /** @var EntityManagerInterface */
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)

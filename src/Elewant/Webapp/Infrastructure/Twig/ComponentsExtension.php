@@ -13,7 +13,9 @@ use Twig_Error_Syntax as SyntaxError;
 
 final class ComponentsExtension extends AbstractExtension
 {
-    /** @return TwigFunction[] */
+    /**
+     * @return TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [

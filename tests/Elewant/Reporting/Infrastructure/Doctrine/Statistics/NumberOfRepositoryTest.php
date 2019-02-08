@@ -11,10 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class NumberOfRepositoryTest extends KernelTestCase
 {
-    /** @var NumberOf */
+    /**
+     * @var NumberOf
+     */
     private $numberOfRepository;
 
-    /** @var EntityManagerInterface */
+    /**
+     * @var EntityManagerInterface
+     */
     protected static $entityManager;
 
     public function setUp(): void

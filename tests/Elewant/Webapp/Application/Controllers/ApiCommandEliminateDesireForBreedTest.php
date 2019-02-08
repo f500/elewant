@@ -12,7 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandEliminateDesireForBreedTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
     public function setUp(): void

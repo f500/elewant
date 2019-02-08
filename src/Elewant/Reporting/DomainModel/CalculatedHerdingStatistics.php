@@ -8,16 +8,24 @@ use DateTimeInterface;
 
 final class CalculatedHerdingStatistics
 {
-    /** @var DateTimeInterface */
+    /**
+     * @var DateTimeInterface
+     */
     private $from;
 
-    /** @var DateTimeInterface */
+    /**
+     * @var DateTimeInterface
+     */
     private $to;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $numberOfNewHerds;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $numberOfNewElePHPants;
 
     public function __construct(

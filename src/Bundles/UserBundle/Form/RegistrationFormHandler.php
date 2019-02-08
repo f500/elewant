@@ -14,7 +14,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class RegistrationFormHandler implements RegistrationFormHandlerInterface
 {
-    /** @var UserProviderInterface */
+    /**
+     * @var UserProviderInterface
+     */
     private $userProvider;
 
     public function __construct(UserProviderInterface $userProvider)

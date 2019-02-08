@@ -12,7 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonHerdTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
     public function setUp(): void

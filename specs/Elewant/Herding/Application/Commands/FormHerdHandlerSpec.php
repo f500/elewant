@@ -12,7 +12,9 @@ use Prophecy\Argument;
 
 final class FormHerdHandlerSpec extends ObjectBehavior
 {
-    /** @var HerdCollection */
+    /**
+     * @var HerdCollection
+     */
     private $herdCollection;
 
     public function let(HerdCollection $herdCollection): void
