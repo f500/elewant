@@ -15,12 +15,11 @@ final class Version20180907111518 extends AbstractMigration
      */
     public function up(Schema $schema): void
     {
-        $this->addSql(
-            file_get_contents(__DIR__ . '/../../../config/scripts/mariadb/01_event_streams_table.sql')
-        );
-        $this->addSql(
-            file_get_contents(__DIR__ . '/../../../config/scripts/mariadb/02_projections_table.sql')
-        );
+        $sql = (string) file_get_contents(__DIR__ . '/../../../config/scripts/mariadb/01_event_streams_table.sql');
+        $this->addSql($sql);
+
+        $sql = (string) file_get_contents(__DIR__ . '/../../../config/scripts/mariadb/02_projections_table.sql');
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void
