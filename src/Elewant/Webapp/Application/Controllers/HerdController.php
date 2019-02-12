@@ -61,18 +61,20 @@ final class HerdController extends AbstractController
      * @param UserInterface $user
      * @param HerdRepository $herdRepository
      * @param string $breed
+     * @param CommandBus $commandBus
      * @return Response
      */
     public function adoptElePHPantAction(
         UserInterface $user,
         HerdRepository $herdRepository,
-        string $breed
+        string $breed,
+        CommandBus $commandBus
     ): Response
     {
         $herd = $this->getHerd($user, $herdRepository);
 
         $command = AdoptElePHPant::byHerd($herd->herdId(), $breed);
-        $this->getCommandBus()->dispatch($command);
+        $commandBus->dispatch($command);
 
         return new JsonResponse('adopt_breed_underway');
     }
@@ -82,18 +84,20 @@ final class HerdController extends AbstractController
      * @param UserInterface $user
      * @param HerdRepository $herdRepository
      * @param string $breed
+     * @param CommandBus $commandBus
      * @return Response
      */
     public function abandonElePHPantAction(
         UserInterface $user,
         HerdRepository $herdRepository,
-        string $breed
+        string $breed,
+        CommandBus $commandBus
     ): Response
     {
         $herd = $this->getHerd($user, $herdRepository);
 
         $command = AbandonElePHPant::byHerd($herd->herdId(), $breed);
-        $this->getCommandBus()->dispatch($command);
+        $commandBus->dispatch($command);
 
         return new JsonResponse('abandon_breed_underway');
     }
@@ -103,18 +107,20 @@ final class HerdController extends AbstractController
      * @param UserInterface $user
      * @param HerdRepository $herdRepository
      * @param string $breed
+     * @param CommandBus $commandBus
      * @return Response
      */
     public function desireBreedAction(
         UserInterface $user,
         HerdRepository $herdRepository,
-        string $breed
+        string $breed,
+        CommandBus $commandBus
     ): Response
     {
         $herd = $this->getHerd($user, $herdRepository);
 
         $command = DesireBreed::byHerd($herd->herdId(), $breed);
-        $this->getCommandBus()->dispatch($command);
+        $commandBus->dispatch($command);
 
         return new JsonResponse('desire_breed_underway');
     }
@@ -124,18 +130,20 @@ final class HerdController extends AbstractController
      * @param UserInterface $user
      * @param HerdRepository $herdRepository
      * @param string $breed
+     * @param CommandBus $commandBus
      * @return Response
      */
     public function eliminateDesireForBreedAction(
         UserInterface $user,
         HerdRepository $herdRepository,
-        string $breed
+        string $breed,
+        CommandBus $commandBus
     ): Response
     {
         $herd = $this->getHerd($user, $herdRepository);
 
         $command = EliminateDesireForBreed::byHerd($herd->herdId(), $breed);
-        $this->getCommandBus()->dispatch($command);
+        $commandBus->dispatch($command);
 
         return new JsonResponse('desire_breed_underway');
     }
@@ -160,11 +168,4 @@ final class HerdController extends AbstractController
         return $herd;
     }
 
-    private function getCommandBus(): CommandBus
-    {
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->get('prooph_service_bus.herding_command_bus');
-
-        return $commandBus;
-    }
 }
