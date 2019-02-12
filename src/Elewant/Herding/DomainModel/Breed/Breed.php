@@ -80,6 +80,7 @@ final class Breed
     public const WHITE_GLOBALIS_LARGE = 'WHITE_GLOBALIS_LARGE';
     public const WHITE_ZEND_LARGE = 'WHITE_ZEND_LARGE';
     public const YELLOW_SUNSHINEPHP_LARGE = 'YELLOW_SUNSHINEPHP_LARGE';
+    public const YELLOW_SUNSHINEPHP_NEXMO_LARGE = 'YELLOW_SUNSHINEPHP_NEXMO_LARGE';
 
     /**
      * @var string
