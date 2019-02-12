@@ -86,7 +86,7 @@ breed:
     RED_CHILI_LARGE: "Zend Red (L)"
     RED_LARAVEL_LARGE: "Laravel (L)"
     TEAL_ZEND_LARGE: "Zend PHP7 (L)"
-    WHITE_BENELUX_REGULAR: "PHPBenelux (L)"
+    WHITE_BENELUX_LARGE: "PHPBenelux (L)"
     WHITE_CONFOO_LARGE: "Confoo (L)"
     WHITE_DPC_LARGE: "DPC (L)"
     WHITE_GLOBALIS_LARGE: "Globalis (L)"
