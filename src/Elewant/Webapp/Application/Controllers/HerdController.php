@@ -167,5 +167,4 @@ final class HerdController extends AbstractController
 
         return $herd;
     }
-
 }

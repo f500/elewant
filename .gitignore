@@ -3,6 +3,8 @@
 /.web-server-pid
 /ansible/provision/group_vars/develop/override_locally.yml
 /node_modules/
+/phpspec.yml
+/phpunit.xml
 /public/build/
 /public/bundles/
 /vendor/

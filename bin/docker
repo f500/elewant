@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+# Define these yourself!
+default="php-cli"
+runners=("php-cli" "php-cli-xdebug")
+
+# Determine compose file
+if [[ -z "${COMPOSE_FILE}" ]]; then
+    COMPOSE_FILE="docker-compose.yml"
+fi
+
+# Autodetect services
+services=($(docker-compose -f "${COMPOSE_FILE}" config --services))
+
+# Colors
+red="\e[31m"
+yellow="\e[33m"
+reset="\e[0m"
+
+# Methods
+function print_usage {
+    echo "Usage: ${0} [SERVICE] COMMAND..."
+    echo -e "  SERVICE: One of ${yellow}${services[@]}${reset} (default: ${yellow}${default}${reset})"
+    echo -e "  COMMAND: The command to run in the container"
+    exit 128
+}
+
+function in_array {
+    for e in "${@:2}"; do
+        [[ "${e}" == "${1}" ]] && echo 1 && return
+    done
+    echo 0
+}
+
+# Print usage if no arguments were passed
+if [[ "${#}" -eq 0 ]]; then
+    print_usage
+fi
+
+# Determine if first argument is a service
+if [[ $(in_array "${1}" "${services[@]}") -eq 1 ]]; then
+    service_given=1
+    service="${1}"
+    command=("${@:2}")
+else
+    service_given=0
+    service="${default}"
+    command=("${@}")
+fi
+
+# Print error if service was passed but no other arguments (no command)
+if [[ ${service_given} -eq 1 ]]; then
+    if [[ "${#}" -eq 1 ]]; then
+        echo -e "${red}Service was not followed by a command${reset}"
+        print_usage
+    fi
+fi
+
+# If service is a one-shot command runner, run command (and remove container), then exit
+if [[ $(in_array "${service}" "${runners[@]}") -eq 1 ]]; then
+    echo -e "==> Running ${yellow}${command[@]}${reset} on ${yellow}${service}${reset}"
+    docker-compose -f "${COMPOSE_FILE}" --log-level=ERROR run --rm "${service}" "${command[@]}"
+    exit ${?}
+fi
+
+# If service isn't up, bring it up
+if [[ -z $(docker ps -q --no-trunc | grep "$(docker-compose -f "${COMPOSE_FILE}" ps -q "${service}")") ]]; then
+    echo -e "==> Bringing ${yellow}${service}${reset} up"
+    docker-compose -f "${COMPOSE_FILE}" --log-level=ERROR up -d
+fi
+
+# Execute command
+echo -e "==> Executing ${yellow}${command[@]}${reset} on ${yellow}${service}${reset}"
+docker-compose -f "${COMPOSE_FILE}" --log-level=ERROR exec "${service}" "${command[@]}"

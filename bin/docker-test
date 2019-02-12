@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+COMPOSE_FILE="docker-compose-test.yml" bin/docker "${@}"
