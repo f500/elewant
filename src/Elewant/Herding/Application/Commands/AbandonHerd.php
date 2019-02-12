@@ -20,6 +20,7 @@ final class AbandonHerd extends Command
     }
 
     /**
+     * @return HerdId
      * @throws SorryThatIsAnInvalid
      */
     public function herdId(): HerdId
@@ -28,6 +29,7 @@ final class AbandonHerd extends Command
     }
 
     /**
+     * @return ShepherdId
      * @throws SorryThatIsAnInvalid
      */
     public function shepherdId(): ShepherdId

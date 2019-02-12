@@ -23,7 +23,6 @@ final class RenameHerdHandler
 
     /**
      * @param RenameHerd $command
-     *
      * @throws SorryIDoNotHaveThat
      * @throws SorryICanNotChangeHerd
      * @throws SorryThatIsAnInvalid
@@ -31,6 +30,7 @@ final class RenameHerdHandler
     public function __invoke(RenameHerd $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
+
         if (!$herd) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }

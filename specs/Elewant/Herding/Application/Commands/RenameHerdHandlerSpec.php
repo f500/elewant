@@ -17,7 +17,7 @@ use Webmozart\Assert\Assert;
 
 final class RenameHerdHandlerSpec extends ObjectBehavior
 {
-    use popAggregateEventsTrait;
+    use PopAggregateEventsTrait;
 
     /**
      * @var HerdCollection
@@ -38,8 +38,8 @@ final class RenameHerdHandlerSpec extends ObjectBehavior
     public function it_renames_a_herd(): void
     {
         $shepherdId = ShepherdId::fromString('00000000-0000-0000-0000-000000000000');
-        $herd       = Herd::form($shepherdId, 'Herd name');
-        $herdId     = $herd->herdId();
+        $herd = Herd::form($shepherdId, 'Herd name');
+        $herdId = $herd->herdId();
 
         $command = RenameHerd::forShepherd($herdId->toString(), 'newHerdName');
 
@@ -55,12 +55,11 @@ final class RenameHerdHandlerSpec extends ObjectBehavior
         $payload = $events[1]->payload();
         Assert::same($payload['newHerdName'], 'newHerdName');
         Assert::same($herd->name(), 'newHerdName');
-
     }
 
     public function it_throws_an_exception_for_an_unknown_herd(): void
     {
-        $herdId  = HerdId::generate();
+        $herdId = HerdId::generate();
         $command = RenameHerd::forShepherd($herdId->toString(), 'unused');
 
         $this->herdCollection->get($herdId)->willReturn(null);

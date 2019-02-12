@@ -19,6 +19,7 @@ final class RenameHerd extends Command
     }
 
     /**
+     * @return HerdId
      * @throws SorryThatIsAnInvalid
      */
     public function herdId(): HerdId

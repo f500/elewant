@@ -18,16 +18,15 @@ final class BreedMappingType extends Type
 {
     private const NAME = 'breed';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return self::NAME;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed[] $fieldDeclaration
+     * @param AbstractPlatform $platform
+     * @return string
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
@@ -35,9 +34,11 @@ final class BreedMappingType extends Type
     }
 
     /**
-     * {@inheritdoc}
-     *
+     * @param mixed $value
+     * @param AbstractPlatform $platform
+     * @return Breed|null
      * @throws ConversionException
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Breed
     {
@@ -56,9 +57,11 @@ final class BreedMappingType extends Type
     }
 
     /**
-     * {@inheritdoc}
-     *
+     * @param mixed $value
+     * @param AbstractPlatform $platform
+     * @return string|null
      * @throws ConversionException
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
@@ -74,7 +77,9 @@ final class BreedMappingType extends Type
     }
 
     /**
-     * @inheritdoc
+     * @param AbstractPlatform $platform
+     * @return bool
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {

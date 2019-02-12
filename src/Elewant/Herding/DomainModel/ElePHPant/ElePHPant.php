@@ -21,7 +21,7 @@ final class ElePHPant
     private function __construct(ElePHPantId $elePHPantId, Breed $breed)
     {
         $this->elePHPantId = $elePHPantId;
-        $this->breed       = $breed;
+        $this->breed = $breed;
     }
 
     public static function appear(ElePHPantId $elePHPantId, Breed $breed): self

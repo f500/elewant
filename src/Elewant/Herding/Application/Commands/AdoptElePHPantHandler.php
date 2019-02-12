@@ -23,7 +23,6 @@ final class AdoptElePHPantHandler
 
     /**
      * @param AdoptElePHPant $command
-     *
      * @throws SorryICanNotChangeHerd
      * @throws SorryIDoNotHaveThat
      * @throws SorryThatIsAnInvalid
@@ -31,6 +30,7 @@ final class AdoptElePHPantHandler
     public function __invoke(AdoptElePHPant $command): void
     {
         $herd = $this->herdCollection->get($command->herdId());
+
         if (!$herd) {
             throw SorryIDoNotHaveThat::herd($command->herdId());
         }

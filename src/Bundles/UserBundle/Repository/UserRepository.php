@@ -12,7 +12,6 @@ final class UserRepository extends EntityRepository
 {
     /**
      * @param string $username
-     *
      * @return User|null
      * @throws NonUniqueResultException
      */
@@ -34,7 +33,6 @@ EOQ;
     /**
      * @param string $resource
      * @param string $id
-     *
      * @return User|null
      * @throws NonUniqueResultException
      */
@@ -50,7 +48,7 @@ EOQ;
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameters(
             [
-                'resource'   => $resource,
+                'resource' => $resource,
                 'resourceId' => $id,
             ]
         );

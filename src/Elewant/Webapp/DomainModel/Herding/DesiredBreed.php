@@ -15,7 +15,6 @@ use Elewant\Herding\DomainModel\Breed\Breed;
 /**
  * @ORM\Entity
  * @ORM\Table(name="desired_breed", indexes={@ORM\Index(columns={"desired_on"})})
- *
  * This entity has a companion proxy, therefor is not final.
  */
 class DesiredBreed

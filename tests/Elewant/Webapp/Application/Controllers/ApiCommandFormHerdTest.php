@@ -10,22 +10,24 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandFormHerdTest extends ApiCommandBase
 {
-    /** @var ShepherdId */
+    /**
+     * @var ShepherdId
+     */
     private $shepherdId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->shepherdId = ShepherdId::generate();
-        $this->client     = $this->formHerd($this->shepherdId, 'My herd name 😱');
+        $this->client = $this->formHerd($this->shepherdId, 'My herd name 😱');
     }
 
-    public function test_command_form_herd_returns_http_status_202()
+    public function test_command_form_herd_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_form_herd_emits_HerdWasFormed_event()
+    public function test_command_form_herd_emits_HerdWasFormed_event(): void
     {
         TestCase::assertCount(1, $this->recordedEvents);
 
@@ -35,16 +37,16 @@ class ApiCommandFormHerdTest extends ApiCommandBase
         TestCase::assertSame('My herd name 😱', $eventUnderTest->name());
     }
 
-    public function test_command_form_herd_created_a_correct_herd_projection()
+    public function test_command_form_herd_created_a_correct_herd_projection(): void
     {
         /** @var HerdWasFormed $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[0];
 
         $expectedHerdProjection = [
-            'herd_id'     => $eventUnderTest->herdId()->toString(),
+            'herd_id' => $eventUnderTest->herdId()->toString(),
             'shepherd_id' => $eventUnderTest->shepherdId()->toString(),
-            'name'        => $eventUnderTest->name(),
-            'formed_on'   => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
+            'name' => $eventUnderTest->name(),
+            'formed_on' => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
         ];
 
         $this->runProjection('herd_projection');

@@ -37,7 +37,10 @@ final class FileVersionStrategy implements VersionStrategyInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $path
+     * @return string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function getVersion($path): string
     {
@@ -45,13 +48,15 @@ final class FileVersionStrategy implements VersionStrategyInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $path
+     * @return string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
     public function applyVersion($path): string
     {
         $versionedPath = sprintf('%s?v=%s', ltrim($path, '/'), $this->getVersion($path));
 
-        if ($path && '/' === $path[0]) {
+        if ($path && $path[0] === '/') {
             return '/' . $versionedPath;
         }
 

@@ -5,113 +5,38 @@ declare(strict_types=1);
 namespace Bundles\DevelopmentBundle\Security;
 
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwnerInterface;
-use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
-use HWI\Bundle\OAuthBundle\Security\Core\Authentication\Token\OAuthToken;
+use HWI\Bundle\OAuthBundle\OAuth\Response\AbstractUserResponse;
 
-final class DevelopmentUserResponse implements UserResponseInterface
+final class DevelopmentUserResponse extends AbstractUserResponse
 {
-    /**
-     * @var array
-     */
-    private $response;
-
-    /**
-     * @var ResourceOwnerInterface
-     */
-    private $resourceOwner;
-
-    public function __construct(array $response, ResourceOwnerInterface $resourceOwner)
+    public function __construct(array $data, ResourceOwnerInterface $resourceOwner)
     {
-        $this->response      = $response;
-        $this->resourceOwner = $resourceOwner;
+        $this->setData($data);
+        $this->setResourceOwner($resourceOwner);
     }
 
-    public function getResponse(): array
+    public function getUsername(): string
     {
-        return $this->response;
-    }
-
-    public function getResourceOwner(): ResourceOwnerInterface
-    {
-        return $this->resourceOwner;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->response['identifier'];
+        return $this->data['identifier'] ?? '';
     }
 
     public function getNickname(): string
     {
-        return $this->response['nickname'];
+        return $this->data['nickname'] ?? '';
     }
 
     public function getFirstName(): ?string
     {
-        return $this->response['firstname'];
+        return $this->data['firstname'] ?? null;
     }
 
     public function getLastName(): ?string
     {
-        return $this->response['lastname'];
+        return $this->data['lastname'] ?? null;
     }
 
     public function getRealName(): ?string
     {
-        return $this->response['realname'];
-    }
-
-    public function getAccessToken(): string
-    {
-        return $this->response['accessToken'];
-    }
-
-    public function getRefreshToken(): ?string
-    {
-        return $this->response['refreshToken'];
-    }
-
-    public function getEmail(): ?string
-    {
-        return null;
-    }
-
-    public function getProfilePicture(): ?string
-    {
-        return null;
-    }
-
-    public function getTokenSecret(): ?string
-    {
-        return null;
-    }
-
-    public function getExpiresIn(): ?string
-    {
-        return null;
-    }
-
-    public function getOAuthToken(): ?string
-    {
-        return null;
-    }
-
-    public function setResourceOwner(ResourceOwnerInterface $resourceOwner): void
-    {
-        return;
-    }
-
-    public function setOAuthToken(OAuthToken $token): void
-    {
-    }
-
-    public function getData(): array
-    {
-        return $this->response;
-    }
-
-    public function setData($data): void
-    {
-        // @todo: Implement setData() method.
+        return $this->data['realname'] ?? null;
     }
 }

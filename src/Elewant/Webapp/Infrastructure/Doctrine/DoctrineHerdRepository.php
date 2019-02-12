@@ -30,6 +30,10 @@ final class DoctrineHerdRepository implements HerdRepository
         $this->registry = $registry;
     }
 
+    /**
+     * @param int $limit
+     * @return Herd[]
+     */
     public function newestHerds(int $limit): array
     {
         $dql = <<<EOQ
@@ -42,11 +46,13 @@ EOQ;
         $query = $this->getManager()->createQuery($dql);
         $query->setMaxResults($limit);
 
-        $herdsAndUsers = $query->getResult();
-
-        return $herdsAndUsers;
+        return $query->getResult();
     }
 
+    /**
+     * @param string $searchString
+     * @return mixed[]
+     */
     public function search(string $searchString): array
     {
         $dql = <<<EOQ
@@ -67,7 +73,6 @@ EOQ;
 
     /**
      * @param ShepherdId $shepherdId
-     *
      * @return Herd|null
      * @throws NonUniqueResultException
      */
@@ -96,9 +101,7 @@ EOQ;
     /**
      * @todo: Remove this, it's only used in DoctrineHerdingStatisticsCalculator
      * @todo: in another BC. Also, we shouldn't use Criteria directly.
-     *
      * @param Criteria $criteria
-     *
      * @return Collection
      */
     public function matching(Criteria $criteria): Collection

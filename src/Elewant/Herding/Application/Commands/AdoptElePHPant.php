@@ -20,6 +20,7 @@ final class AdoptElePHPant extends Command
     }
 
     /**
+     * @return HerdId
      * @throws SorryThatIsAnInvalid
      */
     public function herdId(): HerdId
@@ -28,6 +29,7 @@ final class AdoptElePHPant extends Command
     }
 
     /**
+     * @return Breed
      * @throws SorryThatIsAnInvalid
      */
     public function breed(): Breed

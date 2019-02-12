@@ -1,6 +1,8 @@
 Welcome to the Herding domain
 -----------------------------
 
+### Herds
+
 Here, we start with a `Herd`. A `Herd` is tended to by a shepherd, who is represented here by nothing
 more than a `ShepherdId`.
 
@@ -23,6 +25,20 @@ So when dealing with herds, we currently have the following command (event):
 - RenameHerd (HerdWasRenamed)
 - DesireBreed (BreedWasDesiredByHerd)
 - EliminateDesireForBreed (BreedDesireWasEliminatedByHerd)
+
+### Trades
+
+Since trading (potentially) has an impact on a Shepherd's Herd, the herding domain will respond to trade event `AcceptTrade`.
+When a trade is accepted, there is a `Seller` and a `Buyer` and a `Breed`.
+
+The seller needs to make the decision if that `Breed` comes from their own `Herd`:
+- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the seller's Herd to the buyer's Herd
+- if not, the result is a regular `AdoptElePHPant` command to add the `Breed` to the buyer's herd (with a newly generated `ElePHPantId`)
+
+In addition to the above:
+If the trade was a `ProposeTradeForElePHPant` then the buyer needs to make the decision if that `Breed` comes from their own `Herd`:
+- if to, this results in a `TransferElePHPant` command to move an ElePHPant from the buyers's Herd to the sellers's Herd
+- if not, the result is a regular `AdoptElePHPant` command to add the `Breed` to the sellers's herd (with a newly generated `ElePHPantId`)
 
 
 Decisions

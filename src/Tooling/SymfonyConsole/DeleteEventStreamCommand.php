@@ -21,7 +21,7 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $helper   = $this->getHelper('question');
+        $helper = $this->getHelper('question');
         $question = new ConfirmationQuestion(
             '<error>CAUTION! This will delete the event_store stream, are you sure? (y/N)</error>',
             false

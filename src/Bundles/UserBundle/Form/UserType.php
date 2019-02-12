@@ -11,9 +11,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Traversable;
 
 final class UserType extends AbstractType implements DataMapperInterface
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param mixed[] $options
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -33,6 +39,10 @@ final class UserType extends AbstractType implements DataMapperInterface
         );
     }
 
+    /**
+     * @param mixed $user
+     * @param FormInterface[]|Traversable $forms
+     */
     public function mapDataToForms($user, $forms): void
     {
         if (!$user instanceof User) {
@@ -47,6 +57,11 @@ final class UserType extends AbstractType implements DataMapperInterface
         $form['country']->setData($user->country());
     }
 
+    /**
+     * @param FormInterface[]|Traversable $forms
+     * @param mixed $user
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     */
     public function mapFormsToData($forms, &$user): void
     {
         /** @var FormInterface[] $form */

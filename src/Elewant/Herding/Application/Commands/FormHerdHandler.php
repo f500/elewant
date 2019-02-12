@@ -22,7 +22,6 @@ final class FormHerdHandler
 
     /**
      * @param FormHerd $command
-     *
      * @throws SorryThatIsAnInvalid
      */
     public function __invoke(FormHerd $command): void

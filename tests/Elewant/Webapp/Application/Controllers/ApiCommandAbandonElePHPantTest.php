@@ -13,13 +13,17 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    /** @var ElePHPantId */
+    /**
+     * @var ElePHPantId
+     */
     private $adoptedElePHPantId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -34,12 +38,12 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         $this->client = $this->abandonElePHPant($this->herdId, Breed::blackAmsterdamphpRegular());
     }
 
-    public function test_command_abandon_elephpant_returns_http_status_202()
+    public function test_command_abandon_elephpant_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_abandon_elephpant_emits_ElePHPantWasAdoptedByHerd_event()
+    public function test_command_abandon_elephpant_emits_ElePHPantWasAdoptedByHerd_event(): void
     {
         self::assertCount(3, $this->recordedEvents);
 
@@ -51,9 +55,9 @@ class ApiCommandAbandonElePHPantTest extends ApiCommandBase
         self::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
-    public function test_command_abandon_elephpant_created_a_correct_herd_projection()
+    public function test_command_abandon_elephpant_created_a_correct_herd_projection(): void
     {
-        /**@var ElePHPantWasAbandonedByHerd $eventUnderTest */
+        /** @var ElePHPantWasAbandonedByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[2];
 
         $this->runProjection('herd_projection');

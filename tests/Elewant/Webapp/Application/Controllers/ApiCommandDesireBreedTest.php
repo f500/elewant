@@ -12,10 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandDesireBreedTest extends ApiCommandBase
 {
-    /** @var HerdId */
+    /**
+     * @var HerdId
+     */
     private $herdId;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,12 +29,12 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
         $this->client = $this->desireBreed($this->herdId, Breed::blackAmsterdamphpRegular());
     }
 
-    public function test_command_desire_breed_returns_http_status_202()
+    public function test_command_desire_breed_returns_http_status_202(): void
     {
         TestCase::assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_desire_breed_emits_BreedWasDesiredByHerd_event()
+    public function test_command_desire_breed_emits_BreedWasDesiredByHerd_event(): void
     {
         TestCase::assertCount(2, $this->recordedEvents);
 
@@ -44,15 +46,15 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
         TestCase::assertTrue($this->herdId->equals($eventUnderTest->herdId()));
     }
 
-    public function test_command_desire_breed_created_a_correct_herd_projection()
+    public function test_command_desire_breed_created_a_correct_herd_projection(): void
     {
         /** @var BreedWasDesiredByHerd $eventUnderTest */
         $eventUnderTest = $this->recordedEvents[1];
 
         $expectedDesiredBreedsProjection = [
             [
-                'breed'      => $eventUnderTest->breed()->toString(),
-                'herd_id'    => $eventUnderTest->herdId()->toString(),
+                'breed' => $eventUnderTest->breed()->toString(),
+                'herd_id' => $eventUnderTest->herdId()->toString(),
                 'desired_on' => $eventUnderTest->createdAt()->format('Y-m-d H:i:s'),
             ],
         ];
@@ -62,5 +64,4 @@ class ApiCommandDesireBreedTest extends ApiCommandBase
         $desiredBreeds = $this->retrieveDesiredBreedsFromListing($eventUnderTest->herdId()->toString());
         TestCase::assertSame($expectedDesiredBreedsProjection, $desiredBreeds);
     }
-
 }

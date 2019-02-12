@@ -28,7 +28,6 @@ final class ShepherdId
 
     /**
      * @param string $shepherdId
-     *
      * @return ShepherdId
      * @throws SorryThatIsAnInvalid
      */
@@ -46,8 +45,12 @@ final class ShepherdId
         return $this->uuid->toString();
     }
 
+    /**
+     * @param mixed $other
+     * @return bool
+     */
     public function equals($other): bool
     {
-        return ($other instanceof static && $other->uuid->equals($this->uuid));
+        return $other instanceof static && $other->uuid->equals($this->uuid);
     }
 }

@@ -9,7 +9,6 @@ use Doctrine\DBAL\Driver\Statement;
 
 /**
  * Class HerdListing
- *
  * This class is used for simple queries against the herd projection, in order to test the outcome
  * of a command in end-to-end tests. It should _not_ be used _anywhere_ else.
  */
@@ -25,12 +24,19 @@ final class HerdListing
         $this->connection = $connection;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function findAll(): array
     {
         return $this->connection->fetchAll(sprintf('SELECT * FROM %s', HerdReadModel::TABLE_HERD));
     }
 
-    public function findById($herdId): ?array
+    /**
+     * @param string $herdId
+     * @return mixed[]|null
+     */
+    public function findById(string $herdId): ?array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -44,7 +50,11 @@ final class HerdListing
         return $stmt->fetch() ?: null;
     }
 
-    public function findElePHPantsByHerdId($herdId): array
+    /**
+     * @param string $herdId
+     * @return mixed[]
+     */
+    public function findElePHPantsByHerdId(string $herdId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -58,7 +68,11 @@ final class HerdListing
         return $stmt->fetchAll();
     }
 
-    public function findElePHPantByElePHPantId($elePHPantId): ?array
+    /**
+     * @param string $elePHPantId
+     * @return mixed[]|null
+     */
+    public function findElePHPantByElePHPantId(string $elePHPantId): ?array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
@@ -72,7 +86,11 @@ final class HerdListing
         return $stmt->fetch() ?: null;
     }
 
-    public function findDesiredBreedsByHerdId($herdId): array
+    /**
+     * @param string $herdId
+     * @return mixed[]
+     */
+    public function findDesiredBreedsByHerdId(string $herdId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')

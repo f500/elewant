@@ -5,7 +5,7 @@ suites:
         src_path: src
         spec_path: specs
 
-formatter.name: pretty
+formatter.name: dot
 
 extensions:
     Tooling\PhpSpec\Extension: ~

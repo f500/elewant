@@ -18,14 +18,12 @@ use Elewant\Herding\DomainModel\Breed\BreedCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(indexes={@ORM\Index(columns={"formed_on"}), @ORM\Index(columns={"shepherd_id"})})
- *
  * This entity has a companion proxy, therefor is not final.
  */
 class Herd
 {
     /**
      * @todo UserBundle:User uses mapping-type "shepherd_id", and here it's "guid". Why?
-     *
      * @ORM\Column(type="guid")
      * @var string
      */
@@ -96,6 +94,7 @@ class Herd
     public function breeds(): BreedCollection
     {
         $collection = BreedCollection::fromArray([]);
+
         foreach ($this->elePHPants as $elePHPant) {
             $collection->add($elePHPant->breed());
         }
@@ -106,6 +105,7 @@ class Herd
     public function desiredBreeds(): BreedCollection
     {
         $collection = BreedCollection::fromArray([]);
+
         foreach ($this->desiredBreeds as $desiredBreed) {
             $collection->add($desiredBreed->breed());
         }
@@ -115,12 +115,10 @@ class Herd
 
     public function filteredByBreed(Breed $breed): Collection
     {
-        $filtered = $this->elePHPants->filter(
-            function (ElePHPant $elePHPant) use ($breed): bool {
+        return $this->elePHPants->filter(
+            static function (ElePHPant $elePHPant) use ($breed): bool {
                 return $elePHPant->breed()->equals($breed);
             }
         );
-
-        return $filtered;
     }
 }
