@@ -42,6 +42,7 @@ final class DevelopmentController extends AbstractController
     /**
      * @Route("generate-new-user", name="dev_generate_new_user")
      * @param UserProvider $userProvider
+     *
      * @return RedirectResponse
      */
     public function generateNewUserAction(UserProvider $userProvider): Response
@@ -50,10 +51,8 @@ final class DevelopmentController extends AbstractController
 
         $userResponse = new DevelopmentUserResponse(
             [
-                'id' => $user->username(),
+                'id'       => $user->username(),
                 'nickname' => $user->displayName(),
-                'accessToken' => 'access-token',
-                'refreshToken' => 'refresh-token',
             ],
             new DevelopmentOauthResourceOwner()
         );
@@ -65,19 +64,22 @@ final class DevelopmentController extends AbstractController
 
     /**
      * @Route("/login-as/{username}", name="dev_login_as")
-     * @param Request $request
+     * @param Request      $request
      * @param UserProvider $userProvider
-     * @param string $username
+     * @param string       $username
+     * @param EventDispatcherInterface $eventDispatcher
+     *
      * @return RedirectResponse
      * @throws NonUniqueResultException
      */
-    public function loginAsAction(Request $request, UserProvider $userProvider, string $username): Response
-    {
+    public function loginAsAction(
+        Request $request,
+        UserProvider $userProvider,
+        string $username,
+        EventDispatcherInterface $eventDispatcher
+    ): Response {
         /** @var TokenStorageInterface $tokenStorage */
         $tokenStorage = $this->get('security.token_storage');
-
-        /** @var EventDispatcherInterface $eventDispatcher */
-        $eventDispatcher = $this->get('event_dispatcher');
 
         try {
             $user = $userProvider->loadUserByUsername($username);
@@ -98,7 +100,7 @@ final class DevelopmentController extends AbstractController
     private function userRepository(): UserRepository
     {
         /** @var EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->get('doctrine');
 
         /** @var UserRepository $userRepository */
         $userRepository = $em->getRepository(User::class);
