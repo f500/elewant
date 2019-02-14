@@ -22,9 +22,4 @@ final class SorryThatIsAnInvalid extends Exception
     {
         return new self(sprintf('Sorry, %s is an invalid ElePHPantId', $elePHPantId));
     }
-
-    public static function breed(string $breed): self
-    {
-        return new self(sprintf('Sorry, %s is an invalid Breed', $breed));
-    }
 }

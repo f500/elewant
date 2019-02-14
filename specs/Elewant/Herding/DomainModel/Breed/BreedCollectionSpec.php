@@ -67,6 +67,12 @@ final class BreedCollectionSpec extends ObjectBehavior
         $this->equals($expected)->shouldReturn(true);
     }
 
+    public function it_does_not_add_unknown_breeds(): void
+    {
+        $this->add(Breed::fromString('UNKNOWN_BREED'));
+        $this->isEmpty()->shouldReturn(true);
+    }
+
     public function it_removes_breeds(): void
     {
         $confoo = Breed::fromString(Breed::WHITE_CONFOO_LARGE);

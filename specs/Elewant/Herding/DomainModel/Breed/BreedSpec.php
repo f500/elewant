@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Elewant\Herding\DomainModel\Breed;
 
-use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
 use PhpSpec\ObjectBehavior;
 
 final class BreedSpec extends ObjectBehavior
@@ -20,13 +19,16 @@ final class BreedSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('fromString', ['BLUE_ORIGINAL_REGULAR']);
         $this->shouldHaveType(Breed::class);
+        $this->isUnknown()->shouldReturn(false);
         $this->toString()->shouldReturn('BLUE_ORIGINAL_REGULAR');
     }
 
-    public function it_does_not_construct_an_invalid_type(): void
+    public function it_is_unknown_when_given_an_invalid_type(): void
     {
         $this->beConstructedThrough('fromString', ['invalid']);
-        $this->shouldThrow(SorryThatIsAnInvalid::class)->duringInstantiation();
+        $this->shouldHaveType(Breed::class);
+        $this->isUnknown()->shouldReturn(true);
+        $this->toString()->shouldReturn('UNKNOWN');
     }
 
     public function it_equals_another_or_not(): void

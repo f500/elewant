@@ -80,6 +80,10 @@ final class BreedCollection implements Countable, IteratorAggregate
             return;
         }
 
+        if ($breed->isUnknown()) {
+            return;
+        }
+
         $this->breeds[] = $breed;
     }
 

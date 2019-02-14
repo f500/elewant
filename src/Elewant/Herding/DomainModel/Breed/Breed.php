@@ -114,7 +114,7 @@ final class Breed
     public static function fromString(string $type): self
     {
         if (!in_array($type, self::availableTypes(), true)) {
-            throw SorryThatIsAnInvalid::breed($type);
+            $type = 'UNKNOWN';
         }
 
         return new self($type);
@@ -156,5 +156,10 @@ final class Breed
     public function __toString(): string
     {
         return $this->toString();
+    }
+
+    public function isUnknown(): bool
+    {
+        return $this->type === 'UNKNOWN';
     }
 }

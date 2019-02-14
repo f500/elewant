@@ -122,6 +122,10 @@ final class HerdReadModel extends AbstractReadModel
         DateTimeImmutable $adoptedOn
     ): void
     {
+        if ($breed->isUnknown()) {
+            return;
+        }
+
         $this->connection->insert(
             self::TABLE_ELEPHPANT,
             [
@@ -156,6 +160,10 @@ final class HerdReadModel extends AbstractReadModel
      */
     public function onBreedWasDesiredByHerd(HerdId $herdId, Breed $breed, DateTimeImmutable $desiredOn): void
     {
+        if ($breed->isUnknown()) {
+            return;
+        }
+
         try {
             $this->connection->insert(
                 self::TABLE_DESIRED_BREEDS,

@@ -51,6 +51,12 @@ final class HerdSpec extends ObjectBehavior
         $this->elePHPants()->shouldContainAnElePHPant(Breed::blueOriginalRegular());
     }
 
+    public function it_ignores_adoption_of_an_unknown_breed(): void
+    {
+        $this->adoptElePHPant(Breed::fromString('UNKNOWN_BREED'));
+        $this->elePHPants()->shouldHaveCount(0);
+    }
+
     public function it_adopts_two_new_elephpants(): void
     {
         $this->adoptElePHPant(Breed::blueOriginalRegular());
@@ -71,6 +77,15 @@ final class HerdSpec extends ObjectBehavior
         $this->elePHPants()->shouldHaveCount(1);
         $this->elePHPants()->shouldNotContainAnElePHPant(Breed::blueOriginalRegular());
         $this->elePHPants()->shouldContainAnElePHPant(Breed::greenZf2Regular());
+    }
+
+    public function it_ignores_abandonment_of_an_unknown_breed(): void
+    {
+        $this->adoptElePHPant(Breed::blueOriginalRegular());
+        $this->elePHPants()->shouldHaveCount(1);
+
+        $this->abandonElePHPant(Breed::fromString('UNKNOWN_BREED'));
+        $this->elePHPants()->shouldHaveCount(1);
     }
 
     public function it_abandons_the_same_breed_twice(): void
@@ -175,6 +190,12 @@ final class HerdSpec extends ObjectBehavior
 
         $this->desiredBreeds()->shouldHaveCount(1);
         $this->desiredBreeds()->contains(Breed::blueOriginalRegular())->shouldReturn(true);
+    }
+
+    public function it_ignores_desires_for_an_unknown_breed(): void
+    {
+        $this->desireBreed(Breed::fromString('UNKNOWN_BREED'));
+        $this->desiredBreeds()->shouldHaveCount(0);
     }
 
     public function it_can_eliminate_the_desire_for_a_new_breed(): void

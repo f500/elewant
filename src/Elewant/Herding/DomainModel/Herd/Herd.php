@@ -267,6 +267,10 @@ final class Herd extends AggregateRoot
 
     private function applyAnElePHPantWasAdoptedByHerd(ElePHPantId $elePHPantId, Breed $breed): void
     {
+        if ($breed->isUnknown()) {
+            return;
+        }
+
         $this->breeds->add($breed);
         $this->elePHPants[] = ElePHPant::appear($elePHPantId, $breed);
     }
@@ -320,6 +324,10 @@ final class Herd extends AggregateRoot
      */
     private function guardContainsThisBreed(Breed $breed): void
     {
+        if ($breed->isUnknown()) {
+            return;
+        }
+
         foreach ($this->elePHPants() as $elePHPant) {
             if ($breed->equals($elePHPant->breed())) {
                 return;
