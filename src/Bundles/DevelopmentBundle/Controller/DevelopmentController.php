@@ -42,7 +42,6 @@ final class DevelopmentController extends AbstractController
     /**
      * @Route("generate-new-user", name="dev_generate_new_user")
      * @param UserProvider $userProvider
-     *
      * @return RedirectResponse
      */
     public function generateNewUserAction(UserProvider $userProvider): Response
@@ -68,7 +67,6 @@ final class DevelopmentController extends AbstractController
      * @param UserProvider $userProvider
      * @param string       $username
      * @param EventDispatcherInterface $eventDispatcher
-     *
      * @return RedirectResponse
      * @throws NonUniqueResultException
      */
@@ -77,7 +75,8 @@ final class DevelopmentController extends AbstractController
         UserProvider $userProvider,
         string $username,
         EventDispatcherInterface $eventDispatcher
-    ): Response {
+    ): Response
+    {
         /** @var TokenStorageInterface $tokenStorage */
         $tokenStorage = $this->get('security.token_storage');
 
