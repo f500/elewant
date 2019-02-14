@@ -15,7 +15,7 @@ parameters:
     twitter_client_id: '%env(TWITTER_CLIENT_ID)%'
     twitter_client_secret: '%env(TWITTER_CLIENT_SECRET)%'
 
-    elewant_tweets_are_active: '%env(ELEWANT_TWEETS_ARE_ACTIVE)%'
+    elewant_tweets_are_active: '%env(bool:ELEWANT_TWEETS_ARE_ACTIVE)%'
     elewant_tweets_app_consumerkey: '%env(ELEWANT_TWEETS_APP_CONSUMERKEY)%'
     elewant_tweets_app_consumersecret: '%env(ELEWANT_TWEETS_APP_CONSUMERSECRET)%'
     elewant_tweets_app_accesstoken: '%env(ELEWANT_TWEETS_APP_ACCESSTOKEN)%'
@@ -64,6 +64,11 @@ services:
 
     Elewant\Reporting\Application\:
         resource: '../src/Elewant/Reporting/Application/'
+
+    Elewant\Reporting\Application\EventSubscribers\NotifyTwitter:
+        arguments:
+            - '@Abraham\TwitterOAuth\TwitterOAuth'
+            - '%elewant_tweets_are_active%'
 
     Elewant\Reporting\DomainModel\HerdingStatisticsCalculator:
         alias: 'Elewant\Reporting\Infrastructure\Doctrine\DoctrineHerdingStatisticsCalculator'
