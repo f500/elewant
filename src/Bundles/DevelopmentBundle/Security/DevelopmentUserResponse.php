@@ -39,4 +39,14 @@ final class DevelopmentUserResponse extends AbstractUserResponse
     {
         return $this->data['realname'] ?? null;
     }
+
+    public function getAccessToken()
+    {
+        return 'access-token';
+    }
+
+    public function getRefreshToken()
+    {
+        return 'refresh-token';
+    }
 }
