@@ -63,3 +63,4 @@ For your convenience, there is also a file that runs all suites back to back. Th
 
     # running all the tests
     bin/run_tests
+
