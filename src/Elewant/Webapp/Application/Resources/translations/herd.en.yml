@@ -24,6 +24,7 @@ breeds-already-owned: "Breeds already owned"
 finished-button: "Finished"
 breed:
     BLACK_AMSTERDAMPHP_REGULAR: "AmsterdamPHP"
+    BLACK_PHPSTORM_REGULAR: "PhpStorm"
     BLACK_SYMFONY_REGULAR: "Symfony"
     BLACK_SYMFONY_10_YEARS_REGULAR: "Symfony 10yr"
     BLUE_AFUP_REGULAR: "AFUP"
