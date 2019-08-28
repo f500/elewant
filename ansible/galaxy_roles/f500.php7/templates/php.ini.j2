@@ -1,4 +1,4 @@
-{% for key, value in php7_ini_directives.iteritems() %}
+{% for key, value in php7_ini_directives.items() %}
 {% if value is sameas True %}
 {{ key }} = On
 {% elif value is sameas False %}

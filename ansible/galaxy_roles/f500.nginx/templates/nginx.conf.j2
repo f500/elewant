@@ -18,7 +18,7 @@ http {
     access_log  /var/log/nginx/access.log  main;
     error_log   /var/log/nginx/error.log   warn;
 
-{% for key, value in (nginx_http_params_default | combine(nginx_http_params)).iteritems() %}
+{% for key, value in (nginx_http_params_default | combine(nginx_http_params)).items() %}
 {% if value is sameas True %}
     {{ key }}  on;
 {% elif value is sameas False %}
@@ -28,7 +28,7 @@ http {
 {% endif %}
 {% endfor %}
 
-{% for key, value in (nginx_http_headers_default | combine(nginx_http_headers)).iteritems() %}
+{% for key, value in (nginx_http_headers_default | combine(nginx_http_headers)).items() %}
     add_header  {{ key }} "{{ value }}"  always;
 {% endfor %}
 

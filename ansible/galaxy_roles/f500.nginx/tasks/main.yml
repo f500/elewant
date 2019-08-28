@@ -76,7 +76,7 @@
   with_items:
     - sites-available/default.conf
     - sites-enabled/default.conf
-  when: not nginx_set_default_server
+  when: not nginx_set_default_server | bool
   notify: Restart nginx
 
 - name: Write default server
@@ -86,7 +86,7 @@
     owner: root
     group: root
     mode: 0644
-  when: nginx_set_default_server
+  when: nginx_set_default_server | bool
   notify: Restart nginx
 
 - name: Activate default server
@@ -94,7 +94,7 @@
     src: /etc/nginx/sites-available/default.conf
     dest: /etc/nginx/sites-enabled/default.conf
     state: link
-  when: nginx_set_default_server
+  when: nginx_set_default_server | bool
   notify: Restart nginx
 
 - name: Write other servers
