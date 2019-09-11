@@ -11,3 +11,5 @@ supervisord_supervisorctl_serverurl:  "unix://{{ supervisord_unix_http_server_so
 
 supervisord_include_path: "/etc/supervisor/conf.d"
 supervisord_include_files: "{{ supervisord_include_path }}/*.conf"
+
+supervisord_log_fatal_state_to_syslog: False

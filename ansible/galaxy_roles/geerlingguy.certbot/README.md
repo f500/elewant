@@ -16,8 +16,8 @@ The variable `certbot_install_from_source` controls whether to install Certbot f
 
     certbot_auto_renew: true
     certbot_auto_renew_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
-    certbot_auto_renew_hour: 3
-    certbot_auto_renew_minute: 30
+    certbot_auto_renew_hour: "3"
+    certbot_auto_renew_minute: "30"
     certbot_auto_renew_options: "--quiet --no-self-upgrade"
 
 By default, this role configures a cron job to run under the provided user account at the given hour and minute, every day. The defaults run `certbot renew` (or `certbot-auto renew`) via cron every day at 03:30:00 by the user you use in your Ansible playbook. It's preferred that you set a custom user/hour/minute so the renewal is during a low-traffic period and done by a non-root user account.
@@ -26,7 +26,7 @@ By default, this role configures a cron job to run under the provided user accou
 
 Currently there is one built-in method for generating new certificates using this role: `standalone`. Other methods (e.g. using nginx or apache and a webroot) may be added in the future.
 
-**For a complete example**: see the fully functional test playbook in [tests/test-standalone-nginx-aws.yml](tests/test-standalone-nginx-aws.yml).
+**For a complete example**: see the fully functional test playbook in [molecule/default/playbook-standalone-nginx-aws.yml](molecule/default/playbook-standalone-nginx-aws.yml).
 
     certbot_create_if_missing: false
     certbot_create_method: standalone
@@ -91,8 +91,8 @@ None.
     
       vars:
         certbot_auto_renew_user: your_username_here
-        certbot_auto_renew_minute: 20
-        certbot_auto_renew_hour: 5
+        certbot_auto_renew_minute: "20"
+        certbot_auto_renew_hour: "5"
     
       roles:
         - geerlingguy.certbot

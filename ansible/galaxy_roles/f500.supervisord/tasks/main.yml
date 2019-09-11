@@ -6,6 +6,14 @@
 - name: Create supervisord group
   group: name=supervisord system=yes state=present
 
+- name: Add the supervisor fatals events listener
+  copy: src=files/supervisor-fatals-listener.py mode=755 dest=/usr/local/bin/supervisor-fatals-listener.py
+  when: supervisord_log_fatal_state_to_syslog
+
+- name: Configure the supervisor fatals events listener
+  copy: src=files/supervisor.event.listeners.conf dest=/etc/supervisor/conf.d/eventlisteners.conf
+  when: supervisord_log_fatal_state_to_syslog
+
 - name: Create supervisord config
   template: src=supervisord.conf.j2 dest=/etc/supervisor/supervisord.conf
   register: supervisord_config_file

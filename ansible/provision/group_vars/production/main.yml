@@ -8,6 +8,8 @@ elewant_deploy_user_public_key: ~   # secure.yml
 elewant_deploy_user_private_key: ~  # secure.yml
 
 ssh_provision_user: "provision"
+bashrc_users:
+  - "provision"
 
 project_root: /home/deploy
 

@@ -3,6 +3,8 @@
 # GENERAL
 
 ssh_provision_user: "vagrant"
+bashrc_users:
+  - "vagrant"
 
 # UFW
 

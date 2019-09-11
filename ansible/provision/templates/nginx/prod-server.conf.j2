@@ -30,7 +30,7 @@ server {
     ssl_certificate         /etc/letsencrypt/live/{{ item.domains | first }}/fullchain.pem;
     ssl_trusted_certificate /etc/letsencrypt/live/{{ item.domains | first }}/chain.pem;
 
-    {% for key, value in (nginx_http_headers_default | combine(nginx_http_headers) | combine(item.headers)).iteritems() %}
+    {% for key, value in (nginx_http_headers_default | combine(nginx_http_headers) | combine(item.headers)).items() %}
     add_header {{ key }} "{{ value }}" always;
     {% endfor %}
 

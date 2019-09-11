@@ -3,4 +3,6 @@
 ufw_rules_to_create: []
 ufw_rules_to_delete: []
 
-ufw_default_policy: deny
+ufw_default_policy:
+  - { direction: "incoming", policy: "deny" }
+  

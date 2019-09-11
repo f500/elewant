@@ -32,7 +32,9 @@
 
 - name: set default policy
   ufw:
-    policy: "{{ ufw_default_policy }}"
+    policy: "{{ item.policy }}"
+    direction: "{{ item.direction }}"
+  with_items: "{{ ufw_default_policy }}"
 
 - name: enable and start ufw
   ufw:

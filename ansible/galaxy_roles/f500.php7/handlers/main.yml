@@ -4,10 +4,10 @@
   service:
     name: apache2
     state: restarted
-  when: php7_enable_apache
+  when: php7_enable_apache | bool
 
 - name: Restart PHP FPM
   service:
     name: "php{{ php7_version }}-fpm"
     state: restarted
-  when: php7_enable_fpm
+  when: php7_enable_fpm | bool

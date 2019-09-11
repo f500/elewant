@@ -2,19 +2,17 @@
 
 - name: Validate version value
   fail:
-    msg: "The value of php7_version must be 7.0, 7.1 or 7.2"
-  when: php7_version not in [7.0, 7.1, 7.2]
+    msg: "The value of php7_version must be 7.0, 7.1, 7.2 or 7.3"
+  when: php7_version not in [7.0, 7.1, 7.2, 7.3]
 
 - name: Install packages needed to use the deb.sury.org repository
   apt:
-    name: "{{ item }}"
-  with_items:
-    - apt-transport-https
-    - ca-certificates
+    name: ['apt-transport-https', 'ca-certificates']
+    state: present
 
 - name: Add the deb.sury.org trusted key
   apt_key:
-    id: 4A7A714D
+    id: 95BD4743
     url: https://packages.sury.org/php/apt.gpg
 
 - name: Add the deb.sury.org repository
@@ -36,12 +34,12 @@
 - name: Install PHP module development files
   apt:
     name: "php{{ php7_version }}-dev"
-  when: php7_enable_dev
+  when: php7_enable_dev | bool
 
 - name: Install PHP Apache2 module
   apt:
     name: "libapache2-mod-php{{ php7_version }}"
-  when: php7_enable_apache
+  when: php7_enable_apache | bool
 
 - name: Configure PHP for Apache2
   template:
@@ -50,12 +48,12 @@
   vars:
     php7_ini_directives: "{{ php7_ini_directives_default | combine(php7_ini_directives_global) | combine(php7_ini_directives_apache) }}"
   notify: Restart Apache
-  when: php7_enable_apache
+  when: php7_enable_apache | bool
 
 - name: Install PHP CGI binary
   apt:
     name: "php{{ php7_version }}-cgi"
-  when: php7_enable_cgi
+  when: php7_enable_cgi | bool
 
 - name: Configure PHP for CGI
   template:
@@ -63,12 +61,12 @@
     dest: "/etc/php/{{ php7_version }}/cgi/conf.d/99-customization.ini"
   vars:
     php7_ini_directives: "{{ php7_ini_directives_default | combine(php7_ini_directives_global) | combine(php7_ini_directives_cgi) }}"
-  when: php7_enable_cgi
+  when: php7_enable_cgi | bool
 
 - name: Install PHP FPM binary
   apt:
     name: "php{{ php7_version }}-fpm"
-  when: php7_enable_fpm
+  when: php7_enable_fpm | bool
 
 - name: Configure PHP for FPM
   template:
@@ -77,53 +75,52 @@
   vars:
     php7_ini_directives: "{{ php7_ini_directives_default | combine(php7_ini_directives_global) | combine(php7_ini_directives_fpm) }}"
   notify: Restart PHP FPM
-  when: php7_enable_fpm
+  when: php7_enable_fpm | bool
 
 - name: Configure FPM
   template:
     src: php-fpm.conf.j2
     dest: "/etc/php/{{ php7_version }}/fpm/php-fpm.conf"
   notify: Restart PHP FPM
-  when: php7_enable_fpm
+  when: php7_enable_fpm | bool
 
 - name: Ensure "chdir" in the standard pool exists
   file:
     path: "{{ php7_fpm_pool_chdir }}"
     state: directory
-  when: php7_enable_fpm and php7_fpm_pool_enabled
+  when: php7_enable_fpm | bool and php7_fpm_pool_enabled | bool
 
 - name: Configure the standard pool for FPM
   template:
     src: php-fpm-pool.conf.j2
     dest: "/etc/php/{{ php7_version }}/fpm/pool.d/{{ php7_fpm_pool_name }}.conf"
   notify: Restart PHP FPM
-  when: php7_enable_fpm and php7_fpm_pool_enabled
+  when: php7_enable_fpm | bool and php7_fpm_pool_enabled | bool
 
 - name: Remove the standard pool for FPM
   file:
     path: "/etc/php/{{ php7_version }}/fpm/pool.d/{{ php7_fpm_pool_name }}.conf"
     state: absent
   notify: Restart PHP FPM
-  when: php7_enable_fpm and not php7_fpm_pool_enabled
+  when: php7_enable_fpm | bool and not php7_fpm_pool_enabled | bool
 
 - name: Enable the FPM service
   service:
     name: "php{{ php7_version }}-fpm"
     enabled: yes
-  when: php7_enable_fpm
+  when: php7_enable_fpm | bool
 
 - name: Install PHP extensions
   apt:
-    name: "php-{{ item }}"
-  with_items: "{{ php7_extensions }}"
+    name: "{{ php7_extensions | map('prefix', 'php-') | list }}"
+    state: present
   notify:
     - Restart Apache
     - Restart PHP FPM
 
 - name: Install versioned PHP extensions
   apt:
-    name: "php{{ php7_version }}-{{ item }}"
-  with_items: "{{ php7_versioned_extensions }}"
+    name: "{{ php7_versioned_extensions | map('prefix', 'php' ~ php7_version ~ '-') | list }}"
   notify:
     - Restart Apache
     - Restart PHP FPM

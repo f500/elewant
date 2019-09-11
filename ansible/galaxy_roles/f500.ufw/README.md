@@ -13,7 +13,9 @@ Role Variables
 
 Set the default policy:
 
-    ufw_default_policy: deny
+    ufw_default_policy:
+      - { direction: "incoming", policy: "deny" }
+
 
 Add or remove rules:
 

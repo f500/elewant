@@ -79,7 +79,7 @@ Again, no need to copy the entire dictionary.
 Note that headers added to the `http` context will be ignored when you add headers in a `server` or `location` context.
 So don't forget to combine all headers:
 
-    {% for key, value in (nginx_http_headers_default | combine(nginx_http_headers) | combine(specialized_headers)).iteritems() %}
+    {% for key, value in (nginx_http_headers_default | combine(nginx_http_headers) | combine(specialized_headers)).items() %}
     add_header  {{ key }} "{{ value }}"  always;
     {% endfor %}
 

@@ -66,11 +66,11 @@ catch_workers_output = {{ php7_fpm_pool_catch_workers_output }}
 clear_env = {{ php7_fpm_pool_clear_env }}
 security.limit_extensions = {{ php7_fpm_pool_security_limit_extensions }}
 
-{% for key, value in php7_fpm_pool_env.iteritems() %}
+{% for key, value in php7_fpm_pool_env.items() %}
 env[{{ key }}] = {{ value }}
 {% endfor %}
 
-{% for key, value in php7_fpm_pool_php_admin_value.iteritems() %}
+{% for key, value in php7_fpm_pool_php_admin_value.items() %}
 {% if value is sameas True %}
 php_admin_flag[{{ key }}] = On
 {% elif value is sameas False %}
@@ -80,7 +80,7 @@ php_admin_value[{{ key }}] = {{ value }}
 {% endif %}
 {% endfor %}
 
-{% for key, value in php7_fpm_pool_php_value.iteritems() %}
+{% for key, value in php7_fpm_pool_php_value.items() %}
 {% if value is sameas True %}
 php_flag[{{ key }}] = On
 {% elif value is sameas False %}
