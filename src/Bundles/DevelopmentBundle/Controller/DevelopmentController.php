@@ -91,7 +91,7 @@ final class DevelopmentController extends AbstractController
 
         //now dispatch the login event
         $event = new InteractiveLoginEvent($request, $token);
-        $eventDispatcher->dispatch('security.interactive_login', $event);
+        $eventDispatcher->dispatch($event);
 
         return $this->redirectToRoute('root');
     }

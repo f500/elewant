@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Elewant\Reporting\Infrastructure\Doctrine\Statistics;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Elewant\Reporting\DomainModel\Statistics\NumberOf;
@@ -24,6 +25,7 @@ final class NumberOfRepository implements NumberOf
     /**
      * @param DateTimeInterface $from
      * @param DateTimeInterface $to
+     *
      * @return int
      * @throws NonUniqueResultException
      */
@@ -37,10 +39,12 @@ EOQ;
 
         $query = $this->entityManager->createQuery($dql);
         $query->setParameters(
-            [
-                'from' => $from->format('Y-m-d 00:00:00'),
-                'to' => $to->format('Y-m-d 23:59:59'),
-            ]
+            new ArrayCollection(
+                [
+                    'from' => $from->format('Y-m-d 00:00:00'),
+                    'to' => $to->format('Y-m-d 23:59:59'),
+                ]
+            )
         );
 
         return (int) $query->getSingleScalarResult();
@@ -65,6 +69,7 @@ EOQ;
     /**
      * @param DateTimeInterface $from
      * @param DateTimeInterface $to
+     *
      * @return int
      * @throws NonUniqueResultException
      */
@@ -78,10 +83,12 @@ EOQ;
 
         $query = $this->entityManager->createQuery($dql);
         $query->setParameters(
-            [
-                'from' => $from->format('Y-m-d 00:00:00'),
-                'to' => $to->format('Y-m-d 23:59:59'),
-            ]
+            new ArrayCollection(
+                [
+                    'from' => $from->format('Y-m-d 00:00:00'),
+                    'to' => $to->format('Y-m-d 23:59:59'),
+                ]
+            )
         );
 
         return (int) $query->getSingleScalarResult();
