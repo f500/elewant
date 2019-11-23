@@ -2,6 +2,7 @@
 
 if [ "${TRAVIS}" = true ]; then
     phpenv config-rm xdebug.ini
+    export SYMFONY_DEPRECATIONS_HELPER=disabled
 fi
 
 echo ">>>>>>>>>>>>> CLEAR CACHE  <<<<<<<<<<<<<"
