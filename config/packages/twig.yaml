@@ -9,4 +9,4 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - "Form/bootstrap_4_layout.html.twig"
-    exception_controller: Elewant\Webapp\Application\Controllers\ExceptionController::showAction
+    exception_controller: null

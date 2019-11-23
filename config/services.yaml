@@ -98,11 +98,6 @@ services:
         tags:
             - 'controller.service_arguments'
 
-    Elewant\Webapp\Application\Controllers\ExceptionController:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
-
     Elewant\Webapp\DomainModel\Contributor\ContributorList:
         alias: 'Elewant\Webapp\Infrastructure\Github\GithubContributorList'
 
