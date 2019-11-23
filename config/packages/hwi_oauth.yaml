@@ -14,7 +14,7 @@ hwi_oauth:
 services:
     security.registration.form:
         class: Bundles\UserBundle\Form\UserType
-        factory: "form.factory:create"
+        factory: ["@form.factory","create"]
         arguments:
             - 'Bundles\UserBundle\Form\UserType'
 
