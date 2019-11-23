@@ -16,15 +16,11 @@ use Prooph\EventStore\ActionEventEmitterEventStore;
 use Prooph\EventStore\EventStore;
 use Psr\Container\ContainerInterface;
 use RuntimeException;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class ApiCommandBase extends WebTestCase
 {
-    /**
-     * @var Client
-     */
-    protected $client;
 
     /**
      * @var EventStore
@@ -36,7 +32,12 @@ abstract class ApiCommandBase extends WebTestCase
      */
     protected $recordedEvents = [];
 
-    protected function formHerd(ShepherdId $shepherdId, string $name): Client
+    /**
+     * @var KernelBrowser
+     */
+    protected $client;
+
+    protected function formHerd(ShepherdId $shepherdId, string $name): KernelBrowser
     {
         $payload = [
             'shepherdId' => $shepherdId->toString(),
@@ -46,7 +47,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/form-herd', $payload);
     }
 
-    protected function adoptElePHPant(HerdId $herdId, Breed $breed): Client
+    protected function adoptElePHPant(HerdId $herdId, Breed $breed): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -56,7 +57,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/adopt-elephpant', $payload);
     }
 
-    protected function abandonElePHPant(HerdId $herdId, Breed $breed): Client
+    protected function abandonElePHPant(HerdId $herdId, Breed $breed): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -66,7 +67,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/abandon-elephpant', $payload);
     }
 
-    protected function renameHerd(HerdId $herdId, string $newHerdName): Client
+    protected function renameHerd(HerdId $herdId, string $newHerdName): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -76,7 +77,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/rename-herd', $payload);
     }
 
-    protected function desireBreed(HerdId $herdId, Breed $breed): Client
+    protected function desireBreed(HerdId $herdId, Breed $breed): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -86,7 +87,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/desire-breed', $payload);
     }
 
-    protected function eliminateDesireForBreed(HerdId $herdId, Breed $breed): Client
+    protected function eliminateDesireForBreed(HerdId $herdId, Breed $breed): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -96,7 +97,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $this->request('POST', '/testapi/commands/eliminate-desire-for-breed', $payload);
     }
 
-    protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId): Client
+    protected function abandonHerd(HerdId $herdId, ShepherdId $shepherdId): KernelBrowser
     {
         $payload = [
             'herdId' => $herdId->toString(),
@@ -108,6 +109,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
+     *
      * @return mixed[]|null
      */
     protected function retrieveHerdFromListing(string $herdId): ?array
@@ -119,6 +121,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $elePHPantId
+     *
      * @return mixed[]|null
      */
     protected function retrieveElePHPantFromListing(string $elePHPantId): ?array
@@ -130,6 +133,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
+     *
      * @return mixed[]
      */
     protected function retrieveHerdElePHPantsFromListing(string $herdId): array
@@ -141,6 +145,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
+     *
      * @return mixed[]
      */
     protected function retrieveDesiredBreedsFromListing(string $herdId): array
@@ -157,7 +162,7 @@ abstract class ApiCommandBase extends WebTestCase
 
     private function getHerdListing(ContainerInterface $container): HerdListing
     {
-        return $container->get('Elewant\Webapp\Infrastructure\ProophProjections\HerdListing');
+        return $container->get(HerdListing::class);
     }
 
     /**
@@ -198,12 +203,13 @@ abstract class ApiCommandBase extends WebTestCase
     }
 
     /**
-     * @param string $type
-     * @param string $url
+     * @param string  $type
+     * @param string  $url
      * @param mixed[] $payload
-     * @return Client
+     *
+     * @return KernelBrowser
      */
-    private function request(string $type, string $url, array $payload): Client
+    private function request(string $type, string $url, array $payload): KernelBrowser
     {
         $client = $this->client();
         $client->request(
@@ -218,7 +224,7 @@ abstract class ApiCommandBase extends WebTestCase
         return $client;
     }
 
-    private function client(): Client
+    private function client(): KernelBrowser
     {
         $client = static::createClient();
 
