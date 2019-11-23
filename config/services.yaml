@@ -57,10 +57,10 @@ services:
     Elewant\Reporting\Infrastructure\:
         resource: '../src/Elewant/Reporting/Infrastructure/'
 
-#    Elewant\Reporting\Infrastructure\SymfonyConsole\:
-#        resource: '../src/Elewant/Reporting/Infrastructure/SymfonyConsole/'
-#        tags:
-#            - 'console.command'
+    Elewant\Reporting\Infrastructure\SymfonyConsole\:
+        resource: '../src/Elewant/Reporting/Infrastructure/SymfonyConsole/'
+        tags:
+            - 'console.command'
 
     Elewant\Reporting\Application\:
         resource: '../src/Elewant/Reporting/Application/'
