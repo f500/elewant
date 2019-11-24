@@ -21,7 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class ApiCommandBase extends WebTestCase
 {
-
     /**
      * @var EventStore
      */
@@ -109,7 +108,6 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
-     *
      * @return mixed[]|null
      */
     protected function retrieveHerdFromListing(string $herdId): ?array
@@ -121,7 +119,6 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $elePHPantId
-     *
      * @return mixed[]|null
      */
     protected function retrieveElePHPantFromListing(string $elePHPantId): ?array
@@ -133,7 +130,6 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
-     *
      * @return mixed[]
      */
     protected function retrieveHerdElePHPantsFromListing(string $herdId): array
@@ -145,7 +141,6 @@ abstract class ApiCommandBase extends WebTestCase
 
     /**
      * @param string $herdId
-     *
      * @return mixed[]
      */
     protected function retrieveDesiredBreedsFromListing(string $herdId): array
@@ -206,7 +201,6 @@ abstract class ApiCommandBase extends WebTestCase
      * @param string  $type
      * @param string  $url
      * @param mixed[] $payload
-     *
      * @return KernelBrowser
      */
     private function request(string $type, string $url, array $payload): KernelBrowser

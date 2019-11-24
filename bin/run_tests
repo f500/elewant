@@ -22,4 +22,4 @@ echo ">>>>>>>>>>>>>>> PHP SPEC <<<<<<<<<<<<<<<"
 vendor/bin/phpspec run --no-interaction
 
 echo ">>>>>>>>>>>>>>> PHP UNIT <<<<<<<<<<<<<<<"
-SYMFONY_DEPRECATIONS_HELPER=disabled vendor/bin/phpunit
+vendor/bin/phpunit

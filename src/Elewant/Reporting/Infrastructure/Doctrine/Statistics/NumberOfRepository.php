@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Elewant\Reporting\Infrastructure\Doctrine\Statistics;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Elewant\Reporting\DomainModel\Statistics\NumberOf;
@@ -25,7 +24,6 @@ final class NumberOfRepository implements NumberOf
     /**
      * @param DateTimeInterface $from
      * @param DateTimeInterface $to
-     *
      * @return int
      * @throws NonUniqueResultException
      */
@@ -63,7 +61,6 @@ EOQ;
     /**
      * @param DateTimeInterface $from
      * @param DateTimeInterface $to
-     *
      * @return int
      * @throws NonUniqueResultException
      */

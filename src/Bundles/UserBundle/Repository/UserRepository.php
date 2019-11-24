@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bundles\UserBundle\Repository;
 
 use Bundles\UserBundle\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
@@ -13,7 +12,6 @@ final class UserRepository extends EntityRepository
 {
     /**
      * @param string $username
-     *
      * @return User|null
      * @throws NonUniqueResultException
      */
@@ -35,7 +33,6 @@ EOQ;
     /**
      * @param string $resource
      * @param string $id
-     *
      * @return User|null
      * @throws NonUniqueResultException
      */
