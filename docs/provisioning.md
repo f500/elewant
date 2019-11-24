@@ -3,7 +3,7 @@ Before Provision
 
 Make sure before you provision your ansible roles are up-to-date!
 
-    ansible-galaxy install -r ansible/ansible-galaxy.yml -f
+    ansible-galaxy install -r ansible/galaxy_roles.yml -f
 
 First time production server setup
 ==================================
