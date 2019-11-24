@@ -6,3 +6,16 @@
 
   roles:
     - f500.project_deploy
+
+  tasks:
+    - set_fact:
+        slack_message_color: 'good'
+        slack_message: "Version *{{ project_version }}* of *Elewant* deployed!"
+
+    - name: Whoohoo!
+      slack:
+        domain: hooks.slack.com
+        color: "{{ slack_message_color }}"
+        msg: "{{ slack_message }}"
+        channel: elewant
+        token: "{{ slack_api_token }}"

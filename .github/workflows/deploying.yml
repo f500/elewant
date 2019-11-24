@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy to staging.elewant.com on push to master
+        uses: ./.github/actions/ansible
+        env:
+          VAULT_PASS: ${{ secrets.VAULT_PASS }}
+        with:
+          extraVars: "--limit=staging --extra project_version=${{ github.sha }}"
+          verbosity: ""
