@@ -30,6 +30,7 @@ breed:
     BLUE_AFUP_REGULAR: "AFUP"
     BLUE_APIGILITY_REGULAR: "Apigility"
     BLUE_CAKE_DC_REGULAR: "CakeDC"
+    BLUE_LINUXFORPHP_REGULAR: "Linux for PHP"
     BLUE_OPENGOODIES_REGULAR: "OpenGoodies Blue"
     BLUE_ORACLE_REGULAR: "Oracle Blue"
     BLUE_ORIGINAL_REGULAR: "Original Blue"
