@@ -90,6 +90,7 @@ php7_ini_directives_global:
   opcache.revalidate_freq: off
   opcache.validate_timestamps: off
 php7_ini_directives_cli:
+  disable_functions: "exec, passthru, shell_exec, system, popen"
   allow_url_fopen: yes
   memory_limit: 256M
 
