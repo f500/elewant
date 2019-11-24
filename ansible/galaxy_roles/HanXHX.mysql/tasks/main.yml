@@ -1,5 +1,13 @@
 ---
 
+- block:
+
+    - name: SET_FACT | Bypass https://github.com/ansible/ansible/issues/19874
+      set_fact:
+        ansible_distribution_release: 'buster'
+
+  when: ansible_facts.distribution_major_version == "buster/sid"
+
 - name: INCLUDE_VARS | Related to OS version
   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
 
@@ -10,7 +18,7 @@
   changed_when: false
 
 - name: INCLUDE | Install
-  include: install/main.yml
+  import_tasks: install/main.yml
 
 - name: TEMPLATE | Deploy configuration
   template:
@@ -28,7 +36,7 @@
   service:
     name: mysql
     state: restarted
-  when: >
+  when:
     (config.changed or extraconfig.changed) and
     not mariadb_galera_resetup
 
@@ -42,15 +50,15 @@
     backup: yes
 
 - name: INCLUDE | Galera
-  include: galera/main.yml
-  when: mariadb_vendor == 'mariadb_galera'
+  import_tasks: galera/main.yml
+  when: mariadb_use_galera
 
 - name: INCLUDE | Replication
-  include: replication/main.yml
+  import_tasks: replication/main.yml
   when: mariadb_replication_master or mariadb_replication_slave
 
 - name: INCLUDE | Secure install
-  include: 'secure.yml'
+  import_tasks: 'secure.yml'
 
 - name: SERVICE | Ensure service is started
   service:
@@ -61,19 +69,20 @@
   mysql_db:
     name: "{{ item }}"
     state: present
-  with_items: "{{ mariadb_databases }}"
+  loop: "{{ mariadb_databases }}"
 
 - name: MYSQL_USER | Manages users...
   mysql_user:
     name: "{{ item.name }}"
     password: "{{ item.password }}"
     priv: "{{ item.priv }}"
-    host: "{{ item.host | default('localhost') }}"
+    host: "{{ item.host | default(omit) }}"
+    host_all: "{{ item.host_all | default(omit) }}"
     state: present
-  with_items: "{{ mariadb_users }}"
+  loop: "{{ mariadb_users }}"
 
 - name: TEMPLATE | Deploy logrotate configuration
   template:
     src: "etc/logrotate.d/mysql-server.j2"
     dest: "/etc/logrotate.d/mysql-server"
-  when: mariadb_manage_logrotate
+  when: mariadb_manage_logrotate | bool

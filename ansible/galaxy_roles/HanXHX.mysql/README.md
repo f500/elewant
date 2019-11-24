@@ -5,11 +5,12 @@ MariaDB (MySQL) Ansible role for Debian
 
 Install and configure MariaDB (Galera Cluster). Manage replication (master/slave). Create users and databases.
 
-| OS              | Vendor                  | Origin    | Managed versions          |
-| --------------- | ----------------------- | --------- | ------------------------- |
-| Debian Stretch  | MariaDB                 | Debian    | 10.1                      |
-| Debian Stretch  | MariaDB                 | Upstream  | 10.1 / 10.2 / 10.3        |
-| Debian Stretch  | MariaDB Galera Cluster  | Upstream  | 10.1 / 10.2               |
+| OS              | Origin    | MariaDB versions          |
+| --------------- | --------- | ------------------------- |
+| Debian Stretch  | Debian    | 10.1                      |
+| Debian Stretch  | Upstream  | 10.1 / 10.2 / 10.3 / 10.4 |
+| Debian Buster   | Debian    | 10.3                      |
+| Debian Buster   | Upstream  | 10.3 / 10.4               |
 
 Notes
 -----
@@ -17,17 +18,17 @@ Notes
 * Galera Cluster is experimental
 * Due to Vagrant + Docker limitation (private network), replication/galera can't be checked with Travis
 * If you need to test this role with Vagrant, you must install hostmanager plugin: `vagrant plugin install vagrant-hostmanager`
+* Percona Xtrabackup is not available in upstream repository. This feature is disabled in the role.
 
 Requirements
 ------------
 
-None.
+Ansible 2.5+
 
 Role Variables
 --------------
 
-- `mariadb_origin`: origin of the package ("default" or "upstream")
-- `mariadb_vendor`: "mariadb", "mariadb\_galera"
+- `mariadb_use_galera`: set true to configure and install Galera Cluster
 
 ### Configuration
 
@@ -47,17 +48,21 @@ Example:
 
 ```
 mariadb_users:
-  - name: 'kiki'
+  - name: 'lorem'
     password: '123'
-    priv: hihi.*:ALL
-    host: '%'
+    priv: lorem.*:ALL
+    host: 'localhost'
+  - name: 'ipsum'
+    password: '465'
+    priv: ipsum.*:ALL
+    host_all: yes
 ```
 
 Check "priv" syntax in [mysql\_user module documentation](http://docs.ansible.com/mysql_user_module.html)
 
 ### Packaging
 
-- `mariadb_version`: 10.0 / 10.1 / 10.2
+- `mariadb_version`: depends Debian version
 - `mariadb_repository`: MariaDB upstream APT repository (see: [MariaDB repositories tool](https://downloads.mariadb.org/mariadb/repositories))
 - `mariadb_percona_repository`: Percona upstream APT repository (see: [Percona APT doc](http://www.percona.com/doc/percona-server/5.5/installation/apt_repo.html))
 - `mariadb_use_percona_apt`: Force using Percona APT repository (useful when you want to use latest version of percona toolkits, xtrabackup... etc)
@@ -72,7 +77,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: HanXHX.mysql, mariadb_origin: 'upstream', mariadb_vendor: 'mariadb' }
+         - { role: HanXHX.mysql, mariadb_origin: 'upstream' }
 
 License
 -------
