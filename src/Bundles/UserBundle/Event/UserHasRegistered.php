@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bundles\UserBundle\Event;
 
 use Bundles\UserBundle\Entity\User;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 final class UserHasRegistered extends Event
 {

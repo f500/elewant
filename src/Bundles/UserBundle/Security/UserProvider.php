@@ -128,7 +128,7 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
         $this->manager()->flush();
 
         $event = new UserHasRegistered($user);
-        $this->eventDispatcher->dispatch(UserHasRegistered::NAME, $event);
+        $this->eventDispatcher->dispatch($event);
     }
 
     private function connectTwitter(User $user, UserResponseInterface $response): void

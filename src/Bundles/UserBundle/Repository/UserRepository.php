@@ -46,12 +46,8 @@ WHERE c.resource = :resource AND c.resourceId = :resourceId
 EOQ;
 
         $query = $this->getEntityManager()->createQuery($dql);
-        $query->setParameters(
-            [
-                'resource' => $resource,
-                'resourceId' => $id,
-            ]
-        );
+        $query->setParameter('resource', $resource);
+        $query->setParameter('resourceId', $id);
 
         return $query->getOneOrNullResult();
     }

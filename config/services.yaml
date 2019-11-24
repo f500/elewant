@@ -57,10 +57,10 @@ services:
     Elewant\Reporting\Infrastructure\:
         resource: '../src/Elewant/Reporting/Infrastructure/'
 
-#    Elewant\Reporting\Infrastructure\SymfonyConsole\:
-#        resource: '../src/Elewant/Reporting/Infrastructure/SymfonyConsole/'
-#        tags:
-#            - 'console.command'
+    Elewant\Reporting\Infrastructure\SymfonyConsole\:
+        resource: '../src/Elewant/Reporting/Infrastructure/SymfonyConsole/'
+        tags:
+            - 'console.command'
 
     Elewant\Reporting\Application\:
         resource: '../src/Elewant/Reporting/Application/'
@@ -97,11 +97,6 @@ services:
         resource: '../src/Elewant/Webapp/Application/Controllers/'
         tags:
             - 'controller.service_arguments'
-
-    Elewant\Webapp\Application\Controllers\ExceptionController:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
 
     Elewant\Webapp\DomainModel\Contributor\ContributorList:
         alias: 'Elewant\Webapp\Infrastructure\Github\GithubContributorList'

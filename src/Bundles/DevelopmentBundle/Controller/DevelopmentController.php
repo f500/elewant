@@ -50,7 +50,7 @@ final class DevelopmentController extends AbstractController
 
         $userResponse = new DevelopmentUserResponse(
             [
-                'id'       => $user->username(),
+                'id' => $user->username(),
                 'nickname' => $user->displayName(),
             ],
             new DevelopmentOauthResourceOwner()
@@ -63,9 +63,9 @@ final class DevelopmentController extends AbstractController
 
     /**
      * @Route("/login-as/{username}", name="dev_login_as")
-     * @param Request      $request
-     * @param UserProvider $userProvider
-     * @param string       $username
+     * @param Request                  $request
+     * @param UserProvider             $userProvider
+     * @param string                   $username
      * @param EventDispatcherInterface $eventDispatcher
      * @return RedirectResponse
      * @throws NonUniqueResultException
@@ -91,7 +91,7 @@ final class DevelopmentController extends AbstractController
 
         //now dispatch the login event
         $event = new InteractiveLoginEvent($request, $token);
-        $eventDispatcher->dispatch('security.interactive_login', $event);
+        $eventDispatcher->dispatch($event);
 
         return $this->redirectToRoute('root');
     }
