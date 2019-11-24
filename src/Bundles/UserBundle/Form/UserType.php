@@ -42,6 +42,7 @@ final class UserType extends AbstractType implements DataMapperInterface
     /**
      * @param mixed $user
      * @param FormInterface[]|Traversable $forms
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
     public function mapDataToForms($user, $forms): void
     {

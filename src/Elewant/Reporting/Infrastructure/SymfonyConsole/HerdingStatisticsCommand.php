@@ -69,7 +69,7 @@ final class HerdingStatisticsCommand extends Command
         $statistics = $this->herdingStatistics->generate($from, $to);
 
         if ($input->getOption('notify')) {
-            $this->dispatcher->dispatch(HerdingStatisticsGenerated::NAME, new HerdingStatisticsGenerated($statistics));
+            $this->dispatcher->dispatch(new HerdingStatisticsGenerated($statistics));
         }
 
         $output->writeln('From ' . $statistics->from()->format('Y-m-d') . ' to ' . $statistics->to()->format('Y-m-d'));

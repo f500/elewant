@@ -36,12 +36,8 @@ WHERE h.formedOn BETWEEN :from AND :to
 EOQ;
 
         $query = $this->entityManager->createQuery($dql);
-        $query->setParameters(
-            [
-                'from' => $from->format('Y-m-d 00:00:00'),
-                'to' => $to->format('Y-m-d 23:59:59'),
-            ]
-        );
+        $query->setParameter('from', $from->format('Y-m-d 00:00:00'));
+        $query->setParameter('to', $to->format('Y-m-d 23:59:59'));
 
         return (int) $query->getSingleScalarResult();
     }
@@ -77,12 +73,8 @@ WHERE e.adoptedOn BETWEEN :from AND :to
 EOQ;
 
         $query = $this->entityManager->createQuery($dql);
-        $query->setParameters(
-            [
-                'from' => $from->format('Y-m-d 00:00:00'),
-                'to' => $to->format('Y-m-d 23:59:59'),
-            ]
-        );
+        $query->setParameter('from', $from->format('Y-m-d 00:00:00'));
+        $query->setParameter('to', $to->format('Y-m-d 23:59:59'));
 
         return (int) $query->getSingleScalarResult();
     }

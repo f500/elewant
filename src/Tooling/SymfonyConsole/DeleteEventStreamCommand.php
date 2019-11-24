@@ -19,7 +19,7 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
         $this->setName('event-store:event-stream:delete');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $helper = $this->getHelper('question');
         $question = new ConfirmationQuestion(
@@ -28,7 +28,7 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
         );
 
         if (!$helper->ask($input, $output, $question)) {
-            return;
+            return 0;
         }
 
         try {
@@ -40,5 +40,6 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
         }
 
         $output->writeln('<info>Event stream was deleted successfully.</info>');
+        return 0;
     }
 }
