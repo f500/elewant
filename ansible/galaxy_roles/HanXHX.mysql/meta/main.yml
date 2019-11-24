@@ -4,14 +4,14 @@ galaxy_info:
   description: Install and configure MariaDB (and Galera Cluster) on Debian 
   company: 
   license: GPLv2
-  min_ansible_version: 2.3
+  min_ansible_version: 2.5
   platforms:
   - name: Debian
     versions:
     - stretch
+    - buster
   galaxy_tags:
   - database
-  - database:sql
   - packaging
   - mysql
   - mariadb
