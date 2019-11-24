@@ -74,7 +74,7 @@ mariadb_slow_query_log_enabled: false
 
 # PHP
 
-php7_version: 7.2
+php7_version: 7.3
 php7_enable_fpm: yes
 
 php7_extensions: [ apcu ]
