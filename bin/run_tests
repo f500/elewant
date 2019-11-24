@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
+set -e
+
 if [ "${TRAVIS}" = true ]; then
     phpenv config-rm xdebug.ini
-    export SYMFONY_DEPRECATIONS_HELPER=disabled
 fi
 
 echo ">>>>>>>>>>>>> CLEAR CACHE  <<<<<<<<<<<<<"
@@ -10,29 +11,15 @@ bin/console cache:clear --env=test
 
 echo ">>>>>>>>>>>> PARALLEL LINT  <<<<<<<<<<<<"
 vendor/bin/parallel-lint --colors bin config public specs src tests
-parallellint_exit_code=$?
 
 echo ">>>>>>>>> PHP STATIC ANALYSIS  <<<<<<<<<"
 vendor/bin/phpstan analyse --configuration phpstan.neon --level max --no-progress src
-phpstan_exit_code=$?
-
-# Stop if syntax errors are found
-if [ $(($parallellint_exit_code + $phpstan_exit_code)) != 0 ]; then
-    exit $(($parallellint_exit_code + $phpstan_exit_code))
-fi
 
 echo ">>>>>>>>>>> PHP CODE SNIFFER <<<<<<<<<<<"
 vendor/bin/phpcs
-phpcs_exit_code=$?
 
 echo ">>>>>>>>>>>>>>> PHP SPEC <<<<<<<<<<<<<<<"
 vendor/bin/phpspec run --no-interaction
-phpspec_exit_code=$?
 
 echo ">>>>>>>>>>>>>>> PHP UNIT <<<<<<<<<<<<<<<"
-vendor/bin/phpunit
-phpunit_exit_code=$?
-
-# Always run all the test tools, but exit with
-# a non-zero exit code on failures for Travis.
-exit $(($phpcs_exit_code + $phpspec_exit_code + $phpunit_exit_code))
+SYMFONY_DEPRECATIONS_HELPER=disabled vendor/bin/phpunit
