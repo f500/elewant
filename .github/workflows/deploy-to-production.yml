@@ -1,19 +1,19 @@
-name: CI
+name: Deploy to production
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - v*
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Deploy to staging.elewant.com on push to master
+      - name: Deploy to elewant.com on tag
         uses: ./.github/actions/ansible
         env:
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
         with:
-          extraVars: "--limit=staging --extra project_version=${{ github.sha }}"
+          extraVars: "--limit=production --extra project_version=${{ github.sha }}"
           verbosity: ""
