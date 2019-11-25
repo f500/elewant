@@ -10,7 +10,7 @@
   tasks:
     - set_fact:
         slack_message_color: 'good'
-        slack_message: "Version *{{ project_version }}* of *Elewant* deployed!"
+        slack_message: "Version *{{ project_version }}* of *Elewant* deployed on *{{ inventory_hostname }}*!"
 
     - name: Whoohoo!
       slack:
