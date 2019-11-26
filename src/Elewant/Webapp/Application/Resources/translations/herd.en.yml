@@ -99,5 +99,6 @@ breed:
     WHITE_CONFOO_LARGE: "Confoo (L)"
     WHITE_DPC_LARGE: "DPC (L)"
     WHITE_GLOBALIS_LARGE: "Globalis (L)"
+    WHITE_PHPCON_JAPAN_LARGE: "PHPCON Japan (L)"
     WHITE_ZEND_LARGE: "Zend ElPHPis (L)"
     YELLOW_SUNSHINEPHP_NEXMO_LARGE: "SunshinePHP Nexmo (L)"
