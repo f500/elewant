@@ -45,7 +45,7 @@ final class NewUserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            UserHasRegistered::NAME => 'formNewHerdWhen',
+            UserHasRegistered::CLASS => 'formNewHerdWhen',
         ];
     }
 
