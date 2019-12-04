@@ -1,4 +1,4 @@
-FROM php:7.3-cli-alpine
+FROM php:7.4-cli-alpine
 
 # Install PDO_mysql
 RUN docker-php-ext-install pdo_mysql
@@ -8,7 +8,8 @@ RUN apk --no-cache add --virtual .build-dependencies \
         autoconf \
         g++ \
         make \
-    && pecl install xdebug-2.8.0 \
+    && pecl channel-update pecl.php.net \
+    && pecl install xdebug-2.8.1 \
     && apk --no-cache del .build-dependencies
 COPY xdebug.ini ${PHP_INI_DIR}/conf.d/xdebug.ini
 
