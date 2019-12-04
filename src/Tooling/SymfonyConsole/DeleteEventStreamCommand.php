@@ -7,16 +7,27 @@ namespace Tooling\SymfonyConsole;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\Exception\StreamNotFound;
 use Prooph\EventStore\StreamName;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-final class DeleteEventStreamCommand extends ContainerAwareCommand
+final class DeleteEventStreamCommand extends Command
 {
-    protected function configure(): void
+    /**
+     * @var EventStore
+     */
+    private $eventStore;
+
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'event-store:event-stream:delete';
+
+    public function __construct(EventStore $eventStore)
     {
-        $this->setName('event-store:event-stream:delete');
+        parent::__construct();
+        $this->eventStore = $eventStore;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -32,14 +43,13 @@ final class DeleteEventStreamCommand extends ContainerAwareCommand
         }
 
         try {
-            /** @var EventStore $eventStore */
-            $eventStore = $this->getContainer()->get('prooph_event_store.herd_store');
-            $eventStore->delete(new StreamName('event_stream'));
+            $this->eventStore->delete(new StreamName('event_stream'));
         } catch (StreamNotFound $exception) {
             // Fine by us.
         }
 
         $output->writeln('<info>Event stream was deleted successfully.</info>');
+
         return 0;
     }
 }

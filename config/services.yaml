@@ -134,5 +134,7 @@ services:
 
     Tooling\SymfonyConsole\:
         resource: '../src/Tooling/SymfonyConsole/'
+        arguments:
+            $eventStore: '@prooph_event_store.herd_store'
         tags:
             - 'console.command'
