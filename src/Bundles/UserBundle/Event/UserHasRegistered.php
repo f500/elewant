@@ -9,8 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class UserHasRegistered extends Event
 {
-    public const NAME = 'user.has.registered';
-
     /**
      * @var User
      */
