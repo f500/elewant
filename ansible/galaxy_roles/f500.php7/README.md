@@ -15,9 +15,9 @@ Role Variables
 
 All role variables are displayed with their default value.
 
-Specify the version of PHP you want to use (`7.0`, `7.1`, `7.2` or `7.3`):
+Specify the version of PHP 7 you want to use:
 
-    php7_version: 7.3
+    php7_version: 7.4
 
 CLI is always installed. You can also install the Apache2 module, CGI binary and/or FPM binary:
 

@@ -2,8 +2,9 @@
 
 - name: Validate version value
   fail:
-    msg: "The value of php7_version must be 7.0, 7.1, 7.2 or 7.3"
-  when: php7_version not in [7.0, 7.1, 7.2, 7.3]
+    msg: "The value of php7_version must >= 7.0 and < 8.0"
+  when: not (php7_version >= 7.0 and php7_version < 8.0)
+
 
 - name: Install packages needed to use the deb.sury.org repository
   apt:

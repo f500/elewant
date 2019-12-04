@@ -1,6 +1,6 @@
 ---
 
-php7_version: 7.3
+php7_version: 7.4
 
 php7_enable_apache: no
 php7_enable_cgi: no
