@@ -2,6 +2,7 @@
 /.vagrant/
 /.web-server-pid
 /ansible/provision/group_vars/develop/override_locally.yml
+/ansible/**/__pycache__/
 /node_modules/
 /phpspec.yml
 /phpunit.xml
