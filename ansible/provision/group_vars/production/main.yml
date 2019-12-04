@@ -2,6 +2,8 @@
 
 # GENERAL
 
+supervisord_unix_http_server_socket_mode: "0770" # Allow datadog-agent access to the socket
+
 elewant_deploy_user_username: deploy
 elewant_deploy_user_password: ~     # secure.yml
 elewant_deploy_user_public_key: ~   # secure.yml
@@ -26,6 +28,7 @@ mariadb_databases:
 mariadb_users:
   - { name: elewant_production, password: "{{ mariadb_passwords.elewant_production }}", priv: "elewant_production.*:ALL", host: "%" }
   - { name: elewant_staging, password: "{{ mariadb_passwords.elewant_staging }}", priv: "elewant_staging.*:ALL", host: "%" }
+
 
 # NGINX
 
