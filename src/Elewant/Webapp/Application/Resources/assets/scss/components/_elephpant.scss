@@ -117,6 +117,10 @@
     background-color: $red;
   }
 
+  &.elephpant-red.elephpant-phpcon-poland {
+    background-color: linear-gradient(180deg, $red 75%, $white 78%);
+  }
+
   &.elephpant-teal {
     background-color: $cyan;
   }
