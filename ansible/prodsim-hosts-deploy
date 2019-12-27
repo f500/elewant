@@ -1,5 +1,0 @@
-[staging]
-prodsim.elewant.loc
-
-[webserver:children]
-staging

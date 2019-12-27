@@ -36,8 +36,6 @@ And eventually:
 
 Feel free to add anything you learn, no matter how small, to <docs/lessons_learned.md>
 
-Now choose how to get started, Docker or Vagrant:
-
 ### Getting started with Docker
 
 You will need docker on your local system:
@@ -53,8 +51,14 @@ You should be up-and-running!
 
     http://localhost.elewant.com/
 
+For developers, there is a special button on the front page to generate users for your local environment.
+Just click on "Developer login" and you should be able to create (and log in as) randomly created users.
+
 > If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
 then place your key & secret in `.env.local`.
+
+Have fun!
+
 
 #### Running commands inside docker containers
 
@@ -85,31 +89,6 @@ Running vendor binaries:
 
     bin/docker-test bin/run_tests
 
-### Getting started with Vagrant
-
-You will need some tools on your local system:
-- [Virtual box](https://www.virtualbox.org/)
-- [Ansible](https://www.ansible.com/)
-
-Add the following line to your hostsfile:
-
-    192.168.77.77   develop.elewant.loc
-
-> If you want to be able to log in with twitter, you'll need to create an application at app.twitter.com,
-then place your key & secret in a file called `ansible/provision/group_vars/develop/override_locally.yml`.
-
-Bring your box up:
-
-    vagrant up --provision
-
-You should be up-and-running!
-
-    http://develop.elewant.loc/
-
-For developers, there is a special button on the front page to generate users for your local environment.
-Just click on "Developer login" and you should be able to create (and log in as) randomly created users.
-
-Have fun!
 
 ### Moar docs
 

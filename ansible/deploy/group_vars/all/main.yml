@@ -53,7 +53,6 @@ project_unwanted_items:
   - phpspec.yml.dist
   - phpstan.neon
   - phpunit.xml.dist
-  - Vagrantfile
 
 project_shared_children:
   - path: "/var/sessions"

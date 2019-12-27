@@ -1,5 +1,4 @@
 /.env.local
-/.vagrant/
 /.web-server-pid
 /ansible/provision/group_vars/develop/override_locally.yml
 /ansible/**/__pycache__/
