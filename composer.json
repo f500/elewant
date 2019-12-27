@@ -5,7 +5,7 @@
     "license": "MIT",
 
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
@@ -48,7 +48,7 @@
         "consistence/coding-standard": "^3.5",
         "fzaninotto/faker": "^1.8",
         "jakub-onderka/php-console-highlighter": "^0.4",
-        "jakub-onderka/php-parallel-lint": "^1.0",
+        "jakub-onderka/php-parallel-lint": "dev-test/all-together-now as 1.0.0",
         "phpspec/phpspec": "^6.1",
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^7.5",
@@ -78,6 +78,13 @@
             ]
         }
     },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:jrfnl/PHP-Parallel-Lint.git"
+        }
+    ],
 
     "config": {
         "preferred-install": {
