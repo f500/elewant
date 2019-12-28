@@ -1,5 +1,6 @@
 /.env.local
 /.web-server-pid
+/.phpunit.result.cache
 /ansible/provision/group_vars/develop/override_locally.yml
 /ansible/**/__pycache__/
 /node_modules/
