@@ -51,7 +51,7 @@
         "jakub-onderka/php-parallel-lint": "dev-test/all-together-now as 1.0.0",
         "phpspec/phpspec": "^6.1",
         "phpstan/phpstan": "^0.12",
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "^3.4",
         "symfony/debug-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
