@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b71a68a7240219f315efadd0a4c36157",
+    "content-hash": "1fd814f081b2a0c120b8ac6e0f732cc5",
     "packages": [
         {
             "name": "abraham/twitteroauth",
-            "version": "0.9.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abraham/twitteroauth.git",
-                "reference": "28697071d270f9336ab590c1716cc0237ffeb5ee"
+                "reference": "d54b71c2eee94252154e7b50656e17422fa0b9e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/28697071d270f9336ab590c1716cc0237ffeb5ee",
-                "reference": "28697071d270f9336ab590c1716cc0237ffeb5ee",
+                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/d54b71c2eee94252154e7b50656e17422fa0b9e1",
+                "reference": "d54b71c2eee94252154e7b50656e17422fa0b9e1",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": "^5.6 || ^7.0 || ^7.1 || ^7.2"
+                "php": "^7.2 || ^7.3"
             },
             "require-dev": {
                 "phpmd/phpmd": "~2.6",
@@ -58,7 +58,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2018-07-04T01:28:41+00:00"
+            "time": "2019-11-29T14:55:32+00:00"
         },
         {
             "name": "beberlei/assert",
