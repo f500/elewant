@@ -11,6 +11,7 @@ monolog:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: info
+            formatter: 'monolog.formatter.json-with-exceptions'
         console:
             type: console
             process_psr_3_messages: false

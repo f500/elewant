@@ -138,3 +138,8 @@ services:
             $eventStore: '@prooph_event_store.herd_store'
         tags:
             - 'console.command'
+
+    monolog.formatter.json-with-exceptions:
+        class: Monolog\Formatter\JsonFormatter
+        calls:
+            - { method: includeStacktraces }
