@@ -21,20 +21,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class ApiCommandBase extends WebTestCase
 {
-    /**
-     * @var EventStore
-     */
-    protected $store;
+    protected EventStore $store;
 
     /**
      * @var DomainEvent[]
      */
-    protected $recordedEvents = [];
+    protected array $recordedEvents = [];
 
-    /**
-     * @var KernelBrowser
-     */
-    protected $client;
+    protected KernelBrowser $client;
 
     protected function formHerd(ShepherdId $shepherdId, string $name): KernelBrowser
     {

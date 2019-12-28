@@ -11,10 +11,7 @@ use Twig\TwigFunction;
 
 final class ContributorsExtension extends AbstractExtension
 {
-    /**
-     * @var ContributorList
-     */
-    protected $githubService;
+    protected ContributorList $githubService;
 
     public function __construct(ContributorList $githubService)
     {

@@ -10,10 +10,7 @@ final class HerdingStatisticsGenerated extends Event
 {
     public const NAME = 'app.herding.statistics.generated';
 
-    /**
-     * @var CalculatedHerdingStatistics
-     */
-    private $statistics;
+    private CalculatedHerdingStatistics $statistics;
 
     public function __construct(CalculatedHerdingStatistics $statistics)
     {

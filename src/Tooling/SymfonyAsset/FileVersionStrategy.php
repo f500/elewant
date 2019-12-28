@@ -10,10 +10,7 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
 final class FileVersionStrategy implements VersionStrategyInterface
 {
-    /**
-     * @var string
-     */
-    private $version;
+    private string $version;
 
     public function __construct(string $versionFile)
     {
@@ -39,7 +36,7 @@ final class FileVersionStrategy implements VersionStrategyInterface
     /**
      * @param string $path
      * @return string
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function getVersion($path): string
@@ -50,7 +47,7 @@ final class FileVersionStrategy implements VersionStrategyInterface
     /**
      * @param string $path
      * @return string
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function applyVersion($path): string
     {

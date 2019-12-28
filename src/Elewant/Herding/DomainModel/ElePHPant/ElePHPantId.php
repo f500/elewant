@@ -11,10 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ElePHPantId
 {
-    /**
-     * @var UuidInterface
-     */
-    private $uuid;
+    private UuidInterface $uuid;
 
     private function __construct(UuidInterface $uuid)
     {

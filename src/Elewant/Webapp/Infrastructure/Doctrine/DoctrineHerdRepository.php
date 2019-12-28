@@ -20,10 +20,7 @@ use Elewant\Webapp\DomainModel\Herding\HerdRepository;
 
 final class DoctrineHerdRepository implements HerdRepository
 {
-    /**
-     * @var ManagerRegistry
-     */
-    private $registry;
+    private ManagerRegistry $registry;
 
     public function __construct(ManagerRegistry $registry)
     {

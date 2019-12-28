@@ -6,20 +6,13 @@ namespace Elewant\Reporting\Infrastructure\Doctrine\Statistics;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Elewant\Reporting\DomainModel\Statistics\NumberOf;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class NumberOfRepositoryTest extends KernelTestCase
 {
-    /**
-     * @var NumberOf
-     */
-    private $numberOfRepository;
+    private NumberOfRepository $numberOfRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected static $entityManager;
+    protected static EntityManagerInterface $entityManager;
 
     public function setUp(): void
     {

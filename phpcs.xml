@@ -34,6 +34,7 @@
         <exclude name="Consistence.Exceptions.ExceptionDeclaration.IncorrectExceptionDirectory" />
         <exclude name="Consistence.Exceptions.ExceptionDeclaration.NotEndingWithException" />
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+        <exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.NoAssignment" />
         <exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment" />
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword" />
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
@@ -97,21 +98,27 @@
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition" />
-    <rule ref="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing">
+    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+        <properties>
+            <property>
+                <element value="T_GOTO" />
+                <element value="T_THROW" />
+                <element value="T_YIELD" />
+                <element value="T_YIELD_FROM" />
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
         <properties>
             <property name="tokensToCheck" type="array">
-                <element value="T_DECLARE" />
                 <element value="T_DO" />
                 <element value="T_FOR" />
                 <element value="T_FOREACH" />
-                <element value="T_GOTO" />
                 <element value="T_IF" />
                 <element value="T_SWITCH" />
-                <element value="T_THROW" />
                 <element value="T_TRY" />
                 <element value="T_WHILE" />
-                <element value="T_YIELD" />
-                <element value="T_YIELD_FROM" />
             </property>
         </properties>
     </rule>
@@ -189,7 +196,12 @@
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition" />
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <properties>
+            <property name="enableObjectTypeHint" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
         <properties>
             <property name="enableObjectTypeHint" value="true" />
         </properties>

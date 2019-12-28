@@ -18,20 +18,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class NewUserSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @todo In the context of CQRS, we are using a query-side repository here in a command-side process-manager.
-     * @todo The command-side mustn't rely on the query-side, so we should fix this!
-     * @todo Because we don't have a Shepherd aggregate, just a ShepherdId, we cannot look it up right now.
-     * @todo I suggest we create a Shepherd and ShepherdCollection, so we can use the latter here.
-     * @todo We can then do: UserHasRegistered -> GiveBirthToShepherd -> ShepherdWasBorn -> FormHerd.
-     * @var HerdRepository
-     */
-    private $herdRepository;
+    private HerdRepository $herdRepository;
 
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
+    private CommandBus $commandBus;
 
     public function __construct(HerdRepository $herdRepository, CommandBus $commandBus)
     {

@@ -14,13 +14,11 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 final class DeleteEventStreamCommand extends Command
 {
-    /**
-     * @var EventStore
-     */
-    private $eventStore;
+    private EventStore $eventStore;
 
     /**
      * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected static $defaultName = 'event-store:event-stream:delete';
 

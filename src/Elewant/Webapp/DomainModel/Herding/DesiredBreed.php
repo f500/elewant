@@ -23,22 +23,19 @@ class DesiredBreed
      * @ORM\ManyToOne(targetEntity="Herd", inversedBy="desiredBreeds")
      * @ORM\JoinColumn(name="herd_id", referencedColumnName="herd_id", nullable=false)
      * @ORM\Id
-     * @var Herd
      */
-    private $herd;
+    private Herd $herd;
 
     /**
      * @ORM\Column(type="breed", length=64)
      * @ORM\Id
-     * @var Breed
      */
-    private $breed;
+    private Breed $breed;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime
      */
-    private $desiredOn;
+    private DateTime $desiredOn;
 
     public function herd(): Herd
     {

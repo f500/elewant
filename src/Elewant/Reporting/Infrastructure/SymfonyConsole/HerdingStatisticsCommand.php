@@ -17,15 +17,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class HerdingStatisticsCommand extends Command
 {
-    /**
-     * @var HerdingStatisticsCalculator
-     */
-    private $herdingStatistics;
+    private HerdingStatisticsCalculator $herdingStatistics;
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
+    private EventDispatcherInterface $dispatcher;
 
     public function __construct(HerdingStatisticsCalculator $herdingStatistics, EventDispatcherInterface $dispatcher)
     {
@@ -57,12 +51,7 @@ final class HerdingStatisticsCommand extends Command
         );
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @throws Exception
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         [$from, $to] = $this->prepareDateArguments($input->getArguments()['from'], $input->getArguments()['to']);
 
@@ -75,6 +64,8 @@ final class HerdingStatisticsCommand extends Command
         $output->writeln('From ' . $statistics->from()->format('Y-m-d') . ' to ' . $statistics->to()->format('Y-m-d'));
         $output->writeln('Number of new Herds: ' . $statistics->numberOfNewHerds());
         $output->writeln('Number of new ElePHPants: ' . $statistics->numberOfNewElePHPants());
+
+        return 1;
     }
 
     /**

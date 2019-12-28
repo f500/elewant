@@ -10,15 +10,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class NotifyTwitter implements EventSubscriberInterface
 {
-    /**
-     * @var TwitterOAuth
-     */
-    private $twitterClient;
+    private TwitterOAuth $twitterClient;
 
-    /**
-     * @var bool
-     */
-    private $tweetsAreActive;
+    private bool $tweetsAreActive;
 
     public function __construct(TwitterOAuth $twitterClient, bool $activateTweets = false)
     {

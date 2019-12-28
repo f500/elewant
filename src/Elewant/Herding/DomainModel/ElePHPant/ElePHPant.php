@@ -8,15 +8,9 @@ use Elewant\Herding\DomainModel\Breed\Breed;
 
 final class ElePHPant
 {
-    /**
-     * @var ElePHPantId
-     */
-    private $elePHPantId;
+    private ElePHPantId $elePHPantId;
 
-    /**
-     * @var Breed
-     */
-    private $breed;
+    private Breed $breed;
 
     private function __construct(ElePHPantId $elePHPantId, Breed $breed)
     {

@@ -29,20 +29,11 @@ final class TestApiCommandController
 {
     private const NAME_ATTRIBUTE = 'prooph_command_name';
 
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
+    private CommandBus $commandBus;
 
-    /**
-     * @var MessageFactory
-     */
-    private $messageFactory;
+    private MessageFactory $messageFactory;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {

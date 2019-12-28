@@ -14,7 +14,7 @@ final class BreedCollection implements Countable, IteratorAggregate
     /**
      * @var Breed[]
      */
-    private $breeds = [];
+    private array $breeds = [];
 
     private function __construct()
     {

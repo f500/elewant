@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandRenameHerdTest extends ApiCommandBase
 {
-    /**
-     * @var HerdId
-     */
-    private $herdId;
+    private HerdId $herdId;
 
     public function setUp(): void
     {

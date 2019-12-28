@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandFormHerdTest extends ApiCommandBase
 {
-    /**
-     * @var ShepherdId
-     */
-    private $shepherdId;
+    private ShepherdId $shepherdId;
 
     public function setUp(): void
     {

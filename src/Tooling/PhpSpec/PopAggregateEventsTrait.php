@@ -14,6 +14,7 @@ trait PopAggregateEventsTrait
 {
     /**
      * @var AggregateTranslator
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     private $aggregateTranslator;
 
@@ -27,7 +28,7 @@ trait PopAggregateEventsTrait
     }
 
     /**
-     * @param string $aggregateRootClass
+     * @param string             $aggregateRootClass
      * @param AggregateChanged[] $events
      * @return AggregateRoot
      */

@@ -19,42 +19,27 @@ use Elewant\Herding\DomainModel\SorryIDoNotKnowThat;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 
+/**
+ * @phpcsSuppress SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.NoAssignment
+ */
 final class Herd extends AggregateRoot
 {
-    /**
-     * @var HerdId
-     */
-    private $herdId;
+    private HerdId $herdId;
 
-    /**
-     * @var ShepherdId
-     */
-    private $shepherdId;
+    private ShepherdId $shepherdId;
 
     /**
      * @var ElePHPant[]
      */
-    private $elePHPants = [];
+    private array $elePHPants = [];
 
-    /**
-     * @var bool
-     */
-    private $abandoned = false;
+    private bool $abandoned = false;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var BreedCollection
-     */
-    private $breeds;
+    private BreedCollection $breeds;
 
-    /**
-     * @var BreedCollection
-     */
-    private $desiredBreeds;
+    private BreedCollection $desiredBreeds;
 
     public static function form(ShepherdId $shepherdId, string $name): self
     {
@@ -226,30 +211,37 @@ final class Herd extends AggregateRoot
             case HerdWasFormed::class:
                 /** @var HerdWasFormed $event */
                 $this->applyHerdWasFormed($event->herdId(), $event->shepherdId(), $event->name());
+
                 break;
             case ElePHPantWasAdoptedByHerd::class:
                 /** @var ElePHPantWasAdoptedByHerd $event */
                 $this->applyAnElePHPantWasAdoptedByHerd($event->elePHPantId(), $event->breed());
+
                 break;
             case ElePHPantWasAbandonedByHerd::class:
                 /** @var ElePHPantWasAbandonedByHerd $event */
                 $this->applyAnElePHPantWasAbandonedByHerd($event->elePHPantId(), $event->breed());
+
                 break;
             case HerdWasRenamed::class:
                 /** @var HerdWasRenamed $event */
                 $this->applyHerdWasRenamed($event->newHerdName());
+
                 break;
             case HerdWasAbandoned::class:
                 /** @var HerdWasAbandoned $event */
                 $this->applyHerdWasAbandoned();
+
                 break;
             case BreedWasDesiredByHerd::class:
                 /** @var BreedWasDesiredByHerd $event */
                 $this->applyBreedWasDesiredByHerd($event->breed());
+
                 break;
             case BreedDesireWasEliminatedByHerd::class:
                 /** @var BreedDesireWasEliminatedByHerd $event */
                 $this->applyBreedDesireWasEliminatedByHerd($event->breed());
+
                 break;
             default:
                 throw SorryIDoNotKnowThat::event($this, $event);

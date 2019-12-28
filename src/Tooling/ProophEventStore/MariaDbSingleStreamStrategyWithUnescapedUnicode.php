@@ -14,10 +14,7 @@ use Prooph\EventStore\StreamName;
 
 final class MariaDbSingleStreamStrategyWithUnescapedUnicode implements PersistenceStrategy, HasQueryHint, MariaDBIndexedPersistenceStrategy
 {
-    /**
-     * @var MessageConverter
-     */
-    private $messageConverter;
+    private MessageConverter $messageConverter;
 
     public function __construct(?MessageConverter $messageConverter = null)
     {

@@ -22,29 +22,25 @@ class ElePHPant
     /**
      * @ORM\ManyToOne(targetEntity="Herd", inversedBy="elePHPants")
      * @ORM\JoinColumn(name="herd_id", referencedColumnName="herd_id", nullable=false)
-     * @var Herd
      */
-    private $herd;
+    private Herd $herd;
 
     /**
      * @ORM\Column(type="breed", length=64)
-     * @var Breed
      */
-    private $breed;
+    private Breed $breed;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime
      */
-    private $adoptedOn;
+    private DateTime $adoptedOn;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="guid")
-     * @var string
      */
-    private $elephpantId;
+    private string $elephpantId;
 
     public function herd(): Herd
     {

@@ -14,13 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateEventStreamCommand extends Command
 {
-    /**
-     * @var EventStore
-     */
-    private $eventStore;
+    private EventStore $eventStore;
 
     /**
      * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected static $defaultName = 'event-store:event-stream:create';
 

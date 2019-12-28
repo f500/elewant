@@ -10,10 +10,7 @@ use PhpSpec\Matcher\BasicMatcher;
 
 final class EqualMatcher extends BasicMatcher
 {
-    /**
-     * @var Presenter
-     */
-    private $presenter;
+    private Presenter $presenter;
 
     public function __construct(Presenter $presenter)
     {

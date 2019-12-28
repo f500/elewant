@@ -25,41 +25,35 @@ class Herd
     /**
      * @todo UserBundle:User uses mapping-type "shepherd_id", and here it's "guid". Why?
      * @ORM\Column(type="guid")
-     * @var string
      */
-    private $shepherdId;
+    private string $shepherdId;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime
      */
-    private $formedOn;
+    private DateTime $formedOn;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="guid")
-     * @var string
      */
-    private $herdId;
+    private string $herdId;
 
     /**
      * @ORM\OneToMany(targetEntity="ElePHPant", mappedBy="herd", cascade={"persist"})
-     * @var ArrayCollection
      */
-    private $elePHPants;
+    private ArrayCollection $elePHPants;
 
     /**
      * @ORM\OneToMany(targetEntity="DesiredBreed", mappedBy="herd", cascade={"persist"})
-     * @var ArrayCollection
      */
-    private $desiredBreeds;
+    private ArrayCollection $desiredBreeds;
 
     private function __construct()
     {

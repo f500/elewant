@@ -91,10 +91,7 @@ final class Breed
     public const WHITE_ZEND_LARGE = 'WHITE_ZEND_LARGE';
     public const YELLOW_SUNSHINEPHP_NEXMO_LARGE = 'YELLOW_SUNSHINEPHP_NEXMO_LARGE';
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
     private function __construct(string $type)
     {

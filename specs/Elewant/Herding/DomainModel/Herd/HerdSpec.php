@@ -14,15 +14,9 @@ use PhpSpec\ObjectBehavior;
 
 final class HerdSpec extends ObjectBehavior
 {
-    /**
-     * @var ShepherdId
-     */
-    private $shepherdId;
+    private ShepherdId $shepherdId;
 
-    /**
-     * @var string
-     */
-    private $herdName;
+    private string $herdName;
 
     public function let(): void
     {

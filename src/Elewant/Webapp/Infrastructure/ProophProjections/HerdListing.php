@@ -14,10 +14,7 @@ use Doctrine\DBAL\Driver\Statement;
  */
 final class HerdListing
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

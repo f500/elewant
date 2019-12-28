@@ -4,33 +4,21 @@ declare(strict_types=1);
 
 namespace Elewant\Reporting\DomainModel;
 
-use DateTimeInterface;
+use DateTimeInterface as DateTimeInterfaceAlias;
 
 final class CalculatedHerdingStatistics
 {
-    /**
-     * @var DateTimeInterface
-     */
-    private $from;
+    private DateTimeInterfaceAlias $from;
 
-    /**
-     * @var DateTimeInterface
-     */
-    private $to;
+    private DateTimeInterfaceAlias $to;
 
-    /**
-     * @var int
-     */
-    private $numberOfNewHerds;
+    private int $numberOfNewHerds;
 
-    /**
-     * @var int
-     */
-    private $numberOfNewElePHPants;
+    private int $numberOfNewElePHPants;
 
     public function __construct(
-        DateTimeInterface $from,
-        DateTimeInterface $to,
+        DateTimeInterfaceAlias $from,
+        DateTimeInterfaceAlias $to,
         int $numberOfNewHerds,
         int $numberOfNewElePHPants
     )
@@ -41,12 +29,12 @@ final class CalculatedHerdingStatistics
         $this->numberOfNewElePHPants = $numberOfNewElePHPants;
     }
 
-    public function from(): DateTimeInterface
+    public function from(): DateTimeInterfaceAlias
     {
         return $this->from;
     }
 
-    public function to(): DateTimeInterface
+    public function to(): DateTimeInterfaceAlias
     {
         return $this->to;
     }

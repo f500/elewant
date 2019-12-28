@@ -6,15 +6,13 @@ namespace Elewant\Reporting\Infrastructure\Doctrine\Statistics;
 
 use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\NonUniqueResultException;
 use Elewant\Reporting\DomainModel\Statistics\NumberOf;
 
 final class NumberOfRepository implements NumberOf
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -26,6 +24,7 @@ final class NumberOfRepository implements NumberOf
      * @param DateTimeInterface $to
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function newHerdsFormedBetween(DateTimeInterface $from, DateTimeInterface $to): int
     {
@@ -45,6 +44,7 @@ EOQ;
     /**
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function herdsEverFormed(): int
     {
@@ -63,6 +63,7 @@ EOQ;
      * @param DateTimeInterface $to
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function newElePHPantsAdoptedBetween(DateTimeInterface $from, DateTimeInterface $to): int
     {

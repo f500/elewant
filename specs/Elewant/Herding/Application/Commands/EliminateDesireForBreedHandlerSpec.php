@@ -22,6 +22,7 @@ final class EliminateDesireForBreedHandlerSpec extends ObjectBehavior
 
     /**
      * @var HerdCollection
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     private $herdCollection;
 

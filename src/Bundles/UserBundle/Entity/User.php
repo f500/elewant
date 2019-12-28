@@ -27,42 +27,36 @@ class User implements UserInterface, Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", options={"unsigned"=true})
-     * @var int|null
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="shepherd_id", unique=true)
-     * @var ShepherdId
      */
-    private $shepherdId;
+    private ShepherdId $shepherdId;
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
      * @Assert\NotBlank
-     * @var string
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank
-     * @var string
      */
-    private $displayName;
+    private string $displayName;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank
-     * @var string
      */
-    private $country;
+    private string $country;
 
     /**
      * @ORM\OneToMany(targetEntity="Connection", mappedBy="user", cascade={"persist"})
-     * @var ArrayCollection
      */
-    private $connections;
+    private ArrayCollection $connections;
 
     public function __construct(string $username, string $displayName, string $country)
     {
@@ -192,7 +186,7 @@ class User implements UserInterface, Serializable
      *
      * @param string $serialized
      * @throws SorryThatIsAnInvalid
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function unserialize($serialized): void
     {

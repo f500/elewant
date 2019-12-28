@@ -18,40 +18,34 @@ class Connection
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", options={"unsigned"=true})
-     * @var int|null
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @var string
      */
-    private $resource;
+    private string $resource;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @var string
      */
-    private $resourceId;
+    private string $resourceId;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
-    private $accessToken;
+    private string $accessToken;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
-    private $refreshToken;
+    private string $refreshToken;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="connections")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     * @var User
      */
-    private $user;
+    private User $user;
 
     public function __construct(
         User $user,

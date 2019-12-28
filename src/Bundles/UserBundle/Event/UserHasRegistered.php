@@ -9,10 +9,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class UserHasRegistered extends Event
 {
-    /**
-     * @var User
-     */
-    protected $user;
+    protected User $user;
 
     public function __construct(User $user)
     {

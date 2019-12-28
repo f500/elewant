@@ -23,15 +23,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class UserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface, AccountConnectorInterface
 {
-    /**
-     * @var ManagerRegistry
-     */
-    private $registry;
+    private ManagerRegistry $registry;
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(ManagerRegistry $registry, EventDispatcherInterface $eventDispatcher)
     {
@@ -43,7 +37,7 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
      * @param string $username
      * @return UserInterface
      * @throws NonUniqueResultException
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function loadUserByUsername($username): UserInterface
     {
@@ -73,7 +67,7 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
     /**
      * @param string $class
      * @return bool
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function supportsClass($class): bool
     {
@@ -101,17 +95,19 @@ final class UserProvider implements UserProviderInterface, OAuthAwareUserProvide
         return $user;
     }
 
-    public function connect(UserInterface $user, UserResponseInterface $response): void
+    public function connect(UserInterface $userInterface, UserResponseInterface $response): void
     {
-        if (!$this->supportsClass(get_class($user))) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+        if (!$this->supportsClass(get_class($userInterface))) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($userInterface)));
         }
 
         /** @var User $user */
+        $user = $userInterface;
 
         switch ($response->getResourceOwner()->getName()) {
             case 'twitter':
                 $this->connectTwitter($user, $response);
+
                 break;
             default:
                 throw new AuthenticationException(

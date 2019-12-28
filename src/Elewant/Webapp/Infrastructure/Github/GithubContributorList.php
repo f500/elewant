@@ -12,30 +12,18 @@ use Http\Message\MessageFactory;
 
 final class GithubContributorList implements ContributorList
 {
-    /**
-     * @var string
-     */
-    protected $username;
+    protected string $username;
 
-    /**
-     * @var string
-     */
-    protected $repository;
+    protected string $repository;
 
     /**
      * @var string[]
      */
-    protected $blacklist;
+    protected array $blacklist;
 
-    /**
-     * @var MessageFactory
-     */
-    private $requestFactory;
+    private MessageFactory $requestFactory;
 
-    /**
-     * @var HttpClient
-     */
-    protected $client;
+    protected HttpClient $client;
 
     /**
      * @param string $username

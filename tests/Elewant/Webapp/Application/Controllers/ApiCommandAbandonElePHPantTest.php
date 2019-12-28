@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 class ApiCommandAbandonElePHPantTest extends ApiCommandBase
 {
-    /**
-     * @var HerdId
-     */
-    private $herdId;
+    private HerdId $herdId;
 
-    /**
-     * @var ElePHPantId
-     */
-    private $adoptedElePHPantId;
+    private ElePHPantId $adoptedElePHPantId;
 
     public function setUp(): void
     {

@@ -42,7 +42,7 @@ final class UserType extends AbstractType implements DataMapperInterface
     /**
      * @param mixed $user
      * @param FormInterface[]|Traversable $forms
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function mapDataToForms($user, $forms): void
     {
@@ -60,15 +60,14 @@ final class UserType extends AbstractType implements DataMapperInterface
 
     /**
      * @param FormInterface[]|Traversable $forms
-     * @param mixed $user
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @param User $user
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function mapFormsToData($forms, &$user): void
     {
         /** @var FormInterface[] $form */
         $form = iterator_to_array($forms);
 
-        /** @var User $user */
         $user->changeDisplayName((string) $form['displayName']->getData());
         $user->changeCountry((string) $form['country']->getData());
     }
