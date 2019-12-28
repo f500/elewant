@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bundles\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Elewant\Herding\DomainModel\ShepherdId;
 use Elewant\Herding\DomainModel\SorryThatIsAnInvalid;
@@ -56,7 +57,7 @@ class User implements UserInterface, Serializable
     /**
      * @ORM\OneToMany(targetEntity="Connection", mappedBy="user", cascade={"persist"})
      */
-    private ArrayCollection $connections;
+    private Collection $connections;
 
     public function __construct(string $username, string $displayName, string $country)
     {

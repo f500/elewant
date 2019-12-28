@@ -48,12 +48,12 @@ class Herd
     /**
      * @ORM\OneToMany(targetEntity="ElePHPant", mappedBy="herd", cascade={"persist"})
      */
-    private ArrayCollection $elePHPants;
+    private Collection $elePHPants;
 
     /**
      * @ORM\OneToMany(targetEntity="DesiredBreed", mappedBy="herd", cascade={"persist"})
      */
-    private ArrayCollection $desiredBreeds;
+    private Collection $desiredBreeds;
 
     private function __construct()
     {
