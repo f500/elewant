@@ -33,6 +33,9 @@ before_script:
 script:
   - SYMFONY_DEPRECATIONS_HELPER=disabled make ci
 
+after_script:
+  - make down
+
 notifications:
   email:
     on_success: change
