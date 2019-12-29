@@ -24,13 +24,14 @@ install:
   - cp tests/config/.env_for_travis .env
   - mysql -e "create database elewant_test;"
   - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'elewant'@'%' IDENTIFIED BY 'elewant'"
-  - composer install
+  - make composer-install
 
 before_script:
   - echo 'date.timezone = "Europe/Amsterdam"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - phpenv config-rm xdebug.ini
 
 script:
-  - SYMFONY_DEPRECATIONS_HELPER=disabled bin/run_tests
+  - SYMFONY_DEPRECATIONS_HELPER=disabled make ci
 
 notifications:
   email:
