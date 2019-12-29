@@ -31,6 +31,6 @@
     "clean-css": "cleancss --skip-advanced --source-map --output public/build/css/elewant.min.css public/build/css/elewant.css",
     "postcss": "postcss --config node_modules/bootstrap/build/postcss.config.js --replace public/build/css/*.css",
     "sass": "node-sass --output-style expanded --source-map true --precision 6 src/Elewant/Webapp/Application/Resources/assets/scss/elewant.scss public/build/css/elewant.css",
-    "uglify": "uglifyjs --compress warnings=false --mangle --comments '/^!/' --output public/build/js/elewant.min.js public/build/js/elewant.js"
+    "uglify": "uglifyjs --compress --mangle --comments '/^!/' --output public/build/js/elewant.min.js public/build/js/elewant.js"
   }
 }

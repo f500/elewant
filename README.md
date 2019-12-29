@@ -41,11 +41,15 @@ Feel free to add anything you learn, no matter how small, to <docs/lessons_learn
 You will need docker on your local system:
 
     [Docker](https://www.docker.com/)
+    [Make](https://en.wikipedia.org/wiki/Makefile)
 
-Run bin/setup (only for the first time) and then Docker compose:
+Run the setup procedure with make (only required the first time): 
 
-    docker-compose up -d
-    bin/setup
+    make setup
+
+Or up to continue working later:
+
+    make up
 
 You should be up-and-running!
 
@@ -59,6 +63,31 @@ then place your key & secret in `.env.local`.
 
 Have fun!
 
+#### Running tools
+
+The project has a Makefile. Run `Make` without parameters to see the help:
+
+    make
+    make help
+
+#### Running ci
+
+You can run all the tools required to pass a build:
+
+    make ci
+
+Or run the tests and quality assurance tools separately:
+
+    make test
+    make qa
+
+Or run each individual tool:
+
+    make phpspec
+    make phpunit
+    make php-lint
+    make phpstan
+    make php-cs
 
 #### Running commands inside docker containers
 
@@ -84,11 +113,6 @@ Running vendor binaries:
 
     bin/docker vendor/bin/phpunit
     bin/docker-test vendor/bin/phpunit
-
-#### Running all tests
-
-    bin/docker-test bin/run_tests
-
 
 ### Moar docs
 
