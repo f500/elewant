@@ -4,7 +4,7 @@
 .RUN := $(.DOCKER_RUN_PHP)
 
 .DOCKER_COMPOSE_TEST := docker-compose -f docker-compose.yml -f docker-compose-test.yml
-.DOCKER_RUN_PHP_TEST := $(.DOCKER_COMPOSE_TEST) run --rm php-cli
+.DOCKER_RUN_PHP_TEST := $(.DOCKER_COMPOSE_TEST) run -e SYMFONY_DEPRECATIONS_HELPER=$(SYMFONY_DEPRECATIONS_HELPER) --rm php-cli
 .RUN_TEST := $(.DOCKER_RUN_PHP_TEST)
 
 define banner
