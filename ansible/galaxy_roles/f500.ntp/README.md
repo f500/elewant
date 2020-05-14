@@ -6,7 +6,7 @@ Install ntp service and set default ntp servers for the netherlands.
 Requirements
 ------------
 
-Debian Wheezy/Jessie/Stretch with the package python-pycurl and python-software-properties installed.
+Debian Wheezy/Jessie/Stretch/Buster with the package python-pycurl and python-software-properties installed.
 
 Role Variables
 --------------

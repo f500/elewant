@@ -11,6 +11,7 @@ galaxy_info:
       - wheezy
       - jessie
       - stretch
+      - buster
   categories:
     - system
 dependencies: []

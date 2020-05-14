@@ -6,7 +6,7 @@ Install Vim, set vimrc and use update-alternatives to add vim
 Requirements
 ------------
 
-Debian Wheezy/Jessie/Stretch with the package python-pycurl and python-software-properties installed.
+Debian Wheezy/Jessie/Stretch/Buster with the package python-pycurl and python-software-properties installed.
 
 Example Playbook
 -------------------------

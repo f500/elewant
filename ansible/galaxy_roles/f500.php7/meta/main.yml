@@ -10,5 +10,8 @@ galaxy_info:
   - name: Debian
     versions:
       - jessie
+      - wheezy
+      - stretch
+      - buster
   galaxy_tags:
     - web

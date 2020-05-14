@@ -6,7 +6,7 @@ Install [Composer](https://getcomposer.org/), the dependency manager for PHP.
 Requirements
 ------------
 
-This role is tailored towards Debian Wheezy / Jessie.
+This role is tailored towards Debian Wheezy / Jessie / Stretch / Buster.
 
 The packages `python-apt` (or `python3-apt`) must be installed.
 

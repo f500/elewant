@@ -11,6 +11,8 @@ galaxy_info:
     versions:
       - wheezy
       - jessie
+      - stretch
+      - buster
   categories:
     - web
     - system

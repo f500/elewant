@@ -6,7 +6,7 @@ Install Node.js and NPM
 Requirements
 ------------
 
-Debian Wheezy/Jessie/Stretch or Ubuntu Precise/Trusty/Xenial.
+Debian Wheezy/Jessie/Stretch/Buster or Ubuntu Precise/Trusty/Xenial.
 
 Role Variables
 --------------

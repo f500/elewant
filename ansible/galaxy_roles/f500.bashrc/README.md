@@ -9,7 +9,7 @@ also as skeleton for future users created on this system.
 Requirements
 ------------
 
-Debian Wheezy/Jessie/Stretch with the package python-pycurl and python-software-properties installed.
+Debian Wheezy/Jessie/Stretch/Buster with the package python-pycurl and python-software-properties installed.
 Also, you need bash for this to be of any use.
 
 Role Variables

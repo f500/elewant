@@ -21,7 +21,7 @@ Role Variables
 
     debian_cache_update: yes
     debian_cache_valid_time: 14400
-    debian_codename: '{{ ansible_distribution_release }}' ('wheezy', 'jessie', 'stretch')
+    debian_codename: '{{ ansible_distribution_release }}' ('wheezy', 'jessie', 'stretch', 'buster')
     debian_codename: '{{ ansible_distribution_release }}'
 
 Be aware that `debian_codename` defaults on `{{ ansible_distribution_release }}` so, most of the chances, you don't need to specify it.

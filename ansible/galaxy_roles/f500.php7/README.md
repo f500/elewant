@@ -6,7 +6,7 @@ Install PHP version 7.X from [deb.sury.org](https://deb.sury.org/).
 Requirements
 ------------
 
-This role is tailored towards Debian Jessie.
+This role is tailored towards Debian Jessie / Wheezy / Stretch / Buster.
 
 The packages `python-apt` (or `python3-apt`) must be installed.
 

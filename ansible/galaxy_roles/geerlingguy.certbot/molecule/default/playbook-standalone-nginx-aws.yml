@@ -40,7 +40,8 @@
         region: "us-east-1"
         name: certbot_test
         key_material: "{{ item }}"
-      with_file: ~/.ssh/id_rsa.pub
+      with_file:
+        - ~/.ssh/id_rsa.pub
 
     - name: Provision EC2 instance.
       ec2:

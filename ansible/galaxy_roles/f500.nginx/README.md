@@ -6,7 +6,7 @@ Install nginx, configure with sane defaults, use a default server which returns 
 Requirements
 ------------
 
-Debian Wheezy/Jessie/Stretch with the package python-pycurl and python-software-properties installed.
+Debian Wheezy/Jessie/Stretch/Buster with the package python-pycurl and python-software-properties installed.
 
 Role Variables
 --------------
