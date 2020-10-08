@@ -23,7 +23,7 @@
         "prooph/service-bus-symfony-bundle": "^0.7.0",
         "roave/security-advisories": "dev-master",
         "sensio/framework-extra-bundle": "^5.4",
-        "symfony/asset": "^4.2",
+        "symfony/asset": "^5.1",
         "symfony/console": "^4.2",
         "symfony/dotenv": "^4.2",
         "symfony/expression-language": "^4.2",
