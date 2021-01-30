@@ -25,6 +25,7 @@ finished-button: "Finished"
 breed:
     BLACK_AMSTERDAMPHP_REGULAR: "AmsterdamPHP"
     BLACK_PHPSTORM_REGULAR: "PhpStorm"
+    BLACK_SITEGROUND_REGULAR: "SiteGround"
     BLACK_SYMFONY_REGULAR: "Symfony Black"
     BLACK_SYMFONY_10_YEARS_REGULAR: "Symfony 10yr"
     BLUE_AFUP_REGULAR: "AFUP"
