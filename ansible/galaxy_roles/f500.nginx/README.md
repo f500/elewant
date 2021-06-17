@@ -122,7 +122,6 @@ For example (using SSL and PHP), you can create a template named `nginx-server.c
         access_log  /var/log/nginx/example.access.log  main;
         error_log   /var/log/nginx/example.error.log   warn;
 
-        ssl                  on;
         ssl_certificate      /etc/nginx/ssl/example.com.chain;
         ssl_certificate_key  /etc/nginx/ssl/example.com.key;
 
