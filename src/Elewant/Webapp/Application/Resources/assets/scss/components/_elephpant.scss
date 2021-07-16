@@ -60,6 +60,10 @@
     background-color: $brown;
   }
 
+  &.elephpant-brown.elephpant-sylius {
+    background-color: $brown-light;
+  }
+
   &.elephpant-cream {
     background-color: $cream;
   }
@@ -87,6 +91,10 @@
 
   &.elephpant-multicolored.elephpant-phpdiversity {
     background: linear-gradient(to right, $purple, $indigo, $blue, $cyan, $green, $yellow, $orange, $red);
+  }
+
+  &.elephpant-multicolored.elephpant-phpday {
+    background: linear-gradient(to left, #009344 0%, #009344 30%, $white 36%, $white 63%, #CF2734 69%, #CF2734 100%);
   }
 
   &.elephpant-multicolored.elephpant-haphpy {
