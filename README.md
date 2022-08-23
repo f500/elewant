@@ -1,3 +1,8 @@
+### THIS PROJECT HAS BEEN DISCONTINUED. 
+
+Please see https://github.com/jgrossi/elephpant.me for a similar initiative.
+
+
 # Elewant
 
 ### What is it?
